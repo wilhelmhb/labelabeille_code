@@ -1,0 +1,1626 @@
+<meta http-equiv="Access-Control-Allow-Origin" content="*">
+<script type="text/html" id="tpl-accueil">
+                <div id="sous_titre">
+                	<span id="nav_gauche"></span>
+                	<span id="nav_droite"></span>
+                	<h1>Mon rucher</h1>
+                	<div style="clear:both;"></div>
+                </div>
+                <div id="bas_defilement_gris"></div>
+                <div id="ruches">
+                {{#ruches}}
+                    <div id="ruche{{index}}" class="ruche">
+                        <div class="fond_ruche_grise"></div>
+                        <div class="fond_ruche_selectionnee"></div>
+                        <div class="ruche_contenu">
+                            <div class="sizing"></div>
+                            <div class="ruche_selectionnee">
+                                <h1>{{data.name}}</h1>
+                                <img src="img/reglages.png" class="ruche_selectionnee_reglages" id="ruche{{index}}_selectionnee_reglages" />
+                                <img src="img/supprimer.png" class="ruche_selectionnee_supprimer" id="ruche{{index}}_selectionnee_supprimer" />
+                                <img src="img/courbes.png" class="ruche_selectionnee_courbes" id="ruche{{index}}_selectionnee_courbes" />
+                                <img src="img/historique.png" class="ruche_selectionnee_historique" id="ruche{{index}}_selectionnee_historique" />
+                                <div class="ruche_selectionnee_infos" id="ruche{{index}}_selectionnee_infos">
+                                    <p>Orientation : {{data.data.ORI.v}} degrés</p>
+                                    <p>Masse : {{data.data.MASSE.v}}{{data.data.MASSE.u}}</p>
+                                    <p>Température : {{data.data.TMP.v}}{{data.data.TMP.u}}</p>
+                                    <p>Humidité : {{data.data.HUM.v}}{{data.data.HUM.u}}</p>
+                                    <p>Luminosité : {{data.data.LUM.v}}{{data.data.LUM.u}}</p>
+                                </div>
+                            </div>
+                            <div class="ruche_grise">
+                                <h1>{{name}}</h1>
+                                <h2>[{{id_hive}}]</h2>
+                            </div>
+                            <div style="clear:left;"></div>
+                        </div>
+                    </div>
+                {{/ruches}}
+
+                </div>
+                <div style="clear:both;"></div>
+</script>
+<script type="text/html" id="tpl-details">
+	<div id="sous_titre">
+		<span id="nav_gauche"></span>
+		<span id="nav_droite"></span>
+		<h1>{{nom}} <span></span></h1>
+	</div>
+	<div id="details-content" class="contenu">
+		<div id="menudetails">
+			<img style="opacity:0.3;filter:alpha(opacity = 0.3)" src="img/details/courbes.png" alt="Courbes" />
+			<img style="opacity:0.3;filter:alpha(opacity = 0.3)" src="img/details/historique.png" class="milieu" alt="Historique" />
+			<img id="parametresRuche" src="img/details/parametres.png" alt="Param&egrave;tres" />
+		</div>
+		<div id="details">
+			<div class="sizing"></div>
+			<div id="bloc1">
+				<h1>Informations</h1>
+				<p>Orientation : {{ORI.v}} degrés</p>
+				<p>Capteur : reli&eacute;</p>
+				<p>Rucher : 2.1</p>
+			</div>
+			<div id="bloc2">
+				<h1>Miel</h1>
+                <p>Derni&egrave;re r&eacute;colte : {{recolte.v}}{{recolte.u}} le {{recolte.h}}</p>
+				<p>Estimation miel : {{miel.v}}{{miel.u}}</p>
+			</div>
+			<div id="bloc3">
+				<h1>Atmosph&egrave;re</h1>
+				<p>Temp&eacute;rature : {{TMP.v}}{{TMP.u}}</p>
+				<p>Humidit&eacute; : {{HUM.v}}{{HUM.u}}</p>
+			</div>
+			<div id="bloc4">
+				<h1>Masse</h1>
+				<p>Essaim : {{essaim.v}}{{essaim.u}}</p>
+				<p>Ruche : {{MASSE.v}}{{MASSE.u}}</p>
+			</div>
+		</div>					
+	</div>
+</script>
+<script type="text/html" id="tpl-params-generaux">
+        <form id="form-params-generaux" method="POST">
+            <div id="apibundle_pscustomer">
+                <!-- <div>
+                    <label for="apibundle_pscustomer_idShopGroup" class="required">Id shop group</label>
+                        <input type="number" id="apibundle_pscustomer_idShopGroup" name="apibundle_pscustomer[idShopGroup]" required="required" />
+                </div>
+                <div>
+                    <label for="apibundle_pscustomer_idShop" class="required">Id shop</label>
+                        <input type="number" id="apibundle_pscustomer_idShop" name="apibundle_pscustomer[idShop]" required="required" />
+                </div>
+                <div>
+                    <label for="apibundle_pscustomer_idGender" class="required">Id gender</label>
+                        <input type="number" id="apibundle_pscustomer_idGender" name="apibundle_pscustomer[idGender]" required="required" />
+                </div>
+                <div>
+                    <label for="apibundle_pscustomer_idDefaultGroup" class="required">Id default group</label>
+                        <input type="number" id="apibundle_pscustomer_idDefaultGroup" name="apibundle_pscustomer[idDefaultGroup]" required="required" />
+                </div>
+                <div>
+                    <label for="apibundle_pscustomer_idLang">Id lang</label>
+                        <input type="number" id="apibundle_pscustomer_idLang" name="apibundle_pscustomer[idLang]" />
+                </div>
+                <div>
+                    <label for="apibundle_pscustomer_idRisk" class="required">Id risk</label>
+                        <input type="number" id="apibundle_pscustomer_idRisk" name="apibundle_pscustomer[idRisk]" required="required" />
+                </div>
+                <div>
+                    <label for="apibundle_pscustomer_company">Company</label>
+                        <input class="zone_texte" type="text" id="apibundle_pscustomer_company" name="apibundle_pscustomer[company]" maxlength="64" />
+                </div>
+                <div>
+                    <label for="apibundle_pscustomer_siret">Siret</label>
+                        <input class="zone_texte" type="text" id="apibundle_pscustomer_siret" name="apibundle_pscustomer[siret]" maxlength="14" />
+                </div>
+                <div>
+                    <label for="apibundle_pscustomer_ape">Ape</label>
+                        <input class="zone_texte" type="text" id="apibundle_pscustomer_ape" name="apibundle_pscustomer[ape]" maxlength="5" />
+                </div>-->
+                <div>
+                    <label for="apibundle_pscustomer_firstname" class="required">Prénom</label>
+                        <input class="zone_texte" type="text" id="apibundle_pscustomer_firstname" name="apibundle_pscustomer[firstname]" value="{{ firstname }}" maxlength="32" />
+                </div>
+                <div>
+                    <label for="apibundle_pscustomer_lastname" class="required">Nom</label>
+                        <input class="zone_texte" type="text" id="apibundle_pscustomer_lastname" name="apibundle_pscustomer[lastname]" value="{{ lastname }}" maxlength="32" />
+                </div>
+                <div>
+                    <label for="apibundle_pscustomer_email" class="required">Email</label>
+                        <input class="zone_texte" type="text" id="apibundle_pscustomer_email" name="apibundle_pscustomer[email]" value="{{ email }}" maxlength="128" />
+                </div>
+                <div>
+                    <label for="apibundle_pscustomer_password" class="required">Mot de passe</label>
+                        <input class="zone_texte" type="password" id="apibundle_pscustomer_password" name="apibundle_pscustomer[password]" maxlength="32" />
+                </div>
+                <!--<div>
+                    <label class="required">Last passwd gen</label>
+                <div id="apibundle_pscustomer_lastPasswdGen">
+                    <div id="apibundle_pscustomer_lastPasswdGen_date">
+                        <select class="liste_deroulante"  class="liste_deroulante"  id="apibundle_pscustomer_lastPasswdGen_date_year" name="apibundle_pscustomer[lastPasswdGen][date][year]">
+                            <option value="2011">2011</option>
+                            <option value="2012">2012</option>
+                            <option value="2013">2013</option>
+                            <option value="2014">2014</option>
+                            <option value="2015">2015</option>
+                            <option value="2016">2016</option>
+                            <option value="2017">2017</option>
+                            <option value="2018">2018</option>
+                            <option value="2019">2019</option>
+                            <option value="2020">2020</option>
+                            <option value="2021">2021</option></select><select class="liste_deroulante"  class="liste_deroulante"  id="apibundle_pscustomer_lastPasswdGen_date_month" name="apibundle_pscustomer[lastPasswdGen][date][month]">
+                            <option value="1">Jan</option>
+                            <option value="2">Feb</option>
+                            <option value="3">Mar</option>
+                            <option value="4">Apr</option>
+                            <option value="5">May</option>
+                            <option value="6">Jun</option>
+                            <option value="7">Jul</option>
+                            <option value="8">Aug</option>
+                            <option value="9">Sep</option>
+                            <option value="10">Oct</option>
+                            <option value="11">Nov</option>
+                            <option value="12">Dec</option>
+                        </select>
+                        <select class="liste_deroulante"  id="apibundle_pscustomer_lastPasswdGen_date_day" name="apibundle_pscustomer[lastPasswdGen][date][day]">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                            <option value="13">13</option>
+                            <option value="14">14</option>
+                            <option value="15">15</option>
+                            <option value="16">16</option>
+                            <option value="17">17</option>
+                            <option value="18">18</option>
+                            <option value="19">19</option>
+                            <option value="20">20</option>
+                            <option value="21">21</option>
+                            <option value="22">22</option>
+                            <option value="23">23</option>
+                            <option value="24">24</option>
+                            <option value="25">25</option>
+                            <option value="26">26</option>
+                            <option value="27">27</option>
+                            <option value="28">28</option>
+                            <option value="29">29</option>
+                            <option value="30">30</option>
+                            <option value="31">31</option>
+                        </select>
+                    </div>
+                    <div id="apibundle_pscustomer_lastPasswdGen_time">
+                        <select class="liste_deroulante"  id="apibundle_pscustomer_lastPasswdGen_time_hour" name="apibundle_pscustomer[lastPasswdGen][time][hour]">
+                            <option value="0">00</option>
+                            <option value="1">01</option>
+                            <option value="2">02</option>
+                            <option value="3">03</option>
+                            <option value="4">04</option>
+                            <option value="5">05</option>
+                            <option value="6">06</option>
+                            <option value="7">07</option>
+                            <option value="8">08</option>
+                            <option value="9">09</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                            <option value="13">13</option>
+                            <option value="14">14</option>
+                            <option value="15">15</option>
+                            <option value="16">16</option>
+                            <option value="17">17</option>
+                            <option value="18">18</option>
+                            <option value="19">19</option>
+                            <option value="20">20</option>
+                            <option value="21">21</option>
+                            <option value="22">22</option>
+                            <option value="23">23</option>
+                        </select>:
+                        <select class="liste_deroulante"  id="apibundle_pscustomer_lastPasswdGen_time_minute" name="apibundle_pscustomer[lastPasswdGen][time][minute]">
+                            <option value="0">00</option>
+                            <option value="1">01</option>
+                            <option value="2">02</option>
+                            <option value="3">03</option>
+                            <option value="4">04</option>
+                            <option value="5">05</option>
+                            <option value="6">06</option>
+                            <option value="7">07</option>
+                            <option value="8">08</option>
+                            <option value="9">09</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                            <option value="13">13</option>
+                            <option value="14">14</option>
+                            <option value="15">15</option>
+                            <option value="16">16</option>
+                            <option value="17">17</option>
+                            <option value="18">18</option>
+                            <option value="19">19</option>
+                            <option value="20">20</option>
+                            <option value="21">21</option>
+                            <option value="22">22</option>
+                            <option value="23">23</option>
+                            <option value="24">24</option>
+                            <option value="25">25</option>
+                            <option value="26">26</option>
+                            <option value="27">27</option>
+                            <option value="28">28</option>
+                            <option value="29">29</option>
+                            <option value="30">30</option>
+                            <option value="31">31</option>
+                            <option value="32">32</option>
+                            <option value="33">33</option>
+                            <option value="34">34</option>
+                            <option value="35">35</option>
+                            <option value="36">36</option>
+                            <option value="37">37</option>
+                            <option value="38">38</option>
+                            <option value="39">39</option>
+                            <option value="40">40</option>
+                            <option value="41">41</option>
+                            <option value="42">42</option>
+                            <option value="43">43</option>
+                            <option value="44">44</option>
+                            <option value="45">45</option>
+                            <option value="46">46</option>
+                            <option value="47">47</option>
+                            <option value="48">48</option>
+                            <option value="49">49</option>
+                            <option value="50">50</option>
+                            <option value="51">51</option>
+                            <option value="52">52</option>
+                            <option value="53">53</option>
+                            <option value="54">54</option>
+                            <option value="55">55</option>
+                            <option value="56">56</option>
+                            <option value="57">57</option>
+                            <option value="58">58</option>
+                            <option value="59">59</option>
+                        </select>        
+                    </div>
+                </div>
+                </div>
+                <div>
+                    <label>Birthday</label>
+                    <div id="apibundle_pscustomer_birthday">
+                        <select class="liste_deroulante"  id="apibundle_pscustomer_birthday_year" name="apibundle_pscustomer[birthday][year]">
+                            <option value=""></option>
+                            <option value="2011">2011</option>
+                            <option value="2012">2012</option>
+                            <option value="2013">2013</option>
+                            <option value="2014">2014</option>
+                            <option value="2015">2015</option>
+                            <option value="2016">2016</option>
+                            <option value="2017">2017</option>
+                            <option value="2018">2018</option>
+                            <option value="2019">2019</option>
+                            <option value="2020">2020</option>
+                            <option value="2021">2021</option>
+                        </select>
+                        <select class="liste_deroulante"  id="apibundle_pscustomer_birthday_month" name="apibundle_pscustomer[birthday][month]">
+                            <option value=""></option>
+                            <option value="1">Jan</option>
+                            <option value="2">Feb</option>
+                            <option value="3">Mar</option>
+                            <option value="4">Apr</option>
+                            <option value="5">May</option>
+                            <option value="6">Jun</option>
+                            <option value="7">Jul</option>
+                            <option value="8">Aug</option>
+                            <option value="9">Sep</option>
+                            <option value="10">Oct</option>
+                            <option value="11">Nov</option>
+                            <option value="12">Dec</option>
+                        </select>
+                        <select class="liste_deroulante"  id="apibundle_pscustomer_birthday_day" name="apibundle_pscustomer[birthday][day]">
+                            <option value=""></option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                            <option value="13">13</option>
+                            <option value="14">14</option>
+                            <option value="15">15</option>
+                            <option value="16">16</option>
+                            <option value="17">17</option>
+                            <option value="18">18</option>
+                            <option value="19">19</option>
+                            <option value="20">20</option>
+                            <option value="21">21</option>
+                            <option value="22">22</option>
+                            <option value="23">23</option>
+                            <option value="24">24</option>
+                            <option value="25">25</option>
+                            <option value="26">26</option>
+                            <option value="27">27</option>
+                            <option value="28">28</option>
+                            <option value="29">29</option>
+                            <option value="30">30</option>
+                            <option value="31">31</option>
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <label for="apibundle_pscustomer_newsletter" class="required">Newsletter</label>
+                        <input type="checkbox" id="apibundle_pscustomer_newsletter" name="apibundle_pscustomer[newsletter]" required="required" value="1" />
+                </div>
+                <div>
+                    <label for="apibundle_pscustomer_ipRegistrationNewsletter">Ip registration newsletter</label>
+                        <input class="zone_texte" type="text" id="apibundle_pscustomer_ipRegistrationNewsletter" name="apibundle_pscustomer[ipRegistrationNewsletter]" maxlength="15" />
+                </div>
+                <div>
+                    <label>Newsletter date add</label>
+                    <div id="apibundle_pscustomer_newsletterDateAdd">
+                        <div id="apibundle_pscustomer_newsletterDateAdd_date">
+                            <select class="liste_deroulante"  id="apibundle_pscustomer_newsletterDateAdd_date_year" name="apibundle_pscustomer[newsletterDateAdd][date][year]">
+                                <option value=""></option>
+                                <option value="2011">2011</option>
+                                <option value="2012">2012</option>
+                                <option value="2013">2013</option>
+                                <option value="2014">2014</option>
+                                <option value="2015">2015</option>
+                                <option value="2016">2016</option>
+                                <option value="2017">2017</option>
+                                <option value="2018">2018</option>
+                                <option value="2019">2019</option>
+                                <option value="2020">2020</option>
+                                <option value="2021">2021</option>
+                            </select>
+                            <select class="liste_deroulante"  id="apibundle_pscustomer_newsletterDateAdd_date_month" name="apibundle_pscustomer[newsletterDateAdd][date][month]">
+                                <option value=""></option>
+                                <option value="1">Jan</option>
+                                <option value="2">Feb</option>
+                                <option value="3">Mar</option>
+                                <option value="4">Apr</option>
+                                <option value="5">May</option>
+                                <option value="6">Jun</option>
+                                <option value="7">Jul</option>
+                                <option value="8">Aug</option>
+                                <option value="9">Sep</option>
+                                <option value="10">Oct</option>
+                                <option value="11">Nov</option>
+                                <option value="12">Dec</option>
+                            </select>
+                            <select class="liste_deroulante"  id="apibundle_pscustomer_newsletterDateAdd_date_day" name="apibundle_pscustomer[newsletterDateAdd][date][day]">
+                                <option value=""></option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                                <option value="13">13</option>
+                                <option value="14">14</option>
+                                <option value="15">15</option>
+                                <option value="16">16</option>
+                                <option value="17">17</option>
+                                <option value="18">18</option>
+                                <option value="19">19</option>
+                                <option value="20">20</option>
+                                <option value="21">21</option>
+                                <option value="22">22</option>
+                                <option value="23">23</option>
+                                <option value="24">24</option>
+                                <option value="25">25</option>
+                                <option value="26">26</option>
+                                <option value="27">27</option>
+                                <option value="28">28</option>
+                                <option value="29">29</option>
+                                <option value="30">30</option>
+                                <option value="31">31</option>
+                            </select>
+                        </div>
+                        <div id="apibundle_pscustomer_newsletterDateAdd_time">
+                            <select class="liste_deroulante"  id="apibundle_pscustomer_newsletterDateAdd_time_hour" name="apibundle_pscustomer[newsletterDateAdd][time][hour]">
+                                <option value=""></option>
+                                <option value="0">00</option>
+                                <option value="1">01</option>
+                                <option value="2">02</option>
+                                <option value="3">03</option>
+                                <option value="4">04</option>
+                                <option value="5">05</option>
+                                <option value="6">06</option>
+                                <option value="7">07</option>
+                                <option value="8">08</option>
+                                <option value="9">09</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                                <option value="13">13</option>
+                                <option value="14">14</option>
+                                <option value="15">15</option>
+                                <option value="16">16</option>
+                                <option value="17">17</option>
+                                <option value="18">18</option>
+                                <option value="19">19</option>
+                                <option value="20">20</option>
+                                <option value="21">21</option>
+                                <option value="22">22</option>
+                                <option value="23">23</option>
+                            </select>:
+                            <select class="liste_deroulante"  id="apibundle_pscustomer_newsletterDateAdd_time_minute" name="apibundle_pscustomer[newsletterDateAdd][time][minute]">
+                                <option value=""></option>
+                                <option value="0">00</option>
+                                <option value="1">01</option>
+                                <option value="2">02</option>
+                                <option value="3">03</option>
+                                <option value="4">04</option>
+                                <option value="5">05</option>
+                                <option value="6">06</option>
+                                <option value="7">07</option>
+                                <option value="8">08</option>
+                                <option value="9">09</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                                <option value="13">13</option>
+                                <option value="14">14</option>
+                                <option value="15">15</option>
+                                <option value="16">16</option>
+                                <option value="17">17</option>
+                                <option value="18">18</option>
+                                <option value="19">19</option>
+                                <option value="20">20</option>
+                                <option value="21">21</option>
+                                <option value="22">22</option>
+                                <option value="23">23</option>
+                                <option value="24">24</option>
+                                <option value="25">25</option>
+                                <option value="26">26</option>
+                                <option value="27">27</option>
+                                <option value="28">28</option>
+                                <option value="29">29</option>
+                                <option value="30">30</option>
+                                <option value="31">31</option>
+                                <option value="32">32</option>
+                                <option value="33">33</option>
+                                <option value="34">34</option>
+                                <option value="35">35</option>
+                                <option value="36">36</option>
+                                <option value="37">37</option>
+                                <option value="38">38</option>
+                                <option value="39">39</option>
+                                <option value="40">40</option>
+                                <option value="41">41</option>
+                                <option value="42">42</option>
+                                <option value="43">43</option>
+                                <option value="44">44</option>
+                                <option value="45">45</option>
+                                <option value="46">46</option>
+                                <option value="47">47</option>
+                                <option value="48">48</option>
+                                <option value="49">49</option>
+                                <option value="50">50</option>
+                                <option value="51">51</option>
+                                <option value="52">52</option>
+                                <option value="53">53</option>
+                                <option value="54">54</option>
+                                <option value="55">55</option>
+                                <option value="56">56</option>
+                                <option value="57">57</option>
+                                <option value="58">58</option>
+                                <option value="59">59</option>
+                            </select>        
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <label for="apibundle_pscustomer_optin" class="required">Optin</label>
+                        <input type="checkbox" id="apibundle_pscustomer_optin" name="apibundle_pscustomer[optin]" required="required" value="1" />
+                </div>
+                <div>
+                    <label for="apibundle_pscustomer_website">Website</label>
+                        <input class="zone_texte" type="text" id="apibundle_pscustomer_website" name="apibundle_pscustomer[website]" maxlength="128" />
+                </div>
+                <div>
+                    <label for="apibundle_pscustomer_outstandingAllowAmount" class="required">Outstanding allow amount</label>
+                        <input class="zone_texte" type="text" id="apibundle_pscustomer_outstandingAllowAmount" name="apibundle_pscustomer[outstandingAllowAmount]" required="required" />
+                </div>
+                <div>
+                    <label for="apibundle_pscustomer_showPublicPrices" class="required">Show public prices</label>
+                        <input type="checkbox" id="apibundle_pscustomer_showPublicPrices" name="apibundle_pscustomer[showPublicPrices]" required="required" value="1" />
+                </div>
+                <div>
+                    <label for="apibundle_pscustomer_maxPaymentDays" class="required">Max payment days</label>
+                        <input type="number" id="apibundle_pscustomer_maxPaymentDays" name="apibundle_pscustomer[maxPaymentDays]" required="required" />
+                </div>
+                <div>
+                    <label for="apibundle_pscustomer_secureKey" class="required">Secure key</label>
+                        <input class="zone_texte" type="text" id="apibundle_pscustomer_secureKey" name="apibundle_pscustomer[secureKey]" required="required" maxlength="32" />
+                </div>
+                <div>
+                    <label for="apibundle_pscustomer_note">Note</label><textarea id="apibundle_pscustomer_note" name="apibundle_pscustomer[note]" maxlength="65535"></textarea>
+                </div>
+                <div>
+                    <label for="apibundle_pscustomer_active" class="required">Active</label>
+                        <input type="checkbox" id="apibundle_pscustomer_active" name="apibundle_pscustomer[active]" required="required" value="1" />
+                </div>
+                <div>
+                    <label for="apibundle_pscustomer_isGuest" class="required">Is guest</label>
+                        <input type="checkbox" id="apibundle_pscustomer_isGuest" name="apibundle_pscustomer[isGuest]" required="required" value="1" />
+                </div>
+                <div>
+                    <label for="apibundle_pscustomer_deleted" class="required">Deleted</label>
+                        <input type="checkbox" id="apibundle_pscustomer_deleted" name="apibundle_pscustomer[deleted]" required="required" value="1" />
+                </div>
+                <div>
+                    <label class="required">Date add</label>
+                        <div id="apibundle_pscustomer_dateAdd">
+                            <div id="apibundle_pscustomer_dateAdd_date">
+                                <select class="liste_deroulante"  id="apibundle_pscustomer_dateAdd_date_year" name="apibundle_pscustomer[dateAdd][date][year]">
+                                    <option value="2011">2011</option>
+                                    <option value="2012">2012</option>
+                                    <option value="2013">2013</option>
+                                    <option value="2014">2014</option>
+                                    <option value="2015">2015</option>
+                                    <option value="2016">2016</option>
+                                    <option value="2017">2017</option>
+                                    <option value="2018">2018</option>
+                                    <option value="2019">2019</option>
+                                    <option value="2020">2020</option>
+                                    <option value="2021">2021</option>
+                                </select>
+                                <select class="liste_deroulante"  id="apibundle_pscustomer_dateAdd_date_month" name="apibundle_pscustomer[dateAdd][date][month]">
+                                    <option value="1">Jan</option>
+                                    <option value="2">Feb</option>
+                                    <option value="3">Mar</option>
+                                    <option value="4">Apr</option>
+                                    <option value="5">May</option>
+                                    <option value="6">Jun</option>
+                                    <option value="7">Jul</option>
+                                    <option value="8">Aug</option>
+                                    <option value="9">Sep</option>
+                                    <option value="10">Oct</option>
+                                    <option value="11">Nov</option>
+                                    <option value="12">Dec</option>
+                                </select>
+                                <select class="liste_deroulante"  id="apibundle_pscustomer_dateAdd_date_day" name="apibundle_pscustomer[dateAdd][date][day]">
+                                    <option value=""></option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                    <option value="11">11</option>
+                                    <option value="12">12</option>
+                                    <option value="13">13</option>
+                                    <option value="14">14</option>
+                                    <option value="15">15</option>
+                                    <option value="16">16</option>
+                                    <option value="17">17</option>
+                                    <option value="18">18</option>
+                                    <option value="19">19</option>
+                                    <option value="20">20</option>
+                                    <option value="21">21</option>
+                                    <option value="22">22</option>
+                                    <option value="23">23</option>
+                                    <option value="24">24</option>
+                                    <option value="25">25</option>
+                                    <option value="26">26</option>
+                                    <option value="27">27</option>
+                                    <option value="28">28</option>
+                                    <option value="29">29</option>
+                                    <option value="30">30</option>
+                                    <option value="31">31</option>
+                                </select>
+                            </div>
+                            <div id="apibundle_pscustomer_dateAdd_time">
+                                <select class="liste_deroulante"  id="apibundle_pscustomer_dateAdd_time_hour" name="apibundle_pscustomer[dateAdd][time][hour]">
+                                    <option value="0">00</option>
+                                    <option value="1">01</option>
+                                    <option value="2">02</option>
+                                    <option value="3">03</option>
+                                    <option value="4">04</option>
+                                    <option value="5">05</option>
+                                    <option value="6">06</option>
+                                    <option value="7">07</option>
+                                    <option value="8">08</option>
+                                    <option value="9">09</option>
+                                    <option value="10">10</option>
+                                    <option value="11">11</option>
+                                    <option value="12">12</option>
+                                    <option value="13">13</option>
+                                    <option value="14">14</option>
+                                    <option value="15">15</option>
+                                    <option value="16">16</option>
+                                    <option value="17">17</option>
+                                    <option value="18">18</option>
+                                    <option value="19">19</option>
+                                    <option value="20">20</option>
+                                    <option value="21">21</option>
+                                    <option value="22">22</option>
+                                    <option value="23">23</option>
+                                </select>:
+                                <select class="liste_deroulante"  id="apibundle_pscustomer_dateAdd_time_minute" name="apibundle_pscustomer[dateAdd][time][minute]">
+                                    <option value="0">00</option>
+                                    <option value="1">01</option>
+                                    <option value="2">02</option>
+                                    <option value="3">03</option>
+                                    <option value="4">04</option>
+                                    <option value="5">05</option>
+                                    <option value="6">06</option>
+                                    <option value="7">07</option>
+                                    <option value="8">08</option>
+                                    <option value="9">09</option>
+                                    <option value="10">10</option>
+                                    <option value="11">11</option>
+                                    <option value="12">12</option>
+                                    <option value="13">13</option>
+                                    <option value="14">14</option>
+                                    <option value="15">15</option>
+                                    <option value="16">16</option>
+                                    <option value="17">17</option>
+                                    <option value="18">18</option>
+                                    <option value="19">19</option>
+                                    <option value="20">20</option>
+                                    <option value="21">21</option>
+                                    <option value="22">22</option>
+                                    <option value="23">23</option>
+                                    <option value="24">24</option>
+                                    <option value="25">25</option>
+                                    <option value="26">26</option>
+                                    <option value="27">27</option>
+                                    <option value="28">28</option>
+                                    <option value="29">29</option>
+                                    <option value="30">30</option>
+                                    <option value="31">31</option>
+                                    <option value="32">32</option>
+                                    <option value="33">33</option>
+                                    <option value="34">34</option>
+                                    <option value="35">35</option>
+                                    <option value="36">36</option>
+                                    <option value="37">37</option>
+                                    <option value="38">38</option>
+                                    <option value="39">39</option>
+                                    <option value="40">40</option>
+                                    <option value="41">41</option>
+                                    <option value="42">42</option>
+                                    <option value="43">43</option>
+                                    <option value="44">44</option>
+                                    <option value="45">45</option>
+                                    <option value="46">46</option>
+                                    <option value="47">47</option>
+                                    <option value="48">48</option>
+                                    <option value="49">49</option>
+                                    <option value="50">50</option>
+                                    <option value="51">51</option>
+                                    <option value="52">52</option>
+                                    <option value="53">53</option>
+                                    <option value="54">54</option>
+                                    <option value="55">55</option>
+                                    <option value="56">56</option>
+                                    <option value="57">57</option>
+                                    <option value="58">58</option>
+                                    <option value="59">59</option>
+                                </select>        
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="required">Date upd</label>
+                            <div id="apibundle_pscustomer_dateUpd">
+                                <div id="apibundle_pscustomer_dateUpd_date">
+                                    <select class="liste_deroulante"  id="apibundle_pscustomer_dateUpd_date_year" name="apibundle_pscustomer[dateUpd][date][year]">
+                                        <option value="2011">2011</option>
+                                        <option value="2012">2012</option>
+                                        <option value="2013">2013</option>
+                                        <option value="2014">2014</option>
+                                        <option value="2015">2015</option>
+                                        <option value="2016">2016</option>
+                                        <option value="2017">2017</option>
+                                        <option value="2018">2018</option>
+                                        <option value="2019">2019</option>
+                                        <option value="2020">2020</option>
+                                    </select>
+                                    <select class="liste_deroulante"  id="apibundle_pscustomer_dateUpd_date_month" name="apibundle_pscustomer[dateUpd][date][month]">
+                                        <option value="1">Jan</option>
+                                        <option value="2">Feb</option>
+                                        <option value="3">Mar</option>
+                                        <option value="4">Apr</option>
+                                        <option value="5">May</option>
+                                        <option value="6">Jun</option>
+                                        <option value="7">Jul</option>
+                                        <option value="8">Aug</option>
+                                        <option value="9">Sep</option>
+                                        <option value="10">Oct</option>
+                                        <option value="11">Nov</option>
+                                        <option value="12">Dec</option>
+                                    </select>
+                                    <select class="liste_deroulante"  id="apibundle_pscustomer_dateUpd_date_day" name="apibundle_pscustomer[dateUpd][date][day]">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6</option>
+                                        <option value="7">7</option>
+                                        <option value="8">8</option>
+                                        <option value="9">9</option>
+                                        <option value="10">10</option>
+                                        <option value="11">11</option>
+                                        <option value="12">12</option>
+                                        <option value="13">13</option>
+                                        <option value="14">14</option>
+                                        <option value="15">15</option>
+                                        <option value="16">16</option>
+                                        <option value="17">17</option>
+                                        <option value="18">18</option>
+                                        <option value="19">19</option>
+                                        <option value="20">20</option>
+                                        <option value="21">21</option>
+                                        <option value="22">22</option>
+                                        <option value="23">23</option>
+                                        <option value="24">24</option>
+                                        <option value="25">25</option>
+                                        <option value="26">26</option>
+                                        <option value="27">27</option>
+                                        <option value="28">28</option>
+                                        <option value="29">29</option>
+                                        <option value="30">30</option>
+                                        <option value="31">31</option>
+                                    </select>
+                                </div>
+                                <div id="apibundle_pscustomer_dateUpd_time">
+                                    <select class="liste_deroulante"  id="apibundle_pscustomer_dateUpd_time_hour" name="apibundle_pscustomer[dateUpd][time][hour]">
+                                        <option value="0">00</option>
+                                        <option value="1">01</option>
+                                        <option value="2">02</option>
+                                        <option value="3">03</option>
+                                        <option value="4">04</option>
+                                        <option value="5">05</option>
+                                        <option value="6">06</option>
+                                        <option value="7">07</option>
+                                        <option value="8">08</option>
+                                        <option value="9">09</option>
+                                        <option value="10">10</option>
+                                        <option value="11">11</option>
+                                        <option value="12">12</option>
+                                        <option value="13">13</option>
+                                        <option value="14">14</option>
+                                        <option value="15">15</option>
+                                        <option value="16">16</option>
+                                        <option value="17">17</option>
+                                        <option value="18">18</option>
+                                        <option value="19">19</option>
+                                        <option value="20">20</option>
+                                        <option value="21">21</option>
+                                        <option value="22">22</option>
+                                        <option value="23">23</option>
+                                    </select>:
+                                    <select class="liste_deroulante"  id="apibundle_pscustomer_dateUpd_time_minute" name="apibundle_pscustomer[dateUpd][time][minute]">
+                                        <option value="0">00</option>
+                                        <option value="1">01</option>
+                                        <option value="2">02</option>
+                                        <option value="3">03</option>
+                                        <option value="4">04</option>
+                                        <option value="5">05</option>
+                                        <option value="6">06</option>
+                                        <option value="7">07</option>
+                                        <option value="8">08</option>
+                                        <option value="9">09</option>
+                                        <option value="10">10</option>
+                                        <option value="11">11</option>
+                                        <option value="12">12</option>
+                                        <option value="13">13</option>
+                                        <option value="14">14</option>
+                                        <option value="15">15</option>
+                                        <option value="16">16</option>
+                                        <option value="17">17</option>
+                                        <option value="18">18</option>
+                                        <option value="19">19</option>
+                                        <option value="20">20</option>
+                                        <option value="21">21</option>
+                                        <option value="22">22</option>
+                                        <option value="23">23</option>
+                                        <option value="24">24</option>
+                                        <option value="25">25</option>
+                                        <option value="26">26</option>
+                                        <option value="27">27</option>
+                                        <option value="28">28</option>
+                                        <option value="29">29</option>
+                                        <option value="30">30</option>
+                                        <option value="31">31</option>
+                                        <option value="32">32</option>
+                                        <option value="33">33</option>
+                                        <option value="34">34</option>
+                                        <option value="35">35</option>
+                                        <option value="36">36</option>
+                                        <option value="37">37</option>
+                                        <option value="38">38</option>
+                                        <option value="39">39</option>
+                                        <option value="40">40</option>
+                                        <option value="41">41</option>
+                                        <option value="42">42</option>
+                                        <option value="43">43</option>
+                                        <option value="44">44</option>
+                                        <option value="45">45</option>
+                                        <option value="46">46</option>
+                                        <option value="47">47</option>
+                                        <option value="48">48</option>
+                                        <option value="49">49</option>
+                                        <option value="50">50</option>
+                                        <option value="51">51</option>
+                                        <option value="52">52</option>
+                                        <option value="53">53</option>
+                                        <option value="54">54</option>
+                                        <option value="55">55</option>
+                                        <option value="56">56</option>
+                                        <option value="57">57</option>
+                                        <option value="58">58</option>
+                                        <option value="59">59</option>
+                                    </select>        
+                                </div>
+                            </div>
+                </div>
+                <div>
+                    <label for="apibundle_pscustomer_hivesNumber" class="required">Hives number</label>
+                        <input type="number" id="apibundle_pscustomer_hivesNumber" name="apibundle_pscustomer[hivesNumber]" required="required" />
+                </div>
+                <div>
+                    <label for="apibundle_pscustomer_hivesLostNumber" class="required">Hives lost number</label>
+                        <input type="number" id="apibundle_pscustomer_hivesLostNumber" name="apibundle_pscustomer[hivesLostNumber]" required="required" />
+                </div>
+                <div>
+                    <label for="apibundle_pscustomer_harvest" class="required">Harvest</label>
+                        <input type="number" id="apibundle_pscustomer_harvest" name="apibundle_pscustomer[harvest]" required="required" />
+                </div>
+                <div>
+                    <label for="apibundle_pscustomer_startYear" class="required">Start year</label>
+                        <input type="number" id="apibundle_pscustomer_startYear" name="apibundle_pscustomer[startYear]" required="required" />
+                </div>
+                <div>
+                    <label for="apibundle_pscustomer_departament" class="required">Departament</label>
+                        <input class="zone_texte" type="text" id="apibundle_pscustomer_departament" name="apibundle_pscustomer[departament]" required="required" maxlength="64" />
+                </div>
+                <div>
+                    <label for="apibundle_pscustomer_registrationNumber" class="required">Registration number</label>
+                        <input class="zone_texte" type="text" id="apibundle_pscustomer_registrationNumber" name="apibundle_pscustomer[registrationNumber]" required="required" maxlength="64" />
+                </div>
+                <div>
+                    <label for="apibundle_pscustomer_transhumance" class="required">Transhumance</label>
+                        <input class="zone_texte" type="text" id="apibundle_pscustomer_transhumance" name="apibundle_pscustomer[transhumance]" required="required" maxlength="64" />
+                </div>
+                <div>
+                    <label for="apibundle_pscustomer_structure" class="required">Structure</label>
+                        <input class="zone_texte" type="text" id="apibundle_pscustomer_structure" name="apibundle_pscustomer[structure]" required="required" maxlength="64" />
+                </div>
+                <div>
+                    <label for="apibundle_pscustomer_telephone" class="required">Telephone</label>
+                        <input class="zone_texte" type="text" id="apibundle_pscustomer_telephone" name="apibundle_pscustomer[telephone]" required="required" maxlength="64" />
+                </div>-->
+            </div>
+        <input class="bouton" type="submit" value="ENVOYER">
+    </form>
+</script>
+<script type="text/javascript" id="tpl-params-rucher">
+    <form method="POST" id="form-params-ruchers">
+        <div id="apibundle_pshivegroup">
+            <!--<div>
+                <label for="apibundle_pshivegroup_idClient" class="required">Id client</label>-->
+                    <!--<input type="hidden" id="apibundle_pshivegroup_idClient" name="apibundle_pshivegroup[idClient]" value="" />
+            <!--</div>-->
+            <div>
+                <label for="apibundle_pshivegroup_name">Nom</label>
+                    <input class="zone_texte" type="text" id="apibundle_pshivegroup_name" name="apibundle_pshivegroup[name]" maxlength="64" />
+            </div>
+            <!--<div>
+                <label for="apibundle_pshivegroup_note">Note</label>
+                    <textarea id="apibundle_pshivegroup_note" name="apibundle_pshivegroup[note]" maxlength="65535"></textarea>
+            </div>-->
+            <div>
+                <label for="apibundle_pshivegroup_harvest" class="required">Récolte</label>
+                    <input type="number" id="apibundle_pshivegroup_harvest" name="apibundle_pshivegroup[harvest]" required="required" />
+            </div>
+            <!--<div>
+                <label for="apibundle_pshivegroup_notes">Notes</label>
+                    <textarea id="apibundle_pshivegroup_notes" name="apibundle_pshivegroup[notes]" maxlength="65535"></textarea>
+            </div>-->
+            <!--<div>
+                <label class="required">Date add</label>
+                    <div id="apibundle_pshivegroup_dateAdd"><div id="apibundle_pshivegroup_dateAdd_date">
+                            <select class="liste_deroulante"  id="apibundle_pshivegroup_dateAdd_date_year" name="apibundle_pshivegroup[dateAdd][date][year]">
+                                <option value="2011">2011</option>
+                                <option value="2012">2012</option>
+                                <option value="2013">2013</option>
+                                <option value="2014">2014</option>
+                                <option value="2015">2015</option>
+                                <option value="2016">2016</option>
+                                <option value="2017">2017</option>
+                                <option value="2018">2018</option>
+                                <option value="2019">2019</option>
+                                <option value="2020">2020</option>
+                                <option value="2021">2021</option>
+                            </select>
+                            <select class="liste_deroulante"  id="apibundle_pshivegroup_dateAdd_date_month" name="apibundle_pshivegroup[dateAdd][date][month]">
+                                <option value="1">Jan</option>
+                                <option value="2">Feb</option>
+                                <option value="3">Mar</option>
+                                <option value="4">Apr</option>
+                                <option value="5">May</option>
+                                <option value="6">Jun</option>
+                                <option value="7">Jul</option>
+                                <option value="8">Aug</option>
+                                <option value="9">Sep</option>
+                                <option value="10">Oct</option>
+                                <option value="11">Nov</option>
+                                <option value="12">Dec</option>
+                            </select>
+                            <select class="liste_deroulante"  id="apibundle_pshivegroup_dateAdd_date_day" name="apibundle_pshivegroup[dateAdd][date][day]">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                                <option value="13">13</option>
+                                <option value="14">14</option>
+                                <option value="15">15</option>
+                                <option value="16">16</option>
+                                <option value="17">17</option>
+                                <option value="18">18</option>
+                                <option value="19">19</option>
+                                <option value="20">20</option>
+                                <option value="21">21</option>
+                                <option value="22">22</option>
+                                <option value="23">23</option>
+                                <option value="24">24</option>
+                                <option value="25">25</option>
+                                <option value="26">26</option>
+                                <option value="27">27</option>
+                                <option value="28">28</option>
+                                <option value="29">29</option>
+                                <option value="30">30</option>
+                                <option value="31">31</option>
+                            </select>
+                        </div>
+                        <div id="apibundle_pshivegroup_dateAdd_time">
+                            <select class="liste_deroulante"  id="apibundle_pshivegroup_dateAdd_time_hour" name="apibundle_pshivegroup[dateAdd][time][hour]">
+                                <option value="0">00</option>
+                                <option value="1">01</option>
+                                <option value="2">02</option>
+                                <option value="3">03</option>
+                                <option value="4">04</option>
+                                <option value="5">05</option>
+                                <option value="6">06</option>
+                                <option value="7">07</option>
+                                <option value="8">08</option>
+                                <option value="9">09</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                                <option value="13">13</option>
+                                <option value="14">14</option>
+                                <option value="15">15</option>
+                                <option value="16">16</option>
+                                <option value="17">17</option>
+                                <option value="18">18</option>
+                                <option value="19">19</option>
+                                <option value="20">20</option>
+                                <option value="21">21</option>
+                                <option value="22">22</option>
+                                <option value="23">23</option>
+                            </select>:
+                            <select class="liste_deroulante"  id="apibundle_pshivegroup_dateAdd_time_minute" name="apibundle_pshivegroup[dateAdd][time][minute]">
+                                <option value="0">00</option>
+                                <option value="1">01</option>
+                                <option value="2">02</option>
+                                <option value="3">03</option>
+                                <option value="4">04</option>
+                                <option value="5">05</option>
+                                <option value="6">06</option>
+                                <option value="7">07</option>
+                                <option value="8">08</option>
+                                <option value="9">09</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                                <option value="13">13</option>
+                                <option value="14">14</option>
+                                <option value="15">15</option>
+                                <option value="16">16</option>
+                                <option value="17">17</option>
+                                <option value="18">18</option>
+                                <option value="19">19</option>
+                                <option value="20">20</option>
+                                <option value="21">21</option>
+                                <option value="22">22</option>
+                                <option value="23">23</option>
+                                <option value="24">24</option>
+                                <option value="25">25</option>
+                                <option value="26">26</option>
+                                <option value="27">27</option>
+                                <option value="28">28</option>
+                                <option value="29">29</option>
+                                <option value="30">30</option>
+                                <option value="31">31</option>
+                                <option value="32">32</option>
+                                <option value="33">33</option>
+                                <option value="34">34</option>
+                                <option value="35">35</option>
+                                <option value="36">36</option>
+                                <option value="37">37</option>
+                                <option value="38">38</option>
+                                <option value="39">39</option>
+                                <option value="40">40</option>
+                                <option value="41">41</option>
+                                <option value="42">42</option>
+                                <option value="43">43</option>
+                                <option value="44">44</option>
+                                <option value="45">45</option>
+                                <option value="46">46</option>
+                                <option value="47">47</option>
+                                <option value="48">48</option>
+                                <option value="49">49</option>
+                                <option value="50">50</option>
+                                <option value="51">51</option>
+                                <option value="52">52</option>
+                                <option value="53">53</option>
+                                <option value="54">54</option>
+                                <option value="55">55</option>
+                                <option value="56">56</option>
+                                <option value="57">57</option>
+                                <option value="58">58</option>
+                                <option value="59">59</option>
+                            </select>        
+                        </div>
+                    </div>
+                </div>
+            <div>
+                <label class="required">Date upd</label>
+                    <div id="apibundle_pshivegroup_dateUpd"><div id="apibundle_pshivegroup_dateUpd_date">
+                            <select class="liste_deroulante"  id="apibundle_pshivegroup_dateUpd_date_year" name="apibundle_pshivegroup[dateUpd][date][year]">
+                                <option value="2011">2011</option>
+                                <option value="2012">2012</option>
+                                <option value="2013">2013</option>
+                                <option value="2014">2014</option>
+                                <option value="2015">2015</option>
+                                <option value="2016">2016</option>
+                                <option value="2017">2017</option>
+                                <option value="2018">2018</option>
+                                <option value="2019">2019</option>
+                                <option value="2020">2020</option>
+                                <option value="2021">2021</option>
+                            </select>
+                            <select class="liste_deroulante"  id="apibundle_pshivegroup_dateUpd_date_month" name="apibundle_pshivegroup[dateUpd][date][month]">
+                                <option value="1">Jan</option>
+                                <option value="2">Feb</option>
+                                <option value="3">Mar</option>
+                                <option value="4">Apr</option>
+                                <option value="5">May</option>
+                                <option value="6">Jun</option>
+                                <option value="7">Jul</option>
+                                <option value="8">Aug</option>
+                                <option value="9">Sep</option>
+                                <option value="10">Oct</option>
+                                <option value="11">Nov</option>
+                                <option value="12">Dec</option>
+                            </select>
+                            <select class="liste_deroulante"  id="apibundle_pshivegroup_dateUpd_date_day" name="apibundle_pshivegroup[dateUpd][date][day]">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                                <option value="13">13</option>
+                                <option value="14">14</option>
+                                <option value="15">15</option>
+                                <option value="16">16</option>
+                                <option value="17">17</option>
+                                <option value="18">18</option>
+                                <option value="19">19</option>
+                                <option value="20">20</option>
+                                <option value="21">21</option>
+                                <option value="22">22</option>
+                                <option value="23">23</option>
+                                <option value="24">24</option>
+                                <option value="25">25</option>
+                                <option value="26">26</option>
+                                <option value="27">27</option>
+                                <option value="28">28</option>
+                                <option value="29">29</option>
+                                <option value="30">30</option>
+                                <option value="31">31</option>
+                            </select>
+                        </div>
+                        <div id="apibundle_pshivegroup_dateUpd_time">
+                            <select class="liste_deroulante"  id="apibundle_pshivegroup_dateUpd_time_hour" name="apibundle_pshivegroup[dateUpd][time][hour]">
+                                <option value="0">00</option>
+                                <option value="1">01</option>
+                                <option value="2">02</option>
+                                <option value="3">03</option>
+                                <option value="4">04</option>
+                                <option value="5">05</option>
+                                <option value="6">06</option>
+                                <option value="7">07</option>
+                                <option value="8">08</option>
+                                <option value="9">09</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                                <option value="13">13</option>
+                                <option value="14">14</option>
+                                <option value="15">15</option>
+                                <option value="16">16</option>
+                                <option value="17">17</option>
+                                <option value="18">18</option>
+                                <option value="19">19</option>
+                                <option value="20">20</option>
+                                <option value="21">21</option>
+                                <option value="22">22</option>
+                                <option value="23">23</option>
+                            </select>:
+                            <select class="liste_deroulante"  id="apibundle_pshivegroup_dateUpd_time_minute" name="apibundle_pshivegroup[dateUpd][time][minute]">
+                                <option value="0">00</option>
+                                <option value="1">01</option>
+                                <option value="2">02</option>
+                                <option value="3">03</option>
+                                <option value="4">04</option>
+                                <option value="5">05</option>
+                                <option value="6">06</option>
+                                <option value="7">07</option>
+                                <option value="8">08</option>
+                                <option value="9">09</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                                <option value="13">13</option>
+                                <option value="14">14</option>
+                                <option value="15">15</option>
+                                <option value="16">16</option>
+                                <option value="17">17</option>
+                                <option value="18">18</option>
+                                <option value="19">19</option>
+                                <option value="20">20</option>
+                                <option value="21">21</option>
+                                <option value="22">22</option>
+                                <option value="23">23</option>
+                                <option value="24">24</option>
+                                <option value="25">25</option>
+                                <option value="26">26</option>
+                                <option value="27">27</option>
+                                <option value="28">28</option>
+                                <option value="29">29</option>
+                                <option value="30">30</option>
+                                <option value="31">31</option>
+                                <option value="32">32</option>
+                                <option value="33">33</option>
+                                <option value="34">34</option>
+                                <option value="35">35</option>
+                                <option value="36">36</option>
+                                <option value="37">37</option>
+                                <option value="38">38</option>
+                                <option value="39">39</option>
+                                <option value="40">40</option>
+                                <option value="41">41</option>
+                                <option value="42">42</option>
+                                <option value="43">43</option>
+                                <option value="44">44</option>
+                                <option value="45">45</option>
+                                <option value="46">46</option>
+                                <option value="47">47</option>
+                                <option value="48">48</option>
+                                <option value="49">49</option>
+                                <option value="50">50</option>
+                                <option value="51">51</option>
+                                <option value="52">52</option>
+                                <option value="53">53</option>
+                                <option value="54">54</option>
+                                <option value="55">55</option>
+                                <option value="56">56</option>
+                                <option value="57">57</option>
+                                <option value="58">58</option>
+                                <option value="59">59</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>-->
+            </div>
+        <input class="bouton" type="submit" value="ENVOYER">
+    </form>
+</script>
+<script type="text/javascript" id="tpl-params-ruche">
+    <form action="" method="POST" id="form-params-hive" >
+        <div id="apibundle_pshive">
+            <!--<div>
+                <label for="apibundle_pshive_idClient" class="required">Id client</label>
+                    <input type="hidden" id="apibundle_pshive_idClient" name="apibundle_pshive[idClient]"/>
+            </div>-->
+            <div>
+                <label for="apibundle_pshive_name">Nom</label>
+                    <input class="zone_texte" type="text" value="{{ name }}" id="apibundle_pshive_name" name="apibundle_pshive[name]" maxlength="64" />
+            </div>
+            <!--<div>
+                <label for="apibundle_pshive_note">Note</label>
+                    <textarea id="apibundle_pshive_note" name="apibundle_pshive[note]" maxlength="65535"></textarea>
+                    </div>
+            <div>
+                <label for="apibundle_pshive_latitude">Latitude</label>
+                    <input class="zone_texte" type="text" id="apibundle_pshive_latitude" value="{{ latitude }}" name="apibundle_pshive[latitude]" />
+            </div>
+            <div>
+                <label for="apibundle_pshive_longitude">Longitude</label>
+                    <input class="zone_texte" type="text" id="apibundle_pshive_longitude" value="{{ longitude }}" name="apibundle_pshive[longitude]" />
+            </div>
+            <!--<div>
+                <label for="apibundle_pshive_active">En activité</label>
+                    <input type="checkbox" id="apibundle_pshive_active" name="apibundle_pshive[active]" checked="{{ active }}"/>
+            </div>-->
+            <div>
+                <label for="apibundle_pshive_hiveType">Type de ruche</label>
+                    <input class="zone_texte" type="text" value="{{ hive_type }}" id="apibundle_pshive_hiveType" name="apibundle_pshive[hiveType]" maxlength="64" />
+            </div>
+            <div>
+                <label for="apibundle_pshive_beesType">Espèce d'abeilles</label>
+                    <input class="zone_texte" type="text" value="{{ bees_type }}" id="apibundle_pshive_beesType" name="apibundle_pshive[beesType]" maxlength="64" />
+            </div>
+            <div>
+                <label for="apibundle_pshive_material">Matériau</label>
+                    <input class="zone_texte" type="text" value="{{ material }}" id="apibundle_pshive_material" name="apibundle_pshive[material]" maxlength="64" />
+            </div>
+            <div>
+                <label for="apibundle_pshive_support">Support</label>
+                    <input class="zone_texte" type="text" value="{{ support }}" id="apibundle_pshive_support" name="apibundle_pshive[support]" maxlength="64" />
+            </div>
+            <div>
+                <label for="apibundle_pshive_state">État</label>
+                    <input class="zone_texte" type="text" value="{{ state }}" id="apibundle_pshive_state" name="apibundle_pshive[state]" maxlength="64" />
+            </div>
+            <div>
+                <label for="apibundle_pshive_harvest" class="required">Récolte</label>
+                    <input type="number" id="apibundle_pshive_harvest" value="{{ harvest }}" name="apibundle_pshive[harvest]" required="required" />
+            </div>
+            <!--<div>
+                <label for="apibundle_pshive_notes">Notes</label>
+                	<textarea id="apibundle_pshive_notes" name="apibundle_pshive[notes]" maxlength="65535"></textarea></div>
+            <!--<div>
+                <label class="required">Date add</label>
+                    <div id="apibundle_pshive_dateAdd"><div id="apibundle_pshive_dateAdd_date">
+                            <select class="liste_deroulante"  id="apibundle_pshive_dateAdd_date_year" name="apibundle_pshive[dateAdd][date][year]">
+                                <option value="2011">2011</option>
+                                <option value="2012">2012</option>
+                                <option value="2013">2013</option>
+                                <option value="2014">2014</option>
+                                <option value="2015">2015</option>
+                                <option value="2016">2016</option>
+                                <option value="2017">2017</option>
+                                <option value="2018">2018</option>
+                                <option value="2019">2019</option>
+                                <option value="2020">2020</option>
+                                <option value="2021">2021</option>
+                            </select>
+                            <select class="liste_deroulante"  id="apibundle_pshive_dateAdd_date_month" name="apibundle_pshive[dateAdd][date][month]">
+                                <option value="1">Jan</option>
+                                <option value="2">Feb</option>
+                                <option value="3">Mar</option>
+                                <option value="4">Apr</option>
+                                <option value="5">May</option>
+                                <option value="6">Jun</option>
+                                <option value="7">Jul</option>
+                                <option value="8">Aug</option>
+                                <option value="9">Sep</option>
+                                <option value="10">Oct</option>
+                                <option value="11">Nov</option>
+                                <option value="12">Dec</option>
+                            </select>
+                            <select class="liste_deroulante"  id="apibundle_pshive_dateAdd_date_day" name="apibundle_pshive[dateAdd][date][day]">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                                <option value="13">13</option>
+                                <option value="14">14</option>
+                                <option value="15">15</option>
+                                <option value="16">16</option>
+                                <option value="17">17</option>
+                                <option value="18">18</option>
+                                <option value="19">19</option>
+                                <option value="20">20</option>
+                                <option value="21">21</option>
+                                <option value="22">22</option>
+                                <option value="23">23</option>
+                                <option value="24">24</option>
+                                <option value="25">25</option>
+                                <option value="26">26</option>
+                                <option value="27">27</option>
+                                <option value="28">28</option>
+                                <option value="29">29</option>
+                                <option value="30">30</option>
+                                <option value="31">31</option>
+                            </select>
+                        </div>
+                        <div id="apibundle_pshive_dateAdd_time">
+            
+                            <select class="liste_deroulante"  id="apibundle_pshive_dateAdd_time_hour" name="apibundle_pshive[dateAdd][time][hour]">
+                                <option value="0">00</option>
+                                <option value="1">01</option>
+                                <option value="2">02</option>
+                                <option value="3">03</option>
+                                <option value="4">04</option>
+                                <option value="5">05</option>
+                                <option value="6">06</option>
+                                <option value="7">07</option>
+                                <option value="8">08</option>
+                                <option value="9">09</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                                <option value="13">13</option>
+                                <option value="14">14</option>
+                                <option value="15">15</option>
+                                <option value="16">16</option>
+                                <option value="17">17</option>
+                                <option value="18">18</option>
+                                <option value="19">19</option>
+                                <option value="20">20</option>
+                                <option value="21">21</option>
+                                <option value="22">22</option>
+                                <option value="23">23</option>
+                            </select>:
+                            <select class="liste_deroulante"  id="apibundle_pshive_dateAdd_time_minute" name="apibundle_pshive[dateAdd][time][minute]">
+                                <option value="0">00</option>
+                                <option value="1">01</option>
+                                <option value="2">02</option>
+                                <option value="3">03</option>
+                                <option value="4">04</option>
+                                <option value="5">05</option>
+                                <option value="6">06</option>
+                                <option value="7">07</option>
+                                <option value="8">08</option>
+                                <option value="9">09</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                                <option value="13">13</option>
+                                <option value="14">14</option>
+                                <option value="15">15</option>
+                                <option value="16">16</option>
+                                <option value="17">17</option>
+                                <option value="18">18</option>
+                                <option value="19">19</option>
+                                <option value="20">20</option>
+                                <option value="21">21</option>
+                                <option value="22">22</option>
+                                <option value="23">23</option>
+                                <option value="24">24</option>
+                                <option value="25">25</option>
+                                <option value="26">26</option>
+                                <option value="27">27</option>
+                                <option value="28">28</option>
+                                <option value="29">29</option>
+                                <option value="30">30</option>
+                                <option value="31">31</option>
+                                <option value="32">32</option>
+                                <option value="33">33</option>
+                                <option value="34">34</option>
+                                <option value="35">35</option>
+                                <option value="36">36</option>
+                                <option value="37">37</option>
+                                <option value="38">38</option>
+                                <option value="39">39</option>
+                                <option value="40">40</option>
+                                <option value="41">41</option>
+                                <option value="42">42</option>
+                                <option value="43">43</option>
+                                <option value="44">44</option>
+                                <option value="45">45</option>
+                                <option value="46">46</option>
+                                <option value="47">47</option>
+                                <option value="48">48</option>
+                                <option value="49">49</option>
+                                <option value="50">50</option>
+                                <option value="51">51</option>
+                                <option value="52">52</option>
+                                <option value="53">53</option>
+                                <option value="54">54</option>
+                                <option value="55">55</option>
+                                <option value="56">56</option>
+                                <option value="57">57</option>
+                                <option value="58">58</option>
+                                <option value="59">59</option>
+                            </select>        </div></div></div>
+            <div>
+                <label class="required">Date upd</label>
+                    <div id="apibundle_pshive_dateUpd"><div id="apibundle_pshive_dateUpd_date">
+                            <select class="liste_deroulante"  id="apibundle_pshive_dateUpd_date_year" name="apibundle_pshive[dateUpd][date][year]">
+                                <option value="2011">2011</option>
+                                <option value="2012">2012</option>
+                                <option value="2013">2013</option>
+                                <option value="2014">2014</option>
+                                <option value="2015">2015</option>
+                                <option value="2016">2016</option>
+                                <option value="2017">2017</option>
+                                <option value="2018">2018</option>
+                                <option value="2019">2019</option>
+                                <option value="2020">2020</option>
+                                <option value="2021">2021</option>
+                            </select>
+                            <select class="liste_deroulante"  id="apibundle_pshive_dateUpd_date_month" name="apibundle_pshive[dateUpd][date][month]">
+                                <option value="1">Jan</option>
+                                <option value="2">Feb</option>
+                                <option value="3">Mar</option>
+                                <option value="4">Apr</option>
+                                <option value="5">May</option>
+                                <option value="6">Jun</option>
+                                <option value="7">Jul</option>
+                                <option value="8">Aug</option>
+                                <option value="9">Sep</option>
+                                <option value="10">Oct</option>
+                                <option value="11">Nov</option>
+                                <option value="12">Dec</option>
+                            </select>
+                            <select class="liste_deroulante"  id="apibundle_pshive_dateUpd_date_day" name="apibundle_pshive[dateUpd][date][day]">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                                <option value="13">13</option>
+                                <option value="14">14</option>
+                                <option value="15">15</option>
+                                <option value="16">16</option>
+                                <option value="17">17</option>
+                                <option value="18">18</option>
+                                <option value="19">19</option>
+                                <option value="20">20</option>
+                                <option value="21">21</option>
+                                <option value="22">22</option>
+                                <option value="23">23</option>
+                                <option value="24">24</option>
+                                <option value="25">25</option>
+                                <option value="26">26</option>
+                                <option value="27">27</option>
+                                <option value="28">28</option>
+                                <option value="29">29</option>
+                                <option value="30">30</option>
+                                <option value="31">31</option>
+                            </select>
+                        </div>
+                        <div id="apibundle_pshive_dateUpd_time">
+            
+                            <select class="liste_deroulante"  id="apibundle_pshive_dateUpd_time_hour" name="apibundle_pshive[dateUpd][time][hour]">
+                                <option value="0">00</option>
+                                <option value="1">01</option>
+                                <option value="2">02</option>
+                                <option value="3">03</option>
+                                <option value="4">04</option>
+                                <option value="5">05</option>
+                                <option value="6">06</option>
+                                <option value="7">07</option>
+                                <option value="8">08</option>
+                                <option value="9">09</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                                <option value="13">13</option>
+                                <option value="14">14</option>
+                                <option value="15">15</option>
+                                <option value="16">16</option>
+                                <option value="17">17</option>
+                                <option value="18">18</option>
+                                <option value="19">19</option>
+                                <option value="20">20</option>
+                                <option value="21">21</option>
+                                <option value="22">22</option>
+                                <option value="23">23</option>
+                            </select>:
+                            <select class="liste_deroulante"  id="apibundle_pshive_dateUpd_time_minute" name="apibundle_pshive[dateUpd][time][minute]">
+                                <option value="0">00</option>
+                                <option value="1">01</option>
+                                <option value="2">02</option>
+                                <option value="3">03</option>
+                                <option value="4">04</option>
+                                <option value="5">05</option>
+                                <option value="6">06</option>
+                                <option value="7">07</option>
+                                <option value="8">08</option>
+                                <option value="9">09</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                                <option value="13">13</option>
+                                <option value="14">14</option>
+                                <option value="15">15</option>
+                                <option value="16">16</option>
+                                <option value="17">17</option>
+                                <option value="18">18</option>
+                                <option value="19">19</option>
+                                <option value="20">20</option>
+                                <option value="21">21</option>
+                                <option value="22">22</option>
+                                <option value="23">23</option>
+                                <option value="24">24</option>
+                                <option value="25">25</option>
+                                <option value="26">26</option>
+                                <option value="27">27</option>
+                                <option value="28">28</option>
+                                <option value="29">29</option>
+                                <option value="30">30</option>
+                                <option value="31">31</option>
+                                <option value="32">32</option>
+                                <option value="33">33</option>
+                                <option value="34">34</option>
+                                <option value="35">35</option>
+                                <option value="36">36</option>
+                                <option value="37">37</option>
+                                <option value="38">38</option>
+                                <option value="39">39</option>
+                                <option value="40">40</option>
+                                <option value="41">41</option>
+                                <option value="42">42</option>
+                                <option value="43">43</option>
+                                <option value="44">44</option>
+                                <option value="45">45</option>
+                                <option value="46">46</option>
+                                <option value="47">47</option>
+                                <option value="48">48</option>
+                                <option value="49">49</option>
+                                <option value="50">50</option>
+                                <option value="51">51</option>
+                                <option value="52">52</option>
+                                <option value="53">53</option>
+                                <option value="54">54</option>
+                                <option value="55">55</option>
+                                <option value="56">56</option>
+                                <option value="57">57</option>
+                                <option value="58">58</option>
+                                <option value="59">59</option>
+                            </select>        </div></div></div></div>
+        -->
+                    <input class="bouton" type="submit" value="ENVOYER">
+    </form>
+</script>
