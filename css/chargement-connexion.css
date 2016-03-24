@@ -1,0 +1,204 @@
+#entete1{
+	background-color:#fffbf2;
+	text-align:center;
+	height:40px;
+	border-bottom:2px solid #fec12a;
+	padding:5px 0 5px 0;
+}
+#entete1 img{
+	height:40px;
+}
+#corps1{
+	border-top:4px solid #c1c1c1;
+	background-color:#fff;
+	background-size: 100%% 100%;
+	width:100%;
+	height:calc(100% - 76px);
+	text-align:center;
+	padding-top:20px;
+	margin:0;
+	position:relative;
+}
+#alveoles_chargement{
+	max-width:90%;
+	max-height:calc(100% - 20px);
+	opacity:0.3;
+}
+.can{
+	position: absolute;
+	z-index:3;
+}
+#haut_connexion{
+	background:url('../img/haut_connexion.png');
+	background-size: cover;
+	width:80%;
+	max-width:400px;
+	margin:auto;
+	background-repeat: no-repeat;	
+}
+#haut_connexion div{padding-bottom:31%;}
+#connexion{
+	background:url('../img/boite_connexion2.png');
+	background-size: 100%;
+	width:80%;
+	max-width:400px;
+	max-height:500.7376px;
+	margin:auto;
+	background-repeat: no-repeat;
+	position:relative;	
+}
+#connexion .sizing {
+	padding-top:87%;
+	float:left;
+	
+}
+#connexion_contenu {
+	height:70%;
+	width:96%;
+	margin:auto;
+	text-align:center;
+	border-top: 1px solid #a1a1a1;
+	position:relative;
+}
+#connexion_contenu h1{
+	width:100%;
+	font-family:'open_sanslight';
+	position:absolute;
+	z-index:3;
+	color: #282828;
+	font-size:18pt;
+	top: -35px;
+	margin:0;
+}
+#connexion form{
+	display:block;
+	width:80%;
+	height:200px;
+	margin:auto;
+	margin-top:10%;
+	position:relative;
+}
+#connexion .zone_texte{
+	display:block;
+	margin:auto;
+	text-align:center;
+	margin:auto;
+	width:90%;
+	font-size:13pt;
+	line-height:normal;
+	font-family:'open_sanslight';
+	color: #282828;
+	margin-bottom:5%;
+}
+#bas_connexion{
+	background:url('../img/bas_connexion.png');
+	background-size: 100%;
+	width:80%;
+	max-width:600px;
+	margin:auto;
+	background-repeat: no-repeat;
+}
+#liens1 img, #liens2 img{
+	display:inline;
+	width:30%;
+	cursor:pointer;
+}
+#connexion .bouton {
+	margin-top:10%;
+}
+#liens1{
+	position:absolute;
+	z-index:3;
+	top:90%;
+}
+#liens2{
+	position:absolute;
+	z-index:3;
+	top:122%;
+}
+.cssload-container{
+	position:relative;
+	top:50%;
+}
+	
+.cssload-whirlpool,
+.cssload-whirlpool::before,
+.cssload-whirlpool::after {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	border: 1px solid rgb(204,204,204);
+	border-left-color: rgb(0,0,0);
+	border-radius: 974px;
+		-o-border-radius: 974px;
+		-ms-border-radius: 974px;
+		-webkit-border-radius: 974px;
+		-moz-border-radius: 974px;
+}
+
+.cssload-whirlpool {
+	margin: -24px 0 0 -24px;
+	height: 49px;
+	width: 49px;
+	animation: cssload-rotate 1150ms linear infinite;
+		-o-animation: cssload-rotate 1150ms linear infinite;
+		-ms-animation: cssload-rotate 1150ms linear infinite;
+		-webkit-animation: cssload-rotate 1150ms linear infinite;
+		-moz-animation: cssload-rotate 1150ms linear infinite;
+}
+
+.cssload-whirlpool::before {
+	content: "";
+	margin: -22px 0 0 -22px;
+	height: 43px;
+	width: 43px;
+	animation: cssload-rotate 1150ms linear infinite;
+		-o-animation: cssload-rotate 1150ms linear infinite;
+		-ms-animation: cssload-rotate 1150ms linear infinite;
+		-webkit-animation: cssload-rotate 1150ms linear infinite;
+		-moz-animation: cssload-rotate 1150ms linear infinite;
+}
+
+.cssload-whirlpool::after {
+	content: "";
+	margin: -28px 0 0 -28px;
+	height: 55px;
+	width: 55px;
+	animation: cssload-rotate 2300ms linear infinite;
+		-o-animation: cssload-rotate 2300ms linear infinite;
+		-ms-animation: cssload-rotate 2300ms linear infinite;
+		-webkit-animation: cssload-rotate 2300ms linear infinite;
+		-moz-animation: cssload-rotate 2300ms linear infinite;
+}
+
+
+
+@keyframes cssload-rotate {
+	100% {
+		transform: rotate(360deg);
+	}
+}
+
+@-o-keyframes cssload-rotate {
+	100% {
+		-o-transform: rotate(360deg);
+	}
+}
+
+@-ms-keyframes cssload-rotate {
+	100% {
+		-ms-transform: rotate(360deg);
+	}
+}
+
+@-webkit-keyframes cssload-rotate {
+	100% {
+		-webkit-transform: rotate(360deg);
+	}
+}
+
+@-moz-keyframes cssload-rotate {
+	100% {
+		-moz-transform: rotate(360deg);
+	}
+}

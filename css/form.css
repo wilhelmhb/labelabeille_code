@@ -1,0 +1,26 @@
+.formulaire input[type="text"], select, .formulaire textarea, .formulaire input[type="number"], .formulaire input[type="password"]{
+	background-color:#ffd154;
+	border: 1px solid #c18d00;
+	color:#302300;
+	font-family:'open_sanslight';
+	font-size:12pt;
+	border-radius:3px;
+	box-shadow:1px 1px 2px #c18d00 inset;
+	vertical-align:middle;
+}
+.formulaire input[type="text"], .formulaire input[type="number"], .formulaire input[type="password"]{
+	line-height:26px;
+	height:26px;
+	text-align:center;
+}
+.formulaire select{
+	line-height:30px;
+	height:30px;
+}
+.checkb
+{
+	cursor:pointer;	
+	height:30px;
+	width:80px;
+	vertical-align:middle;
+}

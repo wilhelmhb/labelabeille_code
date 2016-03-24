@@ -1,0 +1,73 @@
+#menudetails img {
+	width:15%;
+	cursor:pointer;
+}
+.contenu .milieu {
+	margin:0 20% 0 20%;
+}
+#details
+{
+	width:90%;
+	margin:5% auto auto auto;
+	background:url('../img/details/fond_infos.png');
+	background-size: 100%;
+	max-width:700px;
+	position:relative;
+}
+#details .sizing{
+	padding-top:103.284%;
+}
+#bloc1, #bloc2, #bloc3, #bloc4{
+	position:absolute;
+	top:0;
+	left:0;
+}
+#bloc1 h1, #bloc2 h1, #bloc3 h1, #bloc4 h1{
+	font-family:'open_sanslight';
+	font-weight:bold;
+	font-size:13px;
+	text-align:left;
+	color:#343434;
+	border:0;
+	margin:0;
+	margin-bottom:5px;
+}
+#bloc1 h2, #bloc2 h2, #bloc3 h2, #bloc4 h2{
+	font-family:'open_sanslight';
+	font-weight:bold;
+	font-size:10px;
+	text-align:left;
+	color:#343434;
+	border:0;
+	margin:0;
+	text-decoration:none;
+    margin-bottom:5px;
+
+}
+#bloc1 p, #bloc2 p, #bloc3 p, #bloc4 p{
+	font-family:'open_sanslight';
+	font-weight:normal;
+	font-size:9px;
+	font-size:60%;
+	color:#343434;
+	text-indent:5px;
+	text-align:left;
+	margin:0;
+	margin-bottom:3px;
+}
+#bloc1{
+	top:15%;
+	left:10%;
+}
+#bloc2{
+	top:15%;
+	left:55%;
+}
+#bloc3{
+	top:60%;
+	left:10%;
+}
+#bloc4{
+	top:60%;
+	left:55%;
+}
