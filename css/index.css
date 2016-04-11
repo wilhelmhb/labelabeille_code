@@ -5,8 +5,9 @@ body {
   	height: 100%;
 	border:none;
 	position:relative;
+	overflow:hidden;
 }
-#ayggtpp{
+#app{
 	width:330px;
 	height:700px;
 	border:5px solid black;
@@ -22,8 +23,8 @@ body {
 	cursor:pointer;
 	background:url('../img/bouton.png');
 	width:64px;
-	height:31px;
-	padding-top:19px;
+	height:44px;
+	padding-top:6px;
 	color: #282828;
 	background-size: 100%;
 	margin:auto;
@@ -174,6 +175,8 @@ body {
 	width: 90%;
 	margin:auto;
 	margin-top:70px;
+	overflow:hidden;
+	
 }
 
 #bas_triangle{	

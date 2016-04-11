@@ -14,17 +14,7 @@
 .formulaire .bouton{
 	width:30%;
 	margin-top: 5vh;
-	min-height: 50px;
 }
-input[type="text"], select, textarea, input[type="number"], input[type="password"] {
+input[type="text"], select {
 	width:60%;
-	margin: 5px;
-}
-form > div > div {
-	padding-left: 10%;
-	text-align: left;
-}
-label {
-    width: 30%;
-    display: inline-block;
 }

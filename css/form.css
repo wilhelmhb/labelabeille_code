@@ -1,4 +1,4 @@
-.formulaire input[type="text"], select, .formulaire textarea, .formulaire input[type="number"], .formulaire input[type="password"]{
+.formulaire input[type="text"], select{
 	background-color:#ffd154;
 	border: 1px solid #c18d00;
 	color:#302300;
@@ -8,7 +8,7 @@
 	box-shadow:1px 1px 2px #c18d00 inset;
 	vertical-align:middle;
 }
-.formulaire input[type="text"], .formulaire input[type="number"], .formulaire input[type="password"]{
+.formulaire input[type="text"]{
 	line-height:26px;
 	height:26px;
 	text-align:center;

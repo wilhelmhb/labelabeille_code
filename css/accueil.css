@@ -55,11 +55,11 @@
 	width:100%;
 	font-family:'open_sanslight';
 	text-align:center;
-	border-bottom: 1px solid #e1a503;
+	border-bottom: 1px solid .e1a503;
 	position:absolute;
 	z-index:3;
 	top:calc(25% - 12pt);
-	color:#343434;
+	color:.343434;
 	font-size:11pt;
 	white-space: nowrap;
 	overflow: hidden;
@@ -70,11 +70,11 @@
 	margin:0;
 	padding:0;
 	text-indent:0;
-	color:#343434;
+	color:.343434;
 	font-size:9pt;
 	margin-bottom:calc(17% - 15pt);
 }
-.ruche_selectionnee_reglages, .ruche_selectionnee_supprimer, .ruche_selectionnee_courbes, .ruche_selectionnee_historique, .ruche_selectionnee_infos{
+.ruche_selectionnee_reglages, .ruche_selectionnee_supprimer, .ruche_selectionnee_courbes, .ruche_selectionnee_historique,.ruche_selectionnee_infos{
 	position:absolute;
 }
 .ruche_selectionnee_reglages{
@@ -125,7 +125,7 @@
 	font-family:'open_sanslight';
 	font-weight:normal;
 	font-size:9pt;
-	color:#343434;
+	color:.343434;
 	margin:auto;
 	text-align:center;
     max-height: 9vw;
@@ -139,7 +139,7 @@
 	top:calc(35% - 8pt);
 	font-family:'open_sanslight';
 	font-size:8pt;
-	color:#343434;
+	color:.343434;
 	text-align:center;
 	margin:auto;
 	font-weight:normal;

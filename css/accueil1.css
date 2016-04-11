@@ -1,0 +1,56 @@
+.corps_accueil{
+	background:url('../img/fond_gris2.png');
+	background-color: black;
+	width:100%;
+	height: calc(100% - 55px);
+	background-size:100% 100%;
+	position:relative;
+}
+#bas_defilement_gris {
+	position:absolute;
+	bottom:0;
+	z-index:1;
+}
+#ruches{
+	width:75%;
+	margin:auto;
+	position:relative;
+	height:100%;
+	overflow:auto;
+}
+.ruche_grise
+{
+	background:url('../img/ruche_grise.png');
+	background-size:100%;
+	width:66.4%;
+	padding-top:25%;
+	background-repeat:no-repeat;
+	position: absolute;
+	z-index:2;
+}
+.ruche_grise .sizing {
+	padding-top:77%;
+	float:left;
+}
+.ruche_grise h1{
+	font-family:'open_sanslight';
+	font-weight:normal;
+	font-size:3.5vw;
+	color:#343434;
+	width:80%;
+	margin:auto;
+	text-align:center;
+    max-height: 9vw;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.ruche_grise h2{
+	font-family:'open_sanslight';
+	font-size:2.5vw;
+	color:#343434;
+	width:100%;
+	text-align:center;
+	margin:auto;
+	margin-bottom:7%;
+	font-weight:normal;
+}

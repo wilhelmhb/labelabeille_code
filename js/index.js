@@ -16,6 +16,7 @@ var rucheSelect;
 var tcharge;
 var pcharge;
 var slider;
+var currentPage;
 var templateCharge=false;
 var evtclick="click";
 var customer = null;
@@ -23,7 +24,7 @@ var client = null;
 var hiveGroups = [{}];
 var idHiveGroup = 0;
 var dataHive = null;
-var idHive = 0;
+var idHive = 1;
 var test = {
     "customer": { "email": "jean.dupont@mail.com", "id": 23, "firstname": "Jean", "lastname": "Dupont" }, 
     "client": null, 
@@ -42,16 +43,15 @@ var test = {
             "id_hive":6,
             "id_client":11,
             "id_hive_group":18,
-            "name":"RUCHE.1",
-            "note": "",
+            "name":"RUCHE.6",
             "latitude":0,
             "longitude":0,
             "active":true,
-            "hive_type":"Type de ruche",
-            "bees_type":"Espèce d'abeille",
-            "material":"Bois",
+            "hive_type":"dadant",
+            "bees_type":"buckfast",
+            "material":"wood",
             "support":"steel_frame",
-            "state":"Bon",
+            "state":"bad",
             "harvest":20,
             "notes":"",
             "date_add":"2016-01-18T14:03:22+0100",
@@ -95,22 +95,10 @@ var test = {
                 "VOL":{"v":"Présent","h":"08\/03\/2016 08:29:36","u":""}}
         },
         {
-            "id_hive":22,
-            "id_client":11,
-            "id_hive_group":18,
-            "name":"RUCHE.2",
-            "note": "",
-            "latitude":0,
-            "longitude":0,
-            "active":true,
-            "hive_type":"Type de ruche",
-            "bees_type":"Espèce d'abeille",
-            "material":"Bois",
-            "support":"steel_frame",
-            "state":"Bon",
-            "harvest":0,"notes":"",
-            "date_add":"2016-03-08T15:46:32+0100",
-            "date_upd":"2016-03-08T15:46:32+0100", 
+            "id_hive":22,"id_client":11,"id_hive_group":18,"name":"RUCHE.10","latitude":0,"longitude":0,
+            "active":true,"hive_type":"dadant","bees_type":"buckfast","material":"wood",
+            "support":"steel_frame","state":"bad","harvest":0,"notes":"",
+            "date_add":"2016-03-08T15:46:32+0100","date_upd":"2016-03-08T15:46:32+0100", 
             "data": {
                 "BAT":{"v":"3.477","h":"22\/03\/2016 09:53:04","u":"V"},
                 "DEF.DEF_BATTERIE_MIN":{"v":"Absent","h":"22\/03\/2016 14:09:00","u":""},
@@ -153,18 +141,17 @@ var test = {
             "id_hive":23,
             "id_client":11,
             "id_hive_group":18,
-            "name":"RUCHE.3",
-            "note": "",
+            "name":"RUCHE.11",
             "latitude":0,
             "longitude":0,
             "active":true,
-            "hive_type":"Type de ruche",
-            "bees_type":"Espèce d'abeille",
-            "material":"Bois",
+            "hive_type":"dadant",
+            "bees_type":"buckfast",
+            "material":"wood",
             "support":"steel_frame",
-            "state":"Bon",
+            "state":"bad",
             "harvest":0,
-            "note":"",
+            
             "notes":"",
             "date_add":"2016-03-08T15:46:51+0100",
             "date_upd":"2016-03-08T15:46:51+0100",
@@ -211,18 +198,16 @@ var test = {
             "id_hive":24,
             "id_client":11,
             "id_hive_group":18,
-            "name":"RUCHE.4",
-            "note": "",
+            "name":"MaRuche",
             "latitude":0,
             "longitude":0,
-            "active":true,
-            "hive_type":"Type de ruche",
-            "bees_type":"Espèce d'abeille",
-            "material":"Bois",
-            "support":"steel_frame",
-            "state":"Bon",
+            "active":false,
+            "hive_type":"test",
+            "bees_type":"test",
+            "material":"test",
+            "support":"test",
+            "state":"test",
             "harvest":1,
-            "note":"",
             "date_add":"2011-01-01T00:00:00+0100",
             "date_upd":"2011-01-01T00:00:00+0100",
             "data": {"idruche":2,"idclient":1,
@@ -282,78 +267,53 @@ function debut(){
 	_("sitemobile").addEventListener(evtclick,function(){
 		_("ch").style.visibility="visible";
 		
-		var ref=window.open('http://www.label-abeille.org', '_self');
-		ref.addEventListener('loadstop', function(event) { afficherBd(event.type+" - "+event.code+" - "+event.message,"OK"); } );
-		ref.addEventListener('loadstart', function(event) { afficherBd(event.type+" - "+event.code+" - "+event.message,"OK"); } );
-		ref.addEventListener('exit', function(event) { afficherBd(event.type+" - "+event.code+" - "+event.message,"OK"); } );
-		ref.addEventListener('loaderror', function(event) { afficherBd(event.type+" - "+event.code+" - "+event.message,"OK"); } );
+		var ref=window.open('http://www.label-abeille.org', '_blank', 'location=yes,closebuttoncaption=Fermer');
+        ref.addEventListener('exit', function(event) { _("ch").style.visibility="hidden"; } );
+        ref.addEventListener('loaderror', function(event) { afficherBd("Erreur de chargement","OK"); } );
+
 		
 	});
 	_("faq").addEventListener(evtclick,function(){
 		_("ch").style.visibility="visible";
 		
-		var ref=window.open('http://www.label-abeille.org/faq', '_self');
-		ref.addEventListener('loadstop', function(event) { afficherBd(event.type+" - "+event.code+" - "+event.message,"OK"); } );
-		ref.addEventListener('loadstart', function(event) { afficherBd(event.type+" - "+event.code+" - "+event.message,"OK"); } );
-		ref.addEventListener('exit', function(event) { afficherBd(event.type+" - "+event.code+" - "+event.message,"OK"); } );
-		ref.addEventListener('loaderror', function(event) { afficherBd(event.type+" - "+event.code+" - "+event.message,"OK"); } );
-		
+		var ref=window.open('http://www.label-abeille.org/faq', '_blank', 'location=yes,closebuttoncaption=Fermer');
+        ref.addEventListener('exit', function(event) { _("ch").style.visibility="hidden"; } );
+        ref.addEventListener('loaderror', function(event) { afficherBd("Erreur de chargement","OK"); } );
+
 	});
 	_("fb").addEventListener(evtclick,function(){
 		_("ch").style.visibility="visible";
 		
-		var ref=window.open('https://www.facebook.com/Label-Abeille-679782012107769/?fref=ts', '_self');
-		ref.addEventListener('loadstop', function(event) { afficherBd(event.type+" - "+event.code+" - "+event.message,"OK"); } );
-		ref.addEventListener('loadstart', function(event) { afficherBd(event.type+" - "+event.code+" - "+event.message,"OK"); } );
-		ref.addEventListener('exit', function(event) { afficherBd(event.type+" - "+event.code+" - "+event.message,"OK"); } );
-		ref.addEventListener('loaderror', function(event) { afficherBd(event.type+" - "+event.code+" - "+event.message,"OK"); } );
+		var ref=window.open('https://www.facebook.com/Label-Abeille-679782012107769/?fref=ts', '_blank', 'location=yes,closebuttoncaption=Fermer');
+        ref.addEventListener('exit', function(event) { _("ch").style.visibility="hidden"; } );
+        ref.addEventListener('loaderror', function(event) { afficherBd("Erreur de chargement","OK"); } );
 		
 	});
 	_("twitter").addEventListener(evtclick,function(){
 		_("ch").style.visibility="visible";
 		
-		var ref=window.open('https://twitter.com/labelabeille', '_self');
-		ref.addEventListener('loadstop', function(event) { afficherBd(event.type+" - "+event.code+" - "+event.message,"OK"); } );
-		ref.addEventListener('loadstart', function(event) { afficherBd(event.type+" - "+event.code+" - "+event.message,"OK"); } );
-		ref.addEventListener('exit', function(event) { afficherBd(event.type+" - "+event.code+" - "+event.message,"OK"); } );
-		ref.addEventListener('loaderror', function(event) { afficherBd(event.type+" - "+event.code+" - "+event.message,"OK"); } );
+		var ref=window.open('https://twitter.com/labelabeille', '_blank', 'location=yes,closebuttoncaption=Fermer');
+        ref.addEventListener('exit', function(event) { _("ch").style.visibility="hidden"; } );
+        ref.addEventListener('loaderror', function(event) { afficherBd("Erreur de chargement","OK"); } );
 		
 	});
 	_("gplus").addEventListener(evtclick,function(){
 		_("ch").style.visibility="visible";
 		
-		var ref=window.open('http://plus.google.com/share?url=https://www.label-abeille.org/fr', '_self');
-		ref.addEventListener('loadstop', function(event) { afficherBd(event.type+" - "+event.code+" - "+event.message,"OK"); } );
-		ref.addEventListener('loadstart', function(event) { afficherBd(event.type+" - "+event.code+" - "+event.message,"OK"); } );
-		ref.addEventListener('exit', function(event) { afficherBd(event.type+" - "+event.code+" - "+event.message,"OK"); } );
-		ref.addEventListener('loaderror', function(event) { afficherBd(event.type+" - "+event.code+" - "+event.message,"OK"); } );
+		var ref=window.open('http://plus.google.com/share?url=https://www.label-abeille.org/fr', '_blank', 'location=yes,closebuttoncaption=Fermer');
+        ref.addEventListener('exit', function(event) { _("ch").style.visibility="hidden"; } );
+        ref.addEventListener('loaderror', function(event) { afficherBd("Erreur de chargement","OK"); } );
 		
 	});
 
 
 	_("btCarte").addEventListener(evtclick, goToMap); 
-
-	/* configurer précisément les boutons de retour */
-	_("retour_params_generaux").addEventListener(evtclick,function(){
-		goToListHives(idHiveGroup, hiveGroups[idHiveGroup].hives);
-	});
-	_("retour_params_rucher").addEventListener(evtclick,function(){
-		return false;
-	});
-	_("retour_params_ruche").addEventListener(evtclick,function(){
-		goToDataHives(
-	    		hiveGroups[idHiveGroup].hives[idHive].data,
-	    		hiveGroups[idHiveGroup].hives[idHive].name);
-	});
-	_("retour_params_details").addEventListener(evtclick,function(){
-		goToListHives(idHiveGroup, hiveGroups[idHiveGroup].hives);
-	});
-	_("retour_params_carte").addEventListener(evtclick,function(){
-		goToListHives(idHiveGroup, hiveGroups[idHiveGroup].hives);
-	});
-	
+	var btsRetour = document.getElementsByClassName('retour');
+	for(var i=0, l=btsRetour.length; i<l; i++){
+	 btsRetour[i].addEventListener(evtclick,function(){retour();}); 
+	}
 	_("btBd").addEventListener(evtclick,masquerBd);
-	tcharge = setInterval(charger,20);
+	tcharge = setInterval(charger,10);
  	pcharge=0;
 	$.get('templates.html', function(t) {
 		 templates=t;
@@ -403,16 +363,17 @@ function PageSlider(container,pageinit) {
 
     var container = container,
         enTransition=false,
-        currentPage=pageinit,
         hist = [];
-
+ 	 currentPage=pageinit
     // Use this function directly if you want to control the sliding direction outside PageSlider
     this.slidePageFrom = function(dest, from) {
     	//console.log('slidePageFrom : begin, enTransition='+enTransition);
         if(!enTransition){
         	//console.log('slidePageFrom : isNotEnTransition');
 	        enTransition=true;
-			if(dest==null)dest=hist.pop();// si aucune destination n'est affichée, la destination est la dernière page visitée précedemment
+			if(dest==null){
+				dest=hist.pop();// si aucune destination n'est affichée, la destination est la dernière page visitée précedemment
+			}
 			else{
 				dest=$(dest);
 				hist.push(currentPage);
@@ -443,6 +404,8 @@ function PageSlider(container,pageinit) {
 	        dest.attr("class", "page transition center");
 	        currentPage.attr("class", "page transition " + (from === "left" ? "right" : "left"));
 	        currentPage = dest;
+			if($(dest).attr("id")=="paccueil")reinitAccueil();
+			
         }
     	//console.log('slidePageFrom : end, enTransition='+enTransition);
     };
@@ -479,7 +442,21 @@ function connexion(user, passwd, success, failure) {
         //console.log(user);
         //console.log(passwd);
 		enCharge=true;
+		//$.support.cors = true;
+		//$.mobile.allowCrossDomainPages = true;
 		_("ch").style.visibility="visible";
+		/*request = new XMLHttpRequest();
+		request.open("GET", url+'login.html', true);
+		
+		request.onreadystatechange = function() {
+			  console.log("** state = " + request.readyState);
+			  if (request.readyState == 4) {
+			      console.log("** status = " + request.status);
+			      console.log(request.responseText);
+			  }
+		};
+
+		request.send();*/
 		if(isTest) {
 			enCharge=false;
 			_("ch").style.visibility="hidden";
@@ -490,6 +467,7 @@ function connexion(user, passwd, success, failure) {
             $.ajax({
                 type: 'POST',
                 url: url+'login_check',
+                //url: url+'test/connections',
                 data: '_username='+user+'&_password='+passwd,
                 dataType: "json",
                 xhrFields: {
@@ -498,7 +476,7 @@ function connexion(user, passwd, success, failure) {
                 success: function(data) {
 				    enCharge=false;
 				    _("ch").style.visibility="hidden";
-                	//console.log(JSON.stringify(data)); 
+                	console.log(JSON.stringify(data)); 
                 	//$("#result").html(data+'');
                 	customer = data;
                 	success();
@@ -514,6 +492,10 @@ function connexion(user, passwd, success, failure) {
                 }
             });
         }
+}
+function tester(){
+	isTest=true;
+	getListHives(0,goToListHives);
 }
 /* récupération de la liste des ruches */
 function getListHives(id, action) {
@@ -544,7 +526,7 @@ function getListHives(id, action) {
             });
         }
 }
-/* récupération des données d'une ruche */
+//* récupération des données d'une ruche */
 function getDataHive(id, id2, name, action) {
 		enCharge=true;
 		//$.support.cors = true;
@@ -604,8 +586,10 @@ function getHivesCoordinates(action) {
 };
 var url = 'https://api.label-abeille.org/';
 var url_test = 'http://localhost/Symfony2/api_labelabeille_reduite/web/app_dev.php/';
+
 /* fonction qui récupère et traite les données de connexion */
 function connect() {
+	$("#test").click(tester);
 	$("#valider_connexion").on(evtclick, function(){
 		if(!enCharge){
         	var user = encodeURIComponent($("#email_connexion").val());
@@ -615,25 +599,39 @@ function connect() {
         	connexion(user, login, connexion_success, connexion_failure);
 		}
     });
-	$("#tester_appli").on(evtclick, function(){
-		if(!enCharge){
-			var user = null;
-			var login = null;
-			isTest = true;
-        	connexion(user, login, connexion_success, connexion_failure);
-		}
-    });
 };
 function connexion_failure() {
 	afficherBd("Erreur de connexion","REESSAYER");
 }
 function connexion_success() {
 	afficherBd("Vous êtes connecté. Vous allez être redirigé vers la liste de vos ruches dans quelques instants. Si ce n'est pas le cas, cliquez sur le bouton ci-dessous.", "Aller à la liste des ruches");
-	getListHives(idHiveGroup, goToListHives);
+	getListHives(goToListHives);
 	_("btBd").addEventListener(evtclick, function (){
-		getListHives(idHiveGroup, goToListHives);
+		getListHives(goToListHives);
 	});
 }
+/*function goToListHives(listHives) {
+	//console.log('goToListHives : begin');
+	var template = $(templates).filter('#tpl-accueil').html();
+	var idx = 1;
+	listHives = {
+			"ruches": listHives,
+		    "idx": function() {
+		        return idx++;
+		    }};
+	//console.log(listHives.ruches.length);
+	//console.log(JSON.stringify(listHives)); 
+	//console.log(listHives.ruches[0].name);
+    var h = Mustache.render(template, listHives);
+    //console.log(h);
+    document.getElementById("content-accueil").innerHTML = h;
+    //console.log(document.getElementById("paccueil").innerHTML);
+    //console.log('goToListHives : before transition');
+    transition(_("paccueil"), "slide");
+    accueil(listHives.ruches.length);
+    masquerBd();
+    //console.log('goToListHives : end');
+};*/
 function goToListHives(id, listHives) {
 	//console.log('goToListHives : begin');
 	var template = $(templates).filter('#tpl-accueil').html();
@@ -696,18 +694,15 @@ function goToListHives(id, listHives) {
 };
 function goToDataHives(name, dataHive) {
 	var template = $(templates).filter('#tpl-details').html();
-	dataHive.recolte = dataHive["PARAM.POIDS_RECOLTE"];
-	dataHive.miel = dataHive["PARAM.PROD_MIEL_RUCHE"];
-	dataHive.essaim = dataHive["PARAM.POIDS_ESSAIM"];
+	dataHive.recolte = dataHive["param.poids_recolte"];
+	dataHive.miel = dataHive["param.prod_miel_ruche"];
+	dataHive.essaim = dataHive["param.poids_essaim"];
 	dataHive.nom = name;
   	var h = Mustache.render(template, dataHive);
-  	//console.log(dataHive);
+  	console.log(dataHive);
     document.getElementById("corps").innerHTML = h;
     transition(_("pdetails"), "");
-    if(isTest) {
-    	_("parametresRuche").style = "";
-    	_("parametresRuche").addEventListener(evtclick,goToHiveParameters);
-    }
+	_("parametresRuche").addEventListener(evtclick,goToHiveParameters); 
 }
 function goToMap() {
 	//console.log("goToMap");
@@ -939,10 +934,11 @@ function goToHiveParameters() {
 	//console.log('goToHiveParameters : begin');
 	var template = $(templates).filter('#tpl-params-ruche').html();
 	//TODO: get idClient/idCustomer
-	//console.log(hiveGroups);
-	//console.log(hiveGroups[idHiveGroup]);
-	//console.log(idHive);
-	//console.log(hiveGroups[idHiveGroup].hives);
+	console.log(hiveGroups);
+	console.log(hiveGroups[idHiveGroup]);
+	console.log(idHive);
+	console.log(hiveGroups[idHiveGroup].hives);
+
     var h = Mustache.render(template, hiveGroups[idHiveGroup].hives[idHive]);
     //console.log(h);
     document.getElementById("corps-params-ruche").innerHTML = h;
@@ -1017,4 +1013,3 @@ function goToHiveParameters() {
     //masquerBd();
     //console.log('goToHiveParameters : end');
 }
-
