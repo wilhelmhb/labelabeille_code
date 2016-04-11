@@ -1,5 +1,25 @@
 <meta http-equiv="Access-Control-Allow-Origin" content="*">
+
+
+<script type="text/html" id="tpl-historique">
+{{#notes}}
+<div class="elt_histo {{important}}" id="histo_{{id}}" onclick="details_histo({{id}});">
+    <img src="img/histo_fleche_droite.png" class="fleche" id="fleche_{{id}}"/>
+    <img src="img/histo_supprimer.png" class="supprimer" onclick="supprimer_histo({{id}});"/>
+    <div class="elt_histo_titre">{{titre}}</div>
+    <div class="elt_histo_date">{{date}}</div>
+</div>
+<div class="details_histo" id="details_histo_{{id}}" style="display:none;">
+    <h1>{{sous_titre}}</h1>
+	{{#infos}}
+    <p>{{.}}</p>
+	{{/infos}}
+</div>
+{{/notes}}
+</script>
+
 <script type="text/html" id="tpl-accueil">
+
                 <div id="sous_titre">
                 <span id="nav_gauche"></span>
                 <span id="nav_droite"></span>
@@ -15,22 +35,22 @@
                 <div class="ruche_contenu">
                 <div class="sizing"></div>
                 <div class="ruche_selectionnee">
-                <h1>{{name}}</h1>
+                <h1>{{data.name}}</h1>
                 <img src="img/reglages.png" class="ruche_selectionnee_reglages" />
                 <img src="img/supprimer.png" class="ruche_selectionnee_supprimer" />
                 <img src="img/courbes.png" class="ruche_selectionnee_courbes" />
                 <img src="img/historique.png" class="ruche_selectionnee_historique" />
                 <div class="ruche_selectionnee_infos">
-                <p>Orientation</p>
-                <p>Masse</p>
-                <p>Température</p>
-                <p>Humidité</p>
-                <p>Luminosité</p>
+                <p>Orientation : {{data.data.ORI.v}} degrés</p>
+                <p>Masse : {{data.data.MASSE.v}}{{data.data.MASSE.u}}</p>
+                <p>Température : {{data.data.TMP.v}}{{data.data.TMP.u}}</p>
+                <p>Humidité : {{data.data.HUM.v}}{{data.data.HUM.u}}</p>
+                <p>Luminosité : {{data.data.LUM.v}}{{data.data.LUM.u}}</p>
                 </div>
                 </div>
                 <div class="ruche_grise">
-                <h1>{{name}}</h1>
-                <h2>[{{id_hive}}]</h2>
+                <h1>{{data.name}}</h1>
+                <h2>[{{data.id_hive}}]</h2>
                 </div>
                 <div style="clear:left;"></div>
                 </div>
@@ -48,9 +68,9 @@
 	</div>
 	<div id="details-content" class="contenu">
 		<div id="menudetails">
-			<img style="opacity:0.3;filter:alpha(opacity = 0.3)" src="img/details/courbes.png" alt="Courbes" />
-			<img style="opacity:0.3;filter:alpha(opacity = 0.3)" src="img/details/historique.png" class="milieu" alt="Historique" />
-			<img id="parametresRuche" src="img/details/parametres.png" alt="Param&egrave;tres" />
+			<img id="courbesDetails" style="opacity:0.3;filter:alpha(opacity = 0.3)" src="img/details/courbes.png" alt="Courbes" />
+			<img id="historiqueDetails" src="img/details/historique.png" class="milieu" alt="Historique" />
+			<img id="parametresDetails" src="img/details/parametres.png" alt="Param&egrave;tres" />
 		</div>
 		<div id="details">
 			<div class="sizing"></div>

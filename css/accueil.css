@@ -55,10 +55,10 @@
 	width:100%;
 	font-family:'open_sanslight';
 	text-align:center;
-	border-bottom: 1px solid .e1a503;
+    border-bottom: 1px solid #e1a503;
 	position:absolute;
 	z-index:3;
-	top:calc(25% - 12pt);
+	top:calc(27% - 12pt);
 	color:.343434;
 	font-size:11pt;
 	white-space: nowrap;
@@ -72,7 +72,7 @@
 	text-indent:0;
 	color:.343434;
 	font-size:9pt;
-	margin-bottom:calc(17% - 15pt);
+	margin-bottom:calc(18% - 15pt);
 }
 .ruche_selectionnee_reglages, .ruche_selectionnee_supprimer, .ruche_selectionnee_courbes, .ruche_selectionnee_historique,.ruche_selectionnee_infos{
 	position:absolute;

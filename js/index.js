@@ -3,7 +3,7 @@ function _(el) {
 }
 
 if(window.addEventListener){
-    window.addEventListener('load', debut, false);
+   window.addEventListener('load', debut, false);
 }else{
     window.attachEvent('onload', debut);
 }
@@ -25,6 +25,7 @@ var hiveGroups = [{}];
 var idHiveGroup = 0;
 var dataHive = null;
 var idHive = 1;
+var listHivesGlobal;
 var test = {
     "customer": { "email": "jean.dupont@mail.com", "id": 23, "firstname": "Jean", "lastname": "Dupont" }, 
     "client": null, 
@@ -306,13 +307,21 @@ function debut(){
 		
 	});
 
-
+	//LIENS
+	//Carte
 	_("btCarte").addEventListener(evtclick, goToMap); 
+	//Boutons retour
 	var btsRetour = document.getElementsByClassName('retour');
 	for(var i=0, l=btsRetour.length; i<l; i++){
 	 btsRetour[i].addEventListener(evtclick,function(){retour();}); 
 	}
+	//Boite de dialogue
 	_("btBd").addEventListener(evtclick,masquerBd);
+	
+	
+	
+	
+	
 	tcharge = setInterval(charger,10);
  	pcharge=0;
 	$.get('templates.html', function(t) {
@@ -330,9 +339,7 @@ function charger(){
  }
 }
 
-function parametresRuche(){
-	transition(_("pparametres"),"");
-}
+
 function check(n){
 	if(checkb[n]){
 		_("check"+n).src="img/off.png";
@@ -372,7 +379,7 @@ function PageSlider(container,pageinit) {
         	//console.log('slidePageFrom : isNotEnTransition');
 	        enTransition=true;
 			if(dest==null){
-				dest=hist.pop();// si aucune destination n'est affichée, la destination est la dernière page visitée précedemment
+				dest=hist.pop();// si aucune destination n'est demandée, la destination est la dernière page visitée précedemment
 			}
 			else{
 				dest=$(dest);
@@ -404,8 +411,9 @@ function PageSlider(container,pageinit) {
 	        dest.attr("class", "page transition center");
 	        currentPage.attr("class", "page transition " + (from === "left" ? "right" : "left"));
 	        currentPage = dest;
-			if($(dest).attr("id")=="paccueil")reinitAccueil();
-			
+            if($(dest).attr("id")=="paccueil"){
+                reinitAccueil();
+            }
         }
     	//console.log('slidePageFrom : end, enTransition='+enTransition);
     };
@@ -492,6 +500,9 @@ function connexion(user, passwd, success, failure) {
                 }
             });
         }
+}
+function parametresRuche(){
+    transition(_("pparametres"),"");
 }
 function tester(){
 	isTest=true;
@@ -610,28 +621,6 @@ function connexion_success() {
 		getListHives(goToListHives);
 	});
 }
-/*function goToListHives(listHives) {
-	//console.log('goToListHives : begin');
-	var template = $(templates).filter('#tpl-accueil').html();
-	var idx = 1;
-	listHives = {
-			"ruches": listHives,
-		    "idx": function() {
-		        return idx++;
-		    }};
-	//console.log(listHives.ruches.length);
-	//console.log(JSON.stringify(listHives)); 
-	//console.log(listHives.ruches[0].name);
-    var h = Mustache.render(template, listHives);
-    //console.log(h);
-    document.getElementById("content-accueil").innerHTML = h;
-    //console.log(document.getElementById("paccueil").innerHTML);
-    //console.log('goToListHives : before transition');
-    transition(_("paccueil"), "slide");
-    accueil(listHives.ruches.length);
-    masquerBd();
-    //console.log('goToListHives : end');
-};*/
 function goToListHives(id, listHives) {
 	//console.log('goToListHives : begin');
 	var template = $(templates).filter('#tpl-accueil').html();
@@ -639,9 +628,7 @@ function goToListHives(id, listHives) {
 	hiveGroups[id].hives = listHives;
 	var i = 0;
 	function a(j, name, data) {
-		/*console.log(data);
-		console.log(hiveGroups[id].hives);
-		console.log(j);*/
+
 		hiveGroups[id].hives[j].data = data;
 		if(j+1<hiveGroups[id].hives.length) {
 			//console.log(data);
@@ -663,6 +650,7 @@ function goToListHives(id, listHives) {
 			//console.log(listHives);
 			
 		    var h = Mustache.render(template, listHives);
+            console.log(listHives);
 		    //console.log(h);
 		    document.getElementById("content-accueil").innerHTML = h;
 		    //console.log(document.getElementById("paccueil").innerHTML);
@@ -677,7 +665,7 @@ function goToListHives(id, listHives) {
 		    		idHive = k-1;
 		    		goToHiveParameters();
 		    	});
-		    	$("#ruche"+k).on('click', function(e) {
+		    	_("ruche"+k).addEventListener('click', function(e) {
 		    		e.preventDefault();
 		    		//console.log($(this)[0].id);
 		    		var k = $(this)[0].id.split("ruche")[1];
@@ -692,7 +680,7 @@ function goToListHives(id, listHives) {
 	}
 	getDataHive(listHives[0].id_hive, 0, listHives[0].name, a);
 };
-function goToDataHives(name, dataHive) {
+function goToDataHives(name, dataHive,r) {
 	var template = $(templates).filter('#tpl-details').html();
 	dataHive.recolte = dataHive["param.poids_recolte"];
 	dataHive.miel = dataHive["param.prod_miel_ruche"];
@@ -701,154 +689,14 @@ function goToDataHives(name, dataHive) {
   	var h = Mustache.render(template, dataHive);
   	console.log(dataHive);
     document.getElementById("corps").innerHTML = h;
-    transition(_("pdetails"), "");
-	_("parametresRuche").addEventListener(evtclick,goToHiveParameters); 
+    if(r)retour();
+    else transition(_("pdetails"), "");
+	//-Paramètres
+	_("parametresDetails").addEventListener(evtclick,goToHiveParameters); 
+	//-Historique
+	_("historiqueDetails").addEventListener(evtclick,goToHistorique); 
+	//-Courbes
 }
-function goToMap() {
-	//console.log("goToMap");
-	getHivesCoordinates(initializeMap);
-	transition(_("pmap"), "");
-}
-function dessinCercleFLAT(cible,pourcentage){
- var dateActu = new Date();
- timeActu= dateActu.getTime();
- 
- var bg = cible;
- var ctx = bg.getContext('2d');
- // netoyage du canvas existant
- var w = _("alveoles_chargement").width;
- var h = _("alveoles_chargement").offsetHeight;
- var cote = w/3;
- _("canvasProgressSimple").width=_("canvasProgressSimple").height=cote+2;
- _("canvasProgressSimple").style.top=(20 + h/2 - cote/2)+'px';
- _("canvasProgressSimple").style.left='calc(50% - '+cote/2+'px)';
- ctx.clearRect ( 0 , 0 , cote , cote );
- // definition d'un cercle complet
- var circ = Math.PI * 2;
- var quart = Math.PI / 2;
- 
- // creation d'un cercle de progression
- var ctx = ctx = bg.getContext('2d');
- ctx.strokeStyle = '#e1ffbc';
- ctx.lineWidth = cote/7;
- ctx.beginPath();
- ctx.arc(cote/2, cote/2, cote/2-ctx.lineWidth/2, 0, circ, false);
- ctx.stroke();
- 
- // creation d'un cercle de progression
- var ctx = ctx = bg.getContext('2d');
- ctx.strokeStyle = '#99e144';
- ctx.lineWidth = cote/7;
- ctx.beginPath();
- ctx.shadowOffsetY = 0;
- ctx.arc(cote/2, cote/2, cote/2-ctx.lineWidth/2, -(quart), ((circ) * pourcentage/100) - quart, false);
- ctx.stroke();
- 
- ctx.font = "bold "+(cote/8)+"pt Calibri,Geneva,Arial";
- ctx.textAlign = 'center';
- ctx.fillStyle = "#000000";
- ctx.fillText(pourcentage+'%', cote/2, cote/2+cote/20);
- ctx.shadowBlur = 0; 
-
-};
-function initializeMap(hiveCoordinates) {
-	/* definition of the global variables */
-    var markers, map, index = 0, zoneMarkers;
-    zoneMarkers = new google.maps.LatLngBounds();
-    //console.log("initializeMap");
-    /** create and place a marker on a map
-     * @int n: index our the created marker
-     * @map map: map where the marker will be placed
-     * @float lat, long: coordinates of the marker on the map
-     * @string url: url of the marker's image
-     * @int height, width: size of the marker
-     * @int originX, originY: placement of the marker's image in the layout
-     * @int anchorX, anchorY: placement of the marker relative to the coordinates
-     * @int scaleX, @scaleY: scaled size of the marker's image
-     * @boolean optimized: true if all the markers have to be united in one graphic (better for time complexity, worse for resolution)
-     * @string title: message to show onmouseover
-     * @string content: content of the InfoWindow displayed on click, if empty, no InfoWindow
-     * @function action: function to call on click in addition to the InfoWindow
-     */
-    function createMarker(n, map, lat, long, url) {
-        var icon = {url: url}; // intanciate the icon
-        
-        /* instanciate the marker itself */
-        var marker = {
-            position: new google.maps.LatLng(lat, long), 
-	        map: map,
-	        icon : icon
-        }
-        /* transform our marker into a google maps marker */
-	    var marker = new google.maps.Marker(marker); 
-	    
-	    /* if content has been defined, create an InfoWindow that will pop-up on click */
-	    /*if(content != '') {
-	        /* attach the infoWindow to the marker */
-    	    /*marker.infobulle = new google.maps.InfoWindow({
-                content  : content, // contenu qui sera affiché
-                visible: false,
-                position: new google.maps.LatLng(lat, long),
-                maxWidth: 500
-            });
-        
-	        google.maps.event.addListener(marker, 'click', function addInfoWindow(data){
-	            // affichage position du marker
-	            console.log(content);
-	            marker.infobulle.open(map, marker);
-	        });
-        }*/
-	    /* the index wil be useful in case of removal of the marker's childs and roads */
-	    marker.index = n;
-        /* add marker to the zone */
-        zoneMarkers.extend(marker.getPosition());
-        map.fitBounds(zoneMarkers);
-	    return marker;
-    };
-    
-    /** create and display a map 
-     * @DOMNode element: the element were to display the map
-     * @float lat, long: coordinates of the center of the map
-     * @int zoom: zoom on the map
-     * @google.maps.MapTypeId type: type of map
-     */
-    function createMap(element, lat, long, zoom) {
-        map = new google.maps.Map(element, {
-            'zoom': zoom,
-            'center': new google.maps.LatLng(lat, long)
-        });
-    };
-    
-    /** 
-     * display all wished elements on the map, and handle their behaviour
-     */
-    function displayElements() {
-        createMap(document.getElementById("corps_carte"), 48.513202, 7.081958, 6);
-	    //console.log(map);
-	    
-        if(markers != null && markers.length > 0) {
-            //console.log(markers);
-            for(var k = 0; k < markers.length; k++) {
-                markers[k].setMap(null);
-                delete markers[k];
-            }
-        }
-        
-        /* reset all constants of the map */
-        index = 0;
-        markers = new Array();
-        
-	    for(var i = 0; i < hiveCoordinates.length; i++) {
-	    	//console.log(JSON.stringify(hiveCoordinates[i]));
-	        if(hiveCoordinates[i] != null && (hiveCoordinates[i].lat != '0.00000000' || hiveCoordinates[i].lng != '0.00000000')) {
-	            markers[index] = createMarker(index, map, hiveCoordinates[i].lat, hiveCoordinates[i].lng, "http://www.label-abeille.org/modules/cmaps/views/img/markers/yellow_pin.png");
-		        index++;
-	        }
-	    }
-	};
-	
-	displayElements();
-};
 
 function goToGeneralParameters() {
 	//console.log('goToGeneralParameters : begin');
@@ -963,7 +811,7 @@ function goToHiveParameters() {
 	        hiveGroups[idHiveGroup].hives[idHive].note= $("#apibundle_pshive_note").val();
 	        hiveGroups[idHiveGroup].hives[idHive].notes = $("#apibundle_pshive_notes").val();
 	        //console.log(hiveGroups[idHiveGroup].hives[idHive]);
-	        goToDataHives(hiveGroups[idHiveGroup].hives[idHive].name, hiveGroups[idHiveGroup].hives[idHive].data);
+	        goToDataHives(hiveGroups[idHiveGroup].hives[idHive].name, hiveGroups[idHiveGroup].hives[idHive].data,true);
     	})
     }
     else {
@@ -1005,7 +853,7 @@ function goToHiveParameters() {
 	        hiveGroups[idHiveGroup].hives[idHive].notes = $("#apibundle_pshive_notes").val();
 	        //console.log(hiveGroups[idHiveGroup].hives[idHive]);
 	        /* on retourne aux détails */
-	        goToDataHives(hiveGroups[idHiveGroup].hives[idHive].name, hiveGroups[idHiveGroup].hives[idHive].data);
+	        goToDataHives(hiveGroups[idHiveGroup].hives[idHive].name, hiveGroups[idHiveGroup].hives[idHive].data,true);
             //alert("fin modif");
         });
     }
@@ -1013,3 +861,204 @@ function goToHiveParameters() {
     //masquerBd();
     //console.log('goToHiveParameters : end');
 }
+
+
+
+
+
+
+//HISTORIQUE
+function goToHistorique(){
+	//Marche seulement en mode test pour l'instant
+	
+	var historique = {"notes" : [
+		{"id":1, "important":"", "titre" : "Titre de la note","date":"05/03/16","sous_titre":"Sous titre","infos":["Ligne d'information 1","Ligne d'information 2","Ligne d'information 3"]},
+		{"id":2, "important":"", "titre" : "Titre de la note","date":"05/03/16","sous_titre":"Sous titre","infos":["Ligne d'information 1","Ligne d'information 2","Ligne d'information 3"]},
+		{"id":3, "important":"", "titre" : "Titre de la note","date":"05/03/16","sous_titre":"Sous titre","infos":["Ligne d'information 1","Ligne d'information 2","Ligne d'information 3"]},
+		{"id":4, "important":"histo_important", "titre" : "Titre de la note","date":"05/03/16","sous_titre":"Sous titre","infos":["Ligne d'information 1","Ligne d'information 2","Ligne d'information 3"]},
+		{"id":5, "important":"", "titre" : "Titre de la note","date":"05/03/16","sous_titre":"Sous titre","infos":["Ligne d'information 1","Ligne d'information 2","Ligne d'information 3"]},
+		{"id":6, "important":"", "titre" : "Titre de la note","date":"05/03/16","sous_titre":"Sous titre","infos":["Ligne d'information 1","Ligne d'information 2","Ligne d'information 3"]},
+		{"id":7, "important":"", "titre" : "Titre de la note","date":"05/03/16","sous_titre":"Sous titre","infos":["Ligne d'information 1","Ligne d'information 2","Ligne d'information 3"]},
+		{"id":8, "important":"", "titre" : "Titre de la note","date":"05/03/16","sous_titre":"Sous titre","infos":["Ligne d'information 1","Ligne d'information 2","Ligne d'information 3"]},
+		{"id":9, "important":"", "titre" : "Titre de la note","date":"05/03/16","sous_titre":"Sous titre","infos":["Ligne d'information 1","Ligne d'information 2","Ligne d'information 3"]},
+		{"id":10, "important":"", "titre" : "Titre de la note","date":"05/03/16","sous_titre":"Sous titre","infos":["Ligne d'information 1","Ligne d'information 2","Ligne d'information 3"]},
+		{"id":11, "important":"", "titre" : "Titre de la note","date":"05/03/16","sous_titre":"Sous titre","infos":["Ligne d'information 1","Ligne d'information 2","Ligne d'information 3"]},
+		{"id":12, "important":"", "titre" : "Titre de la note","date":"05/03/16","sous_titre":"Sous titre","infos":["Ligne d'information 1","Ligne d'information 2","Ligne d'information 3"]},
+		{"id":13, "important":"", "titre" : "Titre de la note","date":"05/03/16","sous_titre":"Sous titre","infos":["Ligne d'information 1","Ligne d'information 2","Ligne d'information 3"]}
+	]};
+	//
+	var template = $(templates).filter('#tpl-historique').html();
+	/*console.log(listHives.ruches.length);
+	console.log(JSON.stringify(listHives)); 
+	console.log(listHives.ruches[0].name);*/
+    var h = Mustache.render(template, historique);
+    document.getElementById("content-historique").innerHTML = h;
+    //console.log('goToGeneralParameters : before transition');
+    transition(_("phistorique"), "slide");
+	details_histo(1);
+}
+var selectHisto=1;
+function details_histo(nouveau){
+    _('details_histo_'+selectHisto).style.display='none';
+    $(_('fleche_'+selectHisto)).attr('src','img/histo_fleche_droite.png');
+    selectHisto=nouveau;
+    _('details_histo_'+selectHisto).style.display='block';
+    $(_('fleche_'+selectHisto)).attr('src','img/histo_fleche_bas.png');
+}
+function supprimer_histo(id){
+	//
+}
+
+
+
+
+
+//CARTE
+function goToMap() {
+	//console.log("goToMap");
+	getHivesCoordinates(initializeMap);
+	transition(_("pmap"), "");
+}
+function initializeMap(hiveCoordinates) {
+	/* definition of the global variables */
+    var markers, map, index = 0, zoneMarkers;
+    zoneMarkers = new google.maps.LatLngBounds();
+    //console.log("initializeMap");
+    /** create and place a marker on a map
+     * @int n: index our the created marker
+     * @map map: map where the marker will be placed
+     * @float lat, long: coordinates of the marker on the map
+     * @string url: url of the marker's image
+     * @int height, width: size of the marker
+     * @int originX, originY: placement of the marker's image in the layout
+     * @int anchorX, anchorY: placement of the marker relative to the coordinates
+     * @int scaleX, @scaleY: scaled size of the marker's image
+     * @boolean optimized: true if all the markers have to be united in one graphic (better for time complexity, worse for resolution)
+     * @string title: message to show onmouseover
+     * @string content: content of the InfoWindow displayed on click, if empty, no InfoWindow
+     * @function action: function to call on click in addition to the InfoWindow
+     */
+    function createMarker(n, map, lat, long, url) {
+        var icon = {url: url}; // intanciate the icon
+        
+        /* instanciate the marker itself */
+        var marker = {
+            position: new google.maps.LatLng(lat, long), 
+	        map: map,
+	        icon : icon
+        }
+        /* transform our marker into a google maps marker */
+	    var marker = new google.maps.Marker(marker); 
+	    
+	    /* if content has been defined, create an InfoWindow that will pop-up on click */
+	    /*if(content != '') {
+	        /* attach the infoWindow to the marker */
+    	    /*marker.infobulle = new google.maps.InfoWindow({
+                content  : content, // contenu qui sera affiché
+                visible: false,
+                position: new google.maps.LatLng(lat, long),
+                maxWidth: 500
+            });
+        
+	        google.maps.event.addListener(marker, 'click', function addInfoWindow(data){
+	            // affichage position du marker
+	            console.log(content);
+	            marker.infobulle.open(map, marker);
+	        });
+        }*/
+	    /* the index wil be useful in case of removal of the marker's childs and roads */
+	    marker.index = n;
+        /* add marker to the zone */
+        zoneMarkers.extend(marker.getPosition());
+        map.fitBounds(zoneMarkers);
+	    return marker;
+    };
+    
+    /** create and display a map 
+     * @DOMNode element: the element were to display the map
+     * @float lat, long: coordinates of the center of the map
+     * @int zoom: zoom on the map
+     * @google.maps.MapTypeId type: type of map
+     */
+    function createMap(element, lat, long, zoom) {
+        map = new google.maps.Map(element, {
+            'zoom': zoom,
+            'center': new google.maps.LatLng(lat, long)
+        });
+    };
+    
+    /** 
+     * display all wished elements on the map, and handle their behaviour
+     */
+    function displayElements() {
+        createMap(document.getElementById("corps_carte"), 48.513202, 7.081958, 6);
+	    //console.log(map);
+	    
+        if(markers != null && markers.length > 0) {
+            //console.log(markers);
+            for(var k = 0; k < markers.length; k++) {
+                markers[k].setMap(null);
+                delete markers[k];
+            }
+        }
+        
+        /* reset all constants of the map */
+        index = 0;
+        markers = new Array();
+        
+	    for(var i = 0; i < hiveCoordinates.length; i++) {
+	    	//console.log(JSON.stringify(hiveCoordinates[i]));
+	        if(hiveCoordinates[i] != null && (hiveCoordinates[i].lat != '0.00000000' || hiveCoordinates[i].lng != '0.00000000')) {
+	            markers[index] = createMarker(index, map, hiveCoordinates[i].lat, hiveCoordinates[i].lng, "http://www.label-abeille.org/modules/cmaps/views/img/markers/yellow_pin.png");
+		        index++;
+	        }
+	    }
+	};
+	
+	displayElements();
+};
+
+//DESSIN CERCLE CHARGEMENT
+
+function dessinCercleFLAT(cible,pourcentage){
+ var dateActu = new Date();
+ timeActu= dateActu.getTime();
+ 
+ var bg = cible;
+ var ctx = bg.getContext('2d');
+ // netoyage du canvas existant
+ var w = _("alveoles_chargement").width;
+ var h = _("alveoles_chargement").offsetHeight;
+ var cote = w/3;
+ _("canvasProgressSimple").width=_("canvasProgressSimple").height=cote+2;
+ _("canvasProgressSimple").style.top=(20 + h/2 - cote/2)+'px';
+ _("canvasProgressSimple").style.left='calc(50% - '+cote/2+'px)';
+ ctx.clearRect ( 0 , 0 , cote , cote );
+ // definition d'un cercle complet
+ var circ = Math.PI * 2;
+ var quart = Math.PI / 2;
+ 
+ // creation d'un cercle de progression
+ var ctx = ctx = bg.getContext('2d');
+ ctx.strokeStyle = '#e1ffbc';
+ ctx.lineWidth = cote/7;
+ ctx.beginPath();
+ ctx.arc(cote/2, cote/2, cote/2-ctx.lineWidth/2, 0, circ, false);
+ ctx.stroke();
+ 
+ // creation d'un cercle de progression
+ var ctx = ctx = bg.getContext('2d');
+ ctx.strokeStyle = '#99e144';
+ ctx.lineWidth = cote/7;
+ ctx.beginPath();
+ ctx.shadowOffsetY = 0;
+ ctx.arc(cote/2, cote/2, cote/2-ctx.lineWidth/2, -(quart), ((circ) * pourcentage/100) - quart, false);
+ ctx.stroke();
+ 
+ ctx.font = "bold "+(cote/8)+"pt Calibri,Geneva,Arial";
+ ctx.textAlign = 'center';
+ ctx.fillStyle = "#000000";
+ ctx.fillText(pourcentage+'%', cote/2, cote/2+cote/20);
+ ctx.shadowBlur = 0; 
+
+};
