@@ -96,6 +96,9 @@ function goToHiveParameters() {
     //console.log(document.getElementById("corps-params-ruche").innerHTML);
     //console.log('goToHiveParameters : before transition');
     transition(_("pparametres-ruche"), "slide");
+    $('#go-to-seuils').click(function() {
+        goToHiveSeuils();
+    });
     if(isTest) {
         //console.log("coucou");
     	$("#form-params-hive").submit(function(e){
@@ -119,6 +122,148 @@ function goToHiveParameters() {
     }
     else {
         $("#form-params-hive").submit(function(e){
+            //alert("début modif");
+            e.preventDefault();
+            var donnees = $(this).serialize();
+            //console.log(donnees);
+            $.ajax({
+                type: 'PATCH',
+                url: url+'pshive/'+hiveGroups[idHiveGroup].hives[idHive].id,
+                xhrFields: {
+                    withCredentials: true
+                },
+                //data: 'apibundle_pscustomer[firstname]=test2',
+                data: donnees,
+                success: function(data) {
+                	//console.log(data); 
+                	customer = data; 
+                	//$("#resultat").html(JSON.stringify(data));
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    //console.log(xhr.responseText);
+                    //$("#result").html(xhr.responseText);
+                }
+            });
+            /* modification en local */
+	        hiveGroups[idHiveGroup].hives[idHive].name = $("#apibundle_pshive_name").val();
+	        hiveGroups[idHiveGroup].hives[idHive].note = $("#apibundle_pshive_note").val();
+	        hiveGroups[idHiveGroup].hives[idHive].latitude = $("#apibundle_pshive_latitude").val();
+	        hiveGroups[idHiveGroup].hives[idHive].longitude = $("#apibundle_pshive_longitude").val();
+	        hiveGroups[idHiveGroup].hives[idHive].hive_type = $("#apibundle_pshive_hiveType").val();
+	        hiveGroups[idHiveGroup].hives[idHive].bees_type = $("#apibundle_pshive_beesType").val();
+	        hiveGroups[idHiveGroup].hives[idHive].material = $("#apibundle_pshive_material").val();
+	        hiveGroups[idHiveGroup].hives[idHive].support = $("#apibundle_pshive_support").val();
+	        hiveGroups[idHiveGroup].hives[idHive].state = $("#apibundle_pshive_state").val();
+	        hiveGroups[idHiveGroup].hives[idHive].harvest = $("#apibundle_pshive_harvest").val();
+	        hiveGroups[idHiveGroup].hives[idHive].note= $("#apibundle_pshive_note").val();
+	        hiveGroups[idHiveGroup].hives[idHive].notes = $("#apibundle_pshive_notes").val();
+	        //console.log(hiveGroups[idHiveGroup].hives[idHive]);
+	        /* on retourne aux détails */
+	        goToDataHives(hiveGroups[idHiveGroup].hives[idHive].name, hiveGroups[idHiveGroup].hives[idHive].data,true);
+            //alert("fin modif");
+        });
+    }
+    //organiserRuches(listHives.ruches.length);
+    //masquerBd();
+    //console.log('goToHiveParameters : end');
+}
+
+function goToHiveSeuils() {
+	console.log('goToHiveSeuils : begin');
+	var template = $(templates).filter('#tpl-params-ruche-seuils').html();
+	//TODO: get idClient/idCustomer
+	console.log(hiveGroups);
+	console.log(hiveGroups[idHiveGroup]);
+	console.log(idHive);
+	console.log(hiveGroups[idHiveGroup].hives);
+	var seuils = [
+	    /*{
+	        'nom': "PARAM.SEUIL_ACC_X_MAX",
+	        'description': "Seuil Accéléromètre X maximum pour alerte"
+	    },
+	    {
+            'nom': "PARAM.SEUIL_ACC_X_MIN",
+            'description': "Seuil Accéléromètre X minimum pour alerte"
+        },
+        {
+            'nom': "PARAM.SEUIL_ACC_Y_MAX",
+            'description': "Seuil Accéléromètre Y maximum pour alerte"
+        },
+        {
+            'nom': "PARAM.SEUIL_ACC_Y_MIN",
+            'description': "Seuil Accéléromètre Y minimum pour alerte"
+        },
+        {
+            'nom': "PARAM.SEUIL_ACC_Z_MAX",
+            'description': "Seuil Accéléromètre Z maximum pour alerte"
+        },
+        {
+            'nom': "PARAM.SEUIL_ACC_Z_MIN",
+            'description': "Seuil Accéléromètre Z minimum pour alerte"
+        },*/
+        {
+            'nom': "PARAM.SEUIL_BAISSE_POIDS",
+            'description': "Baisse de poids maximale avant alerte"
+        },
+        /*{
+            'nom': "PARAM.SEUIL_BAISSE_POIDS_DUREE",
+            'description': "Nombre d'heure pour constater la baisse de poids"
+        },*/
+        {
+            'nom': "PARAM.SEUIL_HUMIDITE_MAX",
+            'description': "Humidité maximale avant alerte"
+        },
+        {
+            'nom': "PARAM.SEUIL_HUMIDITE_MIN",
+            'description': "Humidité minimale avant alerte"
+        },
+        {
+            'nom': "PARAM.SEUIL_TEMP_MAX",
+            'description': "Température maximale avant alerte"
+        },
+        {
+            'nom': "PARAM.SEUIL_TEMP_MIN",
+            'description': "Température minimale avant alerte"
+        }
+    ];
+    console.log(seuils);
+    for(var s in seuils) {
+        console.log(s)
+        console.log(seuils[s].nom);
+        console.log(hiveGroups[idHiveGroup].hives[idHive].data);
+        seuils[s].v = hiveGroups[idHiveGroup].hives[idHive].data[seuils[s].nom].v;
+    }
+    seuils = { 'seuils': seuils};
+    console.log(seuils);
+    var h = Mustache.render(template, seuils);
+    //console.log(h);
+    document.getElementById("corps-params-ruche-seuils").innerHTML = h;
+    //console.log(document.getElementById("corps-params-ruche").innerHTML);
+    console.log('goToHiveParameters : before transition');
+    transition(_("pparametres-ruche-seuils"), "slide");
+    if(isTest) {
+        console.log("coucou");
+    	$("#form-params-hive-seuils").submit(function(e){
+    	    console.log("coucou2");
+	        e.preventDefault(); 
+	        hiveGroups[idHiveGroup].hives[idHive].name = $("#apibundle_pshive_name").val();
+	        hiveGroups[idHiveGroup].hives[idHive].note = $("#apibundle_pshive_note").val();
+	        hiveGroups[idHiveGroup].hives[idHive].latitude = $("#apibundle_pshive_latitude").val();
+	        hiveGroups[idHiveGroup].hives[idHive].longitude = $("#apibundle_pshive_longitude").val();
+	        hiveGroups[idHiveGroup].hives[idHive].hive_type = $("#apibundle_pshive_hiveType").val();
+	        hiveGroups[idHiveGroup].hives[idHive].bees_type = $("#apibundle_pshive_beesType").val();
+	        hiveGroups[idHiveGroup].hives[idHive].material = $("#apibundle_pshive_material").val();
+	        hiveGroups[idHiveGroup].hives[idHive].support = $("#apibundle_pshive_support").val();
+	        hiveGroups[idHiveGroup].hives[idHive].state = $("#apibundle_pshive_state").val();
+	        hiveGroups[idHiveGroup].hives[idHive].harvest = $("#apibundle_pshive_harvest").val();
+	        hiveGroups[idHiveGroup].hives[idHive].note= $("#apibundle_pshive_note").val();
+	        hiveGroups[idHiveGroup].hives[idHive].notes = $("#apibundle_pshive_notes").val();
+	        //console.log(hiveGroups[idHiveGroup].hives[idHive]);
+	        goToDataHives(hiveGroups[idHiveGroup].hives[idHive].name, hiveGroups[idHiveGroup].hives[idHive].data,true);
+    	})
+    }
+    else {
+        $("#form-params-hive-seuils").submit(function(e){
             //alert("début modif");
             e.preventDefault();
             var donnees = $(this).serialize();

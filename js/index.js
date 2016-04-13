@@ -90,11 +90,7 @@ function debut(){
 	}
 	//Boite de dialogue
 	_("btBd").addEventListener(evtclick,masquerBd);
-	
-	
-	
-	
-	
+
 	tcharge = setInterval(charger,10);
  	pcharge=0;
 	$.get('templates.html', function(t) {
@@ -111,7 +107,6 @@ function charger(){
 	 connect();
  }
 }
-
 
 function check(n){
 	if(checkb[n]){

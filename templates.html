@@ -1644,3 +1644,16 @@
                     <input class="bouton" type="submit" value="ENVOYER">
     </form>
 </script>
+<script type="text/javascript" id="tpl-params-ruche-seuils">
+    <form action="" method="POST" id="form-params-hive-seuils" >
+        <div id="seuils">
+            {{#seuils}}
+            <div>
+                <label for="{{ nom }}">{{ description }} : </label>
+                    <input class="zone_texte" type="text" value="{{ v }}" id="{{ nom }}" name="{{ nom }}" maxlength="64" />
+            </div>
+	        {{/seuils}}
+            <input class="bouton" type="submit" value="ENVOYER">
+        </div>
+    </form>
+</script>
