@@ -531,6 +531,8 @@ function getListHives(id, action) {
 				    _("ch").style.visibility="hidden";
                     //console.log(data); 
                     //$("#resultat").html(JSON.stringify(data));
+                    console.log(id);
+                    console.log(hiveGroups);
 				    hiveGroups[id].hives = data;
                     action(id, data);
                 },
@@ -616,9 +618,9 @@ function connexion_failure() {
 }
 function connexion_success() {
 	afficherBd("Vous êtes connecté. Vous allez être redirigé vers la liste de vos ruches dans quelques instants. Si ce n'est pas le cas, cliquez sur le bouton ci-dessous.", "Aller à la liste des ruches");
-	getListHives(goToListHives);
+	getListHives(0, goToListHives);
 	_("btBd").addEventListener(evtclick, function (){
-		getListHives(goToListHives);
+		getListHives(0, goToListHives);
 	});
 }
 function goToListHives(id, listHives) {
