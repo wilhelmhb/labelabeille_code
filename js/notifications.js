@@ -1,53 +1,67 @@
+/* fonction pour faire vibrer le téléphone */
 function vibrateNotification() {
-    navigator.notification.vibrate(1000);
+    navigator.notification.vibrate(1000); // durée de la vibration en ms
 }
+/* fonction pour faire un bip */
 function beepNotification() {
-    navigator.notification.beep(300);
+    navigator.notification.beep(300); // durée du bip en ms
 }
-//process the promp dialog results
+/* fonction pour afficher une pop-up */
 function onPrompt(results) {
     alert("You selected button number " + results.buttonIndex + " and entered " + results.input1);
 }
-// Show a custom prompt dialog
+/* fonction pour afficher une pop-up te permettant d'écrire des trucs */
 function promptNotification() {
 	console.log(navigator);
 	console.log(navigator.notification);
     navigator.notification.prompt(
         'Please enter your name',  // message
-        onPrompt,                  // callback to invoke
-        'Registration',            // title
-        ['Ok','Exit']              // buttonLabels
+        onPrompt,                  // fonction de callback
+        'Registration',            // titre
+        ['Ok','Exit']              // boutons
     );
 }
 function alertDismissed() {
     console.log('fin de l\'alert');
 }
+/* fonction pour afficher une pop-up */
 function alertNotification() {
 	navigator.notification.alert(
 	    'You are the winner!',  // message
 	    alertDismissed,         // callback
-	    'Game Over',            // title
-	    'Done'                  // buttonName
+	    'Game Over',            // titre
+	    'Done'                  // bouton
 	);
 }
-//process the confirmation dialog result
+
+
 function onConfirm(buttonIndex) {
     alert('You selected button ' + buttonIndex);
 }
-// Show a custom confirmation dialog
+
+/* fonction pour afficher une pop-up de confirmation */
 function confirmNotification() {
     navigator.notification.confirm(
         'You are the winner! Confirm',  // message
-        onConfirm,              // callback to invoke with index of button pressed
-        'Game Over',            // title
-        'Restart,Exit'          // buttonLabels
+        onConfirm,              // fonction de callback qui prend l'indice du bouton pressé en argument
+        'Game Over',            // titre
+        'Restart,Exit'          // boutons
     );
 }
+
+/* fonction pour afficher une notification dans la barre de tâches */
 function pushNotification() {
 	console.log("push");
 	cordova.plugins.notification.local.schedule({
 	    id: 1,
-	    title: "Production Jour fixe",
-	    text: "Duration 1h"
+	    title: "Titre",
+	    text: "Le texte qui s'affiche en dessous du titre",
+	    badge: 0,
+	    sound: "res://platform_default",
+	    data: { donnees: "à afficher au format JSON" },
+	    //Android uniquement
+	    icon: "url de l'icône",
+        led: "FF0000",// couleur de clignotement de la lumière
 	});
+	// pour plus de détails : https://github.com/katzer/cordova-plugin-local-notifications/
 }

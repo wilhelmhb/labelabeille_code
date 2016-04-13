@@ -17,6 +17,7 @@ function accueil(n){
         //console.log('ok');
         h = _("ruche1").offsetHeight;
         h2 = _("ruche2").offsetHeight;
+        hruches = _("ruches").offsetHeight;
     }
     else {
         console.log(_("ruche1").pixelHeight != null);
@@ -142,25 +143,10 @@ function organiserRuches(){
                 _("ruche"+i).style.top = ((h2-h)+decalTop+h*(0.76*(i-1)))+'px';
                 _("ruche"+i).style.right = w*(0.5*((i%2==0)?1:0))+'px';
             }
-			/*$("#ruche"+i).find(".ruche_selectionnee_reglages").css("opacity","0");
-	
-			_("ruche"+i).addEventListener("click",function(){
-				if(!enCharge){
-					var k = $(this).find("h2").text();
-					var n = $(this).find(".ruche_grise").find("h1").text();
-					//console.log(k);
-					//console.log(n)
-					k = k.substring(1, k.length-1);
-					//console.log(k);
-					rucheSelect2=parseInt($(this).attr("id").replace("ruche",""));
-				    $window.scrollTop((rucheSelect2-1)*h);
-					getDataHive(k, n, goToDataHives);
-				}			
-			});*/
-		}
+        }
     }else{
         afficherBd("Vous n'avez aucune ruche référencée sur nos serveurs pour l'instant. Rendez-vous sur www.label-abeille.org.","OK")
     }
     $("#ruches").append('<div style="position:absolute;width:100%;top:'+((h2-h)+decalTop+h*(0.76*maxi + 0.24))+'px;height:'+hruches+'px"></div>');
-    
+    //METTRE LE CODE ICI POUR LES LIENS VERS LA PAGE DETAILS QUAND ON CLIQUE SUR UNE RUCHE
 }
