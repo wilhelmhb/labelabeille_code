@@ -1,5 +1,6 @@
-var url = 'https://api.label-abeille.org/';
-var url_test = 'http://localhost/Symfony2/api_labelabeille_reduite/web/app_dev.php/';
+var url_test = 'https://api.label-abeille.org/';
+var url2 = 'http://localhost/Symfony2/api_labelabeille_reduite/web/app_dev.php/';
+var url = 'http://127.0.0.1:8000/'
 
 function checkConnection() {
     var networkState = navigator.connection.type;
@@ -26,80 +27,81 @@ function checkConnection() {
 
 /* connexion */
 function connexion(user, passwd, success, failure) {
-        //console.log(user);
-        //console.log(passwd);
-		enCharge=true;
-		//$.support.cors = true;
-		//$.mobile.allowCrossDomainPages = true;
-		_("ch").style.visibility="visible";
-		/*request = new XMLHttpRequest();
-		request.open("GET", url+'login.html', true);
-		
-		request.onreadystatechange = function() {
-			  console.log("** state = " + request.readyState);
-			  if (request.readyState == 4) {
-			      console.log("** status = " + request.status);
-			      console.log(request.responseText);
-			  }
-		};
+    //console.log(user);
+    //console.log(passwd);
+    enCharge=true;
+    //$.support.cors = true;
+    //$.mobile.allowCrossDomainPages = true;
+    _("ch").style.visibility="visible";
+    /*request = new XMLHttpRequest();
+      request.open("GET", url+'login.html', true);
 
-		request.send();*/
-		if(isTest) {
-			enCharge=false;
-			_("ch").style.visibility="hidden";
-		    customer = test.customer;
-		    success();
-		}
-		else {
-            $.ajax({
-                type: 'POST',
-                url: url+'login_check',
-                //url: url+'test/connections',
-                data: '_username='+user+'&_password='+passwd,
-                dataType: "json",
-                xhrFields: {
-                    withCredentials: true
-                },
-                success: function(data) {
-				    enCharge=false;
-				    _("ch").style.visibility="hidden";
-                	console.log(JSON.stringify(data)); 
-                	//$("#result").html(data+'');
-                	customer = data;
-                	success();
-                },
-                error: function (xhr, ajaxOptions, thrownError) {
-				    _("ch").style.visibility="hidden";
-				    enCharge=false;
-                    //console.log('echec');
-                    //console.log(xhr.responseText);
-                    //console.log(ajaxOptions);
-                    failure();
-                    //$("#result").html(xhr.responseText);
-                }
-            });
-        }
+      request.onreadystatechange = function() {
+      console.log("** state = " + request.readyState);
+      if (request.readyState == 4) {
+      console.log("** status = " + request.status);
+      console.log(request.responseText);
+      }
+      };
+
+      request.send();*/
+    if(isTest) {
+        enCharge=false;
+        _("ch").style.visibility="hidden";
+        customer = test.customer;
+        success();
+    }
+    else {
+        $.ajax({
+            type: 'POST',
+            url: url+'login_check',
+            //url: url+'test/connections',
+            data: '_username='+user+'&_password='+passwd,
+            dataType: "json",
+            xhrFields: {
+                withCredentials: true
+            },
+            success: function(data) {
+                enCharge=false;
+                _("ch").style.visibility="hidden";
+                console.log(JSON.stringify(data)); 
+                //$("#result").html(data+'');
+                customer = data;
+                success();
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                _("ch").style.visibility="hidden";
+                enCharge=false;
+                //console.log('echec');
+                //console.log(xhr.responseText);
+                //console.log(ajaxOptions);
+                failure();
+                //$("#result").html(xhr.responseText);
+            }
+        });
+    }
 }
 /* fonction qui récupère et traite les données de connexion */
 function connect() {
-	$("#test").click(tester);
-	$("#valider_connexion").on(evtclick, function(){
-		if(!enCharge){
-        	var user = encodeURIComponent($("#email_connexion").val());
-        	//console.log(user);
-        	var login = encodeURIComponent($("#mdp_connexion").val());
-        	//console.log(login);
-        	connexion(user, login, connexion_success, connexion_failure);
-		}
+    $("#test").click(tester);
+    $("#valider_connexion").on(evtclick, function(){
+        if(!enCharge){
+            var user = encodeURIComponent($("#email_connexion").val());
+            //console.log(user);
+            var login = encodeURIComponent($("#mdp_connexion").val());
+            //console.log(login);
+            connexion(user, login, connexion_success, connexion_failure);
+        }
     });
+    $("#commencer-inscription").click(function() {console.log("début de l'inscription");inscription();});
 };
 function connexion_failure() {
-	afficherBd("Erreur de connexion","REESSAYER");
+    afficherBd("Erreur de connexion","REESSAYER");
 }
 function connexion_success() {
-	afficherBd("Vous êtes connecté. Vous allez être redirigé vers la liste de vos ruches dans quelques instants. Si ce n'est pas le cas, cliquez sur le bouton ci-dessous.", "Aller à la liste des ruches");
-	getListHives(0, goToListHives);
-	_("btBd").addEventListener(evtclick, function (){
-		getListHives(0, goToListHives);
-	});
+    afficherBd("Vous êtes connecté. Vous allez être redirigé vers la liste de vos ruches dans quelques instants. Si ce n'est pas le cas, cliquez sur le bouton ci-dessous.", "Aller à la liste des ruches");
+    getListHives(0, goToListHives);
+    _("btBd").addEventListener(evtclick, function (){
+        getListHives(0, goToListHives);
+    });
 }

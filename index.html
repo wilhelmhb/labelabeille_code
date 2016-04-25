@@ -21,6 +21,8 @@
                     <script type="text/javascript" src="js/liste_ruches.js"></script>
                     <script type="text/javascript" src="js/donnees_ruches.js"></script>
                     <script type="text/javascript" src="js/parametres.js"></script>
+                    <script type="text/javascript" src="js/connexion.js"></script>
+                    <script type="text/javascript" src="js/inscription.js"></script>
                     <script type="text/javascript" src="js/accueil2.js"></script>
                     <script type="text/javascript" src="js/historique.js"></script>
                     <script type="text/javascript" src="js/carte.js"></script>
@@ -75,6 +77,7 @@
                                 <input class="zone_texte" type="text" value="Mot de passe" id="mdp_connexion" onfocus="if(this.value=='Mot de passe'){this.value='';this.type='password'}" onblur="if(this.value==''){this.value = 'Mot de passe'; this.type='text'}"/>
                                 <div class="bouton" id="valider_connexion"><p></p><span>VALIDER</span></div>
                                 <div class="bouton" id="test"><p></p><span>TESTER</span></div>
+                                <div class="bouton" id="commencer_inscription"><p></p><span>S'INSCRIRE</span></div>
                             </form>
                             <div style="clear:left;"></div>
                         </div>
@@ -90,16 +93,52 @@
                     </div>
                 </div>
             </div>
-            
-            <div class="page" id="paccueil">
-                <div id="menu_haut">
-                    <img src="img/carte.png" id="btCarte" alt="Carte" />
-                    <img src="img/historique.png" style="opacity:0.3;filter:alpha(opacity = 0.3)" alt="Historique" />
-                    <img class="droite" id="btReglages" src="img/reglages.png" alt="Réglages" />
+
+            <div class="page" id="pinscription">
+                <div id="entete1">
+                    <img src="img/logo.png" alt="Label Abeille" />
                 </div>
-                <div id="content-accueil" class="corps_accueil">
-                    
+                <div id="corps1" class="fond_gris">
+                    <div id="haut_connexion">
+                        <div></div>
+                    </div>
+                    <div id="inscription">
+                        <div id="inscription_contenu">
+                            <h1>Inscription</h1>
+                            <div class="sizing"></div>
+                            <form>
+                                <div>
+                                    <label for="apibundle_pscustomer_firstname" class="required">Prénom</label>
+                                        <input class="zone_texte" type="text" id="apibundle_pscustomer_firstname" name="apibundle_pscustomer[firstname]" placeholder="Prénom" maxlength="32" />
+                                </div>
+                                <div>
+                                    <label for="apibundle_pscustomer_lastname" class="required">Nom</label>
+                                        <input class="zone_texte" type="text" id="apibundle_pscustomer_lastname" name="apibundle_pscustomer[lastname]" placeholder="Nom" maxlength="32" />
+                                </div>
+                                <div>
+                                    <label for="apibundle_pscustomer_email" class="required">Email</label>
+                                        <input class="zone_texte" type="text" id="apibundle_pscustomer_email" name="apibundle_pscustomer[email]" placeholder="Adresse mail" maxlength="128" />
+                                </div>
+                                <div>
+                                    <label for="apibundle_pscustomer_password" class="required">Mot de passe</label>
+                                        <input class="zone_texte" type="password" id="apibundle_pscustomer_password" name="apibundle_pscustomer[password]" maxlength="32" />
+                                </div>
+                            </form>
+                            <div style="clear:left;"></div>
+                        </div>
+                    </div>
                 </div>
+
+
+                <div class="page" id="paccueil">
+                    <div id="menu_haut">
+                        <img src="img/carte.png" id="btCarte" alt="Carte" />
+                        <img src="img/historique.png" style="opacity:0.3;filter:alpha(opacity = 0.3)" alt="Historique" />
+                        <img class="droite" id="btReglages" src="img/reglages.png" alt="Réglages" />
+                    </div>
+                    <div id="content-accueil" class="corps_accueil">
+                        
+                    </div>
             </div>
             
             <div class="page" id="pparametres">
