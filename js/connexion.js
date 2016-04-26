@@ -1,6 +1,6 @@
-var url_test = 'https://api.label-abeille.org/';
+var url = 'https://api.label-abeille.org/';
 var url2 = 'http://localhost/Symfony2/api_labelabeille_reduite/web/app_dev.php/';
-var url = 'http://127.0.0.1:8000/'
+var url_test = 'http://127.0.0.1:8000/'
 
 function checkConnection() {
     var networkState = navigator.connection.type;
@@ -93,7 +93,7 @@ function connect() {
             connexion(user, login, connexion_success, connexion_failure);
         }
     });
-    $("#commencer-inscription").click(function() {console.log("début de l'inscription");inscription();});
+    $("#commencer_inscription").click(function() {console.log("début de l'inscription");inscription();});
 };
 function connexion_failure() {
     afficherBd("Erreur de connexion","REESSAYER");
