@@ -1,9 +1,17 @@
 //CARTE
+/**
+ * create a map with hives' coordinates and display it 
+ */
 function goToMap() {
 	//console.log("goToMap");
 	getHivesCoordinates(initializeMap);
-	transition(_("pmap"), "");
+	transition(_("pmap"), ""); //display the map
 }
+
+/**
+ * get the hives' coordinates from the server 
+ * @function action: callback function (what to do with the hives' coordinates
+ */
 function getHivesCoordinates(action) {
     $.ajax({
         type: 'GET',
@@ -19,24 +27,22 @@ function getHivesCoordinates(action) {
         }
     });
 };
+
+/** 
+ * create the map itself 
+ * @object hiveCoordinates : object containing the coordinates of all the hives
+ */
 function initializeMap(hiveCoordinates) {
-	/* definition of the global variables */
+    /* definition of the global variables */
     var markers, map, index = 0, zoneMarkers;
     zoneMarkers = new google.maps.LatLngBounds();
+
     //console.log("initializeMap");
     /** create and place a marker on a map
      * @int n: index our the created marker
      * @map map: map where the marker will be placed
      * @float lat, long: coordinates of the marker on the map
      * @string url: url of the marker's image
-     * @int height, width: size of the marker
-     * @int originX, originY: placement of the marker's image in the layout
-     * @int anchorX, anchorY: placement of the marker relative to the coordinates
-     * @int scaleX, @scaleY: scaled size of the marker's image
-     * @boolean optimized: true if all the markers have to be united in one graphic (better for time complexity, worse for resolution)
-     * @string title: message to show onmouseover
-     * @string content: content of the InfoWindow displayed on click, if empty, no InfoWindow
-     * @function action: function to call on click in addition to the InfoWindow
      */
     function createMarker(n, map, lat, long, url) {
         var icon = {url: url}; // intanciate the icon
@@ -73,8 +79,9 @@ function initializeMap(hiveCoordinates) {
         map.fitBounds(zoneMarkers);
 	    return marker;
     };
-    
-    /** create and display a map 
+
+    /** 
+     * create and display a map 
      * @DOMNode element: the element were to display the map
      * @float lat, long: coordinates of the center of the map
      * @int zoom: zoom on the map
@@ -86,7 +93,7 @@ function initializeMap(hiveCoordinates) {
             'center': new google.maps.LatLng(lat, long)
         });
     };
-    
+
     /** 
      * display all wished elements on the map, and handle their behaviour
      */
@@ -106,14 +113,14 @@ function initializeMap(hiveCoordinates) {
         index = 0;
         markers = new Array();
         
-	    for(var i = 0; i < hiveCoordinates.length; i++) {
-	    	//console.log(JSON.stringify(hiveCoordinates[i]));
-	        if(hiveCoordinates[i] != null && (hiveCoordinates[i].lat != '0.00000000' || hiveCoordinates[i].lng != '0.00000000')) {
-	            markers[index] = createMarker(index, map, hiveCoordinates[i].lat, hiveCoordinates[i].lng, "http://www.label-abeille.org/modules/cmaps/views/img/markers/yellow_pin.png");
-		        index++;
+	for(var i = 0; i < hiveCoordinates.length; i++) {
+	    //console.log(JSON.stringify(hiveCoordinates[i]));
+	    if(hiveCoordinates[i] != null && (hiveCoordinates[i].lat != '0.00000000' || hiveCoordinates[i].lng != '0.00000000')) {
+	        markers[index] = createMarker(index, map, hiveCoordinates[i].lat, hiveCoordinates[i].lng, "http://www.label-abeille.org/modules/cmaps/views/img/markers/yellow_pin.png");
+	        index++;
 	        }
 	    }
-	};
-	
-	displayElements();
+    };
+
+    displayElements();
 };

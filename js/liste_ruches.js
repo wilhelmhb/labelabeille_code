@@ -1,8 +1,16 @@
+/**
+ * enter in the "test" part of the app
+ */
 function tester(){
 	isTest=true;
 	getListHives(0,goToListHives);
 }
-/* récupération de la liste des ruches */
+
+/**
+ * get the list of all hives from a hiveGroup
+ * @int id : identifier of the hiveGroup
+ * @function action : callback, what to do with the data
+ */
 function getListHives(id, action) {
 		enCharge=true;
 		_("ch").style.visibility="visible";
@@ -34,6 +42,11 @@ function getListHives(id, action) {
         }
 };
 
+/**
+ * display the list of hives
+ * @int id : identifier of the hiveGroup
+ * @Object listHives : JSON Object containing the list of all hives
+ */
 function goToListHives(id, listHives) {
 	//console.log('goToListHives : begin');
 	var template = $(templates).filter('#tpl-accueil').html();

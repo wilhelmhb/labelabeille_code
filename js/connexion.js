@@ -2,6 +2,9 @@ var url = 'https://api.label-abeille.org/';
 var url2 = 'http://localhost/Symfony2/api_labelabeille_reduite/web/app_dev.php/';
 var url_test = 'http://127.0.0.1:8000/'
 
+/**
+ * check if device is connected
+ */
 function checkConnection() {
     var networkState = navigator.connection.type;
 
@@ -25,26 +28,16 @@ function checkConnection() {
     return true;
 }
 
-/* connexion */
+/**
+ * connect user
+ * @string user : username
+ * @string passwd : password of the user
+ * @function success : callback on success
+ * @function failure : callback on failure 
+ */
 function connexion(user, passwd, success, failure) {
-    //console.log(user);
-    //console.log(passwd);
     enCharge=true;
-    //$.support.cors = true;
-    //$.mobile.allowCrossDomainPages = true;
     _("ch").style.visibility="visible";
-    /*request = new XMLHttpRequest();
-      request.open("GET", url+'login.html', true);
-
-      request.onreadystatechange = function() {
-      console.log("** state = " + request.readyState);
-      if (request.readyState == 4) {
-      console.log("** status = " + request.status);
-      console.log(request.responseText);
-      }
-      };
-
-      request.send();*/
     if(isTest) {
         enCharge=false;
         _("ch").style.visibility="hidden";
@@ -55,7 +48,6 @@ function connexion(user, passwd, success, failure) {
         $.ajax({
             type: 'POST',
             url: url+'login_check',
-            //url: url+'test/connections',
             data: '_username='+user+'&_password='+passwd,
             dataType: "json",
             xhrFields: {
@@ -64,8 +56,7 @@ function connexion(user, passwd, success, failure) {
             success: function(data) {
                 enCharge=false;
                 _("ch").style.visibility="hidden";
-                console.log(JSON.stringify(data)); 
-                //$("#result").html(data+'');
+                console.log(JSON.stringify(data));
                 customer = data;
                 success();
             },
@@ -76,12 +67,14 @@ function connexion(user, passwd, success, failure) {
                 //console.log(xhr.responseText);
                 //console.log(ajaxOptions);
                 failure();
-                //$("#result").html(xhr.responseText);
             }
         });
     }
 }
-/* fonction qui récupère et traite les données de connexion */
+
+/**
+ * get and deal with connection data
+ */
 function connect() {
     $("#test").click(tester);
     $("#valider_connexion").on(evtclick, function(){
@@ -95,9 +88,18 @@ function connect() {
     });
     $("#commencer_inscription").click(function() {console.log("début de l'inscription");inscription();});
 };
+
+/**
+ * when connection fails
+ */
 function connexion_failure() {
     afficherBd("Erreur de connexion","REESSAYER");
 }
+
+/**
+ * when connection succeeds,
+ * redirect user to the list of his/her hives
+ */
 function connexion_success() {
     afficherBd("Vous êtes connecté. Vous allez être redirigé vers la liste de vos ruches dans quelques instants. Si ce n'est pas le cas, cliquez sur le bouton ci-dessous.", "Aller à la liste des ruches");
     getListHives(0, goToListHives);
