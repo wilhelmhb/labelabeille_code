@@ -11,3 +11,5 @@ js/fonc*
 *.txt
 *\ *
 *_.*
+.idea/
+*.iml
