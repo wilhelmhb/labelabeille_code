@@ -69,5 +69,3 @@ function goToDataHives(name, dataHive,r) {
 	_("historiqueDetails").addEventListener(evtclick,goToHistorique); 
 	//-Courbes
 }
-
-

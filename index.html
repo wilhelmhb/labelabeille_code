@@ -139,7 +139,7 @@
             </div>
 
 
-            <!-- liste of the hives -->
+            <!-- list of the hives -->
             <div class="page" id="paccueil">
                 <div id="menu_haut">
                     <img src="img/carte.png" id="btCarte" alt="Carte" />
@@ -147,6 +147,63 @@
                     <img class="droite" id="btReglages" src="img/reglages.png" alt="Réglages" />
                 </div>
                 <div id="content-accueil" class="corps_accueil">
+                </div>
+            </div>
+
+            <!-- create a hive -->
+            <div class="page" id="pcreate-hive">
+                <div id="menu_haut">
+                    <img class="retour" src="img/retour.png" id="retour_create_hive" alt="Retour" />
+                    <h1>Créer une ruche</h1>
+                </div>
+                <div id="bas_defilement"></div>
+                <div id="bas_triangle"></div>
+                <div id="corps-create-hive" class="corps">
+                    <div>
+                        <div id="create_hive_contenu" class="contenu formulaire">
+                            <div class="sizing"></div>
+                            <form id="form-create-hive">
+                                <div>
+                                    <label for="apibundle_pshive_name">Nom</label>
+                                        <input class="zone_texte" type="text" id="apibundle_pshive_name" name="apibundle_pshive[name]" maxlength="64" />
+                                </div>
+                                <div>
+                                    <label for="apibundle_pshive_latitude">Latitude</label>
+                                        <input class="zone_texte" type="text" id="apibundle_pshive_latitude" name="apibundle_pshive[latitude]" />
+                                </div>
+                                <div>
+                                    <label for="apibundle_pshive_longitude">Longitude</label>
+                                        <input class="zone_texte" type="text" id="apibundle_pshive_longitude" name="apibundle_pshive[longitude]" />
+                                </div>
+                                <div>
+                                    <label for="apibundle_pshive_hiveType">Type de ruche</label>
+                                        <input class="zone_texte" type="text" id="apibundle_pshive_hiveType" name="apibundle_pshive[hiveType]" maxlength="64" />
+                                </div>
+                                <div>
+                                    <label for="apibundle_pshive_beesType">Espèce d'abeilles</label>
+                                        <input class="zone_texte" type="text" id="apibundle_pshive_beesType" name="apibundle_pshive[beesType]" maxlength="64" />
+                                </div>
+                                <div>
+                                    <label for="apibundle_pshive_material">Matériau</label>
+                                        <input class="zone_texte" type="text" id="apibundle_pshive_material" name="apibundle_pshive[material]" maxlength="64" />
+                                </div>
+                                <div>
+                                    <label for="apibundle_pshive_support">Support</label>
+                                        <input class="zone_texte" type="text" id="apibundle_pshive_support" name="apibundle_pshive[support]" maxlength="64" />
+                                </div>
+                                <div>
+                                    <label for="apibundle_pshive_state">État</label>
+                                        <input class="zone_texte" type="text" id="apibundle_pshive_state" name="apibundle_pshive[state]" maxlength="64" />
+                                </div>
+                                <div>
+                                    <label for="apibundle_pshive_harvest" class="required">Récolte</label>
+                                        <input type="number" id="apibundle_pshive_harvest" name="apibundle_pshive[harvest]" required="required" />
+                                </div>
+                                <input class="bouton" type="submit" value="CREER">
+                            </form>
+                            <div style="clear:left;"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
