@@ -1,4 +1,7 @@
 //HISTORIQUE
+/**
+ * display the history of the notes of the user
+ */
 function goToHistorique(){
 	//Marche seulement en mode test pour l'instant
 	
@@ -17,7 +20,7 @@ function goToHistorique(){
 		{"id":12, "important":"", "titre" : "Titre de la note","date":"05/03/16","sous_titre":"Sous titre","infos":["Ligne d'information 1","Ligne d'information 2","Ligne d'information 3"]},
 		{"id":13, "important":"", "titre" : "Titre de la note","date":"05/03/16","sous_titre":"Sous titre","infos":["Ligne d'information 1","Ligne d'information 2","Ligne d'information 3"]}
 	]};
-	//
+
 	var template = $(templates).filter('#tpl-historique').html();
 	/*console.log(listHives.ruches.length);
 	console.log(JSON.stringify(listHives)); 
@@ -28,7 +31,10 @@ function goToHistorique(){
     transition(_("phistorique"), "slide");
 	details_histo(1);
 }
+
 var selectHisto=1;
+
+
 function details_histo(nouveau){
     _('details_histo_'+selectHisto).style.display='none';
     $(_('fleche_'+selectHisto)).attr('src','img/histo_fleche_droite.png');

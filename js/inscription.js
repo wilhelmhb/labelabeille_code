@@ -1,9 +1,12 @@
+/**
+ * registrate a new user
+ */
 function inscription() {
     transition(_("pinscription"));
     console.log("inscription en cours");
     $("#form-inscription").submit(function(e){
         e.preventDefault();
-        alert("inscription confirmée");
+        //console.log("inscription confirmée");
         var donnees = $(this).serialize();
         console.log(donnees);
         $.ajax({
@@ -16,7 +19,7 @@ function inscription() {
             success: function(data) {
                 console.log(data);
                 customer = data;
-                //inscription_success(data);
+                inscription_success(data);
             },
             error: function (xhr, ajaxOptions, thrownError) {
                 console.log(xhr.responseText);
@@ -26,14 +29,25 @@ function inscription() {
     });
 };
 
+/**
+ * connect the new user and continue registration
+ * @Object donnees : Object containing the data or the new user
+ */
 function inscription_success(donnees) {
     var user = encodeURIComponent($("#email_inscription").val());
     //console.log(user);
     var login = encodeURIComponent($("#mdp_inscription").val());
     //console.log(login);
-    connexion(user, login, function() {console.log(donnees);/*customer_inscription_success(donnees);*/}, connexion_failure);
+    connexion(user, login, function() {
+        console.log(donnees); 
+        customer_inscription_success(donnees);
+    }, connexion_failure);
 };
 
+/**
+ * create a new client (NeoTool) from data donnees
+ * @Object donnees : Object containing the data for the new user
+ */
 function customer_inscription_success(donnees) {
     //create a new client
     $.ajax({
@@ -50,11 +64,13 @@ function customer_inscription_success(donnees) {
         },
         error: function (xhr, ajaxOptions, thrownError) {
             console.log(xhr.responseText);
-            $("#result").html(xhr.responseText);
         }
     });
 }
 
+/**
+ * bring new user of the list of his/her hives
+ */
 function client_inscription_success() {
     getListHives(0, goToListHives);
 }

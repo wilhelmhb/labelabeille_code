@@ -1,3 +1,4 @@
+/* sample of test data, used in the 'test' part of the application */
 var test = {
     "customer": { "email": "jean.dupont@mail.com", "id": 23, "firstname": "Jean", "lastname": "Dupont" }, 
     "client": null, 
