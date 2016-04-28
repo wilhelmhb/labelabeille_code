@@ -1,9 +1,9 @@
 /**
  * get the list of all hives from a hiveGroup
- * @int id : identifier of the hiveGroup
+ * @int idHiveGroup : identifier of the hiveGroup
  * @function action : callback, what to do with the data
  */
-function getListHives(id, action) {
+function getListHives(idHiveGroup, action) {
 		enCharge=true;
 		_("ch").style.visibility="visible";
 		if(isTest) {
@@ -26,8 +26,8 @@ function getListHives(id, action) {
                     //console.log(data); 
                     //$("#resultat").html(JSON.stringify(data));
                     console.log(id);
-                    console.log(hiveGroups);
-				    hiveGroups[id].hives = data;
+                    console.log("hiveGroups : " + hiveGroups);
+				    hiveGroups[idHiveGroup].hives = data;
                     action(id, data);
                 },
             });
@@ -39,23 +39,23 @@ function getListHives(id, action) {
  * @int id : identifier of the hiveGroup
  * @Object listHives : JSON Object containing the list of all hives
  */
-function goToListHives(id, listHives) {
+function goToListHives(idHiveGroup, listHives) {
 	//console.log('goToListHives : begin');
 	var template = $(templates).filter('#tpl-accueil').html();
 	var idx = 1;
-	hiveGroups[id].hives = listHives;
+	hiveGroups[idHiveGroup].hives = listHives;
 	var i = 0;
 	function a(j, name, data) {
-		hiveGroups[id].hives[j].data = data;
-		if(j+1<hiveGroups[id].hives.length) {
+		hiveGroups[idHiveGroup].hives[j].data = data;
+		if(j+1 < hiveGroups[idHiveGroup].hives.length) {
 			//console.log(data);
 			getDataHive(listHives[j+1].id_hive, j+1, listHives[j+1].name, a);
 		}
 		else {
 			var obj_array = [];
 
-			for (idx in hiveGroups[id].hives) {
-				   obj_array.push ({'index': (parseInt(idx)+1), 'data': hiveGroups[id].hives[idx]});
+			for (idx in hiveGroups[idHiveGroup].hives) {
+				   obj_array.push ({'index': (parseInt(idx)+1), 'data': hiveGroups[idHiveGroup].hives[idx]});
 			}
 
 			listHives = {
@@ -87,8 +87,8 @@ function goToListHives(id, listHives) {
 		    		//console.log($(this)[0].id);
 		    		var k = $(this)[0].id.split("ruche")[1];
 		    		idHive = k-1;
-		    		hive = hiveGroups[id].hives[k-1].data;
-		    		name = hiveGroups[id].hives[k-1].name;
+		    		hive = hiveGroups[idHiveGroup].hives[k-1].data;
+		    		name = hiveGroups[idHiveGroup].hives[k-1].name;
 		    		goToDataHives(name, hive);
 		    	});
 		    }
