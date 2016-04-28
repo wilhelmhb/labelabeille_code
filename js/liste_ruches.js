@@ -45,6 +45,14 @@ function goToListHives(idHiveGroup, listHives) {
 	var idx = 1;
 	hiveGroups[idHiveGroup].hives = listHives;
 	var i = 0;
+	
+	/**
+	 * get data of the next hive in the hiveGroup
+	 * if no more hive in this hiveGroup, display all the hives of the hiveGroup, and on click, bring user to the details of the hive
+	 * @integer j : index of the hive in the hiveGroup (client-side)
+	 * @String name : name of the hive
+	 * @Object data : current data got from the box associated to the hive
+	 */
 	function a(j, name, data) {
 		hiveGroups[idHiveGroup].hives[j].data = data;
 		if(j+1 < hiveGroups[idHiveGroup].hives.length) {
@@ -73,6 +81,10 @@ function goToListHives(idHiveGroup, listHives) {
 		    //console.log(document.getElementById("paccueil").innerHTML);
 		    //console.log('goToListHives : before transition');
 		    transition(_("paccueil"), "slide");
+	        $("#add_hive").click(function() {
+	            console.log("ajouter ruche");
+	            createHive();
+	        });
 		    accueil(listHives.ruches.length);
 		    for(var k=1; k<=listHives.ruches.length; k++) {
 		    	//console.log(k);
@@ -95,8 +107,5 @@ function goToListHives(idHiveGroup, listHives) {
 		    masquerBd();
 		}
 	}
-	$("#add_hive").click(function() {
-	    createHive();
-	});
 	getDataHive(listHives[0].id_hive, 0, listHives[0].name, a);
 };

@@ -2,6 +2,7 @@
  * create a new hive (show form and deal with it), then let user add a logger
  */
 function createHive() {
+    console.log("début de la création d'une ruche");
     transition(_("pcreate-hive"), "slide");
     if(isTest) {
     	$("#form-create-hive").submit(function(e){
@@ -26,7 +27,7 @@ function createHive() {
 	        hiveGroups[idHiveGroup].hives[idHive].notes = $("#apibundle_pshive_notes").val();
 	        //console.log(hiveGroups[idHiveGroup].hives[idHive]);
 	        goToDataHives(hiveGroups[idHiveGroup].hives[idHive].name, hiveGroups[idHiveGroup].hives[idHive].data,true);*/
-	        gotToListHives(idHiveGroup, hiveGroups[idHiveGroup].hives]);
+	        goToListHives(idHiveGroup, hiveGroups[idHiveGroup].hives);
     	})
     }
     else {
@@ -44,7 +45,7 @@ function createHive() {
                 data: donnees,
                 success: function(data) {
                 	//console.log(data); 
-                	customer = data;
+                	//customer = data;
                 	idHive = hiveGroups[idHiveGroup].hives.length; //change idHive
                 	updateLocalHive(idHive, donnees); // locally update list hive 
                 	console.log(hiveGroups[idHiveGroup].hives[idHive]);
@@ -108,12 +109,12 @@ function goToAddLogger() {
             data: donnees+ '&apibundle_psbox%5BidHive%5D=' + idHive + '&apibundle_psbox%5BidClient%5D=' + idClient + '&apibundle_psbox%5Bversion%5D=&apibundle_psbox%5Bnote%5D=&apibundle_psbox%5Bactive%5D=1&apibundle_psbox%5BdateAdd%5D%5Bdate%5D%5Byear%5D=2011&apibundle_psbox%5BdateAdd%5D%5Bdate%5D%5Bmonth%5D=1&apibundle_psbox%5BdateAdd%5D%5Bdate%5D%5Bday%5D=1&apibundle_psbox%5BdateAdd%5D%5Btime%5D%5Bhour%5D=0&apibundle_psbox%5BdateAdd%5D%5Btime%5D%5Bminute%5D=0&apibundle_psbox%5BdateUpd%5D%5Bdate%5D%5Byear%5D=2011&apibundle_psbox%5BdateUpd%5D%5Bdate%5D%5Bmonth%5D=1&apibundle_psbox%5BdateUpd%5D%5Bdate%5D%5Bday%5D=1&apibundle_psbox%5BdateUpd%5D%5Btime%5D%5Bhour%5D=0&apibundle_psbox%5BdateUpd%5D%5Btime%5D%5Bminute%5D=0',
             success: function(data) {
             	//console.log(data); 
-            	customer = data;
+            	//customer = data;
             	goToListHive(idHiveGroup, hiveGroups[idHiveGroup].hives);
             },
             error: function (xhr, ajaxOptions, thrownError) {
                 //console.log(xhr.responseText);
             }
         });
-    }
+    });
 }

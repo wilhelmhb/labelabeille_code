@@ -143,7 +143,7 @@ function goToHiveParameters() {
                 data: donnees,
                 success: function(data) {
                 	//console.log(data); 
-                	customer = data;
+                	//customer = data;
                 	updateLocalHive(idHive, donnees);
 	                /* go back to details */
 	                goToDataHives(hiveGroups[idHiveGroup].hives[idHive].name, hiveGroups[idHiveGroup].hives[idHive].data,true);
@@ -284,7 +284,7 @@ function goToHiveSeuils() {
                 data: donnees,
                 success: function(data) {
                 	//console.log(data); 
-                	customer = data;
+                	//customer = data;
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
                     //console.log(xhr.responseText);
