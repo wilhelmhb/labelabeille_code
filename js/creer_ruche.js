@@ -1,4 +1,4 @@
-/*
+/**
  * create a new hive (show form and deal with it), then let user add a logger
  */
 function createHive() {
@@ -9,7 +9,7 @@ function createHive() {
 	        e.preventDefault();
             var donnees = $(this).serialize();
             idHive = hiveGroups[idHiveGroup].hives.length; //change idHive
-        	updateLocalHive(idHive, donnees); // locally update list hive 
+        	updateLocalHive(donnees); // locally update list hive 
         	console.log(hiveGroups[idHiveGroup].hives[idHive]);
         	//goToAddLogger(); // add if needed a logger to the hive
 	        /* TODO : update local state
@@ -47,7 +47,7 @@ function createHive() {
                 	//console.log(data); 
                 	//customer = data;
                 	idHive = hiveGroups[idHiveGroup].hives.length; //change idHive
-                	updateLocalHive(idHive, donnees); // locally update list hive 
+                	updateLocalHive(donnees); // locally update list hive 
                 	console.log(hiveGroups[idHiveGroup].hives[idHive]);
                 	goToAddLogger(); // add if needed a logger to the hive
                 },
@@ -75,12 +75,11 @@ function createHive() {
     }
 }
 
-/*
+/**
  * update locally one hive in the list of hives
- * @integer idHive : identifier of the to-update hive in the list
  * @Object donnees : object containing the new hive's data
  */
-function updateLocalHive(idHive, donnees) {
+function updateLocalHive(donnees) {
     if(idHive >= hiveGroups[idHiveGroup].hives.length) {//new hive
         hiveGroups[idHiveGroup].hives.push(donnees);
     }

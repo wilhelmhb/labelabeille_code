@@ -144,7 +144,7 @@ function goToHiveParameters() {
                 success: function(data) {
                 	//console.log(data); 
                 	//customer = data;
-                	updateLocalHive(idHive, donnees);
+                	updateLocalHive(donnees);
 	                /* go back to details */
 	                goToDataHives(hiveGroups[idHiveGroup].hives[idHive].name, hiveGroups[idHiveGroup].hives[idHive].data,true);
                     //console.log("fin modif");
