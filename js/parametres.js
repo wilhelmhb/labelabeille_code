@@ -285,33 +285,30 @@ function goToHiveSeuils() {
                 success: function(data) {
                 	//console.log(data); 
                 	//customer = data;
+                	updateLimitsHive(data);
+	                /* on retourne aux détails */
+	                goToDataHives(hiveGroups[idHiveGroup].hives[idHive].name, hiveGroups[idHiveGroup].hives[idHive].data,true);
+                    //console.log("fin modif");
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
                     //console.log(xhr.responseText);
                 }
             });
-            /* modification en local */
-	        hiveGroups[idHiveGroup].hives[idHive].name = $("#apibundle_pshive_name").val();
-	        hiveGroups[idHiveGroup].hives[idHive].note = $("#apibundle_pshive_note").val();
-	        hiveGroups[idHiveGroup].hives[idHive].latitude = $("#apibundle_pshive_latitude").val();
-	        hiveGroups[idHiveGroup].hives[idHive].longitude = $("#apibundle_pshive_longitude").val();
-	        hiveGroups[idHiveGroup].hives[idHive].hive_type = $("#apibundle_pshive_hiveType").val();
-	        hiveGroups[idHiveGroup].hives[idHive].bees_type = $("#apibundle_pshive_beesType").val();
-	        hiveGroups[idHiveGroup].hives[idHive].material = $("#apibundle_pshive_material").val();
-	        hiveGroups[idHiveGroup].hives[idHive].support = $("#apibundle_pshive_support").val();
-	        hiveGroups[idHiveGroup].hives[idHive].state = $("#apibundle_pshive_state").val();
-	        hiveGroups[idHiveGroup].hives[idHive].harvest = $("#apibundle_pshive_harvest").val();
-	        hiveGroups[idHiveGroup].hives[idHive].note= $("#apibundle_pshive_note").val();
-	        hiveGroups[idHiveGroup].hives[idHive].notes = $("#apibundle_pshive_notes").val();
-	        //console.log(hiveGroups[idHiveGroup].hives[idHive]);
-	        /* on retourne aux détails */
-	        goToDataHives(hiveGroups[idHiveGroup].hives[idHive].name, hiveGroups[idHiveGroup].hives[idHive].data,true);
-            //console.log("fin modif");
         });
     }
     //organiserRuches(listHives.ruches.length);
     //masquerBd();
     //console.log('goToHiveParameters : end');
+}
+
+/**
+ * update the values of the limits for launching a notification
+ * @Object data : contains list of the new limits
+ */
+function updateLimitsHive(data) {
+    for(var limit in data) {
+        hiveGroups[idHiveGroup].hives[idHive].data[limit] = data[limit];
+    }
 }
 
 /**
