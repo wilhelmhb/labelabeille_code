@@ -3,36 +3,38 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1">
-            <link rel="stylesheet" type="text/css" href="css/normalize.css">
-                <link rel="stylesheet" type="text/css" href="css/index.css">
-                    <link rel="stylesheet" href="css/opensans.css" type="text/css" charset="utf-8" />
-                    <link rel="stylesheet" href="css/accueil.css" type="text/css" charset="utf-8" />
-                    <link rel="stylesheet" href="css/parametres.css" type="text/css" charset="utf-8" />
-                    <link rel="stylesheet" href="css/form.css" type="text/css" charset="utf-8" />
-                    <link rel="stylesheet" href="css/details.css" type="text/css" charset="utf-8" />
-                    <link rel="stylesheet" href="css/chargement-connexion.css" type="text/css" charset="utf-8" />
-                    <link rel="stylesheet" href="css/historique.css" type="text/css" charset="utf-8" />
-                   <!-- <script type="text/javascript" src="cordova.js"></script> -->
-                    <script type="text/javascript" src="js/dessin_cercle_chargement.js"></script>
-                    <script type="text/javascript" src="js/valeurs_demo.js"></script>
-                    <script type="text/javascript" src="js/connexion.js"></script>
-                    <script type="text/javascript" src="js/index.js"></script>
-                    <script type="text/javascript" src="js/navigation.js"></script>
-                    <script type="text/javascript" src="js/liste_ruches.js"></script>
-                    <script type="text/javascript" src="js/donnees_ruches.js"></script>
-                    <script type="text/javascript" src="js/parametres.js"></script>
-                    <script type="text/javascript" src="js/connexion.js"></script>
-                    <script type="text/javascript" src="js/inscription.js"></script>
-                    <script type="text/javascript" src="js/accueil2.js"></script>
-                    <script type="text/javascript" src="js/historique.js"></script>
-                    <script type="text/javascript" src="js/carte.js"></script>
-                    <script type="text/javascript" src="js/jquery.js"></script>
-                    <script type="text/javascript" src="js/mustache.js"></script>
-                    <script type="text/javascript" src="js/fastclick.js"></script>
-                    <script src="http://maps.googleapis.com/maps/api/js"></script>
-                    <title>Label Abeille</title>
-                    </head>
+        <link rel="stylesheet" type="text/css" href="css/normalize.css">
+        <link rel="stylesheet" type="text/css" href="css/index.css">
+        <link rel="stylesheet" href="css/opensans.css" type="text/css" charset="utf-8" />
+        <link rel="stylesheet" href="css/accueil.css" type="text/css" charset="utf-8" />
+        <link rel="stylesheet" href="css/parametres.css" type="text/css" charset="utf-8" />
+        <link rel="stylesheet" href="css/form.css" type="text/css" charset="utf-8" />
+        <link rel="stylesheet" href="css/details.css" type="text/css" charset="utf-8" />
+        <link rel="stylesheet" href="css/chargement-connexion.css" type="text/css" charset="utf-8" />
+        <link rel="stylesheet" href="css/historique.css" type="text/css" charset="utf-8" />
+        <!-- <script type="text/javascript" src="cordova.js"></script> -->
+        <script type="text/javascript" src="js/dessin_cercle_chargement.js"></script>
+        <script type="text/javascript" src="js/valeurs_demo.js"></script>
+        <script type="text/javascript" src="js/connexion.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript" src="js/navigation.js"></script>
+        <script type="text/javascript" src="js/liste_ruches.js"></script>
+        <script type="text/javascript" src="js/donnees_ruches.js"></script>
+        <script type="text/javascript" src="js/parametres.js"></script>
+        <script type="text/javascript" src="js/connexion.js"></script>
+        <script type="text/javascript" src="js/inscription.js"></script>
+        <script type="text/javascript" src="js/accueil2.js"></script>
+        <script type="text/javascript" src="js/historique.js"></script>
+        <script type="text/javascript" src="js/carte.js"></script>
+        <script type="text/javascript" src="js/jquery.js"></script>
+        <script type="text/javascript" src="js/mustache.js"></script>
+        <script type="text/javascript" src="js/fastclick.js"></script>
+        <script src="http://maps.googleapis.com/maps/api/js"></script>
+        <title>Label Abeille</title>
+    </head>
+
     <body>
+        <!-- container : where our pages will be included -->
 		<div id="container">
 			<div class="page center" id="pchargement">
 	       		<div id="entete1">
@@ -45,12 +47,15 @@
 				</div>
 			</div>
 		</div>
+		
+		<!-- loading screen -->
         <div id="ch" style="visibility:hidden;">
             <div class="cssload-container">
                 <div class="cssload-whirlpool"></div>
             </div>
         </div>
         
+        <!-- dialog pop-up -->
         <div id="bd" style="visibility:hidden;">
             <div id="boite">
                 <span id="messBd">Mauvais identifiant ou mot de passe</span>
@@ -58,8 +63,9 @@
             </div>
         </div>
         
-        
+        <!-- pages to include in container -->
         <div id="pages" style="display:none;">
+            <!-- connection page/welcome page -->
             <div class="page" id="pconnexion">
                 <div id="entete1">
                     <img src="img/logo.png" alt="Label Abeille" />
@@ -94,6 +100,7 @@
                 </div>
             </div>
 
+            <!-- registration page -->
             <div class="page" id="pinscription">
                 <div id="menu_haut">
                     <img class="retour" src="img/retour.png" id="retour_params_generaux" alt="Retour" />
@@ -132,6 +139,7 @@
             </div>
 
 
+            <!-- liste of the hives -->
             <div class="page" id="paccueil">
                 <div id="menu_haut">
                     <img src="img/carte.png" id="btCarte" alt="Carte" />
@@ -142,6 +150,7 @@
                 </div>
             </div>
 
+            <!-- account parameters -->
             <div class="page" id="pparametres">
                 <div id="menu_haut">
                     <img class="retour" src="img/retour.png" id="retour_params_generaux" alt="Retour" />
@@ -160,6 +169,7 @@
                 </div>
             </div>
             
+            <!-- hiveGroup parameters -->
             <div class="page" id="pparametres-rucher">
                 <div id="menu_haut">
                     <img class="retour" src="img/retour.png" id="retour_params_rucher" alt="Retour" />
@@ -178,6 +188,7 @@
                 </div>
             </div>
             
+            <!-- hive parameters -->
             <div class="page" id="pparametres-ruche">
                 <div id="menu_haut">
                     <img class="retour" src="img/retour.png" id="retour_params_ruche" alt="Retour" />
@@ -196,7 +207,8 @@
                     </div>
                 </div>
             </div>
-            
+
+            <!-- floor and ceiling parameters for the notifications -->
             <div class="page" id="pparametres-ruche-seuils">
                 <div id="menu_haut">
                     <img class="retour" src="img/retour.png" id="retour_params_ruche_seuil" alt="Retour" />
@@ -214,7 +226,8 @@
                     </div>
                 </div>
             </div>
-            
+
+            <!-- details of one hive -->
             <div class="page" id="pdetails">
                 <div id="menu_haut">
                     <img class="retour" src="img/retour.png" id="retour_params_details" alt="Retour" />
@@ -223,14 +236,14 @@
                 <div id="bas_defilement"></div>
                 <div id="bas_triangle"><img style="opacity:0.3;filter:alpha(opacity = 0.3)"  src="img/ajouter_note.png" alt="Ajouter une note" /></div>
                 <div id="corps" class="corps">
-                    
                 </div>
             </div>
+
+            <!-- history of the notes -->
             <div class="page" id="phistorique">
                 <div id="menu_haut">
                     <img class="retour" src="img/retour.png" id="retour_params_generaux" alt="Retour" />
                     <h1><img src="img/picto_historique.png" /> <span>Historique</span></h1>
-                    
                 </div>
                 <div id="bas_defilement"></div>
                 <div id="bas_triangle"></div>
@@ -239,21 +252,19 @@
                     	   <input type="text" id="filtre_historique" placeholder="Rechercher..." />
                     </div>
                     <div id="content-historique">
-                        
                     </div>
                 </div>
             </div>
-       
+
+            <!-- map -->
             <div class="page" id="pmap">
                 <div id="menu_haut">
                     <img class="retour" src="img/retour.png" alt="Retour" id="retour_params_carte" />
                     <h1>Carte</h1>
                 </div>
                 <div id="corps_carte" style="height:90%; width: 100%;"  class="corps_accueil">
-                    
                 </div>
             </div>
         </div>
-        
     </body>
 </html>
