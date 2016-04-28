@@ -56,5 +56,12 @@ function PageSlider(container,pageinit) {
         }
     	//console.log('slidePageFrom : end, enTransition='+enTransition);
     };
+}
 
+/**
+ * enter in the "test" part of the app
+ */
+function tester(){
+	isTest=true;
+	getListHives(0,goToListHives);
 }

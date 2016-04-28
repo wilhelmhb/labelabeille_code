@@ -144,12 +144,16 @@ function goToHiveParameters() {
                 success: function(data) {
                 	//console.log(data); 
                 	customer = data;
+                	updateLocalHive(idHive, donnees);
+	                /* go back to details */
+	                goToDataHives(hiveGroups[idHiveGroup].hives[idHive].name, hiveGroups[idHiveGroup].hives[idHive].data,true);
+                    //console.log("fin modif");
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
                     //console.log(xhr.responseText);
                 }
             });
-            /* modification en local */
+            /* modification en local
 	        hiveGroups[idHiveGroup].hives[idHive].name = $("#apibundle_pshive_name").val();
 	        hiveGroups[idHiveGroup].hives[idHive].note = $("#apibundle_pshive_note").val();
 	        hiveGroups[idHiveGroup].hives[idHive].latitude = $("#apibundle_pshive_latitude").val();
@@ -162,10 +166,7 @@ function goToHiveParameters() {
 	        hiveGroups[idHiveGroup].hives[idHive].harvest = $("#apibundle_pshive_harvest").val();
 	        hiveGroups[idHiveGroup].hives[idHive].note= $("#apibundle_pshive_note").val();
 	        hiveGroups[idHiveGroup].hives[idHive].notes = $("#apibundle_pshive_notes").val();
-	        //console.log(hiveGroups[idHiveGroup].hives[idHive]);
-	        /* on retourne aux détails */
-	        goToDataHives(hiveGroups[idHiveGroup].hives[idHive].name, hiveGroups[idHiveGroup].hives[idHive].data,true);
-            //console.log("fin modif");
+	        //console.log(hiveGroups[idHiveGroup].hives[idHive]);*/
         });
     }
     //organiserRuches(listHives.ruches.length);

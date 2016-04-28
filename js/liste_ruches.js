@@ -1,12 +1,4 @@
 /**
- * enter in the "test" part of the app
- */
-function tester(){
-	isTest=true;
-	getListHives(0,goToListHives);
-}
-
-/**
  * get the list of all hives from a hiveGroup
  * @int id : identifier of the hiveGroup
  * @function action : callback, what to do with the data
