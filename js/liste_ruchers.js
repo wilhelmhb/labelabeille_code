@@ -37,8 +37,6 @@ function getListHiveGroups(action) {
 function goToListHiveGroups() {
 	//console.log('goToListHiveGroups : begin');
 	var template = $(templates).filter('#tpl-list-hive-groups').html();
-	var idx = 1;
-	var i = 0;
 	/* TODO : inject hiveGroups in template
 	reminder : structure of variable hiveGroups
 	"hivegroups": [
@@ -51,7 +49,19 @@ function goToListHiveGroups() {
         "date_upd":"2016-01-18T14:03:22+0100"
         }
     ]
+    */
+	var listHiveGroups = null;
+    var h = Mustache.render(template, listHiveGroups);
+    console.log(listHiveGroups);
+	//console.log(h);
+	document.getElementById("content-list-hiveGroups").innerHTML = h;
+    /*
     TODO : onclick, goToListHives(idHiveGroupServer, goToListHives), must allow using idHiveGroup from client side (id of selected hiveGroup in the client-side-stored list of all hiveGroups
     */
     transition(_("plist-hiveGroups"));
+    /* TODO : remplacer bouton_creer_rucher par le bon identifiant 
+    $('#bouton_creer_rucher').click(function() {
+        console.log("ajouter rucher");
+        createHiveGroup();
+    });*/
 };

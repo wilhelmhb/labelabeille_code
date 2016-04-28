@@ -313,3 +313,31 @@ function goToHiveSeuils() {
     //masquerBd();
     //console.log('goToHiveParameters : end');
 }
+
+/**
+ * change the hiveGroup of one hive
+ * @integer idHive : identifier of the hive on server side
+ * @integer idHiveGroup : identifier of the new hiveGroup on client side
+ * @function action : callback, what to do on success
+ */
+function changeHiveGroup(idHive, idHiveGroup, action) {
+    var donnees = 'apibundle_pshive%5BidHiveGroup%5D=' + hiveGroups[idHiveGroup].id;
+    $.ajax({
+        type: 'PATCH',
+        url: url+'pshive/'+idHive,
+        xhrFields: {
+            withCredentials: true
+        },
+        data: donnees,
+        success: function(data) {
+        	//console.log(data); 
+        	//customer = data;
+        	/* local storage for the hives should be updated in action */
+        	action();
+            //console.log("fin modif");
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            //console.log(xhr.responseText);
+        }
+    });
+}
