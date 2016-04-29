@@ -63,7 +63,7 @@ function addCustomNoteToHiveSuccess() {
 function getCustomNotes(action) {
     $.ajax({
         type: 'GET',
-        url: url+'pscustomnote',
+        url: url+'pscustomnote/all',
         xhrFields: {
             withCredentials: true
         },
