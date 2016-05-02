@@ -153,20 +153,6 @@ function goToHiveParameters() {
                     //console.log(xhr.responseText);
                 }
             });
-            /* modification en local
-	        hiveGroups[idHiveGroup].hives[idHive].name = $("#apibundle_pshive_name").val();
-	        hiveGroups[idHiveGroup].hives[idHive].note = $("#apibundle_pshive_note").val();
-	        hiveGroups[idHiveGroup].hives[idHive].latitude = $("#apibundle_pshive_latitude").val();
-	        hiveGroups[idHiveGroup].hives[idHive].longitude = $("#apibundle_pshive_longitude").val();
-	        hiveGroups[idHiveGroup].hives[idHive].hive_type = $("#apibundle_pshive_hiveType").val();
-	        hiveGroups[idHiveGroup].hives[idHive].bees_type = $("#apibundle_pshive_beesType").val();
-	        hiveGroups[idHiveGroup].hives[idHive].material = $("#apibundle_pshive_material").val();
-	        hiveGroups[idHiveGroup].hives[idHive].support = $("#apibundle_pshive_support").val();
-	        hiveGroups[idHiveGroup].hives[idHive].state = $("#apibundle_pshive_state").val();
-	        hiveGroups[idHiveGroup].hives[idHive].harvest = $("#apibundle_pshive_harvest").val();
-	        hiveGroups[idHiveGroup].hives[idHive].note= $("#apibundle_pshive_note").val();
-	        hiveGroups[idHiveGroup].hives[idHive].notes = $("#apibundle_pshive_notes").val();
-	        //console.log(hiveGroups[idHiveGroup].hives[idHive]);*/
         });
     }
     //organiserRuches(listHives.ruches.length);
