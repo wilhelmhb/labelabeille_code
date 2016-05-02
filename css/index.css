@@ -22,9 +22,9 @@ body {
 .bouton{
 	cursor:pointer;
 	background:url('../img/bouton.png');
-	width:64px;
-	height:44px;
-	padding-top:6px;
+	width:50px;
+	height:28px;
+	padding-top:15px;
 	color: #282828;
 	background-size: 100%;
 	margin:auto;
@@ -37,7 +37,7 @@ body {
 	display:block;
 	width:100%;
 	font-family:'open_sanslight';
-	font-size:11px;
+	font-size:9px;
 }
 #ch{
     background:rgba(0,0,0,0.7);
@@ -186,7 +186,6 @@ body {
 	background-image:linear-gradient(0deg, #fcfcfc, #f0f0f0);
 	background-size:100% 100%;
 	overflow:scroll;
-	text-align: center;
 }
 .contenu {
 	width: 90%;

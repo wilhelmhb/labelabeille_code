@@ -19,7 +19,10 @@ function getDataHive(id, id2, name, action) {
 				    idHive = i;
 				    //console.log(i);
 			    	dataHive = test.hives[i].data;
-			        action(i, name, test.hives[i].data);
+					dataHive.id_hive_group=test.hives[i].id_hive_group;
+					dataHive.id_hive_group=test.hives[i].id_hive_group;
+					dataHive.id_hive=id;
+			        action(i, name, dataHive);
 			    }
 			}
 		}
@@ -54,6 +57,7 @@ function getDataHive(id, id2, name, action) {
 function goToDataHives(name, dataHive,r) {
 	var template = $(templates).filter('#tpl-details').html();
 	console.log(dataHive);
+	
 	dataHive.recolte = dataHive["PARAM.POIDS_RECOLTE"];
 	dataHive.miel = dataHive["PARAM.PROD_MIEL_RUCHE"];
 	dataHive.essaim = dataHive["PARAM.POIDS_ESSAIM"];
@@ -67,5 +71,7 @@ function goToDataHives(name, dataHive,r) {
 	_("parametresDetails").addEventListener(evtclick,goToHiveParameters); 
 	//-Historique
 	_("historiqueDetails").addEventListener(evtclick,goToHistorique); 
+	_("ajouter_note_details").addEventListener(evtclick,function(){
+		ajouterNote(dataHive.id_hive_group,dataHive.id_hive);}); 
 	//-Courbes
 }

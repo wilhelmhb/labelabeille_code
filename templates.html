@@ -2,6 +2,7 @@
 
 
 <script type="text/html" id="tpl-historique">
+
 {{#notes}}
 <div class="elt_histo {{important}}" id="histo_{{id}}" onclick="details_histo({{id}});">
     <img src="img/histo_fleche_droite.png" class="fleche" id="fleche_{{id}}"/>
@@ -17,33 +18,53 @@
 </div>
 {{/notes}}
 </script>
-
+<script type="text/html" id="tpl-ajoutnote">
+    <form method="POST" id="form-params-ruchers" class="formulaire">
+		<h2>Ruches concernées<h2>
+		<p>
+			Rucher :
+			<select name="rucher">
+				<option value="general">Historique général</option>
+				{{#ruchers}}
+				<option value="{{data.id_hive_group}}" id="option_{{data.id_hive_group}}" selected="{{data.selected}}">{{data.name}}</option>
+				{{/ruchers}}
+			</select>
+		</p>
+		<p>
+			Ruche :
+			<select name="ruche">
+				<option value="general">Tout le rucher</option>
+				{{#ruches}}
+				<option value="{{data.id_hive}}" id="option_{{data.id_hive}}" selected="{{data.selected}}">{{data.name}}</option>
+				{{/ruches}}
+			</select>
+		</p>
+        <div id="btAjoutNote" class="bouton"><span>Ajouter</span></div>
+		
+	</form>
+</script>
 <script type="text/html" id="tpl-accueil">
 
                 <div id="sous_titre">
                 <span id="nav_gauche"></span>
                 <span id="nav_droite"></span>
-                <h1>Mon rucher 
-                    <!-- TODO : change that button and insert it in the list of hives -->
-                    <input type="button" value="+" id="add_hive" />
-                    <!-- end of TODO -->
-                </h1>
+                <h1>Mon rucher</h1>
                 <div style="clear:both;"></div>
                 </div>
                 <div id="bas_defilement_gris"></div>
                 <div id="ruches">
                 {{#ruches}}
-                <div id="ruche{{index}}" class="ruche">
+                <div id="ruche{{index}}" idruche="{{data.id_hive}}" class="ruche">
                 <div class="fond_ruche_grise"></div>
                 <div class="fond_ruche_selectionnee"></div>
                 <div class="ruche_contenu">
                 <div class="sizing"></div>
                 <div class="ruche_selectionnee">
                 <h1>{{data.name}}</h1>
-                <img src="img/reglages.png" class="ruche_selectionnee_reglages" />
-                <img src="img/supprimer.png" class="ruche_selectionnee_supprimer" />
-                <img src="img/courbes.png" class="ruche_selectionnee_courbes" />
-                <img src="img/historique.png" class="ruche_selectionnee_historique" />
+                <img src="img/reglages.png" id="ruche{{index}}_selectionnee_reglages" class="ruche_selectionnee_reglages"/>
+                <img src="img/supprimer.png" id="ruche{{index}}_selectionnee_supprimer" class="ruche_selectionnee_supprimer"/>
+                <img src="img/courbes.png" id="ruche{{index}}_selectionnee_courbes" class="ruche_selectionnee_courbes"/>
+                <img src="img/historique.png" id="ruche{{index}}_selectionnee_historique" class="ruche_selectionnee_historique"/>
                 <div class="ruche_selectionnee_infos">
                 <p>Orientation : {{data.data.ORI.v}} degrés</p>
                 <p>Masse : {{data.data.MASSE.v}}{{data.data.MASSE.u}}</p>
@@ -60,10 +81,13 @@
                 </div>
                 </div>
                 {{/ruches}}
-
+				<div id="rucheplus">
+					<div class="sizing"></div>
+				</div>
                 </div>
                 <div style="clear:both;"></div>
 </script>
+
 
 <script type="text/html" id="tpl-list-hive-groups">
 <!-- TODO : fill this one -->
@@ -952,7 +976,7 @@
         <input class="bouton" type="submit" value="ENVOYER">
     </form>
 </script>
-<script type="text/javascript" id="tpl-params-rucher">
+<script type="text/html" id="tpl-params-rucher">
     <form method="POST" id="form-params-ruchers">
         <div id="apibundle_pshivegroup">
             <!--<div>
@@ -1291,7 +1315,7 @@
         <input class="bouton" type="submit" value="ENVOYER">
     </form>
 </script>
-<script type="text/javascript" id="tpl-params-ruche">
+<script type="text/html" id="tpl-params-ruche">
     <form action="" method="POST" id="form-params-hive" >
         <div id="apibundle_pshive">
             <!--<div>
@@ -1657,7 +1681,7 @@
                     <input class="bouton" type="submit" value="ENVOYER">
     </form>
 </script>
-<script type="text/javascript" id="tpl-params-ruche-seuils">
+<script type="text/html" id="tpl-params-ruche-seuils">
     <form action="" method="POST" id="form-params-hive-seuils" >
         <div id="seuils">
             {{#seuils}}

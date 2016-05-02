@@ -61,7 +61,7 @@
         <div id="bd" style="visibility:hidden;">
             <div id="boite">
                 <span id="messBd">Mauvais identifiant ou mot de passe</span>
-                <div id="btBd" class="bouton"><p></p><span id="btBd_txt">REESSAYER</span></div>
+                <div id="btBd" class="bouton"><span id="btBd_txt">REESSAYER</span></div>
             </div>
         </div>
         
@@ -83,9 +83,9 @@
                             <form>
                                 <input class="zone_texte" type="text" value="Adresse e-mail" id="email_connexion" onfocus="if(this.value=='Adresse e-mail'){this.value=''}" onblur="if(this.value==''){this.value = 'Adresse e-mail'}"/>
                                 <input class="zone_texte" type="text" value="Mot de passe" id="mdp_connexion" onfocus="if(this.value=='Mot de passe'){this.value='';this.type='password'}" onblur="if(this.value==''){this.value = 'Mot de passe'; this.type='text'}"/>
-                                <div class="bouton" id="valider_connexion"><p></p><span>VALIDER</span></div>
-                                <div class="bouton" id="commencer_inscription"><p></p><span>S'INSCRIRE</span></div>
-                                <div class="bouton" id="test"><p></p><span>TESTER</span></div>
+                                <div class="bouton" id="valider_connexion" style="display:inline-block;"><span>VALIDER</span></div>
+                                <div class="bouton" id="commencer_inscription" style="display:inline-block;"><span>S'INSCRIRE</span></div>
+                                <div class="bouton" id="test" style="display:inline-block;"><span>TESTER</span></div>
                             </form>
                             <div style="clear:left;"></div>
                         </div>
@@ -366,11 +366,12 @@
             <div class="page" id="pdetails">
                 <div id="menu_haut">
                     <img class="retour" src="img/retour.png" id="retour_params_details" alt="Retour" />
-                    <h1></h1>
+                    <h1>Détails de la ruche</h1>
                 </div>
                 <div id="bas_defilement"></div>
-                <div id="bas_triangle"><img style="opacity:0.3;filter:alpha(opacity = 0.3)"  src="img/ajouter_note.png" alt="Ajouter une note" /></div>
+                <div id="bas_triangle"><img id="ajouter_note_details" src="img/ajouter_note.png" alt="Ajouter une note" /></div>
                 <div id="corps" class="corps">
+                    
                 </div>
             </div>
 
@@ -378,16 +379,29 @@
             <div class="page" id="phistorique">
                 <div id="menu_haut">
                     <img class="retour" src="img/retour.png" id="retour_params_generaux" alt="Retour" />
-                    <h1><img src="img/picto_historique.png" /> <span>Historique</span></h1>
+                    <h1><img src="img/picto_historique.png" /><span>Historique</span></h1>
+                    
                 </div>
                 <div id="bas_defilement"></div>
-                <div id="bas_triangle"></div>
+                <div id="bas_triangle"><img id="ajouter_note_historique" src="img/ajouter_note.png" alt="Ajouter une note" /></div>
                 <div class="corps">
                     <div id="sous_titre">
                     	   <input type="text" id="filtre_historique" placeholder="Rechercher..." />
                     </div>
                     <div id="content-historique">
+                        
                     </div>
+                </div>
+            </div>
+            <div class="page" id="pajoutnote">
+                <div id="menu_haut">
+                    <img class="retour" src="img/retour.png" id="retour_params_details" alt="Retour" />
+                    <h1>Ajout d'une note'</h1>
+                </div>
+                <div id="bas_defilement"></div>
+                <div id="bas_triangle"></div>
+                <div id="content-ajout-note" class="corps">
+                    
                 </div>
             </div>
 

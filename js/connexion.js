@@ -77,7 +77,7 @@ function connexion(user, passwd, success, failure) {
  */
 function connect() {
     $("#test").click(tester);
-    $("#valider_connexion").on(evtclick, function(){
+    $("#valider_connexion").click(function(){
         if(!enCharge){
             var user = encodeURIComponent($("#email_connexion").val());
             //console.log(user);
@@ -101,9 +101,9 @@ function connexion_failure() {
  * redirect user to the list of his/her hives
  */
 function connexion_success() {
-    afficherBd("Vous êtes connecté. Vous allez être redirigé vers la liste de vos ruches dans quelques instants. Si ce n'est pas le cas, cliquez sur le bouton ci-dessous.", "Aller à la liste des ruches");
+    afficherBd("Vous êtes connecté. Vous allez être redirigé vers la liste de vos ruches dans quelques instants. Si ce n'est pas le cas, cliquez sur le bouton ci-dessous.", "Aller");
     getListHives(0, goToListHives);
     _("btBd").addEventListener(evtclick, function (){
-        getListHives(0, goToListHives);
+       getListHives(0, goToListHives);
     });
 }

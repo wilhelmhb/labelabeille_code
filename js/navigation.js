@@ -1,7 +1,6 @@
-function transition(p2,mode,p1){
-	//console.log('transition : begin');
-	slider.slidePageFrom(p2,"right");
-	//console.log('transition : end');
+function transition(p2,mode){
+	if(mode=="retour")slider.slidePageFrom(p2,"left");
+	else slider.slidePageFrom(p2,"right");
 }
 
 function retour(){slider.slidePageFrom(null,"left");}
@@ -19,12 +18,21 @@ function PageSlider(container,pageinit) {
 	        enTransition=true;
 			if(dest==null){
 				dest=hist.pop();// si aucune destination n'est demandée, la destination est la dernière page visitée précedemment
+	            if($(dest).attr("id")=="paccueil"){
+	                //reinitAccueil();
+					enTransition=false;
+					getListHives(0, goToListHives,1);
+					return;
+	            }
+	            if($(dest).attr("id")=="pconnexion"){
+	                connect();
+	            }
 			}
 			else{
 				dest=$(dest);
 				hist.push(currentPage);
 			}
-		
+
 	        container.append(dest);
 	
 	        if (!currentPage || !from) {
@@ -50,9 +58,7 @@ function PageSlider(container,pageinit) {
 	        dest.attr("class", "page transition center");
 	        currentPage.attr("class", "page transition " + (from === "left" ? "right" : "left"));
 	        currentPage = dest;
-            if($(dest).attr("id")=="paccueil"){
-                reinitAccueil();
-            }
+            
         }
     	//console.log('slidePageFrom : end, enTransition='+enTransition);
     };

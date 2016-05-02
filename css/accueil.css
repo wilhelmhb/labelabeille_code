@@ -117,6 +117,21 @@
 	z-index:2;
 	position:absolute;
 }
+#rucheplus
+{
+	width:50%;
+
+	z-index:2;
+	position:absolute;
+	background:url('../img/ajout_ruche.png');
+	background-repeat:no-repeat;
+	background-size: 100% auto;
+	cursor:pointer;
+}
+#rucheplus .sizing
+{
+	padding-top:120%;
+}
 .ruche_grise h1{
 	width:100%;
 	position:absolute;

@@ -3,14 +3,14 @@
  * @int idHiveGroup : identifier of the hiveGroup
  * @function action : callback, what to do with the data
  */
-function getListHives(idHiveGroup, action) {
+function getListHives(idHiveGroup, action,retour) {
 		enCharge=true;
 		_("ch").style.visibility="visible";
 		if(isTest) {
 		    enCharge=false;
 		    hiveGroups[idHiveGroup].hives = test.hives;
 			_("ch").style.visibility="hidden";
-			action(id, test.hives);
+			action(idHiveGroup, test.hives,retour);
 		}
 		else {
             $.ajax({
@@ -25,10 +25,9 @@ function getListHives(idHiveGroup, action) {
 				    _("ch").style.visibility="hidden";
                     //console.log(data); 
                     //$("#resultat").html(JSON.stringify(data));
-                    console.log(id);
                     console.log("hiveGroups : " + hiveGroups);
 				    hiveGroups[idHiveGroup].hives = data;
-                    action(id, data);
+                    action(idHiveGroup, data,retour);
                 },
             });
         }
@@ -39,7 +38,8 @@ function getListHives(idHiveGroup, action) {
  * @int id : identifier of the hiveGroup
  * @Object listHives : JSON Object containing the list of all hives
  */
-function goToListHives(idHiveGroup, listHives) {
+function goToListHives(idHiveGroup, listHives,retour) {
+
 	//console.log('goToListHives : begin');
 	var template = $(templates).filter('#tpl-accueil').html();
 	var idx = 1;
@@ -77,10 +77,10 @@ function goToListHives(idHiveGroup, listHives) {
 		    var h = Mustache.render(template, listHives);
             console.log(listHives);
 		    //console.log(h);
-		    document.getElementById("content-accueil").innerHTML = h;
+			document.getElementById("content-accueil").innerHTML = h;
 		    //console.log(document.getElementById("paccueil").innerHTML);
 		    //console.log('goToListHives : before transition');
-		    transition(_("paccueil"), "slide");
+		    transition(_("paccueil"), (retour==1)?"retour":"");
 	        $("#add_hive").click(function() {
 	            console.log("ajouter ruche");
 	            createHive();
