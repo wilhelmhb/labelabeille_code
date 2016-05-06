@@ -13,9 +13,11 @@ function getListHives(idHiveGroup, action,retour) {
 			action(idHiveGroup, test.hives,retour);
 		}
 		else {
+		    console.log('récupération des ruches du rucher ' + idHiveGroup);
+		    console.log(hiveGroups[idHiveGroup]);
             $.ajax({
                 type: 'GET',
-                url: url+'pscustomer/hives/me',
+                url: url+'pshivegroup/hives/' + hiveGroups[idHiveGroup].id_hive_group,
                 dataType: "json",
                 xhrFields: {
                     withCredentials: true
@@ -23,11 +25,11 @@ function getListHives(idHiveGroup, action,retour) {
                 success: function(data) {
 				    enCharge=false;
 				    _("ch").style.visibility="hidden";
-                    //console.log(data); 
+                    console.log(data.ruches); 
                     //$("#resultat").html(JSON.stringify(data));
                     console.log("hiveGroups : " + hiveGroups);
-				    hiveGroups[idHiveGroup].hives = data;
-                    action(idHiveGroup, data,retour);
+				    hiveGroups[idHiveGroup].hives = data.ruches;
+                    action(idHiveGroup, data.ruches,retour);
                 },
             });
         }
@@ -107,5 +109,5 @@ function goToListHives(idHiveGroup, listHives,retour) {
 		    masquerBd();
 		}
 	}
-	getDataHive(listHives[0].id_hive, 0, listHives[0].name, a);
+	getDataHive(hiveGroups[idHiveGroup].hives[0].id_hive, 0, hiveGroups[idHiveGroup].hives[0].name, a);
 };

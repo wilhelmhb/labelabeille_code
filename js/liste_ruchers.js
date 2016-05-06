@@ -14,7 +14,7 @@ function getListHiveGroups(action) {
 		else {
             $.ajax({
                 type: 'GET',
-                url: url+'pscustomer/hives/me', //TODO : change for getting the list of the hiveGroups
+                url: url+'pscustomer/hivegroups/me',
                 dataType: "json",
                 xhrFields: {
                     withCredentials: true
