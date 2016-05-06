@@ -102,8 +102,18 @@ function connexion_failure() {
  */
 function connexion_success() {
     afficherBd("Vous êtes connecté. Vous allez être redirigé vers la liste de vos ruches dans quelques instants. Si ce n'est pas le cas, cliquez sur le bouton ci-dessous.", "Aller");
-    getListHives(0, goToListHives);
+    //OLD
+    /*getListHives(0, goToListHives);
     _("btBd").addEventListener(evtclick, function (){
        getListHives(0, goToListHives);
+    });*/
+    
+    //NEW
+    getListHiveGroups(function() {
+        console.log("récupération des listes de ruches par rucher");
+        getListHives(0, goToListHives);
+        _("btBd").addEventListener(evtclick, function (){
+           getListHives(0, goToListHives);
+        });
     });
 }
