@@ -1,5 +1,5 @@
 //HISTORIQUE
-function goToHistorique(idGroup,idRuche){
+function goToHistorique(){
 	//Marche seulement en mode test pour l'instant
 	
 	var historique = {"notes" : [
@@ -28,7 +28,7 @@ function goToHistorique(idGroup,idRuche){
     transition(_("phistorique"), "slide");
 	$("#ajouter_note_historique").click(
 		function(){
-			ajouterNote(idGroup,idRuche);
+			ajouterNote();
 		}
 	);
 	details_histo(1);
@@ -44,17 +44,17 @@ function details_histo(nouveau){
 function supprimer_histo(id){
 	//
 }
-function ajouterNote(idGroup,idRuche){
+function ajouterNote(){
 	var template = $(templates).filter('#tpl-ajoutnote').html();
 	for(var i = 0; i< test.hives.length; i++) {
 		test.hives[i].selected="";
-	    if(test.hives[i].id_hive == idRuche) {
+	    if(i== idHive) {
 			test.hives[i].selected="selected";
 	    }
 	}
 	for(var i = 0; i< test.hivegroups.length; i++) {
 		test.hivegroups[i].selected="";
-	    if(test.hivegroups[i].id_hive_group == idGroup) {
+	    if(i == idHiveGroup) {
 			test.hivegroups[i].selected="selected";
 	    }
 	}
@@ -62,6 +62,7 @@ function ajouterNote(idGroup,idRuche){
 		"ruchers":test.hivegroups,
 		"ruches":test.hives
 	}
+	console.log(dataRuches);
   	var h = Mustache.render(template, dataRuches);
     document.getElementById("content-ajout-note").innerHTML = h;
     transition(_("pajoutnote"), "");

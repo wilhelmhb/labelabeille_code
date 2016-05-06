@@ -4,7 +4,7 @@
 <script type="text/html" id="tpl-historique">
 
 {{#notes}}
-<div class="elt_histo {{important}}" id="histo_{{id}}" onclick="details_histo({{id}});">
+<div class="elt_histo {{#important}}histo_important{{/important}}" id="histo_{{id}}" onclick="details_histo({{id}});">
     <img src="img/histo_fleche_droite.png" class="fleche" id="fleche_{{id}}"/>
     <img src="img/histo_supprimer.png" class="supprimer" onclick="supprimer_histo({{id}});"/>
     <div class="elt_histo_titre">{{titre}}</div>
@@ -26,7 +26,7 @@
 			<select name="rucher">
 				<option value="general">Historique général</option>
 				{{#ruchers}}
-				<option value="{{data.id_hive_group}}" id="option_{{data.id_hive_group}}" selected="{{data.selected}}">{{data.name}}</option>
+				<option value="{{id_hive_group}}" id="option_{{id_hive_group}}" {{#selected}}selected="selected"{{/selected}}>{{name}}</option>
 				{{/ruchers}}
 			</select>
 		</p>
@@ -35,7 +35,7 @@
 			<select name="ruche">
 				<option value="general">Tout le rucher</option>
 				{{#ruches}}
-				<option value="{{data.id_hive}}" id="option_{{data.id_hive}}" selected="{{data.selected}}">{{data.name}}</option>
+				<option value="{{id_hive}}" id="option_{{id_hive}}" {{#selected}}selected="selected"{{/selected}}>{{name}}</option>
 				{{/ruches}}
 			</select>
 		</p>
