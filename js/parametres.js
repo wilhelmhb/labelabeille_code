@@ -134,17 +134,19 @@ function goToHiveParameters() {
             e.preventDefault();
             var donnees = $(this).serialize();
             //console.log(donnees);
+            console.log(hiveGroups[idHiveGroup].hives[idHive]);
             $.ajax({
                 type: 'PATCH',
-                url: url+'pshive/'+hiveGroups[idHiveGroup].hives[idHive].id,
+                url: url+'pshive/'+hiveGroups[idHiveGroup].hives[idHive].id_hive,
                 xhrFields: {
                     withCredentials: true
                 },
                 data: donnees,
                 success: function(data) {
-                	//console.log(data); 
+                	console.log(data); 
                 	//customer = data;
-                	updateLocalHive(donnees);
+                	updateLocalHive(data);
+                	console.log(hiveGroups[idHiveGroup].hives[idHive]);
 	                /* go back to details */
 	                goToDataHives(hiveGroups[idHiveGroup].hives[idHive].name, hiveGroups[idHiveGroup].hives[idHive].data,true);
                     //console.log("fin modif");

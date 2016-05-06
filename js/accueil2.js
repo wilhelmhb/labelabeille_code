@@ -1,7 +1,7 @@
 var h,h2,hruches,w;
 var nbRuches;
-var rucheSelect=3;
-var rucheSelect2=3;
+var rucheSelect=1;
+var rucheSelect2=1;
 var transitionEnCours=false;
 var $window;
 var decalTop;
@@ -17,6 +17,7 @@ function initAccueil(){
 	    if(_("ruche1").offsetHeight != null) {
 	        //console.log('ok');
 	        h = _("ruche1").offsetHeight;
+	        console.log(rucheSelect);
 	        h2 = _("ruche"+rucheSelect).offsetHeight;
 	        hruches = _("ruches").offsetHeight;
 	    }

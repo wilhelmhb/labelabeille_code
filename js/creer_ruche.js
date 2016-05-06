@@ -38,21 +38,21 @@ function createHive() {
             //console.log(donnees);
             $.ajax({
                 type: 'POST',
-                url: url+'pshive',
+                url: url+'pshive/create',
                 xhrFields: {
                     withCredentials: true
                 },
                 data: donnees,
                 success: function(data) {
-                	//console.log(data); 
+                	console.log(data); 
                 	//customer = data;
                 	idHive = hiveGroups[idHiveGroup].hives.length; //change idHive
-                	updateLocalHive(donnees); // locally update list hive 
+                	updateLocalHive(data); // locally update list hive 
                 	console.log(hiveGroups[idHiveGroup].hives[idHive]);
                 	goToAddLogger(); // add if needed a logger to the hive
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
-                    //console.log(xhr.responseText);
+                    console.log(xhr.responseText);
                 }
             });
             /* modification en local */
@@ -93,6 +93,9 @@ function updateLocalHive(donnees) {
  */
 function goToAddLogger() {
     transition(_("padd-logger"));
+    var idClient = hiveGroups[idHiveGroup].id_client;
+    console.log(idClient);
+    console.log(hiveGroups[idHiveGroup].hives[idHive]);
     $("#form-add-logger").submit(function(e){
         //console.log("début ajout");
         e.preventDefault();
@@ -107,9 +110,9 @@ function goToAddLogger() {
             //TODO : where to find idClient ? version ?
             data: donnees+ '&apibundle_psbox%5BidHive%5D=' + idHive + '&apibundle_psbox%5BidClient%5D=' + idClient + '&apibundle_psbox%5Bversion%5D=&apibundle_psbox%5Bnote%5D=&apibundle_psbox%5Bactive%5D=1&apibundle_psbox%5BdateAdd%5D%5Bdate%5D%5Byear%5D=2011&apibundle_psbox%5BdateAdd%5D%5Bdate%5D%5Bmonth%5D=1&apibundle_psbox%5BdateAdd%5D%5Bdate%5D%5Bday%5D=1&apibundle_psbox%5BdateAdd%5D%5Btime%5D%5Bhour%5D=0&apibundle_psbox%5BdateAdd%5D%5Btime%5D%5Bminute%5D=0&apibundle_psbox%5BdateUpd%5D%5Bdate%5D%5Byear%5D=2011&apibundle_psbox%5BdateUpd%5D%5Bdate%5D%5Bmonth%5D=1&apibundle_psbox%5BdateUpd%5D%5Bdate%5D%5Bday%5D=1&apibundle_psbox%5BdateUpd%5D%5Btime%5D%5Bhour%5D=0&apibundle_psbox%5BdateUpd%5D%5Btime%5D%5Bminute%5D=0',
             success: function(data) {
-            	//console.log(data); 
+            	console.log(data); 
             	//customer = data;
-            	goToListHive(idHiveGroup, hiveGroups[idHiveGroup].hives);
+            	goToListHives(idHiveGroup, hiveGroups[idHiveGroup].hives);
             },
             error: function (xhr, ajaxOptions, thrownError) {
                 //console.log(xhr.responseText);
