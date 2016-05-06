@@ -84,7 +84,9 @@ function updateLocalHive(donnees) {
         hiveGroups[idHiveGroup].hives.push(donnees);
     }
     else {//update old one
-        hiveGroups[idHiveGroup].hives[idHive] = donnees;
+        for(var field in donnees) {
+            hiveGroups[idHiveGroup].hives[idHive][field] = donnees[field];
+        }
     }
 }
 
