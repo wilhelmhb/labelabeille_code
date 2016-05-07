@@ -103,10 +103,13 @@ function ajouterNote() {
   	var h = Mustache.render(template, dataRuches);
     document.getElementById("content-ajout-note").innerHTML = h;
     transition(_("pajoutnote"), "");
-    $("form").on("submit", function(e){
+    $("form").on("submit", function(e) {
         e.preventDefault();
-        console.log($(this));
-        console.log($(this).attr('id'));
-        addCustomNoteToHive($(this).attr('id'));
+        if($(this).attr('type') == "default") {
+            addDefaultNoteToHive($(this).attr('id'));
+        }
+        else {
+            addCustomNoteToHive($(this).attr('id'));
+        }
 	});
 }
