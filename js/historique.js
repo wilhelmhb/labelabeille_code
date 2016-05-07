@@ -75,7 +75,7 @@ function details_histo(nouveau){
 function supprimer_histo(id){
 	//
 }
-function ajouterNote(){
+function ajouterNote() {
 	var template = $(templates).filter('#tpl-ajoutnote').html();
 	/* choose hivegroup and hive
 	for(var i = 0; i< test.hives.length; i++) {

@@ -25,6 +25,7 @@ function addDefaultNoteToHive(idDefaultNote) {
  */
 function addDefaultNoteToHiveSuccess() {
     //TODO : decide what to do after successfully having added a default note to a hive
+    goToHistorique();
 }
 
 /**
