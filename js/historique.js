@@ -1,4 +1,22 @@
 //HISTORIQUE
+function formatDate(date) {
+    var formattedDate = new Date(date);
+    var d = formattedDate.getDate();
+    var m =  formattedDate.getMonth();
+    m += 1;  // JavaScript months are 0-11
+    m = twoDigits(m);
+    d = twoDigits(d);
+    var y = formattedDate.getFullYear();
+    return d + "/" + m + "/" + y;
+}
+
+function twoDigits(n) {
+    if(n < 10) {
+        return "0" + n;
+    }
+    return n;
+}
+
 function goToHistorique(){
 	//Marche seulement en mode test pour l'instant
 	
