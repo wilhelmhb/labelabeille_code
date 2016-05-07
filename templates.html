@@ -4,17 +4,17 @@
 <script type="text/html" id="tpl-historique">
 
 {{#notes}}
-<div class="elt_histo histo_{{data.level}}" id="histo_{{id}}" onclick="details_histo({{id}});">
-    <img src="img/histo_fleche_droite.png" class="fleche" id="fleche_{{id}}"/>
-    <img src="img/histo_supprimer.png" class="supprimer" onclick="supprimer_histo({{id}});"/>
-    <div class="elt_histo_titre">{{data.name}}</div>
-    <div class="elt_histo_date">{{date_add}}</div>
+<div class="elt_histo histo_{{note.data.level}}" id="histo_{{index}}" onclick="details_histo({{index}});">
+    <img src="img/histo_fleche_droite.png" class="fleche" id="fleche_{{index}}"/>
+    <img src="img/histo_supprimer.png" class="supprimer" onclick="supprimer_histo({{index}});"/>
+    <div class="elt_histo_titre">{{note.data.name}}</div>
+    <div class="elt_histo_date">{{note.date_add}}</div>
 </div>
-<div class="details_histo" id="details_histo_{{id}}" style="display:none;">
-    <h1>{{data.message}}</h1>
-	{{#infos}}
+<div class="details_histo" id="details_histo_{{index}}" style="display:none;">
+    <h1>{{note.data.message}}</h1>
+	{{#note.infos}}
     <p>{{.}}</p>
-	{{/infos}}
+	{{/note.infos}}
 </div>
 {{/notes}}
 </script>

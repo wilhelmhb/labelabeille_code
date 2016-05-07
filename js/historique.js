@@ -22,6 +22,7 @@ function twoDigits(n) {
 
 function goToHistorique(){
 	//Marche seulement en mode test pour l'instant
+	var idx = 0;
 	getCustomNotesForHive(function(data) {
 	    console.log("CustomNote récupérée");
 	    customNotesSetByUser = data;
@@ -48,7 +49,12 @@ function goToHistorique(){
                 }
                 notes.push(note);
             };
-            historique = {"notes" : notes};
+            for (idx in notes) {
+				   notes[idx] = {'index': (parseInt(idx)+1), 'note': notes[idx]};
+			}
+            historique = {
+                "notes" : notes
+            };
             var template = $(templates).filter('#tpl-historique').html();
             /*console.log(listHives.ruches.length);
             console.log(JSON.stringify(listHives)); 
