@@ -2,12 +2,15 @@
 function formatDate(date) {
     var formattedDate = new Date(date);
     var d = formattedDate.getDate();
-    var m =  formattedDate.getMonth();
-    m += 1;  // JavaScript months are 0-11
-    m = twoDigits(m);
+    var M =  formattedDate.getMonth();
+    M += 1;  // JavaScript months are 0-11
+    M = twoDigits(M);
     d = twoDigits(d);
     var y = formattedDate.getFullYear();
-    return d + "/" + m + "/" + y;
+    var h = twoDigits(formattedDate.getHours());
+    var m = twoDigits(formattedDate.getMinutes());
+    var s = twoDigits(formattedDate.getSeconds());
+    return d + "/" + M + "/" + y + " " + h + ":" + m + ":" + s;
 }
 
 function twoDigits(n) {
