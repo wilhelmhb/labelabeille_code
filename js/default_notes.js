@@ -9,7 +9,7 @@ function addDefaultNoteToHive(idDefaultNote) {
         xhrFields: {
             withCredentials: true
         },
-        data: 'apibundle_psdefaultnotecustomer%5Bid_default_note%5D=' + idDefaultNote + '&apibundle_psdefaultnotecustomer%5Bid_hive%5D=' + idHive,
+        data: 'apibundle_psdefaultnotecustomer%5BidDefaultNote%5D=' + idDefaultNote + '&apibundle_psdefaultnotecustomer%5BidHive%5D=' + hiveGroups[idHiveGroup].hives[idHive].id_hive + '&apibundle_psdefaultnotecustomer%5BidCustomer%5D=' + customer.id,
         success: function(data) {
             console.log(data);
             addDefaultNoteToHiveSuccess();
@@ -40,6 +40,9 @@ function getDefaultNotes(action) {
         },
         success: function(data) {
             console.log(data);
+            for(var i in data) {
+                data[i].level = levels[data[i].level];
+            }
             action(data);
         },
         error: function (xhr, ajaxOptions, thrownError) {
@@ -55,12 +58,15 @@ function getDefaultNotes(action) {
 function getDefaultNotesForHive(action) {
     $.ajax({
         type: 'GET',
-        url: url+'psdefaultnotecustomer/hives/' + idHive,
+        url: url+'psdefaultnotecustomer/hives/' + hiveGroups[idHiveGroup].hives[idHive].id_hive,
         xhrFields: {
             withCredentials: true
         },
         success: function(data) {
             console.log(data);
+            for(var i in data) {
+                data[i].date_add = formatDate(data[i].date_add);
+            }
             action(data);
         },
         error: function (xhr, ajaxOptions, thrownError) {
