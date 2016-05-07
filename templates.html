@@ -19,7 +19,7 @@
 {{/notes}}
 </script>
 <script type="text/html" id="tpl-ajoutnote">
-    <form method="POST" id="form-params-ruchers" class="formulaire">
+    <!--<form method="POST" id="form-params-ruchers" class="formulaire">
 		<h2>Ruches concernées<h2>
 		<p>
 			Rucher :
@@ -40,8 +40,13 @@
 			</select>
 		</p>
         <div id="btAjoutNote" class="bouton"><span>Ajouter</span></div>
-		
-	</form>
+	</form>-->
+	<h2>Notes personnalisées</h2>
+	{{#notes}}
+	    <form id="{{id}}">
+	        <input type="submit" value="{{name}}" />
+	    </form>
+	{{/notes}}
 </script>
 <script type="text/html" id="tpl-accueil">
 
