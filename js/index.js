@@ -26,6 +26,11 @@ var idHiveGroup = 0;
 var dataHive = null;
 var idHive = 1;
 var listHivesGlobal;
+var levels = ["info", "todo", "warning", "important", "critical"];
+var customNotesSetByUser;
+var customNotesCreatedByUser;
+var defaultNotes;
+var historique;
 
 document.addEventListener('deviceready', function () {
 	cordova.plugins.backgroundMode.enable();
