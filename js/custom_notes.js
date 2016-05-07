@@ -32,15 +32,16 @@ function addNoteSuccess() {
  * @integer idCustomNote: identifier of the note to add
  */
 function addCustomNoteToHive(idCustomNote) {
+    console.log(hiveGroups[idHiveGroup].hives[idHive]);
     $.ajax({
         type: 'POST',
         url: url+'pscustomnotecustomer',
         xhrFields: {
             withCredentials: true
         },
-        data: 'apibundle_pscustomnotecustomer%5Bid_custom_note%5D=' + idCustomNote + '&apibundle_pscustomnotecustomer%5Bid_hive%5D=' + idHive,
+        data: 'apibundle_pscustomnotecustomer%5BidCustomNote%5D=' + idCustomNote + '&apibundle_pscustomnotecustomer%5BidHive%5D=' + hiveGroups[idHiveGroup].hives[idHive].id_hive,
         success: function(data) {
-            console.log(data);
+            console.log("C'est RAS : " + data);
             addCustomNoteToHiveSuccess();
         },
         error: function (xhr, ajaxOptions, thrownError) {
@@ -54,6 +55,7 @@ function addCustomNoteToHive(idCustomNote) {
  */
 function addCustomNoteToHiveSuccess() {
     //TODO : decide what to do after successfully having added a custom note to a hive
+    goToHistorique();
 }
 
 /**
@@ -69,6 +71,9 @@ function getCustomNotes(action) {
         },
         success: function(data) {
             console.log(data);
+            for(var i in data) {
+                data[i].level = levels[data[i].level];
+            }
             action(data);
         },
         error: function (xhr, ajaxOptions, thrownError) {
@@ -84,12 +89,17 @@ function getCustomNotes(action) {
 function getCustomNotesForHive(action) {
     $.ajax({
         type: 'GET',
-        url: url+'pscustomnotecustomer/hives/' + idHive,
+        url: url+'pscustomnotecustomer/hives/' + hiveGroups[idHiveGroup].hives[idHive].id_hive,
         xhrFields: {
             withCredentials: true
         },
         success: function(data) {
+            console.log(idHive);
+            console.log(hiveGroups[idHiveGroup].hives[idHive].id_hive);
             console.log(data);
+            for(var i in data) {
+                data[i].date_add = formatDate(data[i].date_add);
+            }
             action(data);
         },
         error: function (xhr, ajaxOptions, thrownError) {
