@@ -95,7 +95,10 @@ function ajouterNote() {
 		"ruches":test.hives
 	}
 	console.log(dataRuches);*/
-	dataRuches = {"notes" : customNotesCreatedByUser};
+	dataRuches = {
+	    "custom_notes" : customNotesCreatedByUser,
+	    "default_notes" : defaultNotes
+	};
 	
   	var h = Mustache.render(template, dataRuches);
     document.getElementById("content-ajout-note").innerHTML = h;
