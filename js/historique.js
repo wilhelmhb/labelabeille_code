@@ -49,6 +49,11 @@ function goToHistorique(){
                 }
                 notes.push(note);
             };
+            notes.sort(function(a, b) {
+                if (a.date_add < b.date_add) return 1;
+                if (a.date_add > b.date_add) return -1;
+                return 0;
+            });
             for (idx in notes) {
 				   notes[idx] = {'index': (parseInt(idx)+1), 'note': notes[idx]};
 			}
