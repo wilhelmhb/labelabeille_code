@@ -19,37 +19,50 @@ function twoDigits(n) {
 
 function goToHistorique(){
 	//Marche seulement en mode test pour l'instant
-	
-	var historique = {"notes" : [
-		{"id":1, "important":"", "titre" : "Titre de la note","date":"05/03/16","sous_titre":"Sous titre","infos":["Ligne d'information 1","Ligne d'information 2","Ligne d'information 3"]},
-		{"id":2, "important":"", "titre" : "Titre de la note","date":"05/03/16","sous_titre":"Sous titre","infos":["Ligne d'information 1","Ligne d'information 2","Ligne d'information 3"]},
-		{"id":3, "important":"", "titre" : "Titre de la note","date":"05/03/16","sous_titre":"Sous titre","infos":["Ligne d'information 1","Ligne d'information 2","Ligne d'information 3"]},
-		{"id":4, "important":"histo_important", "titre" : "Titre de la note","date":"05/03/16","sous_titre":"Sous titre","infos":["Ligne d'information 1","Ligne d'information 2","Ligne d'information 3"]},
-		{"id":5, "important":"", "titre" : "Titre de la note","date":"05/03/16","sous_titre":"Sous titre","infos":["Ligne d'information 1","Ligne d'information 2","Ligne d'information 3"]},
-		{"id":6, "important":"", "titre" : "Titre de la note","date":"05/03/16","sous_titre":"Sous titre","infos":["Ligne d'information 1","Ligne d'information 2","Ligne d'information 3"]},
-		{"id":7, "important":"", "titre" : "Titre de la note","date":"05/03/16","sous_titre":"Sous titre","infos":["Ligne d'information 1","Ligne d'information 2","Ligne d'information 3"]},
-		{"id":8, "important":"", "titre" : "Titre de la note","date":"05/03/16","sous_titre":"Sous titre","infos":["Ligne d'information 1","Ligne d'information 2","Ligne d'information 3"]},
-		{"id":9, "important":"", "titre" : "Titre de la note","date":"05/03/16","sous_titre":"Sous titre","infos":["Ligne d'information 1","Ligne d'information 2","Ligne d'information 3"]},
-		{"id":10, "important":"", "titre" : "Titre de la note","date":"05/03/16","sous_titre":"Sous titre","infos":["Ligne d'information 1","Ligne d'information 2","Ligne d'information 3"]},
-		{"id":11, "important":"", "titre" : "Titre de la note","date":"05/03/16","sous_titre":"Sous titre","infos":["Ligne d'information 1","Ligne d'information 2","Ligne d'information 3"]},
-		{"id":12, "important":"", "titre" : "Titre de la note","date":"05/03/16","sous_titre":"Sous titre","infos":["Ligne d'information 1","Ligne d'information 2","Ligne d'information 3"]},
-		{"id":13, "important":"", "titre" : "Titre de la note","date":"05/03/16","sous_titre":"Sous titre","infos":["Ligne d'information 1","Ligne d'information 2","Ligne d'information 3"]}
-	]};
-	//
-	var template = $(templates).filter('#tpl-historique').html();
-	/*console.log(listHives.ruches.length);
-	console.log(JSON.stringify(listHives)); 
-	console.log(listHives.ruches[0].name);*/
-    var h = Mustache.render(template, historique);
-    document.getElementById("content-historique").innerHTML = h;
-    //console.log('goToGeneralParameters : before transition');
-    transition(_("phistorique"), "slide");
-	$("#ajouter_note_historique").click(
-		function(){
-			ajouterNote();
-		}
-	);
-	details_histo(1);
+	getCustomNotesForHive(function(data) {
+	    console.log("CustomNote récupérée");
+	    customNotesSetByUser = data;
+        var notes = [];
+        for(var i in customNotesSetByUser) {
+            console.log(customNotesSetByUser[i]);
+            var note = customNotesSetByUser[i];
+            for(var j in customNotesCreatedByUser) {
+                if(customNotesCreatedByUser[j].id == note.id_custom_note) {
+                    note.data = customNotesCreatedByUser[j];
+                }
+            }
+            notes.push(note);
+        };
+        getDefaultNotesForHive(function(data) {
+            var defaultNotesSetByUser = data;
+            for(var i in defaultNotesSetByUser) {
+                console.log(defaultNotesSetByUser[i]);
+                var note = defaultNotesSetByUser[i];
+                for(var j in defaultNotes) {
+                    if(defaultNotes[j].id == note.id_default_note) {
+                        note.data = defaultNotes[j];
+                    }
+                }
+                notes.push(note);
+            };
+            historique = {"notes" : notes};
+            var template = $(templates).filter('#tpl-historique').html();
+            /*console.log(listHives.ruches.length);
+            console.log(JSON.stringify(listHives)); 
+            console.log(listHives.ruches[0].name);*/
+            console.log(historique);
+            var h = Mustache.render(template, historique);
+            document.getElementById("content-historique").innerHTML = h;
+            //console.log('goToGeneralParameters : before transition');
+            transition(_("phistorique"), "slide");
+            $("#ajouter_note_historique").click(
+	            function(){
+		            ajouterNote();
+	            }
+            );
+            details_histo(1);
+        });
+	});
 }
 var selectHisto=1;
 function details_histo(nouveau){
@@ -64,9 +77,10 @@ function supprimer_histo(id){
 }
 function ajouterNote(){
 	var template = $(templates).filter('#tpl-ajoutnote').html();
+	/* choose hivegroup and hive
 	for(var i = 0; i< test.hives.length; i++) {
 		test.hives[i].selected="";
-	    if(i== idHive) {
+	    if(i == idHive) {
 			test.hives[i].selected="selected";
 	    }
 	}
@@ -80,8 +94,16 @@ function ajouterNote(){
 		"ruchers":test.hivegroups,
 		"ruches":test.hives
 	}
-	console.log(dataRuches);
+	console.log(dataRuches);*/
+	dataRuches = {"notes" : customNotesCreatedByUser};
+	
   	var h = Mustache.render(template, dataRuches);
     document.getElementById("content-ajout-note").innerHTML = h;
     transition(_("pajoutnote"), "");
+    $("form").on("submit", function(e){
+        e.preventDefault();
+        console.log($(this));
+        console.log($(this).attr('id'));
+        addCustomNoteToHive($(this).attr('id'));
+	});
 }
