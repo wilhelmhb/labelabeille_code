@@ -26,6 +26,7 @@ function goToHistorique(){
 	getCustomNotesForHive(function(data) {
 	    console.log("CustomNote récupérée");
 	    customNotesSetByUser = data;
+	    /* structure of one note : { id: 24, id_custom_note: 2, id_hive: 22, date_add: "07/05/2016 20:26:00" } */
         var notes = [];
         for(var i in customNotesSetByUser) {
             console.log(customNotesSetByUser[i]);
@@ -39,6 +40,7 @@ function goToHistorique(){
         };
         getDefaultNotesForHive(function(data) {
             var defaultNotesSetByUser = data;
+            /* structure of one note :  { id: 10, id_default_note: 2, id_hive: 22, date_add: "07/05/2016 21:00:00", id_customer: 23 } */
             for(var i in defaultNotesSetByUser) {
                 console.log(defaultNotesSetByUser[i]);
                 var note = defaultNotesSetByUser[i];
@@ -126,4 +128,18 @@ function ajouterNote() {
             addCustomNoteToHive($(this).attr('id'));
         }
 	});
+	$("#add_custom_note").on("click", function(e) {
+	    e.preventDefault();
+	    $("form").off("submit");
+	    goToAddCustomNote();
+	});
+}
+
+function goToAddCustomNote() {
+    transition(_("pajoutnotepersonnalisee"));
+    $("#form-add-custom-note").submit(function(e) {
+        e.preventDefault();
+        var data = $(this).serialize();
+        addCustomNote(data);
+    });
 }
