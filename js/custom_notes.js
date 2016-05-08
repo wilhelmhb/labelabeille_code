@@ -9,7 +9,7 @@ function addCustomNote(data) {
         xhrFields: {
             withCredentials: true
         },
-        data: donnees,
+        data: data,
         success: function(data) {
             console.log(data);
             addNoteSuccess();
@@ -25,6 +25,10 @@ function addCustomNote(data) {
  */
 function addNoteSuccess() {
     //TODO : decide what to do after successfully having added a note
+    getCustomNotes(function(data) {
+        customNotesCreatedByUser = data;
+        ajouterNote();
+    });
 }
 
 /**
