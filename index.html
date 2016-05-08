@@ -395,6 +395,8 @@
                     </div>
                 </div>
             </div>
+            
+            <!-- add a note to a hive -->
             <div class="page" id="pajoutnote">
                 <div id="menu_haut">
                     <img class="retour" src="img/retour.png" id="retour_params_details" alt="Retour" />
@@ -404,6 +406,43 @@
                 <div id="bas_triangle"></div>
                 <div id="content-ajout-note" class="corps">
                     
+                </div>
+            </div>
+            
+            <!-- define a new custom note -->
+            <div class="page" id="pajoutnotepersonnalisee">
+                <div id="menu_haut">
+                    <img class="retour" src="img/retour.png" id="retour_params_details" alt="Retour" />
+                    <h1>Enregistrement d'une nouvelle note personnalisée</h1>
+                </div>
+                <div id="bas_defilement"></div>
+                <div id="bas_triangle"></div>
+                <div id="content-ajout-note-personnalisee" class="corps">
+                    <div id="apibundle_pscustomnote">
+                        <div class="sizing"></div>
+                        <form id="form-add-custom-note">  
+                            <div>            
+                                <label for="apibundle_pscustomnote_name" class="required">Nom</label>
+                                    <input class="zone_texte" type="text" id="apibundle_pscustomnote_name" name="apibundle_pscustomnote[name]" required="required" maxlength="20" />
+                            </div>
+                            <div>            
+                                <label for="apibundle_pscustomnote_message" class="required">Message</label>
+                                    <input class="zone_texte" type="text" id="apibundle_pscustomnote_message" name="apibundle_pscustomnote[message]" required="required" maxlength="100" />
+                            </div>
+                            <div>            
+                                <label for="apibundle_pscustomnote_level" class="required">Niveau d'alerte</label>
+                                    <select id="apibundle_pscustomnote_level" name="apibundle_pscustomnote[level]" required="required">
+                                        <option value="0" selected="selected">Information</option>
+                                        <option value="1">À faire</option>
+                                        <option value="2">Alerte</option>
+                                        <option value="3">Important</option>
+                                        <option value="4">Critique</option>
+                                    </select>
+                            </div>
+                            <input class="bouton" type="submit" value="ENREGISTRER">
+                        </form>
+                        <div style="clear:left;"></div>
+                    </div>
                 </div>
             </div>
 
