@@ -11,11 +11,11 @@ function inscription() {
         console.log(donnees);
         $.ajax({
             type: 'POST',
-            url: url+'pscustomer',
+            url: url+'pscustomer/create',
             xhrFields: {
                 withCredentials: true
             },
-            data: donnees,
+            data: donnees + "&apibundle_pscustomer%5BidShopGroup%5D=1&apibundle_pscustomer%5BidShop%5D=1&apibundle_pscustomer%5BidGender%5D=1&apibundle_pscustomer%5BidDefaultGroup%5D=1&apibundle_pscustomer%5BidLang%5D=1&apibundle_pscustomer%5BidRisk%5D=1&apibundle_pscustomer%5Bcompany%5D=&apibundle_pscustomer%5Bsiret%5D=&apibundle_pscustomer%5Bape%5D=&apibundle_pscustomer%5BlastPasswdGen%5D%5Bdate%5D%5Byear%5D=2011&apibundle_pscustomer%5BlastPasswdGen%5D%5Bdate%5D%5Bmonth%5D=1&apibundle_pscustomer%5BlastPasswdGen%5D%5Bdate%5D%5Bday%5D=1&apibundle_pscustomer%5BlastPasswdGen%5D%5Btime%5D%5Bhour%5D=1&apibundle_pscustomer%5BlastPasswdGen%5D%5Btime%5D%5Bminute%5D=2&apibundle_pscustomer%5Bbirthday%5D%5Byear%5D=&apibundle_pscustomer%5Bbirthday%5D%5Bmonth%5D=&apibundle_pscustomer%5Bbirthday%5D%5Bday%5D=&apibundle_pscustomer%5Bnewsletter%5D=1&apibundle_pscustomer%5BipRegistrationNewsletter%5D=&apibundle_pscustomer%5BnewsletterDateAdd%5D%5Bdate%5D%5Byear%5D=&apibundle_pscustomer%5BnewsletterDateAdd%5D%5Bdate%5D%5Bmonth%5D=&apibundle_pscustomer%5BnewsletterDateAdd%5D%5Bdate%5D%5Bday%5D=&apibundle_pscustomer%5BnewsletterDateAdd%5D%5Btime%5D%5Bhour%5D=&apibundle_pscustomer%5BnewsletterDateAdd%5D%5Btime%5D%5Bminute%5D=&apibundle_pscustomer%5Boptin%5D=1&apibundle_pscustomer%5Bwebsite%5D=&apibundle_pscustomer%5BoutstandingAllowAmount%5D=0&apibundle_pscustomer%5BshowPublicPrices%5D=1&apibundle_pscustomer%5BmaxPaymentDays%5D=0&apibundle_pscustomer%5BsecureKey%5D=test&apibundle_pscustomer%5Bnote%5D=&apibundle_pscustomer%5Bactive%5D=1&apibundle_pscustomer%5BisGuest%5D=1&apibundle_pscustomer%5Bdeleted%5D=1&apibundle_pscustomer%5BdateAdd%5D%5Bdate%5D%5Byear%5D=2011&apibundle_pscustomer%5BdateAdd%5D%5Bdate%5D%5Bmonth%5D=1&apibundle_pscustomer%5BdateAdd%5D%5Bdate%5D%5Bday%5D=1&apibundle_pscustomer%5BdateAdd%5D%5Btime%5D%5Bhour%5D=0&apibundle_pscustomer%5BdateAdd%5D%5Btime%5D%5Bminute%5D=0&apibundle_pscustomer%5BdateUpd%5D%5Bdate%5D%5Byear%5D=2011&apibundle_pscustomer%5BdateUpd%5D%5Bdate%5D%5Bmonth%5D=1&apibundle_pscustomer%5BdateUpd%5D%5Bdate%5D%5Bday%5D=1&apibundle_pscustomer%5BdateUpd%5D%5Btime%5D%5Bhour%5D=0&apibundle_pscustomer%5BdateUpd%5D%5Btime%5D%5Bminute%5D=0&apibundle_pscustomer%5BhivesNumber%5D=0&apibundle_pscustomer%5BhivesLostNumber%5D=0&apibundle_pscustomer%5Bharvest%5D=4&apibundle_pscustomer%5BstartYear%5D=25&apibundle_pscustomer%5Bdepartament%5D=0&apibundle_pscustomer%5BregistrationNumber%5D=0&apibundle_pscustomer%5Btranshumance%5D=0&apibundle_pscustomer%5Bstructure%5D=0&apibundle_pscustomer%5Btelephone%5D=0", //additional informations, not asked to the user, but needed on server-side
             success: function(data) {
                 console.log(data);
                 customer = data;
@@ -34,9 +34,9 @@ function inscription() {
  * @Object donnees : Object containing the data or the new user
  */
 function inscription_success(donnees) {
-    var user = encodeURIComponent($("#email_inscription").val());
+    var user = encodeURIComponent($("#apibundle_pscustomer_email").val());
     //console.log(user);
-    var login = encodeURIComponent($("#mdp_inscription").val());
+    var login = encodeURIComponent($("#apibundle_pscustomer_password").val());
     //console.log(login);
     connexion(user, login, function() {
         console.log(donnees); 
@@ -53,11 +53,11 @@ function customer_inscription_success(donnees) {
     //create a new client
     $.ajax({
         type: 'POST',
-        url: url+'psclient/',
+        url: url+'psclient/create',
         xhrFields: {
             withCredentials: true
         },
-        data: donnees + "&apibundle_pscustomer%5BidShopGroup%5D=1&apibundle_pscustomer%5BidShop%5D=1&apibundle_pscustomer%5BidGender%5D=1&apibundle_pscustomer%5BidDefaultGroup%5D=1&apibundle_pscustomer%5BidLang%5D=1&apibundle_pscustomer%5BidRisk%5D=1&apibundle_pscustomer%5Bcompany%5D=&apibundle_pscustomer%5Bsiret%5D=&apibundle_pscustomer%5Bape%5D=&apibundle_pscustomer%5BlastPasswdGen%5D%5Bdate%5D%5Byear%5D=2011&apibundle_pscustomer%5BlastPasswdGen%5D%5Bdate%5D%5Bmonth%5D=1&apibundle_pscustomer%5BlastPasswdGen%5D%5Bdate%5D%5Bday%5D=1&apibundle_pscustomer%5BlastPasswdGen%5D%5Btime%5D%5Bhour%5D=1&apibundle_pscustomer%5BlastPasswdGen%5D%5Btime%5D%5Bminute%5D=2&apibundle_pscustomer%5Bbirthday%5D%5Byear%5D=&apibundle_pscustomer%5Bbirthday%5D%5Bmonth%5D=&apibundle_pscustomer%5Bbirthday%5D%5Bday%5D=&apibundle_pscustomer%5Bnewsletter%5D=1&apibundle_pscustomer%5BipRegistrationNewsletter%5D=&apibundle_pscustomer%5BnewsletterDateAdd%5D%5Bdate%5D%5Byear%5D=&apibundle_pscustomer%5BnewsletterDateAdd%5D%5Bdate%5D%5Bmonth%5D=&apibundle_pscustomer%5BnewsletterDateAdd%5D%5Bdate%5D%5Bday%5D=&apibundle_pscustomer%5BnewsletterDateAdd%5D%5Btime%5D%5Bhour%5D=&apibundle_pscustomer%5BnewsletterDateAdd%5D%5Btime%5D%5Bminute%5D=&apibundle_pscustomer%5Boptin%5D=1&apibundle_pscustomer%5Bwebsite%5D=&apibundle_pscustomer%5BoutstandingAllowAmount%5D=0&apibundle_pscustomer%5BshowPublicPrices%5D=1&apibundle_pscustomer%5BmaxPaymentDays%5D=0&apibundle_pscustomer%5BsecureKey%5D=test&apibundle_pscustomer%5Bnote%5D=&apibundle_pscustomer%5Bactive%5D=1&apibundle_pscustomer%5BisGuest%5D=1&apibundle_pscustomer%5Bdeleted%5D=1&apibundle_pscustomer%5BdateAdd%5D%5Bdate%5D%5Byear%5D=2011&apibundle_pscustomer%5BdateAdd%5D%5Bdate%5D%5Bmonth%5D=1&apibundle_pscustomer%5BdateAdd%5D%5Bdate%5D%5Bday%5D=1&apibundle_pscustomer%5BdateAdd%5D%5Btime%5D%5Bhour%5D=0&apibundle_pscustomer%5BdateAdd%5D%5Btime%5D%5Bminute%5D=0&apibundle_pscustomer%5BdateUpd%5D%5Bdate%5D%5Byear%5D=2011&apibundle_pscustomer%5BdateUpd%5D%5Bdate%5D%5Bmonth%5D=1&apibundle_pscustomer%5BdateUpd%5D%5Bdate%5D%5Bday%5D=1&apibundle_pscustomer%5BdateUpd%5D%5Btime%5D%5Bhour%5D=0&apibundle_pscustomer%5BdateUpd%5D%5Btime%5D%5Bminute%5D=0&apibundle_pscustomer%5BhivesNumber%5D=0&apibundle_pscustomer%5BhivesLostNumber%5D=0&apibundle_pscustomer%5Bharvest%5D=4&apibundle_pscustomer%5BstartYear%5D=25&apibundle_pscustomer%5Bdepartament%5D=0&apibundle_pscustomer%5BregistrationNumber%5D=0&apibundle_pscustomer%5Btranshumance%5D=0&apibundle_pscustomer%5Bstructure%5D=0&apibundle_pscustomer%5Btelephone%5D=0", //additional informations, not asked to the user, but needed on server-side
+        data: donnees,
         success: function(data) {
             console.log(data);
             customer = data;
@@ -73,7 +73,7 @@ function customer_inscription_success(donnees) {
  * bring new user of the list of his/her hives
  */
 function client_inscription_success() {
-    getListHives(0, goToListHives);
+    createHiveGroup(addHives);
 }
 
 
