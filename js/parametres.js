@@ -94,7 +94,6 @@ function goToHiveGroupParameters() {
 function goToHiveParameters() {
 	//console.log('goToHiveParameters : begin');
 	var template = $(templates).filter('#tpl-params-ruche').html();
-	//TODO: get idClient/idCustomer
 	console.log(hiveGroups);
 	console.log(hiveGroups[idHiveGroup]);
 	console.log(idHive);

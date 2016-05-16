@@ -12,21 +12,6 @@ function createHive() {
         	updateLocalHive(donnees); // locally update list hive 
         	console.log(hiveGroups[idHiveGroup].hives[idHive]);
         	//goToAddLogger(); // add if needed a logger to the hive
-	        /* TODO : update local state
-	        hiveGroups[idHiveGroup].hives[idHive].name = $("#apibundle_pshive_name").val();
-	        hiveGroups[idHiveGroup].hives[idHive].note = $("#apibundle_pshive_note").val();
-	        hiveGroups[idHiveGroup].hives[idHive].latitude = $("#apibundle_pshive_latitude").val();
-	        hiveGroups[idHiveGroup].hives[idHive].longitude = $("#apibundle_pshive_longitude").val();
-	        hiveGroups[idHiveGroup].hives[idHive].hive_type = $("#apibundle_pshive_hiveType").val();
-	        hiveGroups[idHiveGroup].hives[idHive].bees_type = $("#apibundle_pshive_beesType").val();
-	        hiveGroups[idHiveGroup].hives[idHive].material = $("#apibundle_pshive_material").val();
-	        hiveGroups[idHiveGroup].hives[idHive].support = $("#apibundle_pshive_support").val();
-	        hiveGroups[idHiveGroup].hives[idHive].state = $("#apibundle_pshive_state").val();
-	        hiveGroups[idHiveGroup].hives[idHive].harvest = $("#apibundle_pshive_harvest").val();
-	        hiveGroups[idHiveGroup].hives[idHive].note= $("#apibundle_pshive_note").val();
-	        hiveGroups[idHiveGroup].hives[idHive].notes = $("#apibundle_pshive_notes").val();
-	        //console.log(hiveGroups[idHiveGroup].hives[idHive]);
-	        goToDataHives(hiveGroups[idHiveGroup].hives[idHive].name, hiveGroups[idHiveGroup].hives[idHive].data,true);*/
 	        goToListHives(idHiveGroup, hiveGroups[idHiveGroup].hives);
     	})
     }
@@ -45,8 +30,8 @@ function createHive() {
                 data: donnees,
                 success: function(data) {
                 	console.log(data); 
-                	//customer = data;
                 	idHive = hiveGroups[idHiveGroup].hives.length; //change idHive
+                	console.log(idHive);
                 	updateLocalHive(data); // locally update list hive 
                 	console.log(hiveGroups[idHiveGroup].hives[idHive]);
                 	goToAddLogger(); // add if needed a logger to the hive
@@ -55,21 +40,6 @@ function createHive() {
                     console.log(xhr.responseText);
                 }
             });
-            /* modification en local */
-	        /* TODO : update local state
-	        hiveGroups[idHiveGroup].hives[idHive].name = $("#apibundle_pshive_name").val();
-	        hiveGroups[idHiveGroup].hives[idHive].note = $("#apibundle_pshive_note").val();
-	        hiveGroups[idHiveGroup].hives[idHive].latitude = $("#apibundle_pshive_latitude").val();
-	        hiveGroups[idHiveGroup].hives[idHive].longitude = $("#apibundle_pshive_longitude").val();
-	        hiveGroups[idHiveGroup].hives[idHive].hive_type = $("#apibundle_pshive_hiveType").val();
-	        hiveGroups[idHiveGroup].hives[idHive].bees_type = $("#apibundle_pshive_beesType").val();
-	        hiveGroups[idHiveGroup].hives[idHive].material = $("#apibundle_pshive_material").val();
-	        hiveGroups[idHiveGroup].hives[idHive].support = $("#apibundle_pshive_support").val();
-	        hiveGroups[idHiveGroup].hives[idHive].state = $("#apibundle_pshive_state").val();
-	        hiveGroups[idHiveGroup].hives[idHive].harvest = $("#apibundle_pshive_harvest").val();
-	        hiveGroups[idHiveGroup].hives[idHive].note= $("#apibundle_pshive_note").val();
-	        hiveGroups[idHiveGroup].hives[idHive].notes = $("#apibundle_pshive_notes").val();
-	        //console.log(hiveGroups[idHiveGroup].hives[idHive]);*/
             console.log("fin ajout");
         });
     }
@@ -102,22 +72,19 @@ function goToAddLogger() {
         //console.log("début ajout");
         e.preventDefault();
         var donnees = $(this).serialize();
-        //console.log(donnees);
         $.ajax({
             type: 'POST',
             url: url+'psbox/create',
             xhrFields: {
                 withCredentials: true
             },
-            //TODO : where to find idClient ? version ?
-            data: donnees+ '&apibundle_psbox%5BidHive%5D=' + hiveGroups[idHiveGroup].hives[idHive].id_hive + '&apibundle_psbox%5BidClient%5D=' + idClient + '&apibundle_psbox%5Bversion%5D=test&apibundle_psbox%5Bnote%5D=&apibundle_psbox%5Bactive%5D=1&apibundle_psbox%5BdateAdd%5D%5Bdate%5D%5Byear%5D=2011&apibundle_psbox%5BdateAdd%5D%5Bdate%5D%5Bmonth%5D=1&apibundle_psbox%5BdateAdd%5D%5Bdate%5D%5Bday%5D=1&apibundle_psbox%5BdateAdd%5D%5Btime%5D%5Bhour%5D=0&apibundle_psbox%5BdateAdd%5D%5Btime%5D%5Bminute%5D=0&apibundle_psbox%5BdateUpd%5D%5Bdate%5D%5Byear%5D=2011&apibundle_psbox%5BdateUpd%5D%5Bdate%5D%5Bmonth%5D=1&apibundle_psbox%5BdateUpd%5D%5Bdate%5D%5Bday%5D=1&apibundle_psbox%5BdateUpd%5D%5Btime%5D%5Bhour%5D=0&apibundle_psbox%5BdateUpd%5D%5Btime%5D%5Bminute%5D=0',
+            data: donnees+ '&apibundle_psbox%5BidHive%5D=' + hiveGroups[idHiveGroup].hives[idHive].id_hive + '&apibundle_psbox%5BidClient%5D=' + idClient + '&apibundle_psbox%5Bversion%5D=&apibundle_psbox%5Bnote%5D=&apibundle_psbox%5Bactive%5D=1&apibundle_psbox%5BdateAdd%5D%5Bdate%5D%5Byear%5D=2011&apibundle_psbox%5BdateAdd%5D%5Bdate%5D%5Bmonth%5D=1&apibundle_psbox%5BdateAdd%5D%5Bdate%5D%5Bday%5D=1&apibundle_psbox%5BdateAdd%5D%5Btime%5D%5Bhour%5D=0&apibundle_psbox%5BdateAdd%5D%5Btime%5D%5Bminute%5D=0&apibundle_psbox%5BdateUpd%5D%5Bdate%5D%5Byear%5D=2011&apibundle_psbox%5BdateUpd%5D%5Bdate%5D%5Bmonth%5D=1&apibundle_psbox%5BdateUpd%5D%5Bdate%5D%5Bday%5D=1&apibundle_psbox%5BdateUpd%5D%5Btime%5D%5Bhour%5D=0&apibundle_psbox%5BdateUpd%5D%5Btime%5D%5Bminute%5D=0',
             success: function(data) {
-            	console.log(data); 
-            	//customer = data;
+            	console.log(data);
             	goToListHives(idHiveGroup, hiveGroups[idHiveGroup].hives);
             },
             error: function (xhr, ajaxOptions, thrownError) {
-                //console.log(xhr.responseText);
+                console.log(xhr.responseText);
             }
         });
     });

@@ -49,6 +49,7 @@ function inscription_success(donnees) {
  * @Object donnees : Object containing the data for the new user
  */
 function customer_inscription_success(donnees) {
+    console.log(donnees);
     //create a new client
     $.ajax({
         type: 'POST',

@@ -16,10 +16,10 @@ function createHiveGroup() {
     }
     else {
         $("#form-create-hive-group").submit(function(e){
-            //console.log("début ajout");
+            console.log("début ajout");
             e.preventDefault();
             var donnees = $(this).serialize();
-            //console.log(donnees);
+            console.log(donnees);
             $.ajax({
                 type: 'POST',
                 url: url+'pshivegroup',
@@ -28,7 +28,7 @@ function createHiveGroup() {
                 },
                 data: donnees,
                 success: function(data) {
-                	//console.log(data); 
+                	console.log(data); 
                 	//customer = data;
                 	idHiveGroup = hiveGroups.length; //change idHiveGroup
                 	updateLocalHiveGroup(donnees); // locally update list hiveGroup
@@ -36,7 +36,7 @@ function createHiveGroup() {
                 	addHives();
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
-                    //console.log(xhr.responseText);
+                    console.log(xhr.responseText);
                 }
             });
             console.log("fin ajout");

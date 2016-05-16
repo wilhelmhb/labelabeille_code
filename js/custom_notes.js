@@ -24,7 +24,6 @@ function addCustomNote(data) {
  * what to do after having successfully added a note
  */
 function addNoteSuccess() {
-    //TODO : decide what to do after successfully having added a note
     getCustomNotes(function(data) {
         customNotesCreatedByUser = data;
         ajouterNote();
@@ -58,7 +57,6 @@ function addCustomNoteToHive(idCustomNote) {
  * what to do after having successfully added a custom note to a hive
  */
 function addCustomNoteToHiveSuccess() {
-    //TODO : decide what to do after successfully having added a custom note to a hive
     goToHistorique();
 }
 
