@@ -1,7 +1,7 @@
 /**
  * create a new hiveGroup (show form and deal with it), and allow user to add hives in it
  */
-function createHiveGroup() {
+function createHiveGroup(action) {
     console.log("début de la création d'un rucher");
     transition(_("pcreate-hive-group"), "slide");
     if(isTest) {
@@ -11,7 +11,7 @@ function createHiveGroup() {
             idHiveGroup = hiveGroups.length; //change idHiveGroup
         	updateLocalHiveGroup(donnees); // locally update list hiveGroup 
         	console.log(hiveGroups[idHiveGroup]);
-	        addHives();
+	        action();
     	})
     }
     else {
@@ -22,7 +22,7 @@ function createHiveGroup() {
             console.log(donnees);
             $.ajax({
                 type: 'POST',
-                url: url+'pshivegroup',
+                url: url+'pshivegroup/create',
                 xhrFields: {
                     withCredentials: true
                 },
@@ -33,7 +33,7 @@ function createHiveGroup() {
                 	idHiveGroup = hiveGroups.length; //change idHiveGroup
                 	updateLocalHiveGroup(donnees); // locally update list hiveGroup
                 	console.log(hiveGroups[idHiveGroup]);
-                	addHives();
+                	action();
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
                     console.log(xhr.responseText);
@@ -72,13 +72,13 @@ function addHives() {
     var h = Mustache.render(template, listHives);
     console.log(listHives);
 	//console.log(h);
-	document.getElementById("content-add-hives-to-hivegroup").innerHTML = h;
+	document.getElementById("corps-add-hives-to-hivegroup").innerHTML = h;
 	$("#form-add-hives-to-hivegroup").submit(function(e){
 	    $('input[type=checkbox]:checked').each(function() {
             console.log($(this).id);
             var idHive = $(this).val();
             changeHiveGroup(idHive, idHiveGroup, function() {console.log("ruche ajoutée");});
         })
-	};
-	getListHiveGroups(gooListHiveGroups);
+	});
+	getListHiveGroups(goToListHiveGroups);
 }
