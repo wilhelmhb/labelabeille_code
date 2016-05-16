@@ -29,7 +29,7 @@ function getListHives(idHiveGroup, action,retour) {
                     //$("#resultat").html(JSON.stringify(data));
                     console.log("hiveGroups : " + hiveGroups);
 				    hiveGroups[idHiveGroup].hives = data.ruches;
-                    action(idHiveGroup, data.ruches,retour);
+                    action(idHiveGroup, data.ruches, retour);
                 },
             });
         }

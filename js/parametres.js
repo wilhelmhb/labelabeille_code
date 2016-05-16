@@ -136,7 +136,7 @@ function goToHiveParameters() {
             console.log(hiveGroups[idHiveGroup].hives[idHive]);
             $.ajax({
                 type: 'PATCH',
-                url: url+'pshive/'+hiveGroups[idHiveGroup].hives[idHive].id_hive,
+                url: url+'pshive/'+hiveGroups[idHiveGroup].hives[idHive].id_hive + '/update',
                 xhrFields: {
                     withCredentials: true
                 },

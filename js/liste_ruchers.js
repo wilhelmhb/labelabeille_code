@@ -62,6 +62,6 @@ function goToListHiveGroups() {
     /* TODO : remplacer bouton_creer_rucher par le bon identifiant 
     $('#bouton_creer_rucher').click(function() {
         console.log("ajouter rucher");
-        createHiveGroup();
+        createHiveGroup(addHives);
     });*/
 };
