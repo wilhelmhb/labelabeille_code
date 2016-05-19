@@ -50,6 +50,7 @@ function inscription_success(donnees) {
  */
 function customer_inscription_success(donnees) {
     console.log(donnees);
+    donnees["name"] = donnees.firstname + " " + donnees.lastname;
     //create a new client
     $.ajax({
         type: 'POST',
