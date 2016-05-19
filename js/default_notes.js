@@ -74,3 +74,30 @@ function getDefaultNotesForHive(action) {
         }
     });
 }
+
+//TODO : ne pas considérer code 301 comme erreur...
+function deleteDefaultNoteForHive(idCustomNote) {
+    $.ajax({
+        type: 'DELETE',
+        url: url+'psdefaultnotecustomer/' + idCustomNote,
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function(data) {
+            console.log("C'est RAS : " + data);
+            deleteDefaultNoteToHiveSuccess();
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            console.log(xhr.responseText);
+            console.log(ajaxOptions);
+            console.log(thrownError);
+        }
+    });
+}
+
+/**
+ * what to do after having successfully deleted a custom note from a hive
+ */
+function deleteDefaultNoteToHiveSuccess() {
+    goToHistorique();
+}
