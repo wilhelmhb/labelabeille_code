@@ -94,7 +94,6 @@ function goToHiveGroupParameters() {
 function goToHiveParameters() {
 	//console.log('goToHiveParameters : begin');
 	var template = $(templates).filter('#tpl-params-ruche').html();
-	//TODO: get idClient/idCustomer
 	console.log(hiveGroups);
 	console.log(hiveGroups[idHiveGroup]);
 	console.log(idHive);
@@ -137,7 +136,7 @@ function goToHiveParameters() {
             console.log(hiveGroups[idHiveGroup].hives[idHive]);
             $.ajax({
                 type: 'PATCH',
-                url: url+'pshive/'+hiveGroups[idHiveGroup].hives[idHive].id_hive,
+                url: url+'pshive/'+hiveGroups[idHiveGroup].hives[idHive].id_hive + '/update',
                 xhrFields: {
                     withCredentials: true
                 },

@@ -143,3 +143,12 @@ function goToAddCustomNote() {
         addCustomNote(data);
     });
 }
+
+function supprimer_histo(id, isDefault) {
+    if(isDefault) {
+        deleteDefaultNoteForHive(id);
+    }
+    else {
+        deleteCustomNoteForHive(id);
+    }
+}
