@@ -13,18 +13,21 @@ function getDataHive(id, id2, name, action) {
 		if(isTest) {
 			enCharge=false;
 			_("ch").style.visibility="hidden";
-			for(var i = 0; i< test.hives.length; i++) {
-				//console.log(test.hives[i].id_hive);
-			    if(test.hives[i].id_hive == id) {
-				    idHive = i;
-				    //console.log(i);
-			    	dataHive = test.hives[i].data;
-					dataHive.id_hive_group=test.hives[i].id_hive_group;
-					dataHive.id_hive_group=test.hives[i].id_hive_group;
-					dataHive.id_hive=id;
-			        action(i, name, dataHive);
-			    }
-			}
+            for(var k=0; k<test.hivegroups.length; k++){
+                var hg=test.hivegroups[k];
+                for(var i = 0; i< hg.hives.length; i++) {
+
+                    if(hg.hives[i].id_hive == id) {
+                        idHive = i;
+                        //console.log(i);
+                        dataHive = hg.hives[i].data;
+                        dataHive.id_hive_group=hg.hives[i].id_hive_group;
+                        dataHive.id_hive_group=hg.hives[i].id_hive_group;
+                        dataHive.id_hive=id;
+                        action(i, name, dataHive);
+                    }
+                }
+            }
 		}
 		else {
             $.ajax({

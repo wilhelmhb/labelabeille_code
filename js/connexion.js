@@ -115,9 +115,9 @@ function connexion_success() {
             defaultNotes = data;
             getListHiveGroups(function() {
                 console.log("récupération des listes de ruches par rucher");
-                getListHives(0, goToListHives);
+                getListHives(goToListHives);
                 _("btBd").addEventListener(evtclick, function (){
-                   getListHives(0, goToListHives);
+                   getListHives(goToListHives);
                 });
             });
         });

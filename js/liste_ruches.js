@@ -1,16 +1,16 @@
 /**
- * get the list of all hives from a hiveGroup
+ * get the list of all hives
  * @int idHiveGroup : identifier of the hiveGroup
  * @function action : callback, what to do with the data
  */
-function getListHives(idHiveGroup, action,retour) {
+function getListHives(action,retour) {
 		enCharge=true;
 		_("ch").style.visibility="visible";
 		if(isTest) {
 		    enCharge=false;
-		    hiveGroups[idHiveGroup].hives = test.hives;
 			_("ch").style.visibility="hidden";
-			action(idHiveGroup, test.hives,retour);
+            datahives=test;
+			action(datahives,retour);
 		}
 		else {
 		    console.log('récupération des ruches du rucher ' + idHiveGroup);
@@ -29,7 +29,7 @@ function getListHives(idHiveGroup, action,retour) {
                     //$("#resultat").html(JSON.stringify(data));
                     console.log("hiveGroups : " + hiveGroups);
 				    hiveGroups[idHiveGroup].hives = data.ruches;
-                    action(idHiveGroup, data.ruches,retour);
+                    action(data.ruches,retour);
                 },
             });
         }
@@ -40,21 +40,43 @@ function getListHives(idHiveGroup, action,retour) {
  * @int id : identifier of the hiveGroup
  * @Object listHives : JSON Object containing the list of all hives
  */
-function goToListHives(idHiveGroup, listHives,retour) {
+function goToListHives(listHives,retour) {
 
 	//console.log('goToListHives : begin');
 	var template = $(templates).filter('#tpl-accueil').html();
 	var idx = 1;
-	hiveGroups[idHiveGroup].hives = listHives;
 	var i = 0;
-	
+    for(var l=0;l<listHives.hivegroups.length;l++){
+        listHives.hivegroups[l].index=l+1;
+        for(var r=0;r<listHives.hivegroups[l].hives.length;r++){
+            listHives.hivegroups[l].hives[r].indexhg=l+1;
+            listHives.hivegroups[l].hives[r].index=r+1;
+
+        }
+    }
+    
+    var h = Mustache.render(template, listHives);
+    donneesRuches = listHives;
+    document.getElementById("content-accueil").innerHTML = h;
+    transition(_("paccueil"), (retour==1)?"retour":"");
+    
+    $("#add_hive").click(function() {
+                         console.log("ajouter ruche");
+                         createHive();
+                         });
+    accueil();
+    
+    masquerBd();
+    
+    
 	/**
-	 * get data of the next hive in the hiveGroup
-	 * if no more hive in this hiveGroup, display all the hives of the hiveGroup, and on click, bring user to the details of the hive
+	 * get data of the next hive
+	 * if no more hive display all the hives and on click, bring user to the details of the hive
 	 * @integer j : index of the hive in the hiveGroup (client-side)
 	 * @String name : name of the hive
 	 * @Object data : current data got from the box associated to the hive
 	 */
+    /*
 	function a(j, name, data) {
 		hiveGroups[idHiveGroup].hives[j].data = data;
 		if(j+1 < hiveGroups[idHiveGroup].hives.length) {
@@ -110,4 +132,5 @@ function goToListHives(idHiveGroup, listHives,retour) {
 		}
 	}
 	getDataHive(hiveGroups[idHiveGroup].hives[0].id_hive, 0, hiveGroups[idHiveGroup].hives[0].name, a);
+    */
 };

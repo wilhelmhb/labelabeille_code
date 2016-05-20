@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+            <link rel="stylesheet" type="text/css" href="css/normalize.css">
+                <link rel="stylesheet" type="text/css" href="css/index.css">
+                    <link rel="stylesheet" href="css/opensans.css" type="text/css" charset="utf-8" />
+                    <link rel="stylesheet" href="css/accueil.css" type="text/css" charset="utf-8" />
+                    <link rel="stylesheet" href="css/parametres.css" type="text/css" charset="utf-8" />
+                    <link rel="stylesheet" href="css/form.css" type="text/css" charset="utf-8" />
+                    <link rel="stylesheet" href="css/details.css" type="text/css" charset="utf-8" />
+                    <link rel="stylesheet" href="css/historique.css" type="text/css" charset="utf-8" />
+                    <link rel="stylesheet" href="css/chargement-connexion.css" type="text/css" charset="utf-8" />
+                   <!-- <script type="text/javascript" src="cordova.js"></script> -->
+                    <script type="text/javascript" src="js/index.js"></script>
+                    <script type="text/javascript" src="js/accueil2.js"></script>
+                    <script type="text/javascript" src="js/jquery.js"></script>
+                    <script type="text/javascript" src="js/mustache.js"></script>
+                    <script type="text/javascript" src="js/fastclick.js"></script>
+                    <script src="http://maps.googleapis.com/maps/api/js"></script>
+                    <title>Label Abeille</title>
+                    </head>
+    <body>
+		<div id="container">
+			<div class="page center" id="phistorique">
+                <div id="menu_haut">
+                    <img class="retour" src="img/retour.png" id="retour_params_generaux" alt="Retour" />
+                    <h1><img src="img/picto_historique.png" /> <span>Historique</span></h1>
+					
+                </div>
+                <div id="bas_defilement"></div>
+                <div id="bas_triangle"></div>
+                <div class="corps">
+                    <div class="sous_titre">
+                    	   <input type="text" id="filtre_historique" placeholder="Rechercher..." />
+                    </div>
+                    <div id="content-historique">
+                        <div class="elt_histo" id="histo_1" onclick="details_histo(1);">
+                            <img src="img/histo_fleche_bas.png" class="fleche" id="fleche_1"/>
+                            <img src="img/histo_supprimer.png" class="supprimer"/>
+                            <div class="elt_histo_titre">Titre de la note Titre de la note Titre de la note Titre de la note Titre de la note </div>
+                            <div class="elt_histo_date">22/01/16</div>
+                        </div>
+                        <div class="details_histo" id="details_histo_1">
+                            <h1>La reine est malade</h1>
+                            <p>Texte d'information supplémentaire</p>
+                            <p>Texte d'information supplémentaire</p>
+                            <p>Texte d'information supplémentaire</p>
+                        </div>
+                        <div class="elt_histo" id="histo_2" onclick="details_histo(2);">
+                            <img src="img/histo_fleche_droite.png" class="fleche" id="fleche_2"/>
+                            <img src="img/histo_supprimer.png" class="supprimer"/>
+                            <div class="elt_histo_titre">Récolte [2.11]</div>
+                            <div class="elt_histo_date">22/01/16</div>
+                        </div>
+                        <div class="details_histo" id="details_histo_2" style="display:none;">
+                            <h1>La reine est malade</h1>
+                            <p>Texte d'information supplémentaire</p>
+                            <p>Texte d'information supplémentaire</p>
+                            <p>Texte d'information supplémentaire</p>
+                        </div>
+                        <div class="elt_histo histo_important" id="histo_3" onclick="details_histo(3);">
+                            <img src="img/histo_fleche_droite.png" class="fleche" id="fleche_3"/>
+                            <img src="img/histo_supprimer.png" class="supprimer"/>
+                            <div class="elt_histo_titre">Reine malade</div>
+                            <div class="elt_histo_date">22/01/16</div>
+                        </div>
+                         <div class="details_histo" id="details_histo_3" style="display:none;">
+                             <h1>La reine est malade</h1>
+                             <p>Texte d'information supplémentaire</p>
+                             <p>Texte d'information supplémentaire</p>
+                             <p>Texte d'information supplémentaire</p>
+                         </div>
+                    </div>
+                </div>
+			</div>
+		</div>
+        <div id="ch" style="visibility:hidden;">
+            <div class="cssload-container">
+                <div class="cssload-whirlpool"></div>
+            </div>
+        </div>
+        
+        <div id="bd" style="visibility:hidden;">
+            <div id="boite">
+                <span id="messBd">Mauvais identifiant ou mot de passe</span>
+                <div id="btBd" class="bouton"><p></p><span id="btBd_txt">REESSAYER</span></div>
+            </div>
+        </div>
+        
+        
+        <div id="pages" style="display:none;">
+            <div class="page" id="pconnexion">
+                <div id="entete1">
+                    <img src="img/logo.png" alt="Label Abeille" />
+                </div>
+                <div id="corps1" class="fond_gris">
+                    <div id="haut_connexion">
+                        <div></div>
+                    </div>
+                    <div id="connexion">
+                        <div id="connexion_contenu">
+                            <h1>CONNEXION</h1>
+                            <div class="sizing"></div>
+                            <form>
+                                <input class="zone_texte" type="text" value="Adresse e-mail" id="email_connexion" onfocus="if(this.value=='Adresse e-mail'){this.value=''}" onblur="if(this.value==''){this.value = 'Adresse e-mail'}"/>
+                                <input class="zone_texte" type="text" value="Mot de passe" id="mdp_connexion" onfocus="if(this.value=='Mot de passe'){this.value='';this.type='password'}" onblur="if(this.value==''){this.value = 'Mot de passe'; this.type='text'}"/>
+                                <div class="bouton" id="valider_connexion"><p></p><span>VALIDER</span></div>
+                                <div class="bouton" id="test"><p></p><span>TESTER</span></div>
+                            </form>
+                            <div style="clear:left;"></div>
+                        </div>
+                        <div id="liens1">
+                            <img id="sitemobile" alt="Site Mobile" src="img/liens/sitem.png" />
+                            <img id="faq" alt="F.A.Q." src="img/liens/faq.png" />
+                        </div>
+                        <div id="liens2">
+                            <img id="fb" alt="Facebook" src="img/liens/fb.png" />
+                            <img id="twitter" alt="Twitter" src="img/liens/twitter.png" />
+                            <img id="gplus" alt="Google plus" src="img/liens/google.png" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="page" id="paccueil">
+                <div id="menu_haut">
+                    <img src="img/carte.png" id="btCarte" alt="Carte" />
+                    <img src="img/historique.png" style="opacity:0.3;filter:alpha(opacity = 0.3)" alt="Historique" />
+                    <img class="droite" id="btReglages" src="img/reglages.png" alt="Réglages" />
+                </div>
+                <div id="content-accueil" class="corps_accueil">
+                    
+                </div>
+            </div>
+            
+            <div class="page" id="pparametres">
+                <div id="menu_haut">
+                    <img class="retour" src="img/retour.png" id="retour_params_generaux" alt="Retour" />
+                    <h1>Param&egrave;tres</h1>
+                </div>
+                <div id="bas_defilement"></div>
+                <div id="bas_triangle"></div>
+                <div class="corps">
+                    <div class="sous_titre">
+                        <span id="nav_gauche"><</span>
+                            <span id="nav_droite">></span>
+                            <h1>Compte</h1>
+                            </div>
+                    <div class="contenu formulaire" id="corps-params-generaux">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="page" id="pparametres-rucher">
+                <div id="menu_haut">
+                    <img class="retour" src="img/retour.png" id="retour_params_rucher" alt="Retour" />
+                    <h1>Param&egrave;tres</h1>
+                </div>
+                <div id="bas_defilement"></div>
+                <div id="bas_triangle"></div>
+                <div class="corps">
+                    <div class="sous_titre">
+                        <span id="nav_gauche"><</span>
+                            <span id="nav_droite">></span>
+                            <h1>Ruchers</h1>
+                            </div>
+                    <div class="contenu formulaire" id="corps-params-rucher">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="page" id="pparametres-ruche">
+                <div id="menu_haut">
+                    <img class="retour" src="img/retour.png" id="retour_params_ruche" alt="Retour" />
+                    <h1>Param&egrave;tres</h1>
+                </div>
+                <div id="bas_defilement"></div>
+                <div id="bas_triangle"></div>
+                <div class="corps">
+                    <div class="sous_titre">
+                        <span id="nav_gauche"><</span>
+                            <span id="nav_droite">></span>
+                            <h1>Ruches</h1>
+                            </div>
+                    <div class="contenu formulaire" id="corps-params-ruche">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="page" id="pdetails">
+                <div id="menu_haut">
+                    <img class="retour" src="img/retour.png" id="retour_params_details" alt="Retour" />
+                    <h1></h1>
+                </div>
+                <div id="bas_defilement"></div>
+                <div id="bas_triangle"><img style="opacity:0.3;filter:alpha(opacity = 0.3)"  src="img/ajouter_note.png" alt="Ajouter une note" /></div>
+                <div id="corps" class="corps">
+                    
+                </div>
+            </div>
+            
+            <div class="page" id="pmap">
+                <div id="menu_haut">
+                    <img class="retour" src="img/retour.png" alt="Retour" id="retour_params_carte" />
+                    <h1>Carte</h1>
+                </div>
+                <div id="corps_carte" style="height:90%; width: 100%;"  class="corps_accueil">
+                    
+                </div>
+            </div>
+        </div>
+        
+    </body>
+</html>

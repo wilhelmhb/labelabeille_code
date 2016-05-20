@@ -7,6 +7,7 @@ if(window.addEventListener){
 }else{
     window.attachEvent('onload', debut);
 }
+var donneesRuches;
 var checkb=new Array();
 var tr;
 var time;
@@ -14,9 +15,9 @@ var templates;
 var enCharge=false;
 var rucheSelect;
 var tcharge;
+var datahives;
 var pcharge;
 var slider;
-var currentPage;
 var templateCharge=false;
 var evtclick="click";
 var customer = null;
@@ -25,6 +26,7 @@ var hiveGroups = [{}];
 var idHiveGroup = 0;
 var dataHive = null;
 var idHive = 1;
+var nruches=0;
 var listHivesGlobal;
 var levels = ["info", "todo", "warning", "important", "critical"];
 var customNotesSetByUser;
@@ -40,7 +42,7 @@ function debut(){
 	dessinCercleFLAT(_("canvasProgressSimple"),0);
     new FastClick(document.body);
  	masquerBd();
-	slider = new PageSlider($("#container"),$(_("pchargement")));
+	slider = new PageSlider($("#container"),$(_("pchargement")),$("#pages"),"page");
 	_("btReglages").addEventListener(evtclick,function(){goToGeneralParameters();}); 		
 
 	_("sitemobile").addEventListener(evtclick,function(){
@@ -91,7 +93,7 @@ function debut(){
 	//Boutons retour
 	var btsRetour = document.getElementsByClassName('retour');
 	for(var i=0, l=btsRetour.length; i<l; i++){
-	 btsRetour[i].addEventListener(evtclick,function(){retour();}); 
+        btsRetour[i].addEventListener(evtclick,function(){retour();});
 	}
 	//Boite de dialogue
 	_("btBd").addEventListener(evtclick,masquerBd);
