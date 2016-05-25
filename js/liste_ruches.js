@@ -131,6 +131,36 @@ function goToListHives(listHives,retour) {
 		    masquerBd();
 		}
 	}
-	getDataHive(hiveGroups[idHiveGroup].hives[0].id_hive, 0, hiveGroups[idHiveGroup].hives[0].name, a);
-    */
+	if(hiveGroups[idHiveGroup].hives.length > 0) {
+    	getDataHive(hiveGroups[idHiveGroup].hives[0].id_hive, 0, hiveGroups[idHiveGroup].hives[0].name, a);
+    }
+    else {
+        var obj_array = [];
+
+		for (idx in hiveGroups[idHiveGroup].hives) {
+			   obj_array.push ({'index': (parseInt(idx)+1), 'data': hiveGroups[idHiveGroup].hives[idx]});
+		}
+
+		listHives = {
+			"ruches": obj_array
+		}
+		//console.log(listHives.ruches.length);
+		//console.log(JSON.stringify(listHives)); 
+		//console.log(listHives.ruches[0].name);
+		//console.log(listHives);
+		
+	    var h = Mustache.render(template, listHives);
+        console.log(listHives);
+	    //console.log(h);
+		document.getElementById("content-accueil").innerHTML = h;
+	    //console.log(document.getElementById("paccueil").innerHTML);
+	    //console.log('goToListHives : before transition');
+	    transition(_("paccueil"), (retour==1)?"retour":"");
+        $("#rucheplus").click(function() {
+            console.log("ajouter ruche");
+            createHive();
+        });
+	    //accueil(listHives.ruches.length);
+	    masquerBd();
+    }*/
 };
