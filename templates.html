@@ -6,7 +6,7 @@
 {{#notes}}
 <div class="elt_histo histo_{{note.data.level}}" id="histo_{{index}}" onclick="details_histo({{index}});">
     <img src="img/histo_fleche_droite.png" class="fleche" id="fleche_{{index}}"/>
-    <img src="img/histo_supprimer.png" class="supprimer" onclick="supprimer_histo({{index}});"/>
+    <img src="img/histo_supprimer.png" class="supprimer" onclick="supprimer_histo({{note.id}}{{#note.id_default_note}}, true{{/note.id_default_note}}{{#note.id_custom_note}}, false{{/note.id_custom_note}});"/>
     <div class="elt_histo_titre">{{note.data.name}}</div>
     <div class="elt_histo_date">{{note.date_add}}</div>
 </div>
