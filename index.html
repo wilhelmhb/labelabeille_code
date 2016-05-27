@@ -13,6 +13,12 @@
         <link rel="stylesheet" href="css/chargement-connexion.css" type="text/css" charset="utf-8" />
         <link rel="stylesheet" href="css/historique.css" type="text/css" charset="utf-8" />
         <!-- <script type="text/javascript" src="cordova.js"></script> -->
+       <script type="text/javascript" src="js/carte.js"></script>
+       <script type="text/javascript" src="js/jquery.js"></script>
+       <script type="text/javascript" src="js/mustache.js"></script>
+       <script type="text/javascript" src="js/fastclick.js"></script>
+       <script src="http://maps.googleapis.com/maps/api/js"></script>
+        <script type="text/javascript" src="js/hammer.min.js"></script>
         <script type="text/javascript" src="js/dessin_cercle_chargement.js"></script>
         <script type="text/javascript" src="js/valeurs_demo.js"></script>
         <script type="text/javascript" src="js/connexion.js"></script>
@@ -30,11 +36,7 @@
         <script type="text/javascript" src="js/inscription.js"></script>
         <script type="text/javascript" src="js/accueil2.js"></script>
         <script type="text/javascript" src="js/historique.js"></script>
-        <script type="text/javascript" src="js/carte.js"></script>
-        <script type="text/javascript" src="js/jquery.js"></script>
-        <script type="text/javascript" src="js/mustache.js"></script>
-        <script type="text/javascript" src="js/fastclick.js"></script>
-        <script src="http://maps.googleapis.com/maps/api/js"></script>
+
         <title>Label Abeille</title>
     </head>
 
@@ -85,8 +87,8 @@
                             <h1>CONNEXION</h1>
                             <div class="sizing"></div>
                             <form>
-                                <input class="zone_texte" type="text" value="Adresse e-mail" id="email_connexion" onfocus="if(this.value=='Adresse e-mail'){this.value=''}" onblur="if(this.value==''){this.value = 'Adresse e-mail'}"/>
-                                <input class="zone_texte" type="text" value="Mot de passe" id="mdp_connexion" onfocus="if(this.value=='Mot de passe'){this.value='';this.type='password'}" onblur="if(this.value==''){this.value = 'Mot de passe'; this.type='text'}"/>
+                                <input class="zone_texte"  type="text" value="Adresse e-mail" id="email_connexion" onfocus="if(this.value=='Adresse e-mail'){this.value=''}" onblur="if(this.value==''){this.value = 'Adresse e-mail'}"/>
+                                <input class="zone_texte"  type="text" value="Mot de passe" id="mdp_connexion" onfocus="if(this.value=='Mot de passe'){this.value='';this.type='password'}" onblur="if(this.value==''){this.value = 'Mot de passe'; this.type='text'}"/>
                                 <div class="bouton" id="valider_connexion" style="display:inline-block;"><span>VALIDER</span></div>
                                 <div class="bouton" id="commencer_inscription" style="display:inline-block;"><span>S'INSCRIRE</span></div>
                                 <div class="bouton" id="test" style="display:inline-block;"><span>TESTER</span></div>
@@ -114,33 +116,31 @@
                 </div>
                 <div id="bas_defilement"></div>
                 <div id="bas_triangle"></div>
-                <div id="corps1" class="corps">
+                <div class="corps">
                     <div id="inscription">
                         <div id="inscription_contenu" class="contenu formulaire">
-                            <h1>Inscription</h1>
-                            <div class="sizing"></div>
-                            <form id="form-inscription">
+                            <form class="formulaire" id="form-inscription">
                                 <div>
                                     <label for="apibundle_pscustomer_firstname" class="required">Prénom</label>
-                                        <input class="zone_texte" type="text" id="apibundle_pscustomer_firstname" name="apibundle_pscustomer[firstname]" placeholder="Prénom" maxlength="32" />
+                                        <input   type="text" id="apibundle_pscustomer_firstname" name="apibundle_pscustomer[firstname]" placeholder="Prénom" maxlength="32" />
                                 </div>
                                 <div>
                                     <label for="apibundle_pscustomer_lastname" class="required">Nom</label>
-                                        <input class="zone_texte" type="text" id="apibundle_pscustomer_lastname" name="apibundle_pscustomer[lastname]" placeholder="Nom" maxlength="32" />
+                                        <input   type="text" id="apibundle_pscustomer_lastname" name="apibundle_pscustomer[lastname]" placeholder="Nom" maxlength="32" />
                                 </div>
                                 <div>
                                     <label for="apibundle_pscustomer_email" class="required">Email</label>
-                                        <input class="zone_texte" type="email" id="apibundle_pscustomer_email" name="apibundle_pscustomer[email]" placeholder="Adresse mail" maxlength="128" />
+                                        <input   type="email" id="apibundle_pscustomer_email" name="apibundle_pscustomer[email]" placeholder="Adresse mail" maxlength="128" />
                                 </div>
                                 <div>
                                     <label for="apibundle_pscustomer_telephone" class="required">Téléphone</label>
-                                        <input class="zone_texte" type="tel" id="apibundle_pscustomer_telephone" name="apibundle_pscustomer[telephone]" placeholder="Numéro de téléphone" maxlength="128" />
+                                        <input   type="tel" id="apibundle_pscustomer_telephone" name="apibundle_pscustomer[telephone]" placeholder="Numéro de téléphone" maxlength="128" />
                                 </div>
                                 <div>
                                     <label for="apibundle_pscustomer_password" class="required">Mot de passe</label>
-                                        <input class="zone_texte" type="password" id="apibundle_pscustomer_password" name="apibundle_pscustomer[password]" maxlength="32" />
+                                        <input   type="password" id="apibundle_pscustomer_password" name="apibundle_pscustomer[password]" maxlength="32" />
                                 </div>
-                                <input class="bouton" type="submit" value="S'INSCRIRE">
+                            <div class="bouton" onclick="alert('clic');form-inscription.find(".bouton").click();"><span>S'INSCRIRE</span></div>
                             </form>
                             <div style="clear:left;"></div>
                         </div>
@@ -181,46 +181,49 @@
                 <div id="bas_triangle"></div>
                 <div id="corps-create-hive" class="corps">
                     <div>
-                        <div id="create_hive_contenu" class="contenu formulaire">
+                        <div id="create_hive_contenu" class="contenu">
                             <div class="sizing"></div>
-                            <form id="form-create-hive">
+                            <form class="formulaire" id="form-create-hive">
                                 <div>
                                     <label for="apibundle_pshive_name">Nom</label>
-                                        <input class="zone_texte" type="text" id="apibundle_pshive_name" name="apibundle_pshive[name]" maxlength="64" />
+                                    <input type="text" id="apibundle_pshive_name" name="apibundle_pshive[name]" maxlength="64" />
+                                    <div class="cl"></div>
                                 </div>
                                 <div>
                                     <label for="apibundle_pshive_latitude">Latitude</label>
-                                        <input class="zone_texte" type="text" id="apibundle_pshive_latitude" name="apibundle_pshive[latitude]" />
+                                        <input   type="text" id="apibundle_pshive_latitude" name="apibundle_pshive[latitude]" />
+                                        <div class="cl"></div>
+
                                 </div>
                                 <div>
                                     <label for="apibundle_pshive_longitude">Longitude</label>
-                                        <input class="zone_texte" type="text" id="apibundle_pshive_longitude" name="apibundle_pshive[longitude]" />
+                                        <input   type="text" id="apibundle_pshive_longitude" name="apibundle_pshive[longitude]" />
                                 </div>
                                 <div>
                                     <label for="apibundle_pshive_hiveType">Type de ruche</label>
-                                        <input class="zone_texte" type="text" id="apibundle_pshive_hiveType" name="apibundle_pshive[hiveType]" maxlength="64" />
+                                        <input   type="text" id="apibundle_pshive_hiveType" name="apibundle_pshive[hiveType]" maxlength="64" />
                                 </div>
                                 <div>
                                     <label for="apibundle_pshive_beesType">Espèce d'abeilles</label>
-                                        <input class="zone_texte" type="text" id="apibundle_pshive_beesType" name="apibundle_pshive[beesType]" maxlength="64" />
+                                        <input   type="text" id="apibundle_pshive_beesType" name="apibundle_pshive[beesType]" maxlength="64" />
                                 </div>
                                 <div>
                                     <label for="apibundle_pshive_material">Matériau</label>
-                                        <input class="zone_texte" type="text" id="apibundle_pshive_material" name="apibundle_pshive[material]" maxlength="64" />
+                                        <input   type="text" id="apibundle_pshive_material" name="apibundle_pshive[material]" maxlength="64" />
                                 </div>
                                 <div>
                                     <label for="apibundle_pshive_support">Support</label>
-                                        <input class="zone_texte" type="text" id="apibundle_pshive_support" name="apibundle_pshive[support]" maxlength="64" />
+                                        <input   type="text" id="apibundle_pshive_support" name="apibundle_pshive[support]" maxlength="64" />
                                 </div>
                                 <div>
                                     <label for="apibundle_pshive_state">État</label>
-                                        <input class="zone_texte" type="text" id="apibundle_pshive_state" name="apibundle_pshive[state]" maxlength="64" />
+                                        <input   type="text" id="apibundle_pshive_state" name="apibundle_pshive[state]" maxlength="64" />
                                 </div>
                                 <div>
                                     <label for="apibundle_pshive_harvest" class="required">Récolte</label>
                                         <input type="number" id="apibundle_pshive_harvest" name="apibundle_pshive[harvest]" required="required" />
                                 </div>
-                                <input class="bouton" type="submit" value="CREER">
+                                <div class="bouton"><span>CREER</span></div>
                             </form>
                             <div style="clear:left;"></div>
                         </div>
@@ -240,10 +243,10 @@
                     <div>
                         <div id="add_logger_contenu" class="contenu formulaire">
                             <div class="sizing"></div>
-                            <form id="form-add-logger">
+                            <form class="formulaire" id="form-add-logger">
                                 <div>
                                     <label for="apibundle_psbox_serialNumber" class="required">Numéro de série du boîtier</label>
-                                        <input type="text" class="zone_texte" id="apibundle_psbox_serialNumber" name="apibundle_psbox[serialNumber]" required="required" maxlength="32" />
+                                        <input type="text"   id="apibundle_psbox_serialNumber" name="apibundle_psbox[serialNumber]" required="required" maxlength="32" />
                                 </div>
                                 <input class="bouton" type="submit" value="AJOUTER">
                             </form>
@@ -265,10 +268,10 @@
                     <div>
                         <div id="create_hive_group_contenu" class="contenu formulaire">
                             <div class="sizing"></div>
-                            <form id="form-create-hive-group">
+                            <form class="formulaire" id="form-create-hive-group">
                                 <div>
                                     <label for="apibundle_pshivegroup_name">Nom</label>
-                                        <input class="zone_texte" type="text" id="apibundle_pshivegroup_name" name="apibundle_pshivegroup[name]" maxlength="64" />
+                                        <input   type="text" id="apibundle_pshivegroup_name" name="apibundle_pshivegroup[name]" maxlength="64" />
                                 </div>
                                 <div>
                                     <label for="apibundle_pshivegroup_harvest" class="required">Récolte</label>
@@ -304,7 +307,7 @@
                 <div id="bas_triangle"></div>
                 <div class="corps">
                     <div class="sous_titre">
-                        <span id="nav_gauche"><</span>
+                            <span class="nav_gauche"><</span>
                             <span class="nav_droite">></span>
                             <h1>Compte</h1>
                             </div>
@@ -323,7 +326,7 @@
                 <div id="bas_triangle"></div>
                 <div class="corps">
                     <div class="sous_titre">
-                        <span id="nav_gauche"><</span>
+                            <span class="nav_gauche"><</span>
                             <span class="nav_droite">></span>
                             <h1>Ruchers</h1>
                             </div>
@@ -341,13 +344,11 @@
                 <div id="bas_defilement"></div>
                 <div id="bas_triangle"></div>
                 <div class="corps">
-                    <div class="sous_titre">
-                        <span id="nav_gauche"><</span>
-                            <span class="nav_droite">></span>
-                            <h1>Ruches</h1>
-                            </div>
-                    <a id="go-to-seuils" style="position: relative;z-index: 10;top: 65px;">Configurer les seuils d'alerte</a>
-                    <div class="contenu formulaire" id="corps-params-ruche">
+                    <div class="sous_titre" id="sous_titre_pruche">
+                            <h1></h1>
+                    </div>
+                    <div class="contenu" id="corps-params-ruche">
+                        
                     </div>
                 </div>
             </div>
@@ -427,14 +428,14 @@
                 <div id="content-ajout-note-personnalisee" class="corps">
                     <div id="apibundle_pscustomnote">
                         <div class="sizing"></div>
-                        <form id="form-add-custom-note">  
+                        <form class="formulaire" id="form-add-custom-note">  
                             <div>            
                                 <label for="apibundle_pscustomnote_name" class="required">Nom</label>
-                                    <input class="zone_texte" type="text" id="apibundle_pscustomnote_name" name="apibundle_pscustomnote[name]" required="required" maxlength="20" />
+                                    <input   type="text" id="apibundle_pscustomnote_name" name="apibundle_pscustomnote[name]" required="required" maxlength="20" />
                             </div>
                             <div>            
                                 <label for="apibundle_pscustomnote_message" class="required">Message</label>
-                                    <input class="zone_texte" type="text" id="apibundle_pscustomnote_message" name="apibundle_pscustomnote[message]" required="required" maxlength="100" />
+                                    <input   type="text" id="apibundle_pscustomnote_message" name="apibundle_pscustomnote[message]" required="required" maxlength="100" />
                             </div>
                             <div>            
                                 <label for="apibundle_pscustomnote_level" class="required">Niveau d'alerte</label>

@@ -1,11 +1,11 @@
 /**
  * create a new hive (show form and deal with it), then let user add a logger
  */
-function createHive() {
+function createHive(idHiveGroup) {
     console.log("début de la création d'une ruche");
     transition(_("pcreate-hive"), "slide");
     if(isTest) {
-    	$("#form-create-hive").submit(function(e){
+    	$("#form-create-hive").find(".bouton").click(function(e){
 	        e.preventDefault();
             var donnees = $(this).serialize();
             idHive = hiveGroups[idHiveGroup].hives.length; //change idHive
@@ -16,7 +16,7 @@ function createHive() {
     	})
     }
     else {
-        $("#form-create-hive").submit(function(e){
+        $("#form-create-hive").find(".bouton").click(function(e){
             //console.log("début ajout");
             e.preventDefault();
             var donnees = $(this).serialize();
@@ -68,7 +68,7 @@ function goToAddLogger() {
     var idClient = hiveGroups[idHiveGroup].id_client;
     console.log(idClient);
     console.log(hiveGroups[idHiveGroup].hives[idHive]);
-    $("#form-add-logger").submit(function(e){
+    $("#form-add-logger").find(".bouton").click(function(e){
         //console.log("début ajout");
         e.preventDefault();
         var donnees = $(this).serialize();

@@ -5,7 +5,7 @@ function createHiveGroup(action) {
     console.log("début de la création d'un rucher");
     transition(_("pcreate-hive-group"), "slide");
     if(isTest) {
-    	$("#form-create-hive-group").submit(function(e){
+    	$("#form-create-hive-group").find(".bouton").click(function(e){
 	        e.preventDefault();
             var donnees = $(this).serialize();
             idHiveGroup = hiveGroups.length; //change idHiveGroup
@@ -15,7 +15,7 @@ function createHiveGroup(action) {
     	})
     }
     else {
-        $("#form-create-hive-group").submit(function(e){
+        $("#form-create-hive-group").find(".bouton").click(function(e){
             console.log("début ajout");
             e.preventDefault();
             var donnees = $(this).serialize();
@@ -73,7 +73,7 @@ function addHives() {
     console.log(listHives);
 	//console.log(h);
 	document.getElementById("corps-add-hives-to-hivegroup").innerHTML = h;
-	$("#form-add-hives-to-hivegroup").submit(function(e){
+	$("#form-add-hives-to-hivegroup").find(".bouton").click(function(e){
 	    $('input[type=checkbox]:checked').each(function() {
             console.log($(this).id);
             var idHive = $(this).val();

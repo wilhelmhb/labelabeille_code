@@ -80,7 +80,7 @@
 	text-indent:0;
 	color:.343434;
 	font-size:9pt;
-	margin-bottom:calc(18% - 15pt);
+	margin-bottom:calc(15% - 15pt);
 }
 .ruche_selectionnee_reglages, .ruche_selectionnee_supprimer, .ruche_selectionnee_courbes, .ruche_selectionnee_historique,.ruche_selectionnee_infos{
 	position:absolute;

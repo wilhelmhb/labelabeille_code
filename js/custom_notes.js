@@ -88,10 +88,10 @@ function getCustomNotes(action) {
  * get all the custom notes added to the selected hive
  * @function action : what to do with the collected data
  */
-function getCustomNotesForHive(action) {
+function getCustomNotesForHive(action,idHive) {
     $.ajax({
         type: 'GET',
-        url: url+'pscustomnotecustomer/hives/' + hiveGroups[idHiveGroup].hives[idHive].id_hive,
+        url: url+'pscustomnotecustomer/hives/' + idHive,
         xhrFields: {
             withCredentials: true
         },

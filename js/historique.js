@@ -20,7 +20,7 @@ function twoDigits(n) {
     return n;
 }
 
-function goToHistorique(){
+function goToHistorique(idHive){
 	//Marche seulement en mode test pour l'instant
 	var idx = 0;
 	getCustomNotesForHive(function(data) {
@@ -78,7 +78,7 @@ function goToHistorique(){
             );
             details_histo(1);
         });
-	});
+	},idHive);
 }
 var selectHisto=1;
 function details_histo(nouveau){
@@ -137,7 +137,7 @@ function ajouterNote() {
 
 function goToAddCustomNote() {
     transition(_("pajoutnotepersonnalisee"));
-    $("#form-add-custom-note").submit(function(e) {
+    $("#form-add-custom-note").find(".bouton").click(function(e) {
         e.preventDefault();
         var data = $(this).serialize();
         addCustomNote(data);

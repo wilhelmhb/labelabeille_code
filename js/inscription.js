@@ -4,7 +4,7 @@
 function inscription() {
     transition(_("pinscription"));
     console.log("inscription en cours");
-    $("#form-inscription").submit(function(e){
+    $("#form-inscription").find(".bouton").click(function(e){
         e.preventDefault();
         //console.log("inscription confirmée");
         var donnees = $(this).serialize();

@@ -11,10 +11,3 @@
 .contenu{
 	text-align:center;
 }
-.formulaire .bouton{
-	width:30%;
-	margin-top: 5vh;
-}
-input[type="text"], select {
-	width:60%;
-}

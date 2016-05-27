@@ -9,9 +9,6 @@ var decalTop;
 var firstAccueil=true;
 var t=500;
 
-
-
-
 function initAccueil(){
 	if(firstAccueil){
 	    if(_("ruche1_1").offsetHeight != null) {
@@ -45,7 +42,6 @@ function initAccueil(){
         decalTop=h;
 		firstAccueil=false;
        
-       // alert(h+" "+h2+" "+hruches+" "+w);
 	}
 }
 var rucher=1;
@@ -55,8 +51,6 @@ var tScroll=[];
 function accueil(){
     nbRuchers=datahives.hivegroups.length;
     console.log("Nb de ruchers : "+nbRuchers);
-    
-    
     
     $("#rucher"+rucher).appendTo("#conteneur-rucher");
     
@@ -69,25 +63,9 @@ function accueil(){
         organiserRuches(m);
 
     }
-    
 
-    //$("#rucher2").css('display','none');
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
     slider_ruchers = new PageSlider($("#conteneur-rucher"),$("#rucher"+rucher),$("#reserve-ruchers"),"page");
     allerAuRucher(rucher);
-
-    
-
-	
 };
 
 function allerAuRucher(k){
@@ -113,16 +91,22 @@ function allerAuRucher(k){
         
         $("#nav_gauche_rucher").off("click");
         $("#nav_droite_rucher").off("click");
-        $("#nav_gauche_rucher").click(function(){if(rucher>1)allerAuRucher(rucher-1);});
+        function rucherPrecedent(){if(rucher>1)allerAuRucher(rucher-1);}
+        function rucherSuivant(){if(rucher<nbRuchers)allerAuRucher(rucher+1);}
+        $("#nav_gauche_rucher").click(rucherPrecedent);
+        $("#nav_droite_rucher").click(rucherSuivant);
         
-        $("#nav_droite_rucher").click(function(){if(rucher<nbRuchers)allerAuRucher(rucher+1);});
+
         
-        $("#ruche"+rucher+"plus").click(createHive);
-        
+        $("#ruche"+rucher+"plus").click(function(){createHive(donneesRuches.hivegroups[rucher-1].id_hive_group);});
+        var element = document.getElementById('rucher'+rucher);
+        Hammer(element).off("swipeleft");
+        Hammer(element).off("swiperight");
+        Hammer(element).on("swipeleft", rucherSuivant);
+        Hammer(element).on("swiperight", rucherPrecedent);
+
         for(var r=1;r<=nbRuchers;r++){
             for(var i=1;i<=nbRuches[r];i++){
-                //console.log(k);
-
                 $("#ruche"+r+"_"+i+"_selectionnee_reglages").click(function(e) {
                                                                            e.preventDefault();
                                                                            //console.log($(".ruche_selectionnee_reglages").index());
@@ -138,10 +122,7 @@ function allerAuRucher(k){
                                                   i=t[0]-1;
                                                   j=t[1]-1;
                                                   
-                                                  hive = donneesRuches.hivegroups[i].hives[j].data;
-                                                  name = donneesRuches.hivegroups[i].hives[j].name;
-                                                  
-                                                  goToDataHives(name, hive);
+                                                  goToDataHive(i,j);
                                                   });
             }
         }

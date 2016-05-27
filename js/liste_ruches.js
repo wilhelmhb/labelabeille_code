@@ -42,8 +42,8 @@ function getListHives(action,retour) {
  */
 function goToListHives(listHives,retour) {
 
-	//console.log('goToListHives : begin');
-	var template = $(templates).filter('#tpl-accueil').html();
+    console.log(listHives);
+    var template = $(templates).filter('#tpl-accueil').html();
 	var idx = 1;
 	var i = 0;
     for(var l=0;l<listHives.hivegroups.length;l++){

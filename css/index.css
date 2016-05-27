@@ -7,9 +7,9 @@ body {
 	position:relative;
 	overflow:hidden;
 }
-#app{
-	width:330px;
-	height:700px;
+#azpp{
+	width:calc(750px / 2.5);
+	height:calc(1334px / 2.5);
 	border:5px solid black;
 	margin:auto;
 	position:relative;
@@ -82,6 +82,7 @@ body {
 	margin-left:25px;
 	height:25px;
 	width:16px;
+    padding:0 10px 0 20px;
 }
 
 #menu_haut img {
@@ -139,14 +140,17 @@ body {
 	display:block;
 	margin-top:8px;
 	font-size:25px;
-	margin-left:30px;
+	padding:0 30px 0 30px;
+}
+.cl{
+    clear:both;
 }
 .nav_droite{
 	float:right;
 	display:block;
 	font-size:25px;
 	margin-top:8px;
-	margin-right:30px;
+    padding:0 30px 0 30px;
 }
 .sous_titre input{
     width:96%;
@@ -192,6 +196,7 @@ body {
 	margin:auto;
 	margin-top:70px;
 	overflow:hidden;
+    padding-bottom:100px;
 	
 }
 

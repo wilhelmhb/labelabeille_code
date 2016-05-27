@@ -17,6 +17,7 @@ var rucheSelect;
 var tcharge;
 var datahives;
 var pcharge;
+var isTest=false;
 var slider;
 var templateCharge=false;
 var evtclick="click";

@@ -1,14 +1,30 @@
-.formulaire input[type="text"], select{
+.formulaire input, select{
 	background-color:#ffd154;
 	border: 1px solid #c18d00;
 	color:#302300;
 	font-family:'open_sanslight';
-	font-size:12pt;
-	border-radius:3px;
-	box-shadow:1px 1px 2px #c18d00 inset;
+	font-size:10pt;
+    clear:both;
 	vertical-align:middle;
+    margin-bottom:10px;
+    width:50%;
+    
+
 }
-.formulaire input[type="text"]{
+.formulaire{
+    color:#444444;
+}
+.formulaire div{
+    clear:both;
+    text-align:right;
+}
+.formulaire label{
+    display:block;
+    margin-bottom:5px;
+    float:left;
+    text-indent:5px;
+}
+.formulaire input, select{
 	line-height:26px;
 	height:26px;
 	text-align:center;
@@ -23,4 +39,16 @@
 	height:30px;
 	width:80px;
 	vertical-align:middle;
+}
+
+.formulaire .bouton{
+    margin-top:20px;
+}
+
+.formulaire h1{
+    text-align:left;
+    border-bottom:1px solid #888888;
+    font-weight:normal;
+    font-size:28px;
+    margin-bottom:20px;
 }

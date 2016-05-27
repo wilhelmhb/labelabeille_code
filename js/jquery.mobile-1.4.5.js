@@ -14272,7 +14272,7 @@ $.widget( "mobile.filterable", $.mobile.filterable, {
 					.jqmData( "ui-filterable-" + this.uuid + "-internal", true );
 				$( "<form class='ui-filterable'></form>" )
 					.append( selector )
-					.submit( function( evt ) {
+					.find(".bouton").click( function( evt ) {
 						evt.preventDefault();
 						selector.blur();
 					})
