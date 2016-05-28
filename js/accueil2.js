@@ -49,7 +49,7 @@ var slider_ruchers;
 var $window=[];
 var tScroll=[];
 function accueil(){
-    nbRuchers=datahives.hivegroups.length;
+    nbRuchers=donneesRuches.hiveGroups.length;
     console.log("Nb de ruchers : "+nbRuchers);
     
     $("#rucher"+rucher).appendTo("#conteneur-rucher");
@@ -57,7 +57,7 @@ function accueil(){
     initAccueil();
     
     for(var m=1;m<=nbRuchers;m++){
-        nbRuches[m]=datahives.hivegroups[m-1].hives.length;
+        nbRuches[m]=donneesRuches.hiveGroups[m-1].hives.length;
         console.log("Nb de ruches dans le rucher "+m+" : "+nbRuches[m]);
         $window[m] = $("#rucher"+m).children(".ruches");
         organiserRuches(m);
@@ -69,7 +69,7 @@ function accueil(){
 };
 
 function allerAuRucher(k){
-    $("#sous_titre_accueil").children("h1").html(donneesRuches.hivegroups[k-1].name);
+    $("#sous_titre_accueil").children("h1").html(donneesRuches.hiveGroups[k-1].name);
     if(!transitionEnCours){
         var change=false;
         if(rucher!=k){change=true;}
@@ -98,7 +98,7 @@ function allerAuRucher(k){
         
 
         
-        $("#ruche"+rucher+"plus").click(function(){createHive(donneesRuches.hivegroups[rucher-1].id_hive_group);});
+        $("#ruche"+rucher+"plus").click(function(){createHive(donneesRuches.hiveGroups[rucher-1].id_hive_group);});
         var element = document.getElementById('rucher'+rucher);
         Hammer(element).off("swipeleft");
         Hammer(element).off("swiperight");

@@ -7,7 +7,7 @@ function getListHiveGroups(action) {
 		_("ch").style.visibility="visible";
 		if(isTest) {
 		    enCharge=false;
-		    hiveGroups = test.hivegroups;
+		    donneesRuches.hiveGroups = test.hivegroups;
 			_("ch").style.visibility="hidden";
 			action();
 		}
@@ -23,7 +23,7 @@ function getListHiveGroups(action) {
 				    enCharge=false;
 				    _("ch").style.visibility="hidden";
                     console.log(data);
-                    hiveGroups = data;
+                    donneesRuches.hiveGroups = data;
                     console.log("hiveGroups : " + hiveGroups);
                     action();
                 },

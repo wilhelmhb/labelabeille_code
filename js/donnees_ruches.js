@@ -42,6 +42,7 @@ function getDataHive(id, id2, name, action) {
 				    enCharge=false;
 				    idHive = id2;
 			    	dataHive = data;
+			    	console.log(data);
 				    _("ch").style.visibility="hidden";
 				    //console.log(id2);
                 	//console.log(JSON.stringify(data)); 
@@ -57,8 +58,9 @@ function getDataHive(id, id2, name, action) {
 
 function goToDataHive(rucher,ruche,r) {
     var template = $(templates).filter('#tpl-details').html();
-    var dataHive=donneesRuches.hivegroups[rucher].hives[ruche];
-    dataHive.name_hive_group=donneesRuches.hivegroups[rucher].name;
+    var dataHive=donneesRuches.hiveGroups[rucher].hives[ruche];
+    console.log(dataHive)
+    dataHive.name_hive_group=donneesRuches.hiveGroups[rucher].name;
     dataHive.recolte = dataHive.data["PARAM.POIDS_RECOLTE"];
     dataHive.miel = dataHive.data["PARAM.PROD_MIEL_RUCHE"];
     dataHive.essaim = dataHive.data["PARAM.POIDS_ESSAIM"];

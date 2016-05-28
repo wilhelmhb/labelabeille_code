@@ -13,11 +13,11 @@ function getListHives(action,retour) {
 			action(datahives,retour);
 		}
 		else {
-		    console.log('récupération des ruches du rucher ' + idHiveGroup);
+		    console.log('récupération des ruches du rucher ' + donneesRuches.hiveGroups[idHiveGroup].id_hive_group);
 		    console.log(hiveGroups[idHiveGroup]);
             $.ajax({
                 type: 'GET',
-                url: url+'pshivegroup/hives/' + hiveGroups[idHiveGroup].id_hive_group,
+                url: url+'pshivegroup/hives/' + donneesRuches.hiveGroups[idHiveGroup].id_hive_group,
                 dataType: "json",
                 xhrFields: {
                     withCredentials: true
@@ -28,7 +28,7 @@ function getListHives(action,retour) {
                     console.log(data.ruches); 
                     //$("#resultat").html(JSON.stringify(data));
                     console.log("hiveGroups : " + hiveGroups);
-				    hiveGroups[idHiveGroup].hives = data.ruches;
+				    donneesRuches.hiveGroups[idHiveGroup].hives = data.ruches;
                     action(data.ruches,retour);
                 },
             });
@@ -46,17 +46,17 @@ function goToListHives(listHives,retour) {
     var template = $(templates).filter('#tpl-accueil').html();
 	var idx = 1;
 	var i = 0;
-    for(var l=0;l<listHives.hivegroups.length;l++){
-        listHives.hivegroups[l].index=l+1;
-        for(var r=0;r<listHives.hivegroups[l].hives.length;r++){
-            listHives.hivegroups[l].hives[r].indexhg=l+1;
-            listHives.hivegroups[l].hives[r].index=r+1;
+    for(var l=0;l<donneesRuches.hiveGroups.length;l++){
+        donneesRuches.hiveGroups[l].index=l+1;
+        for(var r=0;r<donneesRuches.hiveGroups[l].hives.length;r++){
+            donneesRuches.hiveGroups[l].hives[r].indexhg=l+1;
+            donneesRuches.hiveGroups[l].hives[r].index=r+1;
 
         }
     }
     
-    var h = Mustache.render(template, listHives);
-    donneesRuches = listHives;
+    console.log(donneesRuches);
+    var h = Mustache.render(template, donneesRuches);
     document.getElementById("content-accueil").innerHTML = h;
     transition(_("paccueil"), (retour==1)?"retour":"");
     

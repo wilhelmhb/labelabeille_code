@@ -7,7 +7,7 @@ if(window.addEventListener){
 }else{
     window.attachEvent('onload', debut);
 }
-var donneesRuches;
+var donneesRuches = {};
 var checkb=new Array();
 var tr;
 var time;
