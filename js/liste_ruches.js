@@ -35,6 +35,20 @@ function getListHives(action,retour) {
         }
 };
 
+function getDataForHives(action) {
+        if(idHive >= donneesRuches.hiveGroups[idHiveGroup].hives.length) {
+            idHive = 0;
+            console.log(action);
+            action();
+        }
+        else {
+            getDataHive(donneesRuches.hiveGroups[idHiveGroup].hives[idHive].id_hive, idHive, donneesRuches.hiveGroups[idHiveGroup].hives[idHive].name, function() {
+                idHive++;
+                getDataForHives(action);
+            });
+        }
+    };
+
 /**
  * display the list of hives
  * @int id : identifier of the hiveGroup

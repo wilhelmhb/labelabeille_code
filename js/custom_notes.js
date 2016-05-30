@@ -35,14 +35,14 @@ function addNoteSuccess() {
  * @integer idCustomNote: identifier of the note to add
  */
 function addCustomNoteToHive(idCustomNote) {
-    console.log(hiveGroups[idHiveGroup].hives[idHive]);
+    console.log(donneesRuches.hiveGroups[idHiveGroup].hives[idHive]);
     $.ajax({
         type: 'POST',
         url: url+'pscustomnotecustomer',
         xhrFields: {
             withCredentials: true
         },
-        data: 'apibundle_pscustomnotecustomer%5BidCustomNote%5D=' + idCustomNote + '&apibundle_pscustomnotecustomer%5BidHive%5D=' + hiveGroups[idHiveGroup].hives[idHive].id_hive,
+        data: 'apibundle_pscustomnotecustomer%5BidCustomNote%5D=' + idCustomNote + '&apibundle_pscustomnotecustomer%5BidHive%5D=' + donneesRuches.hiveGroups[idHiveGroup].hives[idHive].id_hive,
         success: function(data) {
             console.log("C'est RAS : " + data);
             addCustomNoteToHiveSuccess();
@@ -97,7 +97,8 @@ function getCustomNotesForHive(action,idHive) {
         },
         success: function(data) {
             console.log(idHive);
-            console.log(hiveGroups[idHiveGroup].hives[idHive].id_hive);
+            console.log(idHiveGroup);
+            console.log(donneesRuches.hiveGroups[idHiveGroup].hives[idHive].id_hive);
             console.log(data);
             for(var i in data) {
                 data[i].date_add = formatDate(data[i].date_add);

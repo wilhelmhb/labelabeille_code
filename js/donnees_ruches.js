@@ -41,7 +41,7 @@ function getDataHive(id, id2, name, action) {
                 success: function(data) {
 				    enCharge=false;
 				    idHive = id2;
-			    	dataHive = data;
+			    	donneesRuches.hiveGroups[idHiveGroup].hives[idHive].data = data;
 			    	console.log(data);
 				    _("ch").style.visibility="hidden";
 				    //console.log(id2);
@@ -58,6 +58,9 @@ function getDataHive(id, id2, name, action) {
 
 function goToDataHive(rucher,ruche,r) {
     var template = $(templates).filter('#tpl-details').html();
+    console.log("Rucher : " + rucher);
+    console.log("Ruche : " + ruche);
+    console.log(donneesRuches);
     var dataHive=donneesRuches.hiveGroups[rucher].hives[ruche];
     console.log(dataHive)
     dataHive.name_hive_group=donneesRuches.hiveGroups[rucher].name;
