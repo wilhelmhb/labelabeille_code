@@ -107,7 +107,21 @@ function connexion_success() {
     _("btBd").addEventListener(evtclick, function (){
        getListHives(0, goToListHives);
     });*/
-    
+    function aux() {
+        idHiveGroup++;
+        getHivesForHiveGroups();
+    };
+    function getHivesForHiveGroups() {
+        if(idHiveGroup >= donneesRuches.hiveGroups.length) {
+            idHiveGroup = 0;
+            goToListHives(null, false);
+        }
+        else {
+            getListHives(function(a,b) {
+                getDataForHives(aux);
+            }, false);
+        }
+    };
     //NEW
     getCustomNotes(function(data) {
         customNotesCreatedByUser = data;
@@ -115,10 +129,7 @@ function connexion_success() {
             defaultNotes = data;
             getListHiveGroups(function() {
                 console.log("récupération des listes de ruches par rucher");
-                getListHives(goToListHives);
-                _("btBd").addEventListener(evtclick, function (){
-                   getListHives(goToListHives);
-                });
+                getHivesForHiveGroups();
             });
         });
     });
