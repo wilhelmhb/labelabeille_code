@@ -121,8 +121,10 @@ function allerAuRucher(k){
                                                   var t = idd.substr(5,idd.length-5).split("_");
                                                   i=t[0]-1;
                                                   j=t[1]-1;
+                                                  idHiveGroup = i;
+                                                  idHive = j;
                                                   
-                                                  goToDataHive(i,j);
+                                                  goToDataHive();
                                                   });
             }
         }

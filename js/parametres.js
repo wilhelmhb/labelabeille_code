@@ -11,9 +11,9 @@ function parametresRuche(){
 function goToGeneralParameters() {
 	//console.log('goToGeneralParameters : begin');
 	var template = $(templates).filter('#tpl-params-generaux').html();
-	/*console.log(listHives.ruches.length);
+	/*console.log(listHives.idHives.length);
 	console.log(JSON.stringify(listHives)); 
-	console.log(listHives.ruches[0].name);*/
+	console.log(listHives.idHives[0].name);*/
     var h = Mustache.render(template, customer);
     document.getElementById("corps-params-generaux").innerHTML = h;
     //console.log('goToGeneralParameters : before transition');
@@ -63,7 +63,7 @@ function goToGeneralParameters() {
             //console.log("fin modif");
         });
     }
-    //organiserRuches(listHives.ruches.length);
+    //organiserRuches(listHives.idHives.length);
     //masquerBd();
     //console.log('goToGeneralParameters : end');
 }
@@ -91,33 +91,33 @@ function goToHiveGroupParameters() {
 /**
  * display the parameters for the selected hive
  */
-function goToHiveParameters(rucher,ruche) {
+function goToHiveParameters() {
 	//console.log('goToHiveParameters : begin');
 	var template = $(templates).filter('#tpl-params-ruche').html();
-    var h = Mustache.render(template, donneesRuches.hiveGroups[rucher].hives[ruche]);
+    var h = Mustache.render(template, donneesRuches.hiveGroups[idHiveGroup].hives[idHive]);
 
     document.getElementById("corps-params-ruche").innerHTML = h;
-    $("#sous_titre_pruche").children("h1").html(donneesRuches.hiveGroups[rucher].hives[ruche].name);
+    $("#sous_titre_pruche").children("h1").html(donneesRuches.hiveGroups[idHiveGroup].hives[idHive].name);
 
     transition(_("pparametres-ruche"), "slide");
     
     if(isTest) {
     	$("#form-params-hive").find(".bouton").click(function(e){
 	        e.preventDefault(); 
-	        donneesRuches.hiveGroups[rucher].hives[ruche].name = $("#apibundle_pshive_name").val();
-	        donneesRuches.hiveGroups[rucher].hives[ruche].note = $("#apibundle_pshive_note").val();
-	        donneesRuches.hiveGroups[rucher].hives[ruche].latitude = $("#apibundle_pshive_latitude").val();
-	        donneesRuches.hiveGroups[rucher].hives[ruche].longitude = $("#apibundle_pshive_longitude").val();
-	        donneesRuches.hiveGroups[rucher].hives[ruche].hive_type = $("#apibundle_pshive_hiveType").val();
-	        donneesRuches.hiveGroups[rucher].hives[ruche].bees_type = $("#apibundle_pshive_beesType").val();
-	        donneesRuches.hiveGroups[rucher].hives[ruche].material = $("#apibundle_pshive_material").val();
-	        donneesRuches.hiveGroups[rucher].hives[ruche].support = $("#apibundle_pshive_support").val();
-	        donneesRuches.hiveGroups[rucher].hives[ruche].state = $("#apibundle_pshive_state").val();
-	        donneesRuches.hiveGroups[rucher].hives[ruche].harvest = $("#apibundle_pshive_harvest").val();
-	        donneesRuches.hiveGroups[rucher].hives[ruche].note= $("#apibundle_pshive_note").val();
-	        donneesRuches.hiveGroups[rucher].hives[ruche].notes = $("#apibundle_pshive_notes").val();
-	        //console.log(donneesRuches.hiveGroups[rucher].hives[ruche]);
-                                      goToDataHive(rucher,ruche,true);
+	        donneesRuches.hiveGroups[idHiveGroup].hives[idHive].name = $("#apibundle_pshive_name").val();
+	        donneesRuches.hiveGroups[idHiveGroup].hives[idHive].note = $("#apibundle_pshive_note").val();
+	        donneesRuches.hiveGroups[idHiveGroup].hives[idHive].latitude = $("#apibundle_pshive_latitude").val();
+	        donneesRuches.hiveGroups[idHiveGroup].hives[idHive].longitude = $("#apibundle_pshive_longitude").val();
+	        donneesRuches.hiveGroups[idHiveGroup].hives[idHive].hive_type = $("#apibundle_pshive_hiveType").val();
+	        donneesRuches.hiveGroups[idHiveGroup].hives[idHive].bees_type = $("#apibundle_pshive_beesType").val();
+	        donneesRuches.hiveGroups[idHiveGroup].hives[idHive].material = $("#apibundle_pshive_material").val();
+	        donneesRuches.hiveGroups[idHiveGroup].hives[idHive].support = $("#apibundle_pshive_support").val();
+	        donneesRuches.hiveGroups[idHiveGroup].hives[idHive].state = $("#apibundle_pshive_state").val();
+	        donneesRuches.hiveGroups[idHiveGroup].hives[idHive].harvest = $("#apibundle_pshive_harvest").val();
+	        donneesRuches.hiveGroups[idHiveGroup].hives[idHive].note= $("#apibundle_pshive_note").val();
+	        donneesRuches.hiveGroups[idHiveGroup].hives[idHive].notes = $("#apibundle_pshive_notes").val();
+	        //console.log(donneesRuches.hiveGroups[idHiveGroup].hives[idHive]);
+                                      goToDataHive(true);
     	})
     }
     else {
@@ -126,10 +126,10 @@ function goToHiveParameters(rucher,ruche) {
             e.preventDefault();
             var donnees = $(this).serialize();
             //console.log(donnees);
-            console.log(donneesRuches.hiveGroups[rucher].hives[ruche]);
+            console.log(donneesRuches.hiveGroups[idHiveGroup].hives[idHive]);
             $.ajax({
                 type: 'PATCH',
-                url: url+'pshive/'+donneesRuches.hiveGroups[rucher].hives[ruche].id_hive + '/update',
+                url: url+'pshive/'+donneesRuches.hiveGroups[idHiveGroup].hives[idHive].id_hive + '/update',
                 xhrFields: {
                     withCredentials: true
                 },
@@ -138,9 +138,9 @@ function goToHiveParameters(rucher,ruche) {
                 	console.log(data); 
                 	//customer = data;
                 	updateLocalHive(data);
-                	console.log(donneesRuches.hiveGroups[rucher].hives[ruche]);
+                	console.log(donneesRuches.hiveGroups[idHiveGroup].hives[idHive]);
 	                /* go back to details */
-	                goToDataHives(donneesRuches.hiveGroups[rucher].hives[ruche].name, donneesRuches.hiveGroups[rucher].hives[ruche].data,true);
+	                goToDataHives(donneesRuches.hiveGroups[idHiveGroup].hives[idHive].name, donneesRuches.hiveGroups[idHiveGroup].hives[idHive].data,true);
                     //console.log("fin modif");
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
@@ -219,8 +219,8 @@ function goToHiveSeuils() {
     for(var s in seuils) {
         console.log(s)
         console.log(seuils[s].nom);
-        console.log(donneesRuches.hiveGroups[rucher].hives[ruche].data);
-        seuils[s].v = donneesRuches.hiveGroups[rucher].hives[ruche].data[seuils[s].nom].v;
+        console.log(donneesRuches.hiveGroups[idHiveGroup].hives[idHive].data);
+        seuils[s].v = donneesRuches.hiveGroups[idHiveGroup].hives[idHive].data[seuils[s].nom].v;
     }
     seuils = { 'seuils': seuils};
     console.log(seuils);
@@ -233,20 +233,20 @@ function goToHiveSeuils() {
     if(isTest) {
     	$("#form-params-hive-seuils").find(".bouton").click(function(e){
 	        e.preventDefault(); 
-	        donneesRuches.hiveGroups[rucher].hives[ruche].name = $("#apibundle_pshive_name").val();
-	        donneesRuches.hiveGroups[rucher].hives[ruche].note = $("#apibundle_pshive_note").val();
-	        donneesRuches.hiveGroups[rucher].hives[ruche].latitude = $("#apibundle_pshive_latitude").val();
-	        donneesRuches.hiveGroups[rucher].hives[ruche].longitude = $("#apibundle_pshive_longitude").val();
-	        donneesRuches.hiveGroups[rucher].hives[ruche].hive_type = $("#apibundle_pshive_hiveType").val();
-	        donneesRuches.hiveGroups[rucher].hives[ruche].bees_type = $("#apibundle_pshive_beesType").val();
-	        donneesRuches.hiveGroups[rucher].hives[ruche].material = $("#apibundle_pshive_material").val();
-	        donneesRuches.hiveGroups[rucher].hives[ruche].support = $("#apibundle_pshive_support").val();
-	        donneesRuches.hiveGroups[rucher].hives[ruche].state = $("#apibundle_pshive_state").val();
-	        donneesRuches.hiveGroups[rucher].hives[ruche].harvest = $("#apibundle_pshive_harvest").val();
-	        donneesRuches.hiveGroups[rucher].hives[ruche].note= $("#apibundle_pshive_note").val();
-	        donneesRuches.hiveGroups[rucher].hives[ruche].notes = $("#apibundle_pshive_notes").val();
-	        //console.log(donneesRuches.hiveGroups[rucher].hives[ruche]);
-	        goToDataHives(donneesRuches.hiveGroups[rucher].hives[ruche].name, donneesRuches.hiveGroups[rucher].hives[ruche].data,true);
+	        donneesRuches.hiveGroups[idHiveGroup].hives[idHive].name = $("#apibundle_pshive_name").val();
+	        donneesRuches.hiveGroups[idHiveGroup].hives[idHive].note = $("#apibundle_pshive_note").val();
+	        donneesRuches.hiveGroups[idHiveGroup].hives[idHive].latitude = $("#apibundle_pshive_latitude").val();
+	        donneesRuches.hiveGroups[idHiveGroup].hives[idHive].longitude = $("#apibundle_pshive_longitude").val();
+	        donneesRuches.hiveGroups[idHiveGroup].hives[idHive].hive_type = $("#apibundle_pshive_hiveType").val();
+	        donneesRuches.hiveGroups[idHiveGroup].hives[idHive].bees_type = $("#apibundle_pshive_beesType").val();
+	        donneesRuches.hiveGroups[idHiveGroup].hives[idHive].material = $("#apibundle_pshive_material").val();
+	        donneesRuches.hiveGroups[idHiveGroup].hives[idHive].support = $("#apibundle_pshive_support").val();
+	        donneesRuches.hiveGroups[idHiveGroup].hives[idHive].state = $("#apibundle_pshive_state").val();
+	        donneesRuches.hiveGroups[idHiveGroup].hives[idHive].harvest = $("#apibundle_pshive_harvest").val();
+	        donneesRuches.hiveGroups[idHiveGroup].hives[idHive].note= $("#apibundle_pshive_note").val();
+	        donneesRuches.hiveGroups[idHiveGroup].hives[idHive].notes = $("#apibundle_pshive_notes").val();
+	        //console.log(donneesRuches.hiveGroups[idHiveGroup].hives[idHive]);
+	        goToDataHives(donneesRuches.hiveGroups[idHiveGroup].hives[idHive].name, donneesRuches.hiveGroups[idHiveGroup].hives[idHive].data,true);
     	})
     }
     else {
@@ -257,7 +257,7 @@ function goToHiveSeuils() {
             //console.log(donnees);
             $.ajax({
                 type: 'PATCH',
-                url: url+'pshive/'+donneesRuches.hiveGroups[rucher].hives[ruche].id,
+                url: url+'pshive/'+donneesRuches.hiveGroups[idHiveGroup].hives[idHive].id,
                 xhrFields: {
                     withCredentials: true
                 },
@@ -267,7 +267,7 @@ function goToHiveSeuils() {
                 	//customer = data;
                 	updateLimitsHive(data);
 	                /* on retourne aux détails */
-	                goToDataHives(donneesRuches.hiveGroups[rucher].hives[ruche].name, donneesRuches.hiveGroups[rucher].hives[ruche].data,true);
+	                goToDataHives(donneesRuches.hiveGroups[idHiveGroup].hives[idHive].name, donneesRuches.hiveGroups[idHiveGroup].hives[idHive].data,true);
                     //console.log("fin modif");
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
@@ -287,7 +287,7 @@ function goToHiveSeuils() {
  */
 function updateLimitsHive(data) {
     for(var limit in data) {
-        donneesRuches.hiveGroups[rucher].hives[ruche].data[limit] = data[limit];
+        donneesRuches.hiveGroups[idHiveGroup].hives[idHive].data[limit] = data[limit];
     }
 }
 

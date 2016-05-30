@@ -137,9 +137,10 @@ function ajouterNote() {
 
 function goToAddCustomNote() {
     transition(_("pajoutnotepersonnalisee"));
-    $("#form-add-custom-note").find(".bouton").click(function(e) {
+    $("#form-add-custom-note").submit(function(e) {
         e.preventDefault();
         var data = $(this).serialize();
+        console.log(data);
         addCustomNote(data);
     });
 }

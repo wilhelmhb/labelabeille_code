@@ -56,14 +56,14 @@ function getDataHive(id, id2, name, action) {
 
 
 
-function goToDataHive(rucher,ruche,r) {
+function goToDataHive(r) {
     var template = $(templates).filter('#tpl-details').html();
-    console.log("Rucher : " + rucher);
-    console.log("Ruche : " + ruche);
+    console.log("Rucher : " + idHiveGroup);
+    console.log("Ruche : " + idHive);
     console.log(donneesRuches);
-    var dataHive=donneesRuches.hiveGroups[rucher].hives[ruche];
+    var dataHive=donneesRuches.hiveGroups[idHiveGroup].hives[idHive];
     console.log(dataHive)
-    dataHive.name_hive_group=donneesRuches.hiveGroups[rucher].name;
+    dataHive.name_hive_group=donneesRuches.hiveGroups[idHiveGroup].name;
     dataHive.recolte = dataHive.data["PARAM.POIDS_RECOLTE"];
     dataHive.miel = dataHive.data["PARAM.PROD_MIEL_RUCHE"];
     dataHive.essaim = dataHive.data["PARAM.POIDS_ESSAIM"];
@@ -73,11 +73,11 @@ function goToDataHive(rucher,ruche,r) {
     if(r)retour();
     else transition(_("pdetails"), "");
     //-Paramètres
-    _("parametresDetails").addEventListener(evtclick,function(){goToHiveParameters(rucher,ruche);});
+    _("parametresDetails").addEventListener(evtclick,function(){goToHiveParameters();});
     //-Historique
-    _("historiqueDetails").addEventListener(evtclick,function(){goToHistorique(dataHive.id_hive);});
+    _("historiqueDetails").addEventListener(evtclick,function(){goToHistorique();});
     _("ajouter_note_details").addEventListener(evtclick,function(){
-                                               ajouterNote(dataHive.id_hive_group,dataHive.id_hive);});
+                                               ajouterNote();});
     //-Courbes
 
 }

@@ -88,17 +88,16 @@ function getCustomNotes(action) {
  * get all the custom notes added to the selected hive
  * @function action : what to do with the collected data
  */
-function getCustomNotesForHive(action,idHive) {
+function getCustomNotesForHive(action) {
     $.ajax({
         type: 'GET',
-        url: url+'pscustomnotecustomer/hives/' + idHive,
+        url: url+'pscustomnotecustomer/hives/' + donneesRuches.hiveGroups[idHiveGroup].hives[idHive].id_hive,
         xhrFields: {
             withCredentials: true
         },
         success: function(data) {
             console.log(idHive);
             console.log(idHiveGroup);
-            console.log(donneesRuches.hiveGroups[idHiveGroup].hives[idHive].id_hive);
             console.log(data);
             for(var i in data) {
                 data[i].date_add = formatDate(data[i].date_add);
