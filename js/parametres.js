@@ -122,6 +122,9 @@ function goToHiveParameters() {
     }
     else {
         $("#form-params-hive").find(".bouton").click(function(e){
+            $("#form-params-hive").submit();
+        });
+        $("#form-params-hive").submit(function(e){
             //console.log("début modif");
             e.preventDefault();
             var donnees = $(this).serialize();
