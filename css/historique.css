@@ -13,12 +13,28 @@
     position:relative;
     margin-top:10px;
 }
+
+
+
+.histo_info{
+    background-color:#8a8a8a;
+}
+.histo_todo{
+    background-color:#ffbb02;
+}
+.histo_warning{
+    background-color:#ff8502;
+}
 .histo_important{
     background-color:#7c0000;
 }
+.histo_critical{
+    background-color:#000000;
+}
+
 .elt_histo .supprimer{
     float:right;
-    margin:3px 0 0 3px;
+    margin:3px 0 0 12px;
 
 }
 .elt_histo .fleche{
@@ -34,7 +50,7 @@
 .elt_histo_titre{
     display:inline-block;
     color:white;
-    width:calc(75% - 31px);
+    width:calc(75% - 40px);
     padding:0 10px 0 3px;
 }
 .elt_histo_date{

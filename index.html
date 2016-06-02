@@ -12,6 +12,7 @@
         <link rel="stylesheet" href="css/details.css" type="text/css" charset="utf-8" />
         <link rel="stylesheet" href="css/chargement-connexion.css" type="text/css" charset="utf-8" />
         <link rel="stylesheet" href="css/historique.css" type="text/css" charset="utf-8" />
+        <link rel="stylesheet" href="css/courbes.css" type="text/css" charset="utf-8" />
         <!-- <script type="text/javascript" src="cordova.js"></script> -->
        <script type="text/javascript" src="js/carte.js"></script>
        <script type="text/javascript" src="js/jquery.js"></script>
@@ -26,6 +27,7 @@
         <script type="text/javascript" src="js/navigation.js"></script>
         <script type="text/javascript" src="js/liste_ruches.js"></script>
         <script type="text/javascript" src="js/liste_ruchers.js"></script>
+        <script type="text/javascript" src="js/courbes.js"></script>
         <script type="text/javascript" src="js/donnees_ruches.js"></script>
         <script type="text/javascript" src="js/custom_notes.js"></script>
         <script type="text/javascript" src="js/default_notes.js"></script>
@@ -36,6 +38,8 @@
         <script type="text/javascript" src="js/inscription.js"></script>
         <script type="text/javascript" src="js/accueil2.js"></script>
         <script type="text/javascript" src="js/historique.js"></script>
+        <script type="text/javascript" src="js/Chart.bundle.js"></script>
+
 
         <title>Label Abeille</title>
     </head>
@@ -158,7 +162,23 @@
                 <div id="content-list-hiveGroups" class="corps_list_hiveGroups">
                 </div>
             </div>
-
+            
+            
+            
+            <!-- graphs -->
+            <div class="page" id="pcourbes">
+                <div id="menu_haut">
+                    <img class="retour" src="img/retour.png" id="retour_params_generaux" alt="Retour" />
+                    <h1>Param&egrave;tres</h1>
+                </div>
+                <div id="bas_defilement"></div>
+                <div id="bas_triangle"></div>
+                <div id="content-courbes" class="corps">
+                    
+                    
+                </div>
+            </div>
+            
             <!-- list of the hives -->
             <div class="page" id="paccueil">
                 <div id="menu_haut">
@@ -296,6 +316,9 @@
                 <div id="corps-add-hives-to-hivegroup" class="corps">
                 </div>
             </div>
+
+
+
 
             <!-- account parameters -->
             <div class="page" id="pparametres">
