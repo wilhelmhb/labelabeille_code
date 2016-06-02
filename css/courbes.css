@@ -1,0 +1,26 @@
+#conteneur-courbe{
+    width:100%;
+    height:100%;
+    position:relative;
+}
+#reserve-courbes{
+    display:none;
+}
+
+.canvas {
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+   
+}
+.courbe{
+    
+    
+    padding-top:15%;
+    height:80%;
+    width:90%;
+    margin:auto;
+    padding-right:3%;
+    
+
+}
