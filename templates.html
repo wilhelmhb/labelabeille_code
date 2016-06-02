@@ -122,11 +122,35 @@
                         </div>
                     </div>
                     </div>
-                {{/hiveGroups}}
+                {{/hivegroups}}
                 </div>
                 <div style="clear:both;"></div>
                 
 </script>
+
+
+
+<script type="text/html" id="tpl-courbes">
+    
+    <div id="sous_titre_courbes" class="sous_titre">
+        <span id="nav_gauche_courbes" class="nav_gauche"><</span>
+        <span id="nav_droite_courbes" class="nav_droite">></span>
+        <h1></h1>
+        <div style="clear:both;"></div>
+    </div>
+    <div id="bas_defilement_gris"></div>
+    <div id="conteneur-courbe"></div>
+    <div id="reserve-courbes">
+    {{#courbes}}
+        <div id="courbe{{id}}" class="page">
+            <div class="courbe">
+                <canvas id="canvas{{id}}" class="canvas"></canvas>
+            </div>
+        </div>
+    {{/courbes}}
+    </div>
+    </script>
+
 
 
 <script type="text/html" id="tpl-list-hive-groups">
@@ -145,7 +169,7 @@
 	</div>
 	<div id="details-content" class="contenu">
 		<div id="menudetails">
-			<img id="courbesDetails" style="opacity:0.3;filter:alpha(opacity = 0.3)" src="img/details/courbes.png" alt="Courbes" />
+			<img id="courbesDetails" src="img/details/courbes.png" alt="Courbes" />
 			<img id="historiqueDetails" src="img/details/historique.png" class="milieu" alt="Historique" />
 			<img id="parametresDetails" src="img/details/parametres.png" alt="Param&egrave;tres" />
 		</div>

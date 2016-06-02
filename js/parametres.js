@@ -31,7 +31,7 @@ function goToGeneralParameters() {
 	        customer = donnees;
 	        test.customer = customer;
 	        //console.log(test.customer);
-            goToListHives(idHiveGroup, hiveGroups[idHiveGroup].hives);
+            goToListHives();
     	})
     }
     else {

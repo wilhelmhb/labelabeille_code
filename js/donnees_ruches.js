@@ -79,6 +79,7 @@ function goToDataHive(r) {
     _("ajouter_note_details").addEventListener(evtclick,function(){
                                                ajouterNote();});
     //-Courbes
+    _("courbesDetails").addEventListener(evtclick,function(){goToGraphs(dataHive.id_hive);});
 
 }
 

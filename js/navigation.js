@@ -76,5 +76,6 @@ function PageSlider(container,pageinit,reserve,classPage) {
  */
 function tester(){
 	isTest=true;
+    donneesRuches=test;
 	getListHives(goToListHives);
 }

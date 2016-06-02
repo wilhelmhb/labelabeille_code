@@ -54,9 +54,9 @@ function getDataForHives(action) {
  * @int id : identifier of the hiveGroup
  * @Object listHives : JSON Object containing the list of all hives
  */
-function goToListHives(listHives,retour) {
+function goToListHives(retour) {
 
-    console.log(listHives);
+
     var template = $(templates).filter('#tpl-accueil').html();
 	var idx = 1;
 	var i = 0;

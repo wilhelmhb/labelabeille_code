@@ -109,7 +109,7 @@ function debut(){
 function charger(){
  if(pcharge<100)pcharge++;
  dessinCercleFLAT(_("canvasProgressSimple"),pcharge);
- if(pcharge==100&&templateCharge){
+    if(templateCharge){//if(pcharge==100&&templateCharge){
 	 transition(_("pconnexion"));
 	 clearInterval(tcharge);
 	 connect();
