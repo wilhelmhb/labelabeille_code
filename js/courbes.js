@@ -170,7 +170,32 @@ function allerCourbe(k){
         var ctx = document.getElementById("canvas"+courbe).getContext("2d");
         window.myLine = new Chart(ctx, config);
 
-    
+};
 
-    
+/**
+ * function to get all data of the considered hive between the datetimes debut and fin
+ * @string params : one or several of the proposed parameters ->BAT,DEF.DEF_BATTERIE_MIN,DEF.DEF_BATTERIE_MOY,DEF.DEF_COM,DEF.DEF_GEO,DEF.DEF_HUM_MAX,DEF.DEF_HUM_MIN,
+                        DEF.DEF_MASSE,DEF.DEF_ORI,DEF.DEF_POIDS_TARE,
+                        DEF.DEF_TEMP_MAX,DEF.DEF_TEMP_MIN,HORODATE,HUM,LAT,LNG,LUM,MASSE,MODE,ORI,PARAM.COMMENTAIRE,PARAM.NB_ABEILLE,PARAM.NB_HAUSSE,PARAM.POIDS_ESSAIM,
+                        PARAM.POIDS_RECOLTE,PARAM.POIDS_RUCHE_VIERGE,PARAM.PROD_MIEL_HAUSSE,PARAM.PROD_MIEL_RUCHE,PARAM.SEUIL_BAISSE_POIDS,
+                        PARAM.SEUIL_BAISSE_POIDS_DUREE,PARAM.SEUIL_BATTERIE_MIN,PARAM.SEUIL_BATTERIE_MOY,PARAM.SEUIL_HUMIDITE_MAX,
+                        PARAM.SEUIL_HUMIDITE_MIN,PARAM.SEUIL_TEMP_MAX,PARAM.SEUIL_TEMP_MIN,TMP,VOL
+ * @string debut : datetime in format dd/MM/yyyy%20hh:mm:ss
+ * @string fin : datetime in format dd/MM/yyyy%20hh:mm:ss
+ */
+function getHistoryHive(params, debut, fin) {
+    $.ajax({
+        type: 'GET',
+        url: url+'pshive/' + donneesRuches.hivegroups[idHiveGroup].hives[idHive].id_hive + '/log?params=' + params + '&debut=' + debut + '&fin=' + fin,
+        dataType: "json",
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function(data) {
+            //what to do on success
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            //what to do on error
+        }
+    });
 }
