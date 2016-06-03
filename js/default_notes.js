@@ -24,7 +24,7 @@ function addDefaultNoteToHive(idDefaultNote) {
  * what to do after having successfully added a default note to a hive
  */
 function addDefaultNoteToHiveSuccess() {
-    goToHistorique();
+    goToHistorique(idHive);
 }
 
 /**
@@ -55,10 +55,10 @@ function getDefaultNotes(action) {
  * get all the default notes added to the selected hive
  * @function action : what to do with the collected data
  */
-function getDefaultNotesForHive(action) {
+function getDefaultNotesForHive(action, idHive) {
     $.ajax({
         type: 'GET',
-        url: url+'psdefaultnotecustomer/hives/' + donneesRuches.hiveGroups[idHiveGroup].hives[idHive].id_hive,
+        url: url+'psdefaultnotecustomer/hives/' + donneesRuches.hivegroups[idHiveGroup].hives[idHive].id_hive,
         xhrFields: {
             withCredentials: true
         },
@@ -75,7 +75,6 @@ function getDefaultNotesForHive(action) {
     });
 }
 
-//TODO : ne pas considérer code 301 comme erreur...
 function deleteDefaultNoteForHive(idCustomNote) {
     $.ajax({
         type: 'DELETE',

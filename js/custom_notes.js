@@ -57,7 +57,7 @@ function addCustomNoteToHive(idCustomNote) {
  * what to do after having successfully added a custom note to a hive
  */
 function addCustomNoteToHiveSuccess() {
-    goToHistorique();
+    goToHistorique(idHive);
 }
 
 /**
@@ -88,10 +88,11 @@ function getCustomNotes(action,fDefault) {
  * get all the custom notes added to the selected hive
  * @function action : what to do with the collected data
  */
-function getCustomNotesForHive(action,fDefault, idHive) {
+function getCustomNotesForHive(action, idHive) {
+    console.log(idHive);
     $.ajax({
         type: 'GET',
-        url: url+'pscustomnotecustomer/hives/' + idHive,
+        url: url+'pscustomnotecustomer/hives/' + donneesRuches.hivegroups[idHiveGroup].hives[idHive].id_hive,
         xhrFields: {
             withCredentials: true
         },
@@ -135,7 +136,6 @@ function deleteCustomNoteToHiveSuccess() {
     goToHistorique();
 }
 
-//TODO : ne pas considérer code 301 comme erreur...
 function deleteCustomNoteForHive(idCustomNote) {
     $.ajax({
         type: 'DELETE',

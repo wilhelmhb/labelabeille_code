@@ -75,9 +75,10 @@ function goToDataHive(r) {
     //-Paramètres
     _("parametresDetails").addEventListener(evtclick,function(){goToHiveParameters();});
     //-Historique
-    _("historiqueDetails").addEventListener(evtclick,function(){goToHistorique();});
+    _("historiqueDetails").addEventListener(evtclick,function(){goToHistorique(idHive);});
     _("ajouter_note_details").addEventListener(evtclick,function(){
-                                               ajouterNote();});
+        ajouterNote();
+    });
     //-Courbes
     _("courbesDetails").addEventListener(evtclick,function(){goToGraphs(dataHive.id_hive);});
 
@@ -110,6 +111,7 @@ function goToDataHives(name, dataHive,r) {
 	//-Historique
 	_("historiqueDetails").addEventListener(evtclick,goToHistorique); 
 	_("ajouter_note_details").addEventListener(evtclick,function(){
-		ajouterNote(dataHive.id_hive_group,dataHive.id_hive);}); 
+		ajouterNote(dataHive.id_hive_group,dataHive.id_hive);
+	}); 
 	//-Courbes
 }
