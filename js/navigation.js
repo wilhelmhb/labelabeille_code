@@ -28,7 +28,10 @@ function PageSlider(container,pageinit,reserve,classPage) {
 	            if($(dest).attr("id")=="paccueil"){
 
                     enTransition=false;
-					getListHives(goToListHives,1);
+					getListHiveGroups(function() {
+                        console.log("récupération des listes de ruches par rucher");
+                        getHivesForHiveGroups(1);
+                    });
 					return;
 	            }
 	            if($(dest).attr("id")=="pconnexion"){

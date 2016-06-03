@@ -103,21 +103,6 @@ function connexion_failure() {
 function connexion_success() {
     afficherBd("Vous êtes connecté. Vous allez être redirigé vers la liste de vos ruches dans quelques instants. Si ce n'est pas le cas, cliquez sur le bouton ci-dessous.", "Aller");
 
-    function aux() {
-        idHiveGroup++;
-        getHivesForHiveGroups();
-    };
-    function getHivesForHiveGroups() {
-        if(idHiveGroup >= donneesRuches.hivegroups.length) {
-            idHiveGroup = 0;
-            goToListHives();
-        }
-        else {
-            getListHives(function(a,b) {
-                getDataForHives(aux);
-            }, false);
-        }
-    };
     //NEW
     getCustomNotes(function(data) {
         customNotesCreatedByUser = data;
@@ -125,8 +110,24 @@ function connexion_success() {
             defaultNotes = data;
             getListHiveGroups(function() {
                 console.log("récupération des listes de ruches par rucher");
-                getHivesForHiveGroups();
+                getHivesForHiveGroups(0);
             });
         });
     });
-}
+};
+
+function aux() {
+    idHiveGroup++;
+    getHivesForHiveGroups();
+};
+function getHivesForHiveGroups(retour) {
+    if(idHiveGroup >= donneesRuches.hivegroups.length) {
+        idHiveGroup = 0;
+        goToListHives(retour);
+    }
+    else {
+        getListHives(function(a,b) {
+            getDataForHives(aux);
+        }, false);
+    }
+};
