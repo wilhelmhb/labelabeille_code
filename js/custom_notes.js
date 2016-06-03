@@ -103,7 +103,8 @@ function getCustomNotesForHive(action, idHive) {
             for(var i in data) {
                 data[i].date_add = formatDate(data[i].date_add);
             }
-            action(data);
+            customNotesSetByUser = data;
+            action();
         },
         error: function (xhr, ajaxOptions, thrownError) {
             console.log(xhr.responseText);

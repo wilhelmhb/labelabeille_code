@@ -20,65 +20,21 @@ function twoDigits(n) {
     return n;
 }
 
-function goToHistorique(idHive){
-	//Marche seulement en mode test pour l'instant
+function goToHistorique(idHive){//Si idHive est passé en argument; on affiche que les notes associée à cette ruche
+    idHive = typeof idHive !== 'undefined' ?  idHive : -1;
 	var idx = 0;
-	getCustomNotesForHive(function(data) {
-	    console.log("CustomNote récupérée");
-	    customNotesSetByUser = data;
-	    /* structure of one note : { id: 24, id_custom_note: 2, id_hive: 22, date_add: "07/05/2016 20:26:00" } */
-        var notes = [];
-        for(var i in customNotesSetByUser) {
-            console.log(customNotesSetByUser[i]);
-            var note = customNotesSetByUser[i];
-            for(var j in customNotesCreatedByUser) {
-                if(customNotesCreatedByUser[j].id == note.id_custom_note) {
-                    note.data = customNotesCreatedByUser[j];
-                }
-            }
-            notes.push(note);
-        };
-        getDefaultNotesForHive(function(data) {
-            var defaultNotesSetByUser = data;
-            /* structure of one note :  { id: 10, id_default_note: 2, id_hive: 22, date_add: "07/05/2016 21:00:00", id_customer: 23 } */
-            for(var i in defaultNotesSetByUser) {
-                console.log(defaultNotesSetByUser[i]);
-                var note = defaultNotesSetByUser[i];
-                for(var j in defaultNotes) {
-                    if(defaultNotes[j].id == note.id_default_note) {
-                        note.data = defaultNotes[j];
-                    }
-                }
-                notes.push(note);
-            };
-            notes.sort(function(a, b) {
-                if (a.date_add < b.date_add) return 1;
-                if (a.date_add > b.date_add) return -1;
-                return 0;
-            });
-            for (idx in notes) {
-				   notes[idx] = {'index': (parseInt(idx)+1), 'note': notes[idx]};
-			}
-            historique = {
-                "notes" : notes
-            };
-            var template = $(templates).filter('#tpl-historique').html();
-            /*console.log(listHives.ruches.length);
-            console.log(JSON.stringify(listHives)); 
-            console.log(listHives.ruches[0].name);*/
-            console.log(historique);
-            var h = Mustache.render(template, historique);
-            document.getElementById("content-historique").innerHTML = h;
-            //console.log('goToGeneralParameters : before transition');
-            transition(_("phistorique"), "slide");
-            $("#ajouter_note_historique").click(
-	            function(){
-		            ajouterNote();
-	            }
-            );
-            details_histo(1);
+    if(idHive>-1){
+        getCustomNotesForHive(function() {
+            console.log("Fin de getCustomNotesForHive : " + idHive);
+            getDefaultNotesForHive(afficherNotes, idHive);
+        }, idHive);
+    }
+    else{
+        getCustomNotes(function() {
+            getDefaultNotes(afficherNotes);
         });
-	},idHive);
+    }
+    
 }
 var selectHisto=1;
 function details_histo(nouveau){
@@ -91,6 +47,64 @@ function details_histo(nouveau){
 function supprimer_histo(id){
 	//
 }
+function afficherNotes(data, indexHive){
+    console.log("CustomNote récupérée : " + indexHive);
+    console.log("Etat de la mémoire : ");
+    console.log(data);
+    console.log(customNotesSetByUser);
+    console.log(customNotesCreatedByUser);
+    /* structure of one note : { id: 24, id_custom_note: 2, id_hive: 22, date_add: "07/05/2016 20:26:00" } */
+    var notes = [];
+    for(var i in data) {
+        console.log(data[i]);
+        var note = data[i];
+        for(var j in defaultNotes) {
+            if(defaultNotes[j].id == note.id_default_note) {
+                note.data = defaultNotes[j];
+            }
+        }
+        notes.push(note);
+    };
+    for(var i in customNotesSetByUser) {
+        console.log(customNotesSetByUser[i]);
+        var note = customNotesSetByUser[i];
+        for(var j in customNotesCreatedByUser) {
+            if(customNotesCreatedByUser[j].id == note.id_custom_note) {
+                note.data = customNotesCreatedByUser[j];
+            }
+        }
+        notes.push(note);
+    };
+    notes.sort(function(a, b) {
+        if (a.id < b.id) return 1;
+        if (a.id > b.id) return -1;
+        return 0;
+    });
+    for (idx in notes) {
+       notes[idx] = {'index': (parseInt(idx)+1), 'note': notes[idx]};
+    }
+    historique = {
+       "notes" : notes
+    };
+    var template = $(templates).filter('#tpl-historique').html();
+    /*console.log(listHives.ruches.length);
+     console.log(JSON.stringify(listHives));
+     console.log(listHives.ruches[0].name);*/
+    console.log(historique);
+    var h = Mustache.render(template, historique);
+    document.getElementById("content-historique").innerHTML = h;
+    //console.log('goToGeneralParameters : before transition');
+    transition(_("phistorique"), "slide");
+    idHive = indexHive;
+    console.log(idHive);
+    if(idHive!=-1)$("#sous_titre_histo").children("h1").html(donneesRuches.hivegroups[idHiveGroup].hives[idHive].name);
+    else $("#sous_titre_histo").children("h1").html("Toutes les ruches");
+    $("#ajouter_note_historique").click(function(){
+       ajouterNote();
+    });
+    if(notes.length)details_histo(1);
+}
+
 function ajouterNote() {
 	var template = $(templates).filter('#tpl-ajoutnote').html();
 	/* choose hivegroup and hive

@@ -67,7 +67,7 @@ function getDefaultNotesForHive(action, idHive) {
             for(var i in data) {
                 data[i].date_add = formatDate(data[i].date_add);
             }
-            action(data);
+            action(data, idHive);
         },
         error: function (xhr, ajaxOptions, thrownError) {
             console.log(xhr.responseText);
