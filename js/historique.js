@@ -10,7 +10,8 @@ function formatDate(date) {
     var h = twoDigits(formattedDate.getHours());
     var m = twoDigits(formattedDate.getMinutes());
     var s = twoDigits(formattedDate.getSeconds());
-    return d + "/" + M + "/" + y + " " + h + ":" + m + ":" + s;
+    var ms = twoDigits(formattedDate.getMilliseconds());
+    return {'add' : d + "/" + M + "/" + y + " " + h + ":" + m + ":" + s , 'compare' : y + "/" + M + "/" + d + " " + h + ":" + m + ":" + s + "," + ms };
 }
 
 function twoDigits(n) {
@@ -23,18 +24,26 @@ function twoDigits(n) {
 function goToHistorique(idHive){//Si idHive est passé en argument; on affiche que les notes associée à cette ruche
     idHive = typeof idHive !== 'undefined' ?  idHive : -1;
 	var idx = 0;
-    if(idHive>-1){
-        getCustomNotesForHive(function() {
-            console.log("Fin de getCustomNotesForHive : " + idHive);
-            getDefaultNotesForHive(afficherNotes, idHive);
-        }, idHive);
-    }
-    else{
-        getCustomNotes(function() {
-            getDefaultNotes(afficherNotes);
-        });
-    }
-    
+	if(isTest) {
+	    defaultNotes = testDefaultNotes;
+	    defaultNotesUser = testDefaultNotesSetByUser;
+	    customNotesCreatedByUser = testCustomNotesCreatedByUser;
+	    customNotesSetByUser = testCustomNotesSetByUser;
+	    afficherNotes(defaultNotesUser, idHive);
+	}
+	else {
+        if(idHive>-1){
+            getCustomNotesForHive(function() {
+                console.log("Fin de getCustomNotesForHive : " + idHive);
+                getDefaultNotesForHive(afficherNotes, idHive);
+            }, idHive);
+        }
+        else{
+            getCustomNotes(function() {
+                getDefaultNotes(afficherNotes);
+            });
+        }
+    }    
 }
 var selectHisto=1;
 function details_histo(nouveau){
@@ -76,6 +85,8 @@ function afficherNotes(data, indexHive){
         notes.push(note);
     };
     notes.sort(function(a, b) {
+        if (a.date_compare < b.date_compare) return 1;
+        if (a.date_compare > b.date_compare) return -1;
         if (a.id < b.id) return 1;
         if (a.id > b.id) return -1;
         return 0;

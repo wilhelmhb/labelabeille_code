@@ -63,9 +63,11 @@ function getDefaultNotesForHive(action, idHive) {
             withCredentials: true
         },
         success: function(data) {
-            console.log(data);
+            console.log("defaultNotesForHive : " + JSON.stringify(data));
             for(var i in data) {
-                data[i].date_add = formatDate(data[i].date_add);
+                var dates = formatDate(data[i].date_add);
+                data[i].date_add = dates.add;
+                data[i].date_compare = dates.compare;
             }
             action(data, idHive);
         },

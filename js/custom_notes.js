@@ -99,10 +99,12 @@ function getCustomNotesForHive(action, idHive) {
         success: function(data) {
             console.log(idHive);
             console.log(idHiveGroup);
-            console.log(data);
             for(var i in data) {
-                data[i].date_add = formatDate(data[i].date_add);
+                var dates = formatDate(data[i].date_add);
+                data[i].date_add = dates.add;
+                data[i].date_compare = dates.compare;
             }
+            console.log("CustomNotesForHive : " + JSON.stringify(data));
             customNotesSetByUser = data;
             action();
         },
