@@ -102,19 +102,15 @@ function connexion_failure() {
  */
 function connexion_success() {
     afficherBd("Vous êtes connecté. Vous allez être redirigé vers la liste de vos ruches dans quelques instants. Si ce n'est pas le cas, cliquez sur le bouton ci-dessous.", "Aller");
-    //OLD
-    /*getListHives(0, goToListHives);
-    _("btBd").addEventListener(evtclick, function (){
-       getListHives(0, goToListHives);
-    });*/
+
     function aux() {
         idHiveGroup++;
         getHivesForHiveGroups();
     };
     function getHivesForHiveGroups() {
-        if(idHiveGroup >= donneesRuches.hiveGroups.length) {
+        if(idHiveGroup >= donneesRuches.hivegroups.length) {
             idHiveGroup = 0;
-            goToListHives(null, false);
+            goToListHives();
         }
         else {
             getListHives(function(a,b) {

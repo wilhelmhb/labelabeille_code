@@ -41,7 +41,7 @@ function getDataHive(id, id2, name, action) {
                 success: function(data) {
 				    enCharge=false;
 				    idHive = id2;
-			    	donneesRuches.hiveGroups[idHiveGroup].hives[idHive].data = data;
+			    	donneesRuches.hivegroups[idHiveGroup].hives[idHive].data = data;
 			    	console.log(data);
 				    _("ch").style.visibility="hidden";
 				    //console.log(id2);
@@ -61,9 +61,9 @@ function goToDataHive(r) {
     console.log("Rucher : " + idHiveGroup);
     console.log("Ruche : " + idHive);
     console.log(donneesRuches);
-    var dataHive=donneesRuches.hiveGroups[idHiveGroup].hives[idHive];
+    var dataHive=donneesRuches.hivegroups[idHiveGroup].hives[idHive];
     console.log(dataHive)
-    dataHive.name_hive_group=donneesRuches.hiveGroups[idHiveGroup].name;
+    dataHive.name_hive_group=donneesRuches.hivegroups[idHiveGroup].name;
     dataHive.recolte = dataHive.data["PARAM.POIDS_RECOLTE"];
     dataHive.miel = dataHive.data["PARAM.PROD_MIEL_RUCHE"];
     dataHive.essaim = dataHive.data["PARAM.POIDS_ESSAIM"];

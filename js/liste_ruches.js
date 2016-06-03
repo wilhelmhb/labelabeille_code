@@ -9,15 +9,14 @@ function getListHives(action,retour) {
 		if(isTest) {
 		    enCharge=false;
 			_("ch").style.visibility="hidden";
-            datahives=test;
-			action(datahives,retour);
+            action(retour);
 		}
 		else {
-		    console.log('récupération des ruches du rucher ' + donneesRuches.hiveGroups[idHiveGroup].id_hive_group);
+		    console.log('récupération des ruches du rucher ' + donneesRuches.hivegroups[idHiveGroup].id_hive_group);
 		    console.log(hiveGroups[idHiveGroup]);
             $.ajax({
                 type: 'GET',
-                url: url+'pshivegroup/hives/' + donneesRuches.hiveGroups[idHiveGroup].id_hive_group,
+                url: url+'pshivegroup/hives/' + donneesRuches.hivegroups[idHiveGroup].id_hive_group,
                 dataType: "json",
                 xhrFields: {
                     withCredentials: true
@@ -28,21 +27,21 @@ function getListHives(action,retour) {
                     console.log(data.ruches); 
                     //$("#resultat").html(JSON.stringify(data));
                     console.log("hiveGroups : " + hiveGroups);
-				    donneesRuches.hiveGroups[idHiveGroup].hives = data.ruches;
-                    action(data.ruches,retour);
+				    donneesRuches.hivegroups[idHiveGroup].hives = data.ruches;
+                    action(retour);
                 },
             });
         }
 };
 
 function getDataForHives(action) {
-        if(idHive >= donneesRuches.hiveGroups[idHiveGroup].hives.length) {
+        if(idHive >= donneesRuches.hivegroups[idHiveGroup].hives.length) {
             idHive = 0;
             console.log(action);
             action();
         }
         else {
-            getDataHive(donneesRuches.hiveGroups[idHiveGroup].hives[idHive].id_hive, idHive, donneesRuches.hiveGroups[idHiveGroup].hives[idHive].name, function() {
+            getDataHive(donneesRuches.hivegroups[idHiveGroup].hives[idHive].id_hive, idHive, donneesRuches.hivegroups[idHiveGroup].hives[idHive].name, function() {
                 idHive++;
                 getDataForHives(action);
             });
@@ -60,11 +59,11 @@ function goToListHives(retour) {
     var template = $(templates).filter('#tpl-accueil').html();
 	var idx = 1;
 	var i = 0;
-    for(var l=0;l<donneesRuches.hiveGroups.length;l++){
-        donneesRuches.hiveGroups[l].index=l+1;
-        for(var r=0;r<donneesRuches.hiveGroups[l].hives.length;r++){
-            donneesRuches.hiveGroups[l].hives[r].indexhg=l+1;
-            donneesRuches.hiveGroups[l].hives[r].index=r+1;
+    for(var l=0;l<donneesRuches.hivegroups.length;l++){
+        donneesRuches.hivegroups[l].index=l+1;
+        for(var r=0;r<donneesRuches.hivegroups[l].hives.length;r++){
+            donneesRuches.hivegroups[l].hives[r].indexhg=l+1;
+            donneesRuches.hivegroups[l].hives[r].index=r+1;
 
         }
     }
@@ -74,10 +73,6 @@ function goToListHives(retour) {
     document.getElementById("content-accueil").innerHTML = h;
     transition(_("paccueil"), (retour==1)?"retour":"");
     
-    $("#add_hive").click(function() {
-                         console.log("ajouter ruche");
-                         createHive();
-                         });
     accueil();
     
     masquerBd();

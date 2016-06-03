@@ -8,11 +8,11 @@ function createHive(idHiveGroup) {
     	$("#form-create-hive").find(".bouton").click(function(e){
 	        e.preventDefault();
             var donnees = $(this).serialize();
-            idHive = donneesRuches.hiveGroups[idHiveGroup].hives.length; //change idHive
+            idHive = donneesRuches.hivegroups[idHiveGroup].hives.length; //change idHive
         	updateLocalHive(donnees); // locally update list hive 
-        	console.log(donneesRuches.hiveGroups[idHiveGroup].hives[idHive]);
+        	console.log(donneesRuches.hivegroups[idHiveGroup].hives[idHive]);
         	//goToAddLogger(); // add if needed a logger to the hive
-	        goToListHives(idHiveGroup, donneesRuches.hiveGroups[idHiveGroup].hives);
+	        goToListHives();
     	})
     }
     else {
@@ -30,10 +30,10 @@ function createHive(idHiveGroup) {
                 data: donnees,
                 success: function(data) {
                 	console.log(data); 
-                	idHive = donneesRuches.hiveGroups[idHiveGroup].hives.length; //change idHive
+                	idHive = donneesRuches.hivegroups[idHiveGroup].hives.length; //change idHive
                 	console.log(idHive);
                 	updateLocalHive(data); // locally update list hive 
-                	console.log(donneesRuches.hiveGroups[idHiveGroup].hives[idHive]);
+                	console.log(donneesRuches.hivegroups[idHiveGroup].hives[idHive]);
                 	goToAddLogger(); // add if needed a logger to the hive
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
@@ -51,12 +51,12 @@ function createHive(idHiveGroup) {
  */
 function updateLocalHive(donnees) {
     console.log(idHiveGroup);
-    if(idHive >= donneesRuches.hiveGroups[idHiveGroup].hives.length) {//new hive
-        donneesRuches.hiveGroups[idHiveGroup].hives.push(donnees);
+    if(idHive >= donneesRuches.hivegroups[idHiveGroup].hives.length) {//new hive
+        donneesRuches.hivegroups[idHiveGroup].hives.push(donnees);
     }
     else {//update old one
         for(var field in donnees) {
-            donneesRuches.hiveGroups[idHiveGroup].hives[idHive][field] = donnees[field];
+            donneesRuches.hivegroups[idHiveGroup].hives[idHive][field] = donnees[field];
         }
     }
 }
@@ -66,9 +66,9 @@ function updateLocalHive(donnees) {
  */
 function goToAddLogger() {
     transition(_("padd-logger"));
-    var idClient = donneesRuches.hiveGroups[idHiveGroup].id_client;
+    var idClient = donneesRuches.hivegroups[idHiveGroup].id_client;
     console.log(idClient);
-    console.log(donneesRuches.hiveGroups[idHiveGroup].hives[idHive]);
+    console.log(donneesRuches.hivegroups[idHiveGroup].hives[idHive]);
     $("#form-add-logger").find(".bouton").click(function(e){
         //console.log("début ajout");
         e.preventDefault();
@@ -79,10 +79,10 @@ function goToAddLogger() {
             xhrFields: {
                 withCredentials: true
             },
-            data: donnees+ '&apibundle_psbox%5BidHive%5D=' + donneesRuches.hiveGroups[idHiveGroup].hives[idHive].id_hive + '&apibundle_psbox%5BidClient%5D=' + idClient + '&apibundle_psbox%5Bversion%5D=test&apibundle_psbox%5Bnote%5D=&apibundle_psbox%5Bactive%5D=1&apibundle_psbox%5BdateAdd%5D%5Bdate%5D%5Byear%5D=2011&apibundle_psbox%5BdateAdd%5D%5Bdate%5D%5Bmonth%5D=1&apibundle_psbox%5BdateAdd%5D%5Bdate%5D%5Bday%5D=1&apibundle_psbox%5BdateAdd%5D%5Btime%5D%5Bhour%5D=0&apibundle_psbox%5BdateAdd%5D%5Btime%5D%5Bminute%5D=0&apibundle_psbox%5BdateUpd%5D%5Bdate%5D%5Byear%5D=2011&apibundle_psbox%5BdateUpd%5D%5Bdate%5D%5Bmonth%5D=1&apibundle_psbox%5BdateUpd%5D%5Bdate%5D%5Bday%5D=1&apibundle_psbox%5BdateUpd%5D%5Btime%5D%5Bhour%5D=0&apibundle_psbox%5BdateUpd%5D%5Btime%5D%5Bminute%5D=0',
+            data: donnees+ '&apibundle_psbox%5BidHive%5D=' + donneesRuches.hivegroups[idHiveGroup].hives[idHive].id_hive + '&apibundle_psbox%5BidClient%5D=' + idClient + '&apibundle_psbox%5Bversion%5D=test&apibundle_psbox%5Bnote%5D=&apibundle_psbox%5Bactive%5D=1&apibundle_psbox%5BdateAdd%5D%5Bdate%5D%5Byear%5D=2011&apibundle_psbox%5BdateAdd%5D%5Bdate%5D%5Bmonth%5D=1&apibundle_psbox%5BdateAdd%5D%5Bdate%5D%5Bday%5D=1&apibundle_psbox%5BdateAdd%5D%5Btime%5D%5Bhour%5D=0&apibundle_psbox%5BdateAdd%5D%5Btime%5D%5Bminute%5D=0&apibundle_psbox%5BdateUpd%5D%5Bdate%5D%5Byear%5D=2011&apibundle_psbox%5BdateUpd%5D%5Bdate%5D%5Bmonth%5D=1&apibundle_psbox%5BdateUpd%5D%5Bdate%5D%5Bday%5D=1&apibundle_psbox%5BdateUpd%5D%5Btime%5D%5Bhour%5D=0&apibundle_psbox%5BdateUpd%5D%5Btime%5D%5Bminute%5D=0',
             success: function(data) {
             	console.log(data);
-            	goToListHives(idHiveGroup, donneesRuches.hiveGroups[idHiveGroup].hives);
+            	goToListHives();
             },
             error: function (xhr, ajaxOptions, thrownError) {
                 console.log(xhr.responseText);

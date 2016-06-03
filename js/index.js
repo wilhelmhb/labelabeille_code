@@ -30,6 +30,7 @@ var idHive = 1;
 var nruches=0;
 var listHivesGlobal;
 var levels = ["info", "todo", "warning", "important", "critical"];
+
 var customNotesSetByUser;
 var customNotesCreatedByUser;
 var defaultNotes;

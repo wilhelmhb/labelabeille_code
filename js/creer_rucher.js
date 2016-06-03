@@ -8,9 +8,9 @@ function createHiveGroup(action) {
     	$("#form-create-hive-group").find(".bouton").click(function(e){
 	        e.preventDefault();
             var donnees = $(this).serialize();
-            idHiveGroup = donneesRuches.hiveGroups.length; //change idHiveGroup
+            idHiveGroup = donneesRuches.hivegroups.length; //change idHiveGroup
         	updateLocalHiveGroup(donnees); // locally update list hiveGroup 
-        	console.log(donneesRuches.hiveGroups[idHiveGroup]);
+        	console.log(donneesRuches.hivegroups[idHiveGroup]);
 	        action();
     	})
     }
@@ -30,9 +30,9 @@ function createHiveGroup(action) {
                 success: function(data) {
                 	console.log(data); 
                 	//customer = data;
-                	idHiveGroup = donneesRuches.hiveGroups.length; //change idHiveGroup
+                	idHiveGroup = donneesRuches.hivegroups.length; //change idHiveGroup
                 	updateLocalHiveGroup(donnees); // locally update list hiveGroup
-                	console.log(donneesRuches.hiveGroups[idHiveGroup]);
+                	console.log(donneesRuches.hivegroups[idHiveGroup]);
                 	action();
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
@@ -49,11 +49,11 @@ function createHiveGroup(action) {
  * @Object donnees : object containing the new hive's data
  */
 function updateLocalHiveGroup(donnees) {
-    if(idHiveGroup >= donneesRuches.hiveGroups.length) {//new hive
-        donneesRuches.hiveGroups.push(donnees);
+    if(idHiveGroup >= donneesRuches.hivegroups.length) {//new hive
+        donneesRuches.hivegroups.push(donnees);
     }
     else {//update old one
-        donneesRuches.hiveGroups[idHiveGroup] = donnees;
+        donneesRuches.hivegroups[idHiveGroup] = donnees;
     }
 }
 

@@ -35,14 +35,14 @@ function addNoteSuccess() {
  * @integer idCustomNote: identifier of the note to add
  */
 function addCustomNoteToHive(idCustomNote) {
-    console.log(donneesRuches.hiveGroups[idHiveGroup].hives[idHive]);
+    console.log(donneesRuches.hivegroups[idHiveGroup].hives[idHive]);
     $.ajax({
         type: 'POST',
         url: url+'pscustomnotecustomer',
         xhrFields: {
             withCredentials: true
         },
-        data: 'apibundle_pscustomnotecustomer%5BidCustomNote%5D=' + idCustomNote + '&apibundle_pscustomnotecustomer%5BidHive%5D=' + donneesRuches.hiveGroups[idHiveGroup].hives[idHive].id_hive,
+        data: 'apibundle_pscustomnotecustomer%5BidCustomNote%5D=' + idCustomNote + '&apibundle_pscustomnotecustomer%5BidHive%5D=' + donneesRuches.hivegroups[idHiveGroup].hives[idHive].id_hive,
         success: function(data) {
             console.log("C'est RAS : " + data);
             addCustomNoteToHiveSuccess();
@@ -64,7 +64,7 @@ function addCustomNoteToHiveSuccess() {
  * get all the custom notes of the current user
  * @function action : what to do with the collected data
  */
-function getCustomNotes(action) {
+function getCustomNotes(action,fDefault) {
     $.ajax({
         type: 'GET',
         url: url+'pscustomnote/all',
@@ -76,7 +76,7 @@ function getCustomNotes(action) {
             for(var i in data) {
                 data[i].level = levels[data[i].level];
             }
-            action(data);
+            action(data,fDefault,-1);
         },
         error: function (xhr, ajaxOptions, thrownError) {
             console.log(xhr.responseText);
@@ -88,10 +88,10 @@ function getCustomNotes(action) {
  * get all the custom notes added to the selected hive
  * @function action : what to do with the collected data
  */
-function getCustomNotesForHive(action) {
+function getCustomNotesForHive(action,fDefault, idHive) {
     $.ajax({
         type: 'GET',
-        url: url+'pscustomnotecustomer/hives/' + donneesRuches.hiveGroups[idHiveGroup].hives[idHive].id_hive,
+        url: url+'pscustomnotecustomer/hives/' + idHive,
         xhrFields: {
             withCredentials: true
         },
