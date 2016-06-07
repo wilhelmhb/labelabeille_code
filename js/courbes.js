@@ -18,6 +18,8 @@ var courbesTest=[
 var courbe=1;
 var courbes;
 
+
+
 function goToGraphs(idHive){
     getCourbes(function(data) {
                
@@ -25,7 +27,7 @@ function goToGraphs(idHive){
                
                
                var template = $(templates).filter('#tpl-courbes').html();
-               var d = {courbes:courbesTest};
+               var d = {courbes:data};
                var h = Mustache.render(template, d);
                document.getElementById("content-courbes").innerHTML = h;
                courbes=data;
@@ -92,7 +94,7 @@ function allerCourbe(k){
     var config = {
     type: 'line',
     data: {
-    labels: ["Janvier","Février","Mars","Avril","Mai","Juin"],
+    labels: ["Janvier","Février","Mars","Avril","Mai","Juin","Juillet"],
     datasets: [{
                label: "",
                data: [randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor()],

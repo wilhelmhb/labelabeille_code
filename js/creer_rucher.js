@@ -3,11 +3,10 @@
  */
 function createHiveGroup(action) {
     console.log("début de la création d'un rucher");
-    transition(_("pcreate-hive-group"), "slide");
     if(isTest) {
     	$("#form-create-hive-group").find(".bouton").click(function(e){
 	        e.preventDefault();
-            var donnees = $(this).serialize();
+            var donnees = $("#form-create-hive-group").serialize();
             idHiveGroup = donneesRuches.hivegroups.length; //change idHiveGroup
         	updateLocalHiveGroup(donnees); // locally update list hiveGroup 
         	console.log(donneesRuches.hivegroups[idHiveGroup]);
@@ -18,8 +17,9 @@ function createHiveGroup(action) {
         $("#form-create-hive-group").find(".bouton").click(function(e){
             console.log("début ajout");
             e.preventDefault();
-            var donnees = $(this).serialize();
+            var donnees = $("#form-create-hive-group").serialize();
             console.log(donnees);
+          charge();
             $.ajax({
                 type: 'POST',
                 url: url+'pshivegroup/create',
@@ -28,7 +28,8 @@ function createHiveGroup(action) {
                 },
                 data: donnees,
                 success: function(data) {
-                	console.log(data); 
+                	console.log(data);
+                   finCharge();
                 	//customer = data;
                 	idHiveGroup = donneesRuches.hivegroups.length; //change idHiveGroup
                 	updateLocalHiveGroup(donnees); // locally update list hiveGroup

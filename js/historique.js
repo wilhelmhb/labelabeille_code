@@ -110,9 +110,7 @@ function afficherNotes(data, indexHive){
     console.log(idHive);
     if(idHive!=-1)$("#sous_titre_histo").children("h1").html(donneesRuches.hivegroups[idHiveGroup].hives[idHive].name);
     else $("#sous_titre_histo").children("h1").html("Toutes les ruches");
-    $("#ajouter_note_historique").click(function(){
-       ajouterNote();
-    });
+    
     if(notes.length)details_histo(1);
 }
 
@@ -144,30 +142,22 @@ function ajouterNote() {
   	var h = Mustache.render(template, dataRuches);
     document.getElementById("content-ajout-note").innerHTML = h;
     transition(_("pajoutnote"), "");
-    $("form").on("submit", function(e) {
-        e.preventDefault();
-        if($(this).attr('type') == "default") {
-            addDefaultNoteToHive($(this).attr('id'));
-        }
-        else {
-            addCustomNoteToHive($(this).attr('id'));
-        }
-	});
-	$("#add_custom_note").on("click", function(e) {
-	    e.preventDefault();
-	    $("form").off("submit");
-	    goToAddCustomNote();
-	});
+    
+    $("#sous_titre_ajoutnote").children("h1").html(donneesRuches.hivegroups[idHiveGroup].hives[idHive].name);
 }
 
 function goToAddCustomNote() {
     transition(_("pajoutnotepersonnalisee"));
-    $("#form-add-custom-note").submit(function(e) {
+    
+
+    var f=function(e) {
         e.preventDefault();
-        var data = $(this).serialize();
+        var data = $("#form-add-custom-note").serialize();
         console.log(data);
-        addCustomNote(data);
-    });
+        addCustomNote(data);};
+    
+    
+    $("#add_new_custom_note").on("click", f);
 }
 
 function supprimer_histo(id, isDefault) {

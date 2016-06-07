@@ -19,41 +19,28 @@
 {{/notes}}
 </script>
 <script type="text/html" id="tpl-ajoutnote">
-    <!--<form class="formulaire" method="POST" id="form-params-ruchers" class="formulaire">
-		<h2>Ruches concernées<h2>
-		<p>
-			Rucher :
-			<select name="rucher">
-				<option value="general">Historique général</option>
-				{{#ruchers}}
-				<option value="{{id_hive_group}}" id="option_{{id_hive_group}}" {{#selected}}selected="selected"{{/selected}}>{{name}}</option>
-				{{/ruchers}}
-			</select>
-		</p>
-		<p>
-			Ruche :
-			<select name="ruche">
-				<option value="general">Tout le rucher</option>
-				{{#ruches}}
-				<option value="{{id_hive}}" id="option_{{id_hive}}" {{#selected}}selected="selected"{{/selected}}>{{name}}</option>
-				{{/ruches}}
-			</select>
-		</p>
-        <div id="btAjoutNote" class="bouton"><span>Ajouter</span></div>
-	</form>-->
-	<h2>Notes prédéfinies</h2>
-	{{#default_notes}}
+    <div id="sous_titre_ajoutnote" class="sous_titre">
+        <h1></h1>
+        <div style="clear:both;"></div>
+    </div>
+    <div class="contenu">
+
+        <h1>Notes prédéfinies</h1>
+        <div align="center">
+        {{#default_notes}}
 	    <form class="formulaire" id="{{id}}" type="default">
 	        <input type="submit" value="{{name}}" />
 	    </form>
-	{{/default_notes}}
-	<h2>Notes personnalisées</h2>
-	{{#custom_notes}}
+        {{/default_notes}}
+        <h1>Notes personnalisées</h1>
+        {{#custom_notes}}
 	    <form class="formulaire" id="{{id}}" type="custom">
 	        <input type="submit" value="{{name}}" />
 	    </form>
-	{{/custom_notes}}
-	<input type="button" id="add_custom_note" value="Ajouter une note personnalisée" />
+        {{/custom_notes}}
+        <div class="bouton" id="add_custom_note"><span>Nouvelle note</span></div>
+        </div>
+    </div>
 </script>
 <script type="text/html" id="tpl-accueil">
     
@@ -66,9 +53,40 @@
                 <div id="bas_defilement_gris"></div>
                 <div id="conteneur-rucher"></div>
                 <div id="reserve-ruchers">
+                <div id="nouveaurucher" class="page">
+                    <div class="contenu">
+                    <form class="formulaire" id="form-create-hive-group">
+                    <div>
+                    <label for="apibundle_pshivegroup_name">Nom</label>
+                    <input   type="text" id="apibundle_pshivegroup_name" name="apibundle_pshivegroup[name]" maxlength="64" />
+                    </div>
+                    <div>
+                    <label for="apibundle_pshivegroup_harvest" class="required">Récolte</label>
+                    <input type="number" id="apibundle_pshivegroup_harvest" name="apibundle_pshivegroup[harvest]" required="required" />
+                    </div>
+                    <div class="bouton"><span>CREER</span></div>
+                    </form>
+                    <div style="clear:left;"></div>
+                    </div>
+                
+                
+                </div>
                 {{#hivegroups}}
                     <div id="rucher{{index}}" class="page">
                     <div class="ruches">
+                        <div id="ruche0"  class="ruche" style="visibility:hidden;">
+                            <div class="fond_ruche_grise"></div>
+                            <div class="fond_ruche_selectionnee"></div>
+                            <div class="ruche_contenu">
+                                <div class="sizing"></div>
+                                <div class="ruche_grise">
+                                    <h1></h1>
+                                    <h2></h2>
+                                </div>
+                                <div style="clear:left;"></div>
+                            </div>
+                        </div>
+
                         {{#hives}}
                         <div id="ruche{{indexhg}}_{{index}}"  class="ruche">
                             <div class="fond_ruche_grise"></div>
@@ -123,6 +141,8 @@
                     </div>
                     </div>
                 {{/hivegroups}}
+                
+                </div>
                 </div>
                 <div style="clear:both;"></div>
                 

@@ -11,16 +11,16 @@ var t=500;
 
 function initAccueil(){
 	if(firstAccueil){
-	    if(_("ruche1_1").offsetHeight != null) {
+	    if(_("ruche0").offsetHeight != null) {
 	        //console.log('ok');
-	        h = _("ruche1_1").offsetHeight;
+	        h = _("ruche0").offsetHeight;
 	        h2 = _("rucheselect").offsetHeight;
 	        hruches = _("rucher1").offsetHeight;
 	    }
 	    else {
-	        console.log(_("ruche1_1").pixelHeight != null);
-	        if(_("ruche1_1").style.pixelHeight) {
-	            h = _("ruche1_1").style.pixelHeight;
+	        console.log(_("ruche0").pixelHeight != null);
+	        if(_("ruche0").style.pixelHeight) {
+	            h = _("ruche0").style.pixelHeight;
 	            h2 = _("rucheselect").style.pixelHeight;
             
 	        }
@@ -28,12 +28,12 @@ function initAccueil(){
 	            console.log("ProblèmeH");
 	        }
 	    }
-	    if(_("ruche1_1").offsetWidth != null) {
-	        w = _("ruche1_1").offsetWidth;
+	    if(_("ruche0").offsetWidth != null) {
+	        w = _("ruche0").offsetWidth;
 	    }
 	    else {
-	        if(_("ruche1_1").style.pixelWidth != null){
-	            w = _("ruche1_1").style.pixelWidth;
+	        if(_("ruche0").style.pixelWidth != null){
+	            w = _("ruche0").style.pixelWidth;
 	        }
 	        else {
 	            console.log("ProblèmeW");
@@ -52,53 +52,96 @@ function accueil(){
     nbRuchers=donneesRuches.hivegroups.length;
     console.log("Nb de ruchers : "+nbRuchers);
     
-    $("#rucher"+rucher).appendTo("#conteneur-rucher");
     
-    initAccueil();
+    if(nbRuchers>0){
+        $("#rucher"+rucher).appendTo("#conteneur-rucher");
+        initAccueil();
     
-    for(var m=1;m<=nbRuchers;m++){
-        nbRuches[m]=donneesRuches.hivegroups[m-1].hives.length;
-        console.log("Nb de ruches dans le rucher "+m+" : "+nbRuches[m]);
-        $window[m] = $("#rucher"+m).children(".ruches");
-        organiserRuches(m);
+        for(var m=1;m<=nbRuchers;m++){
+            nbRuches[m]=donneesRuches.hivegroups[m-1].hives.length;
+            console.log("Nb de ruches dans le rucher "+m+" : "+nbRuches[m]);
+            $window[m] = $("#rucher"+m).children(".ruches");
+            organiserRuches(m);
+        }
 
+        slider_ruchers = new PageSlider($("#conteneur-rucher"),$("#rucher"+rucher),$("#reserve-ruchers"),"page");
+        allerAuRucher(rucher);
+    }else{
+        $("#nouveaurucher").appendTo("#conteneur-rucher");
+        slider_ruchers = new PageSlider($("#conteneur-rucher"),$("#nouveaurucher"),$("#reserve-ruchers"),"page");
+        nouveauRucher();
     }
-
-    slider_ruchers = new PageSlider($("#conteneur-rucher"),$("#rucher"+rucher),$("#reserve-ruchers"),"page");
-    allerAuRucher(rucher);
 };
 
+function nouveauRucher(){
+    if(!transitionEnCours&&!slider_ruchers.enTransition){
+        if(rucher<nbRuchers+1){
+            $window[rucher].off("scroll");
+            clearInterval(tScroll[rucher]);
+            slider_ruchers.slidePageFrom($("#nouveaurucher"));
+        }
+        $("#sous_titre_accueil").children("h1").html("Nouveau rucher");
+        rucher=nbRuchers+1;
+        $("#nav_gauche_rucher").off("click");
+        $("#nav_droite_rucher").off("click");
+        if(rucher==1)$("#nav_gauche_rucher").css("visibility","hidden");
+        else {
+            $("#nav_gauche_rucher").css("visibility","visible");
+            $("#nav_gauche_rucher").click(function(){allerAuRucher(rucher-1);});
+        }
+        $("#nav_droite_rucher").css("visibility","hidden");
+        //
+        createHiveGroup(function(){getListHiveGroups(function() {
+                                                     console.log("récupération des listes de ruches par rucher");
+                                                     getHivesForHiveGroups(1);
+                                                     });});
+        
+        
+        
+        
+        
+    }
+    
+}
 function allerAuRucher(k){
     $("#sous_titre_accueil").children("h1").html(donneesRuches.hivegroups[k-1].name);
-    if(!transitionEnCours){
+    if(!transitionEnCours&&!slider_ruchers.enTransition){
         var change=false;
         if(rucher!=k){change=true;}
-        $window[rucher].off("scroll");
-        clearInterval(tScroll[rucher]);
+        if(rucher<=nbRuchers){
+         $window[rucher].off("scroll");
+         clearInterval(tScroll[rucher]);
+        }
+        
         left=rucher>k;
         rucher=k;
-
         if(change)slider_ruchers.slidePageFrom($("#rucher"+rucher),(left?"left":"right"));
-        $window[rucher].scrollTop((rucheSelect2[rucher]-1)*h);
-        $window[rucher].scroll(function(){defiler(rucher);});
-        tScroll[rucher] = setInterval(function(){defiler(rucher);}, 100);
-    
+        
+        if(nbRuches[rucher]==0){
+            //Mieux placer le bouton + quand il est tout seul sur la page
+        
+        }else{
+            $window[rucher].scrollTop((rucheSelect2[rucher]-1)*h);
+            $window[rucher].scroll(function(){defiler(rucher);});
+            tScroll[rucher] = setInterval(function(){defiler(rucher);}, 100);
+        }
+        $("#nav_droite_rucher").css("visibility","visible");
         if(rucher==1)$("#nav_gauche_rucher").css("visibility","hidden");
         else $("#nav_gauche_rucher").css("visibility","visible");
-        if(rucher==nbRuchers)$("#nav_droite_rucher").css("visibility","hidden");
-        else $("#nav_droite_rucher").css("visibility","visible");
+        if(rucher==nbRuchers)$("#nav_droite_rucher").html("+");
+        else $("#nav_droite_rucher").html(">");
         
         
         $("#nav_gauche_rucher").off("click");
         $("#nav_droite_rucher").off("click");
         function rucherPrecedent(){if(rucher>1)allerAuRucher(rucher-1);}
-        function rucherSuivant(){if(rucher<nbRuchers)allerAuRucher(rucher+1);}
+        function rucherSuivant(){if(rucher<nbRuchers){allerAuRucher(rucher+1);}else if(rucher==nbRuchers){nouveauRucher();}}
         $("#nav_gauche_rucher").click(rucherPrecedent);
         $("#nav_droite_rucher").click(rucherSuivant);
         
 
         
-        $("#ruche"+rucher+"plus").click(function(){createHive(donneesRuches.hivegroups[rucher-1].id_hive_group);});
+        $("#ruche"+rucher+"plus").click(function(){createHive(rucher-1);});
         var element = document.getElementById('rucher'+rucher);
         Hammer(element).off("swipeleft");
         Hammer(element).off("swiperight");
@@ -227,11 +270,17 @@ function organiserRuches(rucher){
     }else{
         afficherBd("Vous n'avez aucune ruche référencée sur nos serveurs pour l'instant. Rendez-vous sur www.label-abeille.org.","OK")
     }
-    _("ruche"+rucher+"plus").style.top = ((h2-h)+decalTop+h*(0.76*maxi))+'px';
-    _("ruche"+rucher+"plus").style.right = (decal+w*(0.5*(((maxi+1)%2==0)?1:0)))+'px';
-	//$("#rucheplus").attr("id")="ruche"+(maxi+1);
-    $("#rucher"+rucher).children(".ruches").append('<div style="position:absolute;width:100%;top:'+((h2-h)+decalTop+h*(0.76*(maxi+1)))+'px;height:'+(hruches/2)+'px"></div>');
-    
+    if(nbRuches[rucher]==0){
+        $("#ruche"+rucher+"plus").css({"margin":"auto"});
+        
+    }else{
+        _("ruche"+rucher+"plus").style.top = ((h2-h)+decalTop+h*(0.76*maxi))+'px';
+        _("ruche"+rucher+"plus").style.right = (decal+w*(0.5*(((maxi+1)%2==0)?1:0)))+'px';
+        //$("#rucheplus").attr("id")="ruche"+(maxi+1);
+        $("#rucher"+rucher).children(".ruches").append('<div style="position:absolute;width:100%;top:'+((h2-h)+decalTop+h*(0.76*(maxi+1)))+'px;height:'+(hruches/2)+'px"></div>');
+        
+
+    }
     
     for(i=1;i<=nbRuches[rucher]; i++){
         $("#ruche"+rucher+"_"+i).css("transition-duration",(t/1000)+"s");

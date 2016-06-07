@@ -31,6 +31,7 @@
         <script type="text/javascript" src="js/donnees_ruches.js"></script>
         <script type="text/javascript" src="js/custom_notes.js"></script>
         <script type="text/javascript" src="js/default_notes.js"></script>
+        <script type="text/javascript" src="js/boutons.js"></script>
         <script type="text/javascript" src="js/creer_ruche.js"></script>
         <script type="text/javascript" src="js/creer_rucher.js"></script>
         <script type="text/javascript" src="js/parametres.js"></script>
@@ -144,7 +145,7 @@
                                     <label for="apibundle_pscustomer_password" class="required">Mot de passe</label>
                                         <input   type="password" id="apibundle_pscustomer_password" name="apibundle_pscustomer[password]" maxlength="32" />
                                 </div>
-                            <div class="bouton" onclick="alert('clic');form-inscription.find(".bouton").click();"><span>S'INSCRIRE</span></div>
+                                <div class="bouton"><span>S'INSCRIRE'</span></div>
                             </form>
                             <div style="clear:left;"></div>
                         </div>
@@ -186,6 +187,7 @@
                     <img src="img/historique.png" style="opacity:0.3;filter:alpha(opacity = 0.3)" alt="Historique" />
                     <img class="droite" id="btReglages" src="img/reglages.png" alt="Réglages" />
                 </div>
+                
                 <div id="content-accueil" class="corps_accueil">
                     
                 </div>
@@ -260,50 +262,23 @@
                 <div id="bas_defilement"></div>
                 <div id="bas_triangle"></div>
                 <div id="corps-add-logger" class="corps">
-                    <div>
-                        <div id="add_logger_contenu" class="contenu formulaire">
-                            <div class="sizing"></div>
-                            <form class="formulaire" id="form-add-logger">
-                                <div>
-                                    <label for="apibundle_psbox_serialNumber" class="required">Numéro de série du boîtier</label>
-                                        <input type="text"   id="apibundle_psbox_serialNumber" name="apibundle_psbox[serialNumber]" required="required" maxlength="32" />
-                                </div>
-                                <input class="bouton" type="submit" value="AJOUTER">
-                            </form>
-                            <div style="clear:left;"></div>
-                        </div>
+                    <div class="sous_titre" id="sous_titre_addlogger">
+                        <h1></h1>
+                    </div>
+                    <div id="add_logger_contenu" class="contenu formulaire">
+                        <div class="sizing"></div>
+                        <form class="formulaire" id="form-add-logger">
+                            <div>
+                                <label for="apibundle_psbox_serialNumber" class="required">Numéro de série du boîtier</label>
+                                <input type="text"   id="apibundle_psbox_serialNumber" name="apibundle_psbox[serialNumber]" required="required" maxlength="32" />
+                            </div>
+                            <div class="bouton"><span>ENREGISTRER</span></div>
+                        </form>
+                        <div style="clear:left;"></div>
                     </div>
                 </div>
             </div>
 
-            <!-- create a hiveGroup -->
-            <div class="page" id="pcreate-hive-group">
-                <div id="menu_haut">
-                    <img class="retour" src="img/retour.png" id="retour_create_hive_group" alt="Retour" />
-                    <h1>Créer une ruche</h1>
-                </div>
-                <div id="bas_defilement"></div>
-                <div id="bas_triangle"></div>
-                <div id="corps-create-hive-group" class="corps">
-                    <div>
-                        <div id="create_hive_group_contenu" class="contenu formulaire">
-                            <div class="sizing"></div>
-                            <form class="formulaire" id="form-create-hive-group">
-                                <div>
-                                    <label for="apibundle_pshivegroup_name">Nom</label>
-                                        <input   type="text" id="apibundle_pshivegroup_name" name="apibundle_pshivegroup[name]" maxlength="64" />
-                                </div>
-                                <div>
-                                    <label for="apibundle_pshivegroup_harvest" class="required">Récolte</label>
-                                        <input type="number" id="apibundle_pshivegroup_harvest" name="apibundle_pshivegroup[harvest]" required="required" />
-                                </div>
-                                <input class="bouton" type="submit" value="CREER">
-                            </form>
-                            <div style="clear:left;"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
             
             <!-- add hives to a hiveGroup -->
             <div class="page" id="padd-hives-to-hivegroup">
@@ -352,7 +327,7 @@
                             <span class="nav_gauche"><</span>
                             <span class="nav_droite">></span>
                             <h1>Ruchers</h1>
-                            </div>
+                    </div>
                     <div class="contenu formulaire" id="corps-params-rucher">
                     </div>
                 </div>
@@ -432,37 +407,41 @@
             <div class="page" id="pajoutnote">
                 <div id="menu_haut">
                     <img class="retour" src="img/retour.png" id="retour_params_details" alt="Retour" />
-                    <h1>Ajout d'une note</h1>
+                    <h1><img src="img/picto_historique.png" /><span>Historique</span></h1>
                 </div>
                 <div id="bas_defilement"></div>
                 <div id="bas_triangle"></div>
-                <div id="content-ajout-note" class="corps">
-                    
-                </div>
+                <div id="content-ajout-note" class="corps"></div>
+                
             </div>
             
             <!-- define a new custom note -->
             <div class="page" id="pajoutnotepersonnalisee">
                 <div id="menu_haut">
                     <img class="retour" src="img/retour.png" id="retour_params_details" alt="Retour" />
-                    <h1>Enregistrement d'une nouvelle note personnalisée</h1>
+                    <h1><img src="img/picto_historique.png" /><span>Historique</span></h1>
                 </div>
                 <div id="bas_defilement"></div>
                 <div id="bas_triangle"></div>
                 <div id="content-ajout-note-personnalisee" class="corps">
-                    <div id="apibundle_pscustomnote">
-                        <div class="sizing"></div>
-                        <form class="formulaire" id="form-add-custom-note">  
-                            <div>            
-                                <label for="apibundle_pscustomnote_name" class="required">Nom</label>
+                    <div class="sous_titre" id="sous_titre_histo">
+                        <!-- <input type="text" id="filtre_historique" placeholder="Rechercher..." /> -->
+                        <h1>Création d'une note personnalisée</h1>
+                    </div>
+                    <div class="contenu">
+                        <div id="apibundle_pscustomnote">
+                            <div class="sizing"></div>
+                            <form class="formulaire" id="form-add-custom-note">
+                                <div>
+                                    <label for="apibundle_pscustomnote_name" class="required">Nom</label>
                                     <input   type="text" id="apibundle_pscustomnote_name" name="apibundle_pscustomnote[name]" required="required" maxlength="20" />
-                            </div>
-                            <div>            
-                                <label for="apibundle_pscustomnote_message" class="required">Message</label>
+                                </div>
+                                <div>
+                                    <label for="apibundle_pscustomnote_message" class="required">Message</label>
                                     <input   type="text" id="apibundle_pscustomnote_message" name="apibundle_pscustomnote[message]" required="required" maxlength="100" />
-                            </div>
-                            <div>            
-                                <label for="apibundle_pscustomnote_level" class="required">Niveau d'alerte</label>
+                                </div>
+                                <div>
+                                    <label for="apibundle_pscustomnote_level" class="required">Niveau d'alerte</label>
                                     <select id="apibundle_pscustomnote_level" name="apibundle_pscustomnote[level]" required="required">
                                         <option value="0" selected="selected">Information</option>
                                         <option value="1">À faire</option>
@@ -470,10 +449,12 @@
                                         <option value="3">Important</option>
                                         <option value="4">Critique</option>
                                     </select>
-                            </div>
-                            <input class="bouton" type="submit" value="ENREGISTRER">
-                        </form>
-                        <div style="clear:left;"></div>
+                                </div>
+                                <div class="bouton" id="add_new_custom_note"><span>ENREGISTRER</span></div>
+
+                            </form>
+                            <div style="clear:left;"></div>
+                        </div>
                     </div>
                 </div>
             </div>

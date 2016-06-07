@@ -116,9 +116,9 @@ function connexion_success() {
     });
 };
 
-function aux() {
+function aux(retour) {
     idHiveGroup++;
-    getHivesForHiveGroups();
+    getHivesForHiveGroups(retour);
 };
 function getHivesForHiveGroups(retour) {
     if(idHiveGroup >= donneesRuches.hivegroups.length) {
@@ -127,7 +127,21 @@ function getHivesForHiveGroups(retour) {
     }
     else {
         getListHives(function(a,b) {
-            getDataForHives(aux);
+            getDataForHives(aux,retour);
         }, false);
     }
 };
+
+
+
+
+
+function charge(){
+    enCharge=true;
+    _("ch").style.visibility="visible";
+}
+
+function finCharge(){
+    enCharge=false;
+    _("ch").style.visibility="hidden";
+}

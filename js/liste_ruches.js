@@ -4,16 +4,13 @@
  * @function action : callback, what to do with the data
  */
 function getListHives(action,retour) {
-		enCharge=true;
-		_("ch").style.visibility="visible";
 		if(isTest) {
-		    enCharge=false;
-			_("ch").style.visibility="hidden";
             action(retour);
 		}
 		else {
 		    console.log('récupération des ruches du rucher ' + donneesRuches.hivegroups[idHiveGroup].id_hive_group);
 		    console.log(hiveGroups[idHiveGroup]);
+            charge();
             $.ajax({
                 type: 'GET',
                 url: url+'pshivegroup/hives/' + donneesRuches.hivegroups[idHiveGroup].id_hive_group,
@@ -22,8 +19,7 @@ function getListHives(action,retour) {
                     withCredentials: true
                 },
                 success: function(data) {
-				    enCharge=false;
-				    _("ch").style.visibility="hidden";
+                   finCharge();
                     console.log(data.ruches); 
                     //$("#resultat").html(JSON.stringify(data));
                     console.log("hiveGroups : " + hiveGroups);
@@ -34,16 +30,16 @@ function getListHives(action,retour) {
         }
 };
 
-function getDataForHives(action) {
+function getDataForHives(action,retour) {
         if(idHive >= donneesRuches.hivegroups[idHiveGroup].hives.length) {
             idHive = 0;
             console.log(action);
-            action();
+            action(retour);
         }
         else {
             getDataHive(donneesRuches.hivegroups[idHiveGroup].hives[idHive].id_hive, idHive, donneesRuches.hivegroups[idHiveGroup].hives[idHive].name, function() {
                 idHive++;
-                getDataForHives(action);
+                getDataForHives(action,retour);
             });
         }
     };

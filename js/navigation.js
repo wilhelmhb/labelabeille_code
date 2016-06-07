@@ -12,7 +12,8 @@ function PageSlider(container,pageinit,reserve,classPage) {
 
     var container = container;
     var currentPage=pageinit;
-    var enTransition=false;
+    this.currentPageName=$(pageinit).attr("id");
+    this.enTransition=false;
     var hist = [];
     
     this.cPage = function(){return currentPage;}
@@ -20,14 +21,14 @@ function PageSlider(container,pageinit,reserve,classPage) {
     // Use this function directly if you want to control the sliding direction outside PageSlider
     this.slidePageFrom = function(dest, from) {
     	//console.log('slidePageFrom : begin, enTransition='+enTransition);
-        if(!enTransition){
+        if(!this.enTransition){
         	//console.log('slidePageFrom : isNotEnTransition');
-	        enTransition=true;
+	        this.enTransition=true;
 			if(dest==null){
 				dest=hist.pop();// si aucune destination n'est demandée, la destination est la dernière page visitée précedemment
 	            if($(dest).attr("id")=="paccueil"){
 
-                    enTransition=false;
+                    this.enTransition=false;
 					getListHiveGroups(function() {
                         console.log("récupération des listes de ruches par rucher");
                         getHivesForHiveGroups(1);
@@ -45,18 +46,14 @@ function PageSlider(container,pageinit,reserve,classPage) {
 
 	        container.append(dest);
 	
-	        if (!currentPage || !from) {
-	            dest.attr("class", classPage+" center");
-	            currentPage = dest;
-	            return;
-	        }
+
 	
 	        // Position the page at the starting position of the animation
 	        dest.attr("class", classPage+" " + from);
-	
+            var a = this;
 	        currentPage.one('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', function(e) {
 	        	//console.log('slidePageFrom : webkitTransitionEnd');
-	                        enTransition=false;
+	                        a.enTransition=false;
 	            $(e.target).remove();
 				reserve.append(e.target);
 	        });
@@ -68,6 +65,9 @@ function PageSlider(container,pageinit,reserve,classPage) {
 	        dest.attr("class", classPage+" transition center");
 	        currentPage.attr("class", classPage+" transition " + (from === "left" ? "right" : "left"));
 	        currentPage = dest;
+            this.currentPageName = $(dest).attr("id");
+
+            activerBoutons();
             
         }
     	//console.log('slidePageFrom : end, enTransition='+enTransition);

@@ -105,7 +105,13 @@
 }
 #connexion .bouton {
 	margin-top:10%;
+    width:50px;
+    height:28px;
+    padding-top:15px;
+
+
 }
+#connexion .bouton span {	font-size:9px; }
 #liens1{
 	position:absolute;
 	z-index:3;
