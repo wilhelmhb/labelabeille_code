@@ -21,7 +21,7 @@ function PageSlider(container,pageinit,reserve,classPage) {
     // Use this function directly if you want to control the sliding direction outside PageSlider
     this.slidePageFrom = function(dest, from) {
     	//console.log('slidePageFrom : begin, enTransition='+enTransition);
-        if(!this.enTransition){
+        if(!this.enTransition&&!enCharge){
         	//console.log('slidePageFrom : isNotEnTransition');
 	        this.enTransition=true;
 			if(dest==null){

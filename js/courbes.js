@@ -16,7 +16,7 @@ var courbesTest=[
 
 
 var courbe=1;
-var courbes;
+var courbes=[];
 
 
 
@@ -44,8 +44,32 @@ function goToGraphs(idHive){
 }
 
 function getCourbes(action,idHive){
-    data=courbesTest;
-    action(data);
+    courbes=[];
+    if(isTest){data=courbesTest;action(data);return;}
+    charge();
+    var p = ["MASSE","TMP","LUM"];
+    var noms = ["Masse","Témpérature","Luminosité"];
+    var debut = "01/01/2010 00:00:00";
+    var fin = "01/01/2017 00:00:00";
+    function auxC(i,d){
+        if(i>=1){
+            //Réception de i-1 dans d
+            var o = d;
+            d.id=i;
+            d.name=noms[i-1]+" ("+d.u+")";
+            courbes.push(o);
+        }
+        if(i>=p.length){
+            //Courbes toutes chargées:
+            finCharge();
+            action(courbes);
+            
+        }
+        else{//Charger courbe i
+            getHistoryHive(p[i],debut,fin,function(data){auxC(i+1,data);});
+        }
+    }
+    auxC(0,null);
 }
 
 
@@ -77,9 +101,31 @@ function allerCourbe(k){
     Hammer(element).on("swipeleft", courbeSuivant);
     Hammer(element).on("swiperight", courbePrecedent);
     
+    var c = courbes[courbe-1];
     
-    var MONTHS = ["Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août","Septembre","Octobre","Novembre","Décembre"];
+    console.log(c);
     
+    var MONTHS = [];
+    var vals = [];
+    
+    var maxv=-1.7976931348623157E+10308;
+    var minv=1.7976931348623157E+10308;
+    var pas=parseInt(c.data.length/50);
+    var i=0;
+    var j=0;
+    c.data.forEach(function(entry) {
+                   var prendre=false;
+                   if(entry.v>maxv){maxv=entry.v;prendre=true;}
+                   if(entry.v<minv){minv=entry.v;prendre=true;}
+                   if(i%pas==0)prendre=true;
+                   if(prendre){
+                    MONTHS.unshift(entry.h);
+                    vals.unshift(entry.v);
+                   j++;
+                   }
+                   i++;
+              });
+    console.log("Nb de donnees affichées : "+j);
     var randomScalingFactor = function() {
         return Math.round(Math.random() * 100);
         //return 0;
@@ -94,10 +140,10 @@ function allerCourbe(k){
     var config = {
     type: 'line',
     data: {
-    labels: ["Janvier","Février","Mars","Avril","Mai","Juin","Juillet"],
+    labels: MONTHS,
     datasets: [{
                label: "",
-               data: [randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor()],
+               data: vals,
                fill: true,
                borderDash: [0, 0],
                }]
@@ -143,7 +189,7 @@ function allerCourbe(k){
             display: true,
             scaleLabel: {
             show: true,
-            labelString: 'Month'
+            labelString: 'Date'
             }
             }],
     yAxes: [{
@@ -153,8 +199,8 @@ function allerCourbe(k){
             labelString: 'Value'
             },
             ticks: {
-            suggestedMin: -10,
-            suggestedMax: 250,
+            suggestedMin: minv,
+            suggestedMax: maxv,
             }
             }]
     }
@@ -185,7 +231,8 @@ function allerCourbe(k){
  * @string debut : datetime in format dd/MM/yyyy%20hh:mm:ss
  * @string fin : datetime in format dd/MM/yyyy%20hh:mm:ss
  */
-function getHistoryHive(params, debut, fin) {
+
+function getHistoryHive(params, debut, fin,action) {
     $.ajax({
         type: 'GET',
         url: url+'pshive/' + donneesRuches.hivegroups[idHiveGroup].hives[idHive].id_hive + '/log?params=' + params + '&debut=' + debut + '&fin=' + fin,
@@ -194,7 +241,7 @@ function getHistoryHive(params, debut, fin) {
             withCredentials: true
         },
         success: function(data) {
-            //what to do on success
+          action(data.data[""+donneesRuches.hivegroups[idHiveGroup].hives[idHive].id_hive][params]);
         },
         error: function (xhr, ajaxOptions, thrownError) {
             //what to do on error
