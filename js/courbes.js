@@ -53,10 +53,8 @@ function getCourbes(action,idHive){
     var fin = "01/01/2017 00:00:00";
     function auxC(i,d){
         if(i>=1){
-            //Réception de i-1 dans d
-            var o = d;
-            d.id=i;
-            d.name=noms[i-1]+" ("+d.u+")";
+            //Réception de i-1 dans o
+            var o = {id:i,name:noms[i-1]+" ("+d.u+")",data:d.data};
             courbes.push(o);
         }
         if(i>=p.length){
@@ -69,7 +67,7 @@ function getCourbes(action,idHive){
             getHistoryHive(p[i],debut,fin,function(data){auxC(i+1,data);});
         }
     }
-    auxC(0,null);
+    auxC(0,{});
 }
 
 
@@ -110,7 +108,7 @@ function allerCourbe(k){
     
     var maxv=-1.7976931348623157E+10308;
     var minv=1.7976931348623157E+10308;
-    var pas=parseInt(c.data.length/50);
+    var pas=parseInt(c.data.length/30);
     var i=0;
     var j=0;
     c.data.forEach(function(entry) {
