@@ -83,3 +83,20 @@ function addHives() {
 	});
 	getListHiveGroups(goToListHiveGroups);
 }
+
+function deleteHiveGroup() {
+    $.ajax({
+        type: 'DELETE',
+        url: url+'pshivegroup/' + donneesRuches.hivegroups[idHiveGroup].id_hive_group,
+        dataType: "json",
+        xhrFields: {
+            withCredentials: true
+        },
+        //data: 'idclient=1&idruche=25&nomruche=NomDeMaRuche',
+        success: function(data) {console.log(data); $("#resultat").html(JSON.stringify(data));},
+        error: function (xhr, ajaxOptions, thrownError) {
+            console.log(xhr.responseText);
+            $("#result").html(xhr.responseText);
+        }
+    });
+}

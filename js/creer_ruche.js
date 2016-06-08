@@ -98,3 +98,20 @@ function goToAddLogger() {
         });
     });
 }
+
+function deleteHive() {
+    $.ajax({
+        type: 'DELETE',
+        url: url+'pshive/' + donneesRuches.hivegroups[idHiveGroup].hives[idHive].id_hive,
+        dataType: "json",
+        xhrFields: {
+            withCredentials: true
+        },
+        //data: 'idclient=1&idruche=25&nomruche=NomDeMaRuche',
+        success: function(data) {console.log(data); $("#resultat").html(JSON.stringify(data));},
+        error: function (xhr, ajaxOptions, thrownError) {
+            console.log(xhr.responseText);
+            $("#result").html(xhr.responseText);
+        }
+    });
+}
