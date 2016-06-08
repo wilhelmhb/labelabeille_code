@@ -23,9 +23,6 @@ var courbes=[];
 function goToGraphs(idHive){
     getCourbes(function(data) {
                
-               
-               
-               
                var template = $(templates).filter('#tpl-courbes').html();
                var d = {courbes:data};
                var h = Mustache.render(template, d);

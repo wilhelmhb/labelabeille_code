@@ -58,7 +58,13 @@ function accueil(){
         initAccueil();
     
         for(var m=1;m<=nbRuchers;m++){
-            nbRuches[m]=donneesRuches.hivegroups[m-1].hives.length;
+            if (donneesRuches.hivegroups[m-1].hives != null) {
+                nbRuches[m]=donneesRuches.hivegroups[m-1].hives.length;
+            }
+            else {
+                nbRuches[m] = 0;
+                donneesRuches.hivegroups[m-1].hives = [];
+            }
             console.log("Nb de ruches dans le rucher "+m+" : "+nbRuches[m]);
             $window[m] = $("#rucher"+m).children(".ruches");
             organiserRuches(m);
@@ -115,6 +121,7 @@ function allerAuRucher(k){
         
         left=rucher>k;
         rucher=k;
+        idHiveGroup = k - 1;
         if(change)slider_ruchers.slidePageFrom($("#rucher"+rucher),(left?"left":"right"));
         
         if(nbRuches[rucher]==0){
@@ -141,7 +148,7 @@ function allerAuRucher(k){
         
 
         
-        $("#ruche"+rucher+"plus").click(function(){createHive(rucher-1);});
+        $("#ruche"+rucher+"plus").click(function(){createHive();});
         var element = document.getElementById('rucher'+rucher);
         Hammer(element).off("swipeleft");
         Hammer(element).off("swiperight");
