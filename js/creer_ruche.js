@@ -1,7 +1,7 @@
 /**
  * create a new hive (show form and deal with it), then let user add a logger
  */
-function createHive(idHiveGroup) {
+function createHive() {
     console.log("début de la création d'une ruche");
     transition(_("pcreate-hive"), "slide");
     if(isTest) {
@@ -28,7 +28,7 @@ function createHive(idHiveGroup) {
                 xhrFields: {
                     withCredentials: true
                 },
-                data: donnees,
+                data: donnees + '&apibundle_pshive%5BidHiveGroup%5D=' + donneesRuches.hivegroups[idHiveGroup].id_hive_group,
                 success: function(data) {
                    finCharge();
                 	console.log(data); 

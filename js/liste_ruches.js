@@ -57,10 +57,11 @@ function goToListHives(retour) {
 	var i = 0;
     for(var l=0;l<donneesRuches.hivegroups.length;l++){
         donneesRuches.hivegroups[l].index=l+1;
-        for(var r=0;r<donneesRuches.hivegroups[l].hives.length;r++){
-            donneesRuches.hivegroups[l].hives[r].indexhg=l+1;
-            donneesRuches.hivegroups[l].hives[r].index=r+1;
-
+        if(donneesRuches.hivegroups[l].hives != null) {
+            for(var r=0;r<donneesRuches.hivegroups[l].hives.length;r++){
+                donneesRuches.hivegroups[l].hives[r].indexhg=l+1;
+                donneesRuches.hivegroups[l].hives[r].index=r+1;
+            }
         }
     }
     

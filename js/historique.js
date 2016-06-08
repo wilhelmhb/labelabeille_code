@@ -102,12 +102,16 @@ function afficherNotes(data, indexHive){
      console.log(JSON.stringify(listHives));
      console.log(listHives.ruches[0].name);*/
     console.log(historique);
+    console.log(template);
     var h = Mustache.render(template, historique);
     document.getElementById("content-historique").innerHTML = h;
     //console.log('goToGeneralParameters : before transition');
     transition(_("phistorique"), "slide");
-    idHive = indexHive;
+    if(indexHive != null) {
+        idHive = indexHive;
+    }
     console.log(idHive);
+    console.log(donneesRuches.hivegroups[idHiveGroup].hives[idHive].name);
     if(idHive!=-1)$("#sous_titre_histo").children("h1").html(donneesRuches.hivegroups[idHiveGroup].hives[idHive].name);
     else $("#sous_titre_histo").children("h1").html("Toutes les ruches");
     
