@@ -4,7 +4,11 @@
 function inscription() {
     transition(_("pinscription"));
     console.log("inscription en cours");
-    $("#form-inscription").find(".bouton").click(function(e){
+    $("#form-inscription").find(".bouton").click(function(e) {
+        e.preventDefault();
+        $("#form-inscription").submit();
+    });
+    $("#form-inscription").submit(function(e) {
         e.preventDefault();
         //console.log("inscription confirmée");
         var donnees = $(this).serialize();
@@ -61,7 +65,6 @@ function customer_inscription_success(donnees) {
         data: donnees,
         success: function(data) {
             console.log(data);
-            customer = data;
             client_inscription_success(data);
         },
         error: function (xhr, ajaxOptions, thrownError) {
@@ -73,8 +76,15 @@ function customer_inscription_success(donnees) {
 /**
  * bring new user of the list of his/her hives
  */
-function client_inscription_success() {
-    createHiveGroup(addHives);
+function client_inscription_success(data) {
+    donneesRuches.hivegroups = [];
+    getCustomNotes(function(data) {
+        customNotesCreatedByUser = data;
+        getDefaultNotes(function(data) {
+            defaultNotes = data;
+            goToListHives(0);
+        });
+    });
 }
 
 
