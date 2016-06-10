@@ -1,7 +1,8 @@
 function activerBoutons(){
     switch(slider.currentPageName){
         case "pajoutnote":
-            $("form").on("submit", function(e) {
+            $("form").on("submit", function(e) {$(this).off("submit");
+                         
                          e.preventDefault();
                          if($(this).attr('type') == "default") {
                          addDefaultNoteToHive($(this).attr('id'));
@@ -10,7 +11,7 @@ function activerBoutons(){
                          addCustomNoteToHive($(this).attr('id'));
                          }
                          });
-            $("#add_custom_note").on("click", function(e) {
+            $("#add_custom_note").on("click", function(e) {$(this).off("click");
                                      e.preventDefault();
                                      $("form").off("submit");
                                      goToAddCustomNote();
@@ -28,7 +29,16 @@ function activerBoutons(){
             break;
             
             
-
+        case "pdetails":
+            $("#parametresDetails").off("click");
+            $("#parametresDetails").click(goToHiveParameters);
+            $("#historiqueDetails").off("click");
+            $("#historiqueDetails").click(function(){goToHistorique(dataHive.id_hive);});
+            $("#courbesDetails").off("click");
+            $("#courbesDetails").click(function(){goToGraphs(dataHive.id_hive,dataHive.name);});
+            $("#ajouter_note_details").off("click");
+            $("#ajouter_note_details").click(ajouterNote);
+            break;
             
             
         default: break;

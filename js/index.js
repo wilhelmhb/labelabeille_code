@@ -17,6 +17,7 @@ var rucheSelect;
 var tcharge;
 var datahives;
 var pcharge;
+var dataHive;
 var isTest=false;
 var slider;
 var templateCharge=false;
@@ -29,6 +30,7 @@ var dataHive = null;
 var idHive = 1;
 var nruches=0;
 var listHivesGlobal;
+var rechargerAccueil=false;
 var levels = ["info", "todo", "warning", "important", "critical"];
 
 var customNotesSetByUser;
@@ -90,8 +92,6 @@ function debut(){
 	});
 
 	//LIENS
-	//Carte
-	_("btCarte").addEventListener(evtclick, goToMap); 
 	//Boutons retour
 	var btsRetour = document.getElementsByClassName('retour');
 	for(var i=0, l=btsRetour.length; i<l; i++){

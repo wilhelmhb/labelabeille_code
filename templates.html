@@ -6,7 +6,7 @@
 {{#notes}}
 <div class="elt_histo histo_{{note.data.level}}" id="histo_{{index}}" onclick="details_histo({{index}});">
     <img src="img/histo_fleche_droite.png" class="fleche" id="fleche_{{index}}"/>
-    <img src="img/histo_supprimer.png" class="supprimer" onclick="supprimer_histo({{note.id}}{{#note.id_default_note}}, true{{/note.id_default_note}}{{#note.id_custom_note}}, false{{/note.id_custom_note}});"/>
+    <img src="img/histo_supprimer.png" class="supprimer" onclick="supprimer_histo({{note.id}}{{#note.id_default_note}}, true{{/note.id_default_note}}{{#note.id_custom_note}}, false{{/note.id_custom_note}},{{index}});"/>
     <div class="elt_histo_titre">{{note.data.name}}</div>
     <div class="elt_histo_date">{{note.date_add}}</div>
 </div>
@@ -29,13 +29,13 @@
         <div align="center">
         {{#default_notes}}
 	    <form class="formulaire" id="{{id}}" type="default">
-	        <input type="submit" value="{{name}}" />
+	        <input type="submit" class="histo_{{level}}" value="{{name}}" />
 	    </form>
         {{/default_notes}}
         <h1>Notes personnalisées</h1>
         {{#custom_notes}}
 	    <form class="formulaire" id="{{id}}" type="custom">
-	        <input type="submit" value="{{name}}" />
+	        <input type="submit" class="histo_{{level}}" value="{{name}}" />
 	    </form>
         {{/custom_notes}}
         <div class="bouton" id="add_custom_note"><span>Nouvelle note</span></div>
@@ -1057,7 +1057,7 @@
                         <input   type="text" id="apibundle_pscustomer_telephone" name="apibundle_pscustomer[telephone]" required="required" maxlength="64" />
                 </div>-->
             </div>
-        <input class="bouton" type="submit" value="ENVOYER">
+                <div class="bouton"><span>MODIFIER</span></div>
     </form>
 </script>
 <script type="text/html" id="tpl-params-rucher">

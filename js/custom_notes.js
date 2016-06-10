@@ -3,6 +3,7 @@
  * @Object data: contains the necessary informations to create the note (name, message, level)
  */
 function addCustomNote(data) {
+    charge();
     $.ajax({
         type: 'POST',
         url: url+'pscustomnote',
@@ -24,6 +25,7 @@ function addCustomNote(data) {
  * what to do after having successfully added a note
  */
 function addNoteSuccess() {
+    finCharge();
     getCustomNotes(function(data) {
         customNotesCreatedByUser = data;
         ajouterNote();
@@ -36,6 +38,7 @@ function addNoteSuccess() {
  */
 function addCustomNoteToHive(idCustomNote) {
     console.log(donneesRuches.hivegroups[idHiveGroup].hives[idHive]);
+    charge();
     $.ajax({
         type: 'POST',
         url: url+'pscustomnotecustomer',
@@ -57,7 +60,8 @@ function addCustomNoteToHive(idCustomNote) {
  * what to do after having successfully added a custom note to a hive
  */
 function addCustomNoteToHiveSuccess() {
-    goToHistorique(idHive);
+    finCharge();
+    goToHistorique(donneesRuches.hivegroups[idHiveGroup].hives[idHive].id_hive,1);
 }
 
 /**
@@ -88,23 +92,20 @@ function getCustomNotes(action,fDefault) {
  * get all the custom notes added to the selected hive
  * @function action : what to do with the collected data
  */
-function getCustomNotesForHive(action, idHive) {
-    console.log(idHive);
+function getCustomNotesForHive(action, id) {
     $.ajax({
         type: 'GET',
-        url: url+'pscustomnotecustomer/hives/' + donneesRuches.hivegroups[idHiveGroup].hives[idHive].id_hive,
+        url: url+'pscustomnotecustomer/hives/' + id,
         xhrFields: {
             withCredentials: true
         },
         success: function(data) {
-            console.log(idHive);
-            console.log(idHiveGroup);
+           console.log(data);
             for(var i in data) {
                 var dates = formatDate(data[i].date_add);
                 data[i].date_add = dates.add;
                 data[i].date_compare = dates.compare;
             }
-            console.log("CustomNotesForHive : " + JSON.stringify(data));
             customNotesSetByUser = data;
             action();
         },
@@ -114,24 +115,6 @@ function getCustomNotesForHive(action, idHive) {
     });
 }
 
-function deleteCustomNote(idCustomNote) {
-    $.ajax({
-        type: 'DELETE',
-        url: url+'pscustomnote/' + idCustomNote,
-        xhrFields: {
-            withCredentials: true
-        },
-        success: function(data) {
-            console.log(data);
-            deleteCustomNoteToHiveSuccess();
-        },
-        error: function (xhr, ajaxOptions, thrownError) {
-            console.log(xhr.responseText);
-        }
-    });
-    
-}
-
 /**
  * what to do after having successfully added a custom note to a hive
  */
@@ -139,7 +122,8 @@ function deleteCustomNoteToHiveSuccess() {
     goToHistorique();
 }
 
-function deleteCustomNoteForHive(idCustomNote) {
+function deleteCustomNoteForHive(idCustomNote,idx) {
+    charge();
     $.ajax({
         type: 'DELETE',
         url: url+'pscustomnotecustomer/' + idCustomNote,
@@ -148,6 +132,7 @@ function deleteCustomNoteForHive(idCustomNote) {
         },
         success: function(data) {
             console.log("C'est RAS : " + data);
+           supprimerNote(idx);
             deleteCustomNoteToHiveSuccess();
         },
         error: function (xhr, ajaxOptions, thrownError) {
@@ -162,5 +147,5 @@ function deleteCustomNoteForHive(idCustomNote) {
  * what to do after having successfully deleted a custom note from a hive
  */
 function deleteCustomNoteToHiveSuccess() {
-    goToHistorique();
+    finCharge();
 }

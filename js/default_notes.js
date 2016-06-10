@@ -3,6 +3,7 @@
  * @integer idDefaultNote: identifier of the note to add
  */
 function addDefaultNoteToHive(idDefaultNote) {
+    charge();
     $.ajax({
         type: 'POST',
         url: url+'psdefaultnotecustomer',
@@ -24,7 +25,8 @@ function addDefaultNoteToHive(idDefaultNote) {
  * what to do after having successfully added a default note to a hive
  */
 function addDefaultNoteToHiveSuccess() {
-    goToHistorique(idHive);
+    finCharge();
+    goToHistorique(donneesRuches.hivegroups[idHiveGroup-1].hives[idHive-1].id_hive,1);
 }
 
 /**
@@ -55,10 +57,10 @@ function getDefaultNotes(action) {
  * get all the default notes added to the selected hive
  * @function action : what to do with the collected data
  */
-function getDefaultNotesForHive(action, idHive) {
+function getDefaultNotesForHive(action, id) {
     $.ajax({
         type: 'GET',
-        url: url+'psdefaultnotecustomer/hives/' + donneesRuches.hivegroups[idHiveGroup].hives[idHive].id_hive,
+        url: url+'psdefaultnotecustomer/hives/' + id,
         xhrFields: {
             withCredentials: true
         },
@@ -69,7 +71,7 @@ function getDefaultNotesForHive(action, idHive) {
                 data[i].date_add = dates.add;
                 data[i].date_compare = dates.compare;
             }
-            action(data, idHive);
+            action(data, id);
         },
         error: function (xhr, ajaxOptions, thrownError) {
             console.log(xhr.responseText);
@@ -77,15 +79,18 @@ function getDefaultNotesForHive(action, idHive) {
     });
 }
 
-function deleteDefaultNoteForHive(idCustomNote) {
+function deleteDefaultNoteForHive(id,idx) {
+    charge();
     $.ajax({
         type: 'DELETE',
-        url: url+'psdefaultnotecustomer/' + idCustomNote,
+        url: url+'psdefaultnotecustomer/' + id,
         xhrFields: {
             withCredentials: true
         },
         success: function(data) {
             console.log("C'est RAS : " + data);
+           supprimerNote(idx);
+
             deleteDefaultNoteToHiveSuccess();
         },
         error: function (xhr, ajaxOptions, thrownError) {
@@ -100,5 +105,6 @@ function deleteDefaultNoteForHive(idCustomNote) {
  * what to do after having successfully deleted a custom note from a hive
  */
 function deleteDefaultNoteToHiveSuccess() {
-    goToHistorique();
+    finCharge();
+    goToHistorique(donneesRuches.hivegroups[idHiveGroup-1].hives[idHive-1].id_hive,1);
 }

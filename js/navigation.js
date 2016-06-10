@@ -13,6 +13,7 @@ function PageSlider(container,pageinit,reserve,classPage) {
     var container = container;
     var currentPage=pageinit;
     this.currentPageName=$(pageinit).attr("id");
+    var exclureHisto=["pajoutnotepersonnalisee"];
     this.enTransition=false;
     var hist = [];
     
@@ -20,32 +21,43 @@ function PageSlider(container,pageinit,reserve,classPage) {
     
     // Use this function directly if you want to control the sliding direction outside PageSlider
     this.slidePageFrom = function(dest, from) {
+        if($(dest).attr("id")==currentPage.attr("id")){return;}
+
     	//console.log('slidePageFrom : begin, enTransition='+enTransition);
         if(!this.enTransition&&!enCharge){
         	//console.log('slidePageFrom : isNotEnTransition');
 	        this.enTransition=true;
 			if(dest==null){
-				dest=hist.pop();// si aucune destination n'est demandée, la destination est la dernière page visitée précedemment
-	            if($(dest).attr("id")=="paccueil"){
-
-                    this.enTransition=false;
-					getListHiveGroups(function() {
-                        console.log("récupération des listes de ruches par rucher");
-                        getHivesForHiveGroups(1);
-                    });
-					return;
+                dest=currentPage;
+                while(dest.attr("id")==currentPage.attr("id")){
+                    dest=$(hist.pop());// si aucune destination n'est demandée, la destination est la dernière page visitée précedemment
+                }
+	            if(dest.attr("id")=="paccueil"){
+                    if(rechargerAccueil){
+                        rechargerAccueil=false;
+                        this.enTransition=false;
+                        getListHiveGroups(function() {
+                            console.log("récupération des listes de ruches par rucher");
+                            getHivesForHiveGroups(1);
+                        });
+                        return;
+                    }else{
+                        goToListHives(1);
+                    }
 	            }
-	            if($(dest).attr("id")=="pconnexion"){
+	            if(dest.attr("id")=="pconnexion"){
 	                connect();
 	            }
 			}
 			else{
 				dest=$(dest);
-				hist.push(currentPage);
+				if(exclureHisto.indexOf(currentPage.attr("id"))==-1)hist.push(currentPage);
 			}
-
+            
+            
 	        container.append(dest);
-	
+            
+
 
 	
 	        // Position the page at the starting position of the animation
@@ -56,6 +68,7 @@ function PageSlider(container,pageinit,reserve,classPage) {
 	                        a.enTransition=false;
 	            $(e.target).remove();
 				reserve.append(e.target);
+                            
 	        });
 	
 	        // Force reflow. More information here: http://www.phpied.com/rendering-repaint-reflowrelayout-restyle/

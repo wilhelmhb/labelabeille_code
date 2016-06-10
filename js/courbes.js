@@ -20,7 +20,8 @@ var courbes=[];
 
 
 
-function goToGraphs(idHive){
+function goToGraphs(id,name){
+    $("#pcourbes").children("#menu_haut").children("h1").html(name);
     getCourbes(function(data) {
                
                var template = $(templates).filter('#tpl-courbes').html();
@@ -37,10 +38,10 @@ function goToGraphs(idHive){
                allerCourbe(courbe);
                
                
-               },idHive);
+               },id);
 }
 
-function getCourbes(action,idHive){
+function getCourbes(action,id){
     courbes=[];
     if(isTest){data=courbesTest;action(data);return;}
     charge();
@@ -48,7 +49,7 @@ function getCourbes(action,idHive){
     var noms = ["Masse","Témpérature","Luminosité"];
     var debut = "01/01/2010 00:00:00";
     var fin = "01/01/2017 00:00:00";
-    function auxC(i,d){
+    function auxC(id,i,d){
         if(i>=1){
             //Réception de i-1 dans o
             var o = {id:i,name:noms[i-1]+" ("+d.u+")",data:d.data};
@@ -61,10 +62,10 @@ function getCourbes(action,idHive){
             
         }
         else{//Charger courbe i
-            getHistoryHive(p[i],debut,fin,function(data){auxC(i+1,data);});
+            getHistoryHive(id,p[i],debut,fin,function(data){auxC(id,i+1,data);});
         }
     }
-    auxC(0,{});
+    auxC(id,0,{});
 }
 
 
@@ -227,16 +228,16 @@ function allerCourbe(k){
  * @string fin : datetime in format dd/MM/yyyy%20hh:mm:ss
  */
 
-function getHistoryHive(params, debut, fin,action) {
+function getHistoryHive(id,params, debut, fin,action) {
     $.ajax({
         type: 'GET',
-        url: url+'pshive/' + donneesRuches.hivegroups[idHiveGroup].hives[idHive].id_hive + '/log?params=' + params + '&debut=' + debut + '&fin=' + fin,
+        url: url+'pshive/' + id + '/log?params=' + params + '&debut=' + debut + '&fin=' + fin,
         dataType: "json",
         xhrFields: {
             withCredentials: true
         },
         success: function(data) {
-          action(data.data[""+donneesRuches.hivegroups[idHiveGroup].hives[idHive].id_hive][params]);
+          action(data.data[id][params]);
         },
         error: function (xhr, ajaxOptions, thrownError) {
             //what to do on error

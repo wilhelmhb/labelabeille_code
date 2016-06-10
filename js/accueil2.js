@@ -9,6 +9,18 @@ var decalTop;
 var firstAccueil=true;
 var t=500;
 
+
+function griser(i,j){
+    $("#ruche"+i+"_"+j).children(".fond_ruche_selectionnee").css("opacity","0");
+    $("#ruche"+i+"_"+j).find(".ruche_selectionnee").children("h1").css("border-bottom","1px solid gray");
+    $("#ruche"+i+"_"+j).children(".fond_ruche_grise").css("opacity","1");
+    $("#ruche"+i+"_"+j).find(".ruche_selectionnee_infos").css("width","85%");
+    $("#ruche"+i+"_"+j).find(".ruche_selectionnee_infos").html("<p align=\"center\">Capteur non relié</p>");
+    $("#ruche"+i+"_"+j+"_selectionnee_courbes").css("display","none");
+    $("#ruche"+i+"_"+j+"_selectionnee_historique").css("display","none");
+
+}
+
 function initAccueil(){
 	if(firstAccueil){
 	    if(_("ruche0").offsetHeight != null) {
@@ -49,6 +61,10 @@ var slider_ruchers;
 var $window=[];
 var tScroll=[];
 function accueil(){
+    //Carte
+    _("btCarte").addEventListener(evtclick, goToMap);
+    _("btHistorique").addEventListener(evtclick, goToHistorique);
+
     nbRuchers=donneesRuches.hivegroups.length;
     console.log("Nb de ruchers : "+nbRuchers);
     
@@ -101,17 +117,13 @@ function nouveauRucher(){
                                                      console.log("récupération des listes de ruches par rucher");
                                                      getHivesForHiveGroups(1);
                                                      });});
-        
-        
-        
-        
-        
+   
     }
     
 }
 function allerAuRucher(k){
-    $("#sous_titre_accueil").children("h1").html(donneesRuches.hivegroups[k-1].name);
     if(!transitionEnCours&&!slider_ruchers.enTransition){
+        $("#sous_titre_accueil").children("h1").html(donneesRuches.hivegroups[k-1].name);
         var change=false;
         if(rucher!=k){change=true;}
         if(rucher<=nbRuchers){
@@ -146,7 +158,7 @@ function allerAuRucher(k){
         $("#nav_gauche_rucher").click(rucherPrecedent);
         $("#nav_droite_rucher").click(rucherSuivant);
         
-
+        liensAccueil(rucher);
         
         $("#ruche"+rucher+"plus").click(function(){createHive();});
         var element = document.getElementById('rucher'+rucher);
@@ -155,33 +167,91 @@ function allerAuRucher(k){
         Hammer(element).on("swipeleft", rucherSuivant);
         Hammer(element).on("swiperight", rucherPrecedent);
 
-        for(var r=1;r<=nbRuchers;r++){
-            for(var i=1;i<=nbRuches[r];i++){
-                $("#ruche"+r+"_"+i+"_selectionnee_reglages").click(function(e) {
-                                                                           e.preventDefault();
-                                                                           //console.log($(".ruche_selectionnee_reglages").index());
-                                                                           goToHiveParameters();
-                                                                           });
-                $("#ruche"+r+"_"+i).click( function(e) {
-                                                  e.preventDefault();
-                                                  //console.log($(this)[0].id);
-                                                  
-                                                  var i,j,idd;
-                                                  idd=$(this).attr('id');
-                                                  var t = idd.substr(5,idd.length-5).split("_");
-                                                  i=t[0]-1;
-                                                  j=t[1]-1;
-                                                  idHiveGroup = i;
-                                                  idHive = j;
-                                                  
-                                                  goToDataHive();
-                                                  });
-            }
-        }
     }
     
-    
 }
+
+function liensAccueil(r){
+    for(var i=1;i<=nbRuches[r];i++){
+        
+        $("#ruche"+rucher+"_"+rucheSelect[r]).find(".ruche_grise").css("display","none");
+        $("#ruche"+r+"_"+i+"_selectionnee_supprimer").css("cursor","pointer");
+        $("#ruche"+r+"_"+i+"_selectionnee_supprimer").click( function(e) { $(this).off("click");
+                                                            e.preventDefault();
+                                                            //console.log($(".ruche_selectionnee_reglages").index());
+                                                            var i,j,idd;
+                                                            idd=$(this).attr('id');
+                                                            var t = idd.substr(5,idd.length-5).split("_");
+                                                            i=t[0]-1;
+                                                            j=t[1]-1;
+                                                            idHiveGroup = i;
+                                                            idHive = j;
+                                                            deleteHive(donneesRuches.hivegroups[idHiveGroup].hives[idHive].id_hive,function(){getListHiveGroups(function() {
+                                                                                                                                                                console.log("récupération des listes de ruches par rucher");
+                                                                                                                                                                getHivesForHiveGroups(idHiveGroup+1);
+                                                                                                                                                                });});
+                                                            });
+        $("#ruche"+r+"_"+i+"_selectionnee_reglages").click( function(e) { $(this).off("click");
+                                                           e.preventDefault();
+                                                           e.preventDefault();
+                                                           //console.log($(".ruche_selectionnee_reglages").index());
+                                                           var i,j,idd;
+                                                           idd=$(this).attr('id');
+                                                           var t = idd.substr(5,idd.length-5).split("_");
+                                                           i=t[0]-1;
+                                                           j=t[1]-1;
+                                                           idHiveGroup = i;
+                                                           idHive = j;
+                                                           
+                                                           //console.log($(".ruche_selectionnee_reglages").index());
+                                                           goToHiveParameters();
+                                                           });
+
+        if(donneesRuches.hivegroups[r-1].hives[i-1].data){
+        
+        $("#ruche"+r+"_"+i+"_selectionnee_courbes").click( function(e) { $(this).off("click");
+                                                           e.preventDefault();
+                                                           //console.log($(".ruche_selectionnee_reglages").index());
+                                                          var i,j,idd;
+                                                          idd=$(this).attr('id');
+                                                          var t = idd.substr(5,idd.length-5).split("_");
+                                                          i=t[0]-1;
+                                                          j=t[1]-1;
+                                                          idHiveGroup = i;
+                                                          idHive = j;
+                                                           goToGraphs(donneesRuches.hivegroups[idHiveGroup].hives[idHive].id_hive,donneesRuches.hivegroups[idHiveGroup].hives[idHive].name);
+                                                           });
+        $("#ruche"+r+"_"+i+"_selectionnee_historique").click( function(e) { $(this).off("click");
+                                                          e.preventDefault();
+                                                          //console.log($(".ruche_selectionnee_reglages").index());
+                                                          var i,j,idd;
+                                                          idd=$(this).attr('id');
+                                                          var t = idd.substr(5,idd.length-5).split("_");
+                                                          i=t[0]-1;
+                                                          j=t[1]-1;
+                                                          idHiveGroup = i;
+                                                          idHive = j;
+                                                          goToHistorique(donneesRuches.hivegroups[idHiveGroup].hives[idHive].id_hive,donneesRuches.hivegroups[idHiveGroup].hives[idHive].name);
+                                                          });
+
+        $("#ruche"+r+"_"+i).find(".ruche_selectionnee_infos").click( function(e) { $(this).off("click");
+                                                                    e.preventDefault();
+                                                                    //console.log($(this)[0].id);
+                                                                    
+                                                                    var i,j,idd;
+                                                                    idd=$(this).parent().parent().parent().attr('id');
+                                                                    var t = idd.substr(5,idd.length-5).split("_");
+                                                                    i=t[0]-1;
+                                                                    j=t[1]-1;
+                                                                    idHiveGroup = i;
+                                                                    idHive = j;
+                                                                    
+                                                                    if(donneesRuches.hivegroups[i].hives[j].data)goToDataHive();
+                                                                    });
+        }
+    }
+}
+
 function defiler(rucher){
 	if(slider.cPage().attr("id")=="paccueil"){
 		rucheSelect2[rucher]=Math.round(($window[rucher].scrollTop())/h)+1;
@@ -210,12 +280,18 @@ function defiler(rucher){
 	        $("#ruche"+rucher+"_"+rucheSelect2[rucher]).children(".ruche_contenu").children(".ruche_grise").css("opacity","0");
 			
 			
-			
+			if(!donneesRuches.hivegroups[rucher-1].hives[rucheSelect2[rucher]-1].data){griser(rucher,rucheSelect2[rucher]);}
 			$("#ruche"+rucher+"plus").css({"right":((((nbRuches[rucher]+1)%2==0)?0.5*w:0)+decal )+"px"});
 			
 	        if(rucheSelect2[rucher]<rucheSelect[rucher]){//On remonte
 	            //L'ancienne ruche selectionnée rétrécit, devient grise, le contenu détaillé disparait
 	            $("#ruche"+rucher+"_"+rucheSelect[rucher]).css({"right":(((rucheSelect[rucher]%2==0)?0.5*w:0)+decal)+"px","top":(getTop(rucher+"_"+rucheSelect[rucher])+(h2-h))+"px","width":"50%"});
+                
+                $("#ruche"+rucher+"_"+rucheSelect[rucher]).find(".ruche_grise").css("display","block");
+
+                
+
+                
 	            //La nouvelle ruche selectionnée grandit, devient jaune, le contenu détaillé apparait
 	            $("#ruche"+rucher+"_"+rucheSelect2[rucher]).css({"right":"0","width":"100%"});
 	            //Les ruches entre la ruche anciennement selectionnée et la ruche nouvellement selectionnée se décalent verticalement vers le bas
@@ -236,7 +312,12 @@ function defiler(rucher){
 	            }
             
 	        }
-        
+            
+            $("#ruche"+rucher+"_"+rucheSelect[rucher]).one('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', function(e) {
+                                                           $("#ruche"+rucher+"_"+rucheSelect2[rucher]).find(".ruche_grise").css("display","none");
+                                                           });
+            
+            
 	        rucheSelect[rucher]=rucheSelect2[rucher];
 	    }
     
@@ -266,6 +347,7 @@ function organiserRuches(rucher){
                 $("#ruche"+rucher+"_"+rucheSelect[rucher]).children(".ruche_contenu").children(".ruche_selectionnee").css("opacity","1");
                 $("#ruche"+rucher+"_"+rucheSelect[rucher]).children(".ruche_contenu").children(".ruche_grise").css("opacity","0");
                 $("#ruche"+rucher+"_"+rucheSelect[rucher]).css({"top":(h*(0.76*(i-1))+decalTop)+'px',"right":"0"});
+                if(!donneesRuches.hivegroups[rucher-1].hives[i-1].data){griser(rucher,i);}
             }else{
 				d=0;
 				if(i>rucheSelect[rucher])d=(h2-h);

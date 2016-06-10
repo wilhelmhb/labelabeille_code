@@ -4,7 +4,7 @@
 function inscription() {
     transition(_("pinscription"));
     console.log("inscription en cours");
-    $("#form-inscription").find(".bouton").click(function(e) {
+    $("#form-inscription").find(".bouton").click( function(e) { $(this).off("click");
         e.preventDefault();
         $("#form-inscription").submit();
     });

@@ -20,7 +20,7 @@ function goToGeneralParameters() {
     transition(_("pparametres"), "slide");
     //console.log(customer.id);
     if(isTest) {
-    	$("#form-params-generaux").find(".bouton").click(function(e){
+    	$("#form-params-generaux").find(".bouton").click(function(e){$(this).off("click");
 	        e.preventDefault(); 
 	        var firstname = $("#apibundle_pscustomer_firstname").val();
 	        var lastname = $("#apibundle_pscustomer_lastname").val();
@@ -35,11 +35,12 @@ function goToGeneralParameters() {
     	})
     }
     else {
-        $("#form-params-generaux").find(".bouton").click(function(e){
+        $("#form-params-generaux").find(".bouton").click(function(e){$(this).off("click");
             //console.log("début modif");
             e.preventDefault(); 
             var donnees = $(this).serialize();
             //console.log(donnees);
+                                                         charge();
             $.ajax({
                 type: 'PATCH',
                 url: url+'pscustomer/'+customer.id,
@@ -48,6 +49,7 @@ function goToGeneralParameters() {
                 },
                 data: donnees,
                 success: function(data) {
+                   finCharge();
                 	//console.log(data); 
                 	customer = data;
                     customer.firstname = $("#apibundle_pscustomer_firstname").val();
@@ -102,7 +104,7 @@ function goToHiveParameters() {
     transition(_("pparametres-ruche"), "slide");
     
     if(isTest) {
-    	$("#form-params-hive").find(".bouton").click(function(e){
+    	$("#form-params-hive").find(".bouton").click(function(e){$(this).off("click");
 	        e.preventDefault(); 
 	        donneesRuches.hivegroups[idHiveGroup].hives[idHive].name = $("#apibundle_pshive_name").val();
 	        donneesRuches.hivegroups[idHiveGroup].hives[idHive].note = $("#apibundle_pshive_note").val();
@@ -121,7 +123,7 @@ function goToHiveParameters() {
     	})
     }
     else {
-        $("#form-params-hive").find(".bouton").click(function(e){
+        $("#form-params-hive").find(".bouton").click(function(e){$(this).off("click");
             $("#form-params-hive").submit();
         });
         $("#form-params-hive").submit(function(e){
@@ -234,7 +236,7 @@ function goToHiveSeuils() {
     console.log('goToHiveParameters : before transition');
     transition(_("pparametres-ruche-seuils"), "slide");
     if(isTest) {
-    	$("#form-params-hive-seuils").find(".bouton").click(function(e){
+    	$("#form-params-hive-seuils").find(".bouton").click(function(e){$(this).off("click");
 	        e.preventDefault(); 
 	        donneesRuches.hivegroups[idHiveGroup].hives[idHive].name = $("#apibundle_pshive_name").val();
 	        donneesRuches.hivegroups[idHiveGroup].hives[idHive].note = $("#apibundle_pshive_note").val();
@@ -253,7 +255,7 @@ function goToHiveSeuils() {
     	})
     }
     else {
-        $("#form-params-hive-seuils").find(".bouton").click(function(e){
+        $("#form-params-hive-seuils").find(".bouton").click(function(e){$(this).off("click");
             //console.log("début modif");
             e.preventDefault();
             var donnees = $(this).serialize();

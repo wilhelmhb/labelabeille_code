@@ -61,7 +61,7 @@ function goToDataHive(r) {
     console.log("Rucher : " + idHiveGroup);
     console.log("Ruche : " + idHive);
     console.log(donneesRuches);
-    var dataHive=donneesRuches.hivegroups[idHiveGroup].hives[idHive];
+    dataHive=donneesRuches.hivegroups[idHiveGroup].hives[idHive];
     console.log(dataHive)
     dataHive.name_hive_group=donneesRuches.hivegroups[idHiveGroup].name;
     dataHive.recolte = dataHive.data["PARAM.POIDS_RECOLTE"];
@@ -72,46 +72,7 @@ function goToDataHive(r) {
     document.getElementById("corps").innerHTML = h;
     if(r)retour();
     else transition(_("pdetails"), "");
-    //-Paramètres
-    _("parametresDetails").addEventListener(evtclick,function(){goToHiveParameters();});
-    //-Historique
-    _("historiqueDetails").addEventListener(evtclick,function(){goToHistorique(idHive);});
-    _("ajouter_note_details").addEventListener(evtclick,function(){
-        ajouterNote();
-    });
-    //-Courbes
-    _("courbesDetails").addEventListener(evtclick,function(){goToGraphs(dataHive.id_hive);});
-
-}
-
-
-
-/**
- * display the details of one hive
- * @string name : name of the hive
- * @Object dataHive : JSON Object containing all hive's details
- * @boolean r : true if we go back to details' page, false if we only go
- */
-
-function goToDataHives(name, dataHive,r) {
-	var template = $(templates).filter('#tpl-details').html();
-	console.log(dataHive);
-	
-	dataHive.recolte = dataHive["PARAM.POIDS_RECOLTE"];
-	dataHive.miel = dataHive["PARAM.PROD_MIEL_RUCHE"];
-	dataHive.essaim = dataHive["PARAM.POIDS_ESSAIM"];
-	dataHive.nom = name;
-  	var h = Mustache.render(template, dataHive);
-  	console.log(dataHive);
-    document.getElementById("corps").innerHTML = h;
-    if(r)retour();
-    else transition(_("pdetails"), "");
-	//-Paramètres
-	_("parametresDetails").addEventListener(evtclick,goToHiveParameters); 
-	//-Historique
-	_("historiqueDetails").addEventListener(evtclick,goToHistorique); 
-	_("ajouter_note_details").addEventListener(evtclick,function(){
-		ajouterNote(dataHive.id_hive_group,dataHive.id_hive);
-	}); 
-	//-Courbes
+    
+    
+    
 }

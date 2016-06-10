@@ -4,8 +4,10 @@
 function createHive() {
     console.log("début de la création d'une ruche");
     transition(_("pcreate-hive"), "slide");
+    $("#sous_titre_create_hive").children("h1").html(donneesRuches.hivegroups[idHiveGroup].name);
+
     if(isTest) {
-    	$("#form-create-hive").find(".bouton").click(function(e){
+    	$("#form-create-hive").find(".bouton").click(function(e){$(this).off("click");
 	        e.preventDefault();
             var donnees = $("#form-create-hive").serialize();
             idHive = donneesRuches.hivegroups[idHiveGroup].hives.length; //change idHive
@@ -16,7 +18,8 @@ function createHive() {
     	})
     }
     else {
-        $("#form-create-hive").find(".bouton").click(function(e){
+        $("#form-create-hive").find(".bouton").click(function(e){$(this).off("click");
+                                                     
             //console.log("début ajout");
             e.preventDefault();
             var donnees = $("#form-create-hive").serialize();
@@ -31,7 +34,7 @@ function createHive() {
                 data: donnees + '&apibundle_pshive%5BidHiveGroup%5D=' + donneesRuches.hivegroups[idHiveGroup].id_hive_group,
                 success: function(data) {
                    finCharge();
-                	console.log(data); 
+                	console.log(data);
                 	idHive = donneesRuches.hivegroups[idHiveGroup].hives.length; //change idHive
                 	console.log(idHive);
                 	updateLocalHive(data); // locally update list hive 
@@ -74,7 +77,7 @@ function goToAddLogger() {
     console.log(idClient);
     console.log(donneesRuches.hivegroups[idHiveGroup].hives[idHive]);
     $("#sous_titre_addlogger").children("h1").html(donneesRuches.hivegroups[idHiveGroup].hives[idHive].name);
-    $("#form-add-logger").find(".bouton").click(function(e){
+    $("#form-add-logger").find(".bouton").click(function(e){$(this).off("click");
         //console.log("début ajout");
         e.preventDefault();
         var donnees = $("#form-add-logger").serialize();
@@ -89,7 +92,10 @@ function goToAddLogger() {
             success: function(data) {
             	console.log(data);
                finCharge();
-               goToListHives();
+               getListHiveGroups(function() {
+                                 console.log("récupération des listes de ruches par rucher");
+                                 getHivesForHiveGroups(1);
+                                 });
                
             },
             error: function (xhr, ajaxOptions, thrownError) {
@@ -99,19 +105,20 @@ function goToAddLogger() {
     });
 }
 
-function deleteHive() {
+function deleteHive(id,action) {
+    charge();
     $.ajax({
         type: 'DELETE',
-        url: url+'pshive/' + donneesRuches.hivegroups[idHiveGroup].hives[idHive].id_hive,
+        url: url+'pshive/' + id,
         dataType: "json",
         xhrFields: {
             withCredentials: true
         },
         //data: 'idclient=1&idruche=25&nomruche=NomDeMaRuche',
-        success: function(data) {console.log(data); $("#resultat").html(JSON.stringify(data));},
+           success: function(data) {finCharge();action();},
         error: function (xhr, ajaxOptions, thrownError) {
             console.log(xhr.responseText);
-            $("#result").html(xhr.responseText);
+            
         }
     });
 }
