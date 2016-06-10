@@ -55,6 +55,7 @@ function details_histo(nouveau){
 }
 
 function afficherNotes(data, indexHive){
+    finCharge();
     /* structure of one note : { id: 24, id_custom_note: 2, id_hive: 22, date_add: "07/05/2016 20:26:00" } */
     var notes = [];
     for(var i in data) {
@@ -95,6 +96,7 @@ function afficherNotes(data, indexHive){
     console.log(historique);
     console.log(template);
     var h = Mustache.render(template, historique);
+    console.log(h);
     document.getElementById("content-historique").innerHTML = h;
 
     transition(_("phistorique"), "slide");
@@ -157,6 +159,7 @@ function goToAddCustomNote() {
     $("#add_new_custom_note").on("click", f);
 }
 function supprimerNote(index){
+    if(index==selectHisto){if(index>1){details_histo(index-1);}else{details_histo(index+1);}}
     $("#details_histo_"+index).remove();
     $("#histo_"+index).remove();
 }
