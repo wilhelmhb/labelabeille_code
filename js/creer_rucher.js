@@ -19,7 +19,7 @@ function createHiveGroup(action) {
             e.preventDefault();
             var donnees = $("#form-create-hive-group").serialize();
             console.log(donnees);
-          charge();
+            charge();
             $.ajax({
                 type: 'POST',
                 url: url+'pshivegroup/create',

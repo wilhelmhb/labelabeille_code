@@ -145,3 +145,37 @@ function finCharge(){
     enCharge=false;
     _("ch").style.visibility="hidden";
 }
+
+function logout() {
+    $.ajax({
+        type: 'GET',
+        url: url+'logout',
+        dataType: "json",
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function(data) {
+            //what to do on success
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            //what to do on failure
+        }
+    });
+}
+
+function deleteAccount() {
+    $.ajax({
+        type: 'DELETE',
+        url: url+'pscustomer/' + customer.id,
+        dataType: "json",
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function(data) {
+            //what to do on success
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            //what to do on failure
+        }
+    });
+}
