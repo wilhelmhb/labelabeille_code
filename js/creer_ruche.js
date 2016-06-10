@@ -115,3 +115,27 @@ function deleteHive() {
         }
     });
 }
+
+/** 
+ * fonction pour modifier un boitier connecté
+ * @int idLogger : identifiant du boitier
+ * @String serialNumber : numéro de série du boitier ~nom
+ * @int idHive : identifiant de la ruche à laquelle l'affecter
+ */
+function changeLogger(idLogger, serialNumber, idHive) {
+    $.ajax({
+        type: 'PATCH',
+        url: url+'psbox/'+ idLogger +'/update',
+        dataType: "json",
+        xhrFields: {
+            withCredentials: true
+        },
+        data: "apibundle_psbox%5BserialNumber%5D="+ serialNumber +"&apibundle_psbox%5BidHive%5D=" + idHive,
+        success: function(data) {
+            console.log(data);
+            //what else to do on success
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+        }
+    });
+}
