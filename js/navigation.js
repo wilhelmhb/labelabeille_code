@@ -13,7 +13,7 @@ function PageSlider(container,pageinit,reserve,classPage) {
     var container = container;
     var currentPage=pageinit;
     this.currentPageName=$(pageinit).attr("id");
-    var exclureHisto=["pajoutnotepersonnalisee"];
+    var exclureHisto=["pajoutnotepersonnalisee","pajoutnote"];
     this.enTransition=false;
     var hist = [];
     

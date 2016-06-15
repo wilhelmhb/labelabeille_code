@@ -62,7 +62,7 @@ function getCourbes(action,id){
             
         }
         else{//Charger courbe i
-            getHistoryHive(id,p[i],debut,fin,function(data){auxC(id,i+1,data);});
+            getHistoryHive(id,p[i],debut,fin,function(data){auxC(id,i+1,data);},function(){finCharge();});
         }
     }
     auxC(id,0,{});
@@ -228,7 +228,7 @@ function allerCourbe(k){
  * @string fin : datetime in format dd/MM/yyyy%20hh:mm:ss
  */
 
-function getHistoryHive(id,params, debut, fin,action) {
+function getHistoryHive(id,params, debut, fin,action,err) {
     $.ajax({
         type: 'GET',
         url: url+'pshive/' + id + '/log?params=' + params + '&debut=' + debut + '&fin=' + fin,
@@ -241,6 +241,7 @@ function getHistoryHive(id,params, debut, fin,action) {
         },
         error: function (xhr, ajaxOptions, thrownError) {
             //what to do on error
+           err();
         }
     });
 }
