@@ -76,6 +76,7 @@ function connexion(user, passwd, success, failure) {
  * get and deal with connection data
  */
 function connect() {
+    connexion("guillaume.vizier@polytechnique.edu", "labelabeille", connexion_success, connexion_failure);
     $("#test").click(tester);
     $("#valider_connexion").click(function(){
         if(!enCharge){
@@ -117,13 +118,13 @@ function connexion_success() {
 };
 
 function aux(retour) {
-    idHiveGroup++;
+    idHiveGroupMaj++;
     getHivesForHiveGroups(retour);
 };
 function getHivesForHiveGroups(retour) {
-    if(idHiveGroup >= donneesRuches.hivegroups.length) {
-        idHiveGroup = 0;
-        goToListHives(retour);
+    if(idHiveGroupMaj >= donneesRuches.hivegroups.length) {
+        idHiveGroupMaj=0;
+        if(retour>=0)goToListHives(retour);
     }
     else {
         getListHives(function(a,b) {

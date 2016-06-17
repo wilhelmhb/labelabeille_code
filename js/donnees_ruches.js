@@ -6,13 +6,9 @@
  * @function action : callback, what to do with the data of the hive
  */
 function getDataHive(id, id2, name, action) {
-		enCharge=true;
-		_("ch").style.visibility="visible";
-		//console.log('on prend les données de la ruche '+name+" et id "+id);
+        //console.log('on prend les données de la ruche '+name+" et id "+id);
 		//console.log(action);
 		if(isTest) {
-			enCharge=false;
-			_("ch").style.visibility="hidden";
             for(var k=0; k<test.hivegroups.length; k++){
                 var hg=test.hivegroups[k];
                 for(var i = 0; i< hg.hives.length; i++) {
@@ -39,11 +35,11 @@ function getDataHive(id, id2, name, action) {
                     withCredentials: true
                 },
                 success: function(data) {
-				    enCharge=false;
+				    
 				    idHive = id2;
-			    	donneesRuches.hivegroups[idHiveGroup].hives[idHive].data = data;
+			    	donneesRuches.hivegroups[idHiveGroupMaj].hives[idHiveMaj].data = data;
 			    	console.log(data);
-				    _("ch").style.visibility="hidden";
+                   
 				    //console.log(id2);
                 	//console.log(JSON.stringify(data)); 
 				    //console.log(JSON.stringify(data["param.poids_essaim"]));

@@ -2,33 +2,30 @@
  * get the list of all hiveGroups of a customer
  * @function action : callback, what to do with the data
  */
-function getListHiveGroups(action) {
-		enCharge=true;
-		_("ch").style.visibility="visible";
-		if(isTest) {
-		    enCharge=false;
-		    donneesRuches.hivegroups = test.hivegroups;
-			_("ch").style.visibility="hidden";
-			action();
-		}
-		else {
-            $.ajax({
-                type: 'GET',
-                url: url+'pscustomer/hivegroups/me',
-                dataType: "json",
-                xhrFields: {
-                    withCredentials: true
-                },
-                success: function(data) {
-				    enCharge=false;
-				    _("ch").style.visibility="hidden";
-                    console.log(data);
-                    donneesRuches.hivegroups = data;
-                    console.log("hiveGroups : " + hiveGroups);
-                    action();
-                },
-            });
-        }
+function getListHiveGroups(action,afficheCharge) {
+    if(afficheCharge>=0)charge();
+    if(isTest) {
+        enCharge=false;
+        donneesRuches.hivegroups = test.hivegroups;
+        _("ch").style.visibility="hidden";
+        action();
+    }
+    else {
+        $.ajax({
+               type: 'GET',
+               url: url+'pscustomer/hivegroups/me',
+               dataType: "json",
+               xhrFields: {
+               withCredentials: true
+               },
+               success: function(data) {
+               console.log(data);
+               donneesRuches.hivegroups = data;
+               console.log("hiveGroups : " + hiveGroups);
+               action();
+               },
+               });
+    }
 };
 
 /**

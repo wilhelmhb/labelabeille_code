@@ -56,6 +56,44 @@ function initAccueil(){
        
 	}
 }
+var inotif=0;
+
+function actuNotifs(){
+    getListHiveGroups(function() {
+                      console.log("récupération des listes de ruches par rucher");
+                      getHivesForHiveGroups(-1);//Le -1 pour dire qu'on ne va pas sur la liste des ruches (ça pourrait interferer avec la navigation de l'utilisateur si il est en train d'utiliser l'appli
+                                  },-1);//Ce -1 pour ne pas afficher le chargement
+    //Pour chaque ruche
+    for(var r=0;r<donneesRuches.hivegroups.length;r++){
+        for(var i=0;i<donneesRuches.hivegroups[r].hives.length;i++){
+            for(var s in seuils) {
+                console.log("Nom seuil : " + seuils[s].nom);
+                seuils[s].v = donneesRuches.hivegroups[r].hives[i].data[seuils[s].nom].v;
+                if(r==0&&i==0)notif(seuils[s].nom,seuils[s].v);
+            }
+            seuils = { 'seuils': seuils};
+            console.log(seuils);
+        }}
+    //
+    function notif(nom,v){
+        inotif++;
+        
+        cordova.plugins.notification.local.schedule({
+                                                    id: inotif,
+                                                    badge: inotif,
+                                                    title: "Alerte",
+                                                    text: "Seuil "+nom+" dépassé : "+v,
+                                                    at: new Date(),
+                                                    data: { meetingId:"#123FG8" }
+                                                    });
+        cordova.plugins.notification.local.on("click", function (notification) {
+                                              inotif=0;
+                                              accueil();
+                                              });
+    }
+
+    
+}
 var rucher=1;
 var slider_ruchers;
 var $window=[];
@@ -68,7 +106,8 @@ function accueil(){
     nbRuchers=donneesRuches.hivegroups.length;
     console.log("Nb de ruchers : "+nbRuchers);
     
-    
+    setInterval(function(){actuNotifs();}, 5000);
+
     if(nbRuchers>0){
         $("#rucher"+rucher).appendTo("#conteneur-rucher");
         initAccueil();

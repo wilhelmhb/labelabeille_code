@@ -40,14 +40,69 @@ var historique;
 
 document.addEventListener('deviceready', function () {
 	cordova.plugins.backgroundMode.enable();
+                          
 }, false);
 
+
+var seuils = [
+              /*{
+               'nom': "PARAM.SEUIL_ACC_X_MAX",
+               'description': "Seuil Accéléromètre X maximum pour alerte"
+               },
+               {
+               'nom': "PARAM.SEUIL_ACC_X_MIN",
+               'description': "Seuil Accéléromètre X minimum pour alerte"
+               },
+               {
+               'nom': "PARAM.SEUIL_ACC_Y_MAX",
+               'description': "Seuil Accéléromètre Y maximum pour alerte"
+               },
+               {
+               'nom': "PARAM.SEUIL_ACC_Y_MIN",
+               'description': "Seuil Accéléromètre Y minimum pour alerte"
+               },
+               {
+               'nom': "PARAM.SEUIL_ACC_Z_MAX",
+               'description': "Seuil Accéléromètre Z maximum pour alerte"
+               },
+               {
+               'nom': "PARAM.SEUIL_ACC_Z_MIN",
+               'description': "Seuil Accéléromètre Z minimum pour alerte"
+               },*/
+              {
+              'nom': "PARAM.SEUIL_BAISSE_POIDS",
+              'description': "Baisse de poids maximale avant alerte"
+              },
+              /*{
+               'nom': "PARAM.SEUIL_BAISSE_POIDS_DUREE",
+               'description': "Nombre d'heure pour constater la baisse de poids"
+               },*/
+              {
+              'nom': "PARAM.SEUIL_HUMIDITE_MAX",
+              'description': "Humidité maximale avant alerte"
+              },
+              {
+              'nom': "PARAM.SEUIL_HUMIDITE_MIN",
+              'description': "Humidité minimale avant alerte"
+              },
+              {
+              'nom': "PARAM.SEUIL_TEMP_MAX",
+              'description': "Température maximale avant alerte"
+              },
+              {
+              'nom': "PARAM.SEUIL_TEMP_MIN",
+              'description': "Température minimale avant alerte"
+              }
+              ];
+
+
 function debut(){
+        
 	dessinCercleFLAT(_("canvasProgressSimple"),0);
     new FastClick(document.body);
  	masquerBd();
 	slider = new PageSlider($("#container"),$(_("pchargement")),$("#pages"),"page");
-	_("btReglages").addEventListener(evtclick,function(){goToGeneralParameters();}); 		
+	_("btReglages").addEventListener(evtclick,function(){goToGeneralParameters();});
 
 	_("sitemobile").addEventListener(evtclick,function(){
 		_("ch").style.visibility="visible";

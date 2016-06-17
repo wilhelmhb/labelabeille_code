@@ -170,57 +170,7 @@ function goToHiveSeuils() {
 	console.log(hiveGroups[idHiveGroup]);
 	console.log(idHive);
 	console.log(hiveGroups[idHiveGroup].hives);
-	var seuils = [
-	    /*{
-	        'nom': "PARAM.SEUIL_ACC_X_MAX",
-	        'description': "Seuil Accéléromètre X maximum pour alerte"
-	    },
-	    {
-            'nom': "PARAM.SEUIL_ACC_X_MIN",
-            'description': "Seuil Accéléromètre X minimum pour alerte"
-        },
-        {
-            'nom': "PARAM.SEUIL_ACC_Y_MAX",
-            'description': "Seuil Accéléromètre Y maximum pour alerte"
-        },
-        {
-            'nom': "PARAM.SEUIL_ACC_Y_MIN",
-            'description': "Seuil Accéléromètre Y minimum pour alerte"
-        },
-        {
-            'nom': "PARAM.SEUIL_ACC_Z_MAX",
-            'description': "Seuil Accéléromètre Z maximum pour alerte"
-        },
-        {
-            'nom': "PARAM.SEUIL_ACC_Z_MIN",
-            'description': "Seuil Accéléromètre Z minimum pour alerte"
-        },*/
-        {
-            'nom': "PARAM.SEUIL_BAISSE_POIDS",
-            'description': "Baisse de poids maximale avant alerte"
-        },
-        /*{
-            'nom': "PARAM.SEUIL_BAISSE_POIDS_DUREE",
-            'description': "Nombre d'heure pour constater la baisse de poids"
-        },*/
-        {
-            'nom': "PARAM.SEUIL_HUMIDITE_MAX",
-            'description': "Humidité maximale avant alerte"
-        },
-        {
-            'nom': "PARAM.SEUIL_HUMIDITE_MIN",
-            'description': "Humidité minimale avant alerte"
-        },
-        {
-            'nom': "PARAM.SEUIL_TEMP_MAX",
-            'description': "Température maximale avant alerte"
-        },
-        {
-            'nom': "PARAM.SEUIL_TEMP_MIN",
-            'description': "Température minimale avant alerte"
-        }
-    ];
-    console.log(seuils);
+	    console.log(seuils);
     for(var s in seuils) {
         console.log(s)
         console.log(seuils[s].nom);

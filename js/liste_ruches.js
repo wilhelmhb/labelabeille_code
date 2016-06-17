@@ -8,41 +8,41 @@ function getListHives(action,retour) {
             action(retour);
 		}
 		else {
-		    console.log('récupération des ruches du rucher ' + donneesRuches.hivegroups[idHiveGroup].id_hive_group);
-            charge();
+		    console.log('récupération des ruches du rucher ' + donneesRuches.hivegroups[idHiveGroupMaj].id_hive_group);
+            if(retour>=0)charge();
             $.ajax({
                 type: 'GET',
-                url: url+'pshivegroup/hives/' + donneesRuches.hivegroups[idHiveGroup].id_hive_group,
+                url: url+'pshivegroup/hives/' + donneesRuches.hivegroups[idHiveGroupMaj].id_hive_group,
                 dataType: "json",
                 xhrFields: {
                     withCredentials: true
                 },
                 success: function(data) {
-                   finCharge();
+                   if(retour>=0)finCharge();
                     console.log(data.ruches); 
                     //$("#resultat").html(JSON.stringify(data));
                     console.log("hiveGroups : " + hiveGroups);
-				    donneesRuches.hivegroups[idHiveGroup].hives = data.ruches;
+				    donneesRuches.hivegroups[idHiveGroupMaj].hives = data.ruches;
                     action(retour);
                 },
             });
         }
 };
-
+var idHiveMaj=0;
+var idHiveGroupMaj=0;
 function getDataForHives(action,retour) {
-        if(idHive >= donneesRuches.hivegroups[idHiveGroup].hives.length) {
-            idHive = 0;
-            console.log(action);
-            action(retour);
-        }
-        else {
-            getDataHive(donneesRuches.hivegroups[idHiveGroup].hives[idHive].id_hive, idHive, donneesRuches.hivegroups[idHiveGroup].hives[idHive].name, function() {
-                idHive++;
-                getDataForHives(action,retour);
-            });
-        }
-    };
-
+    if(idHiveMaj >= donneesRuches.hivegroups[idHiveGroupMaj].hives.length) {
+        idHiveMaj = 0;
+        console.log(action);
+        action(retour);
+    }
+    else {
+        getDataHive(donneesRuches.hivegroups[idHiveGroupMaj].hives[idHiveMaj].id_hive, idHiveMaj, donneesRuches.hivegroups[idHiveGroupMaj].hives[idHiveMaj].name, function() {
+                    idHiveMaj++;
+                    getDataForHives(action,retour);
+                    });
+    }
+};
 /**
  * display the list of hives
  * @int id : identifier of the hiveGroup
