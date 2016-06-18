@@ -57,43 +57,136 @@ function initAccueil(){
 	}
 }
 var inotif=0;
+var enActualisation=false;
+function notif(nom,ruche,idSeuil){
+ inotif++;
+ cordova.plugins.notification.local.isPresent((ruche.id_hive*10+idSeuil), function (present) {
+ alert(present);
+ if(!present){
+ cordova.plugins.notification.local.schedule({
+ id: ruche.id_hive*10+idSeuil,
+ badge: inotif,
+ title: "Alerte ("+ruche.name+")",
+ text: "Seuil "+nom+" dépassé",
+ at: new Date()
+ });
+ cordova.plugins.notification.local.on("click", function (notification) {
+ inotif=0;
+ goToListHives(1);
+ });
+ }});
+ 
+ }
+/*
+function notif(nom,nomRuche){
+    inotif++;
+ 
+    cordova.plugins.notification.local.schedule({
+                                                id: inotif,
+                                                badge: inotif,
+                                                title: "Alerte ("+nomRuche+")",
+                                                text: "Seuil "+nom+" dépassé",
+                                                at: new Date()
+                                                });
+    cordova.plugins.notification.local.on("click", function (notification) {
+                                          inotif=0;
+                                          accueil();
+                                          });
+}*/
 
-function actuNotifs(){
-    getListHiveGroups(function() {
-                      console.log("récupération des listes de ruches par rucher");
-                      getHivesForHiveGroups(-1);//Le -1 pour dire qu'on ne va pas sur la liste des ruches (ça pourrait interferer avec la navigation de l'utilisateur si il est en train d'utiliser l'appli
-                                  },-1);//Ce -1 pour ne pas afficher le chargement
-    //Pour chaque ruche
-    for(var r=0;r<donneesRuches.hivegroups.length;r++){
-        for(var i=0;i<donneesRuches.hivegroups[r].hives.length;i++){
-            for(var s in seuils) {
-                console.log("Nom seuil : " + seuils[s].nom);
-                seuils[s].v = donneesRuches.hivegroups[r].hives[i].data[seuils[s].nom].v;
-                if(r==0&&i==0)notif(seuils[s].nom,seuils[s].v);
-            }
-            seuils = { 'seuils': seuils};
-            console.log(seuils);
-        }}
-    //
-    function notif(nom,v){
-        inotif++;
-        
-        cordova.plugins.notification.local.schedule({
-                                                    id: inotif,
-                                                    badge: inotif,
-                                                    title: "Alerte",
-                                                    text: "Seuil "+nom+" dépassé : "+v,
-                                                    at: new Date(),
-                                                    data: { meetingId:"#123FG8" }
-                                                    });
-        cordova.plugins.notification.local.on("click", function (notification) {
-                                              inotif=0;
-                                              accueil();
-                                              });
+var seuils = [
+              /*{
+               'nom': "PARAM.SEUIL_ACC_X_MAX",
+               'description': "Seuil Accéléromètre X maximum pour alerte"
+               },
+               {
+               'nom': "PARAM.SEUIL_ACC_X_MIN",
+               'description': "Seuil Accéléromètre X minimum pour alerte"
+               },
+               {
+               'nom': "PARAM.SEUIL_ACC_Y_MAX",
+               'description': "Seuil Accéléromètre Y maximum pour alerte"
+               },
+               {
+               'nom': "PARAM.SEUIL_ACC_Y_MIN",
+               'description': "Seuil Accéléromètre Y minimum pour alerte"
+               },
+               {
+               'nom': "PARAM.SEUIL_ACC_Z_MAX",
+               'description': "Seuil Accéléromètre Z maximum pour alerte"
+               },
+               {
+               'nom': "PARAM.SEUIL_ACC_Z_MIN",
+               'description': "Seuil Accéléromètre Z minimum pour alerte"
+               },*/
+              {
+              'nom': "PARAM.SEUIL_BAISSE_POIDS",
+              'description': "Baisse de poids maximale",
+              'type': "max",
+              'champ':"PARAM.POIDS_RECOLTE"
+              },
+              /*{
+               'nom': "PARAM.SEUIL_BAISSE_POIDS_DUREE",
+               'description': "Nombre d'heure pour constater la baisse de poids"
+               },*/
+              {
+              'nom': "PARAM.SEUIL_HUMIDITE_MAX",
+              'description': "Humidité maximale",
+              'type': "max",
+              'champ':"HUM"
+              },
+              {
+              'nom': "PARAM.SEUIL_HUMIDITE_MIN",
+              'description': "Humidité minimale",
+              'type': "min",
+              'champ':"HUM"
+              },
+              {
+              'nom': "PARAM.SEUIL_TEMP_MAX",
+              'description': "Température maximale",
+              'type': "max",
+              'champ':"TMP"
+              },
+              {
+              'nom': "PARAM.SEUIL_TEMP_MIN",
+              'description': "Température minimale",
+              'type': "min",
+              'champ':"TMP"
+              }
+              ];
+
+
+function testSeuil(ruche,s,v){
+    console.log(v+" / "+ruche.data[s.champ].v);
+    if(s.type=="max"&&parseFloat(v)<parseFloat(ruche.data[s.champ].v)){
+        return true;
     }
+    else if(s.type=="min"&&parseFloat(v)>parseFloat(ruche.data[s.champ].v)){
+        return true;
+    }
+    else return false;
+}
+function actuNotifs(){if(!enActualisation){
+    enActualisation=true;
+    getListHiveGroups(function() {
+                      console.log("Actualisation des seuils");
+                      getHivesForHiveGroups(-1,function(){//Pour chaque ruche
+                                            for(var r=0;r<donneesRuches.hivegroups.length;r++){
+                                            for(var i=0;i<donneesRuches.hivegroups[r].hives.length;i++){
+                                            for(s=0;s<seuils.length;s++) {
+                                            
+                                            
+                                            if(testSeuil(donneesRuches.hivegroups[r].hives[i],seuils[s],donneesRuches.hivegroups[r].hives[i].data[seuils[s].nom].v))notif(seuils[s].nom,donneesRuches.hivegroups[r].hives[i],s);
+                                            }
+                                            
+                                            enActualisation=false;
+                                            }}
+                                        });//Le -1 pour dire qu'on ne va pas sur la liste des ruches (ça pourrait interferer avec la navigation de l'utilisateur si il est en train d'utiliser l'appli
+                                  },false);//Ce -1 pour ne pas afficher le chargement
+    
 
     
-}
+}}
 var rucher=1;
 var slider_ruchers;
 var $window=[];
@@ -106,7 +199,7 @@ function accueil(){
     nbRuchers=donneesRuches.hivegroups.length;
     console.log("Nb de ruchers : "+nbRuchers);
     
-    setInterval(function(){actuNotifs();}, 5000);
+    setInterval(function(){actuNotifs();}, 10000);
 
     if(nbRuchers>0){
         $("#rucher"+rucher).appendTo("#conteneur-rucher");
@@ -317,7 +410,6 @@ function defiler(rucher){
 	        $("#ruche"+rucher+"_"+rucheSelect2[rucher]).children(".ruche_contenu").children(".ruche_selectionnee").css("opacity","1");
 	        $("#ruche"+rucher+"_"+rucheSelect[rucher]).children(".ruche_contenu").children(".ruche_grise").css("opacity","1");
 	        $("#ruche"+rucher+"_"+rucheSelect2[rucher]).children(".ruche_contenu").children(".ruche_grise").css("opacity","0");
-			
 			
 			if(!donneesRuches.hivegroups[rucher-1].hives[rucheSelect2[rucher]-1].data){griser(rucher,rucheSelect2[rucher]);}
 			$("#ruche"+rucher+"plus").css({"right":((((nbRuches[rucher]+1)%2==0)?0.5*w:0)+decal )+"px"});

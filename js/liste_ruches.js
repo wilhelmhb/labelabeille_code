@@ -8,8 +8,7 @@ function getListHives(action,retour) {
             action(retour);
 		}
 		else {
-		    console.log('récupération des ruches du rucher ' + donneesRuches.hivegroups[idHiveGroupMaj].id_hive_group);
-            if(retour>=0)charge();
+		    //console.log('récupération des ruches du rucher ' + donneesRuches.hivegroups[idHiveGroupMaj].id_hive_group);
             $.ajax({
                 type: 'GET',
                 url: url+'pshivegroup/hives/' + donneesRuches.hivegroups[idHiveGroupMaj].id_hive_group,
@@ -18,10 +17,9 @@ function getListHives(action,retour) {
                     withCredentials: true
                 },
                 success: function(data) {
-                   if(retour>=0)finCharge();
-                    console.log(data.ruches); 
+                    //console.log(data.ruches); 
                     //$("#resultat").html(JSON.stringify(data));
-                    console.log("hiveGroups : " + hiveGroups);
+                    //console.log("hiveGroups : " + hiveGroups);
 				    donneesRuches.hivegroups[idHiveGroupMaj].hives = data.ruches;
                     action(retour);
                 },
@@ -30,16 +28,16 @@ function getListHives(action,retour) {
 };
 var idHiveMaj=0;
 var idHiveGroupMaj=0;
-function getDataForHives(action,retour) {
+function getDataForHives(action,retour,act) {
     if(idHiveMaj >= donneesRuches.hivegroups[idHiveGroupMaj].hives.length) {
         idHiveMaj = 0;
-        console.log(action);
-        action(retour);
+        //console.log(action);
+        action(retour,act);
     }
     else {
         getDataHive(donneesRuches.hivegroups[idHiveGroupMaj].hives[idHiveMaj].id_hive, idHiveMaj, donneesRuches.hivegroups[idHiveGroupMaj].hives[idHiveMaj].name, function() {
                     idHiveMaj++;
-                    getDataForHives(action,retour);
+                    getDataForHives(action,retour,act);
                     });
     }
 };

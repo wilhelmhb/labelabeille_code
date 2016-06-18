@@ -3,7 +3,7 @@
  * @function action : callback, what to do with the data
  */
 function getListHiveGroups(action,afficheCharge) {
-    if(afficheCharge>=0)charge();
+    if(afficheCharge)charge();
     if(isTest) {
         enCharge=false;
         donneesRuches.hivegroups = test.hivegroups;
@@ -19,12 +19,26 @@ function getListHiveGroups(action,afficheCharge) {
                withCredentials: true
                },
                success: function(data) {
-               console.log(data);
+               //console.log(data);
                donneesRuches.hivegroups = data;
-               console.log("hiveGroups : " + hiveGroups);
+               //console.log("hiveGroups : " + hiveGroups);
                action();
                },
                });
+    }
+};
+
+function getHivesForHiveGroups(retour,act) {
+    act = (typeof act == 'undefined')? function(){} : act;
+    if(idHiveGroupMaj >= donneesRuches.hivegroups.length) {
+        idHiveGroupMaj=0;
+        if(retour>=0)goToListHives(retour);
+        else act();
+    }
+    else {
+        getListHives(function(a,b) {
+                     getDataForHives(aux,retour,act);
+                     }, false);
     }
 };
 

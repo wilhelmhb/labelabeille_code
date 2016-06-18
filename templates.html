@@ -1400,7 +1400,12 @@
     </form>
 </script>
 <script type="text/html" id="tpl-params-ruche">
-    <form class="formulaire" action="" method="POST" id="form-params-hive" >
+    <form class="formulaire" id="goToSeuils" type="custom">
+    <input type="submit" class="histo_important" value="Gérer les seuils de notification" />
+    </form>
+    <form class="formulaire" id="form-params-hive" >
+    
+
         <div id="apibundle_pshive">
             <!--<div>
                 <label for="apibundle_pshive_idClient" class="required">Id client</label>
@@ -1469,10 +1474,10 @@
             {{#seuils}}
             <div>
                 <label for="{{ nom }}">{{ description }} : </label>
-                    <input   type="text" value="{{ v }}" id="{{ nom }}" name="{{ nom }}" maxlength="64" />
+                <input   type="text" value="{{ v }}" id="{{ nom }}" name="{{ nom }}" maxlength="64" />
             </div>
 	        {{/seuils}}
-            <input class="bouton" type="submit" value="ENVOYER">
+            <div class="bouton"><span>VALIDER</span></div>
         </div>
     </form>
 </script>

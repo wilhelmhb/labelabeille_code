@@ -20,7 +20,7 @@ function twoDigits(n) {
     }
     return n;
 }
-
+var nNotes;
 function goToHistorique(id){//Si id est passé en argument; on affiche que les notes associée à cette ruche
     id = typeof id !== 'undefined' ?  id : -1;
 	var idx = 0;
@@ -47,25 +47,34 @@ function goToHistorique(id){//Si id est passé en argument; on affiche que les n
 }
 var selectHisto=1;
 function details_histo(nouveau){
+    if(nouveau==0){
+        while($("#details_histo_"+nouveau).length==0)nouveau++;
+        
+    }
+    
     _('details_histo_'+selectHisto).style.display='none';
     $(_('fleche_'+selectHisto)).attr('src','img/histo_fleche_droite.png');
     selectHisto=nouveau;
     _('details_histo_'+selectHisto).style.display='block';
     $(_('fleche_'+selectHisto)).attr('src','img/histo_fleche_bas.png');
 }
-
+var notes;
 function afficherNotes(data, indexHive){
     finCharge();
+    nNotes=0;
+    notes=[];
     /* structure of one note : { id: 24, id_custom_note: 2, id_hive: 22, date_add: "07/05/2016 20:26:00" } */
-    var notes = [];
+    
     for(var i in data) {
         console.log(data[i]);
         var note = data[i];
         for(var j in defaultNotes) {
             if(defaultNotes[j].id == note.id_default_note) {
+
                 note.data = defaultNotes[j];
             }
         }
+
         notes.push(note);
     };
     for(var i in customNotesSetByUser) {
@@ -76,6 +85,7 @@ function afficherNotes(data, indexHive){
                 note.data = customNotesCreatedByUser[j];
             }
         }
+
         notes.push(note);
     };
     notes.sort(function(a, b) {
@@ -88,6 +98,8 @@ function afficherNotes(data, indexHive){
     for (idx in notes) {
        notes[idx] = {'index': (parseInt(idx)+1), 'note': notes[idx]};
     }
+    console.log(notes);
+    nNotes=notes.length;
     historique = {
        "notes" : notes
     };
@@ -159,7 +171,8 @@ function goToAddCustomNote() {
     $("#add_new_custom_note").on("click", f);
 }
 function supprimerNote(index){
-    if(index==selectHisto){if(index>1){details_histo(index-1);}else{details_histo(index+1);}}
+    nNotes--;
+    if(index==selectHisto){if(nNotes>0){details_histo(0);}}
     $("#details_histo_"+index).remove();
     $("#histo_"+index).remove();
 }

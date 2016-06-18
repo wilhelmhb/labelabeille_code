@@ -62,7 +62,7 @@ function getCourbes(action,id){
             
         }
         else{//Charger courbe i
-            getHistoryHive(id,p[i],debut,fin,function(data){auxC(id,i+1,data);},function(){finCharge();});
+            getHistoryHive(id,p[i],debut,fin,function(data){auxC(id,i+1,data);});
         }
     }
     auxC(id,0,{});
@@ -228,7 +228,7 @@ function allerCourbe(k){
  * @string fin : datetime in format dd/MM/yyyy%20hh:mm:ss
  */
 
-function getHistoryHive(id,params, debut, fin,action,err) {
+function getHistoryHive(id,params, debut, fin,action) {
     $.ajax({
         type: 'GET',
         url: url+'pshive/' + id + '/log?params=' + params + '&debut=' + debut + '&fin=' + fin,
@@ -237,11 +237,13 @@ function getHistoryHive(id,params, debut, fin,action,err) {
             withCredentials: true
         },
         success: function(data) {
-          action(data.data[id][params]);
+           if(data.data[id][params]){
+           action(data.data[id][params]);}
+           else{finCharge();afficherBd("Aucune donnée pour cette ruche","Fermer");}
         },
         error: function (xhr, ajaxOptions, thrownError) {
             //what to do on error
-           err();
+           finCharge();afficherBd("Impossible de charger des données pour cette ruche","Fermer");
         }
     });
 }

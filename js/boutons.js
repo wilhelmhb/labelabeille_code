@@ -40,6 +40,12 @@ function activerBoutons(){
             $("#ajouter_note_details").click(ajouterNote);
             break;
             
+        case "pparametres-ruche":
+            $("#form-params-hive").find(".bouton").click(submitParamsHive);
+            
+            $("#goToSeuils").on("submit",function(e) {
+                                e.preventDefault();goToHiveSeuils();});
+            break;
             
         default: break;
     }

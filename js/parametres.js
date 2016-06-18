@@ -122,41 +122,40 @@ function goToHiveParameters() {
                                       goToDataHive(true);
     	})
     }
-    else {
-        $("#form-params-hive").find(".bouton").click(function(e){$(this).off("click");
-            $("#form-params-hive").submit();
-        });
-        $("#form-params-hive").submit(function(e){
-            //console.log("début modif");
-            e.preventDefault();
-            var donnees = $(this).serialize();
-            //console.log(donnees);
-            console.log(donneesRuches.hivegroups[idHiveGroup].hives[idHive]);
-            $.ajax({
-                type: 'PATCH',
-                url: url+'pshive/'+donneesRuches.hivegroups[idHiveGroup].hives[idHive].id_hive + '/update',
-                xhrFields: {
-                    withCredentials: true
-                },
-                data: donnees,
-                success: function(data) {
-                	console.log(data); 
-                	//customer = data;
-                	updateLocalHive(data);
-                	console.log(donneesRuches.hivegroups[idHiveGroup].hives[idHive]);
-	                /* go back to details */
-	                goToDataHives(donneesRuches.hivegroups[idHiveGroup].hives[idHive].name, donneesRuches.hivegroups[idHiveGroup].hives[idHive].data,true);
-                    //console.log("fin modif");
-                },
-                error: function (xhr, ajaxOptions, thrownError) {
-                    //console.log(xhr.responseText);
-                }
-            });
-        });
-    }
     //organiserRuches(listHives.ruches.length);
     //masquerBd();
     //console.log('goToHiveParameters : end');
+}
+
+
+function submitParamsHive(){
+    //console.log("début modif");
+    
+    var donnees = $("#form-params-hive").serialize();
+    //console.log(donnees);
+    console.log(donneesRuches.hivegroups[idHiveGroup].hives[idHive]);
+    charge();
+    $.ajax({
+           type: 'PATCH',
+           url: url+'pshive/'+donneesRuches.hivegroups[idHiveGroup].hives[idHive].id_hive + '/update',
+           xhrFields: {
+           withCredentials: true
+           },
+           data: donnees,
+           success: function(data) {
+           console.log(data);
+           //customer = data;
+           updateLocalHive(data);
+           console.log(donneesRuches.hivegroups[idHiveGroup].hives[idHive]);
+           /* go back to details */
+           finCharge();
+           goToDataHive(true);
+           //console.log("fin modif");
+           },
+           error: function (xhr, ajaxOptions, thrownError) {
+           //console.log(xhr.responseText);
+           }
+           });
 }
 
 /**
@@ -166,43 +165,23 @@ function goToHiveSeuils() {
 	console.log('goToHiveSeuils : begin');
 	var template = $(templates).filter('#tpl-params-ruche-seuils').html();
 	//TODO: get idClient/idCustomer
-	console.log(hiveGroups);
-	console.log(hiveGroups[idHiveGroup]);
-	console.log(idHive);
-	console.log(hiveGroups[idHiveGroup].hives);
-	    console.log(seuils);
-    for(var s in seuils) {
-        console.log(s)
-        console.log(seuils[s].nom);
-        console.log(donneesRuches.hivegroups[idHiveGroup].hives[idHive].data);
+
+    for(s=0;s<seuils.length;s++) {
+	        console.log(seuils[s].nom);
+        console.log(donneesRuches.hivegroups[idHiveGroup].hives[idHive].data[seuils[s].nom].v);
         seuils[s].v = donneesRuches.hivegroups[idHiveGroup].hives[idHive].data[seuils[s].nom].v;
     }
-    seuils = { 'seuils': seuils};
+   var seuilsMustache = { 'seuils': seuils};
     console.log(seuils);
-    var h = Mustache.render(template, seuils);
+    var h = Mustache.render(template, seuilsMustache);
     //console.log(h);
     document.getElementById("corps-params-ruche-seuils").innerHTML = h;
     //console.log(document.getElementById("corps-params-ruche").innerHTML);
-    console.log('goToHiveParameters : before transition');
+    console.log('goToHiveSeuils : before transition');
     transition(_("pparametres-ruche-seuils"), "slide");
+    $("#pparametres-ruche-seuils").find(".sous_titre").find("h1").html("Seuils ("+donneesRuches.hivegroups[idHiveGroup].hives[idHive].name+")");
     if(isTest) {
-    	$("#form-params-hive-seuils").find(".bouton").click(function(e){$(this).off("click");
-	        e.preventDefault(); 
-	        donneesRuches.hivegroups[idHiveGroup].hives[idHive].name = $("#apibundle_pshive_name").val();
-	        donneesRuches.hivegroups[idHiveGroup].hives[idHive].note = $("#apibundle_pshive_note").val();
-	        donneesRuches.hivegroups[idHiveGroup].hives[idHive].latitude = $("#apibundle_pshive_latitude").val();
-	        donneesRuches.hivegroups[idHiveGroup].hives[idHive].longitude = $("#apibundle_pshive_longitude").val();
-	        donneesRuches.hivegroups[idHiveGroup].hives[idHive].hive_type = $("#apibundle_pshive_hiveType").val();
-	        donneesRuches.hivegroups[idHiveGroup].hives[idHive].bees_type = $("#apibundle_pshive_beesType").val();
-	        donneesRuches.hivegroups[idHiveGroup].hives[idHive].material = $("#apibundle_pshive_material").val();
-	        donneesRuches.hivegroups[idHiveGroup].hives[idHive].support = $("#apibundle_pshive_support").val();
-	        donneesRuches.hivegroups[idHiveGroup].hives[idHive].state = $("#apibundle_pshive_state").val();
-	        donneesRuches.hivegroups[idHiveGroup].hives[idHive].harvest = $("#apibundle_pshive_harvest").val();
-	        donneesRuches.hivegroups[idHiveGroup].hives[idHive].note= $("#apibundle_pshive_note").val();
-	        donneesRuches.hivegroups[idHiveGroup].hives[idHive].notes = $("#apibundle_pshive_notes").val();
-	        //console.log(donneesRuches.hivegroups[idHiveGroup].hives[idHive]);
-	        goToDataHives(donneesRuches.hivegroups[idHiveGroup].hives[idHive].name, donneesRuches.hivegroups[idHiveGroup].hives[idHive].data,true);
-    	})
+    	
     }
     else {
         $("#form-params-hive-seuils").find(".bouton").click(function(e){$(this).off("click");
@@ -210,23 +189,30 @@ function goToHiveSeuils() {
             e.preventDefault();
             var donnees = $(this).serialize();
             //console.log(donnees);
+                                                            
+            charge();
             $.ajax({
                 type: 'PATCH',
-                url: url+'pshive/'+donneesRuches.hivegroups[idHiveGroup].hives[idHive].id,
+                url: url+'pshive/'+donneesRuches.hivegroups[idHiveGroup].hives[idHive].id_hive,
                 xhrFields: {
                     withCredentials: true
                 },
                 data: donnees,
                 success: function(data) {
+                   finCharge();
                 	//console.log(data); 
                 	//customer = data;
+                   console.log("Succes de la modification des seuils");
+                   console.log(data);
                 	updateLimitsHive(data);
 	                /* on retourne aux détails */
-	                goToDataHives(donneesRuches.hivegroups[idHiveGroup].hives[idHive].name, donneesRuches.hivegroups[idHiveGroup].hives[idHive].data,true);
+	                goToDataHive(true);
                     //console.log("fin modif");
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
                     //console.log(xhr.responseText);
+                   finCharge();
+                   afficherBd("Une erreur est survenue","OK");
                 }
             });
         });

@@ -117,21 +117,11 @@ function connexion_success() {
     });
 };
 
-function aux(retour) {
+function aux(retour,act) {
     idHiveGroupMaj++;
-    getHivesForHiveGroups(retour);
+    getHivesForHiveGroups(retour,act);
 };
-function getHivesForHiveGroups(retour) {
-    if(idHiveGroupMaj >= donneesRuches.hivegroups.length) {
-        idHiveGroupMaj=0;
-        if(retour>=0)goToListHives(retour);
-    }
-    else {
-        getListHives(function(a,b) {
-            getDataForHives(aux,retour);
-        }, false);
-    }
-};
+
 
 
 
@@ -157,9 +147,11 @@ function logout() {
         },
         success: function(data) {
             //what to do on success
+           connect();
         },
         error: function (xhr, ajaxOptions, thrownError) {
             //what to do on failure
+           afficherBd("Un problème est survenu","OK");
         }
     });
 }
@@ -173,10 +165,13 @@ function deleteAccount() {
             withCredentials: true
         },
         success: function(data) {
+           connect();
             //what to do on success
         },
         error: function (xhr, ajaxOptions, thrownError) {
             //what to do on failure
+           afficherBd("Un problème est survenu","OK");
+
         }
     });
 }
