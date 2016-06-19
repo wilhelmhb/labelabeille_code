@@ -32,6 +32,7 @@ function getHivesForHiveGroups(retour,act) {
     act = (typeof act == 'undefined')? function(){} : act;
     if(idHiveGroupMaj >= donneesRuches.hivegroups.length) {
         idHiveGroupMaj=0;
+        finCharge();
         if(retour>=0)goToListHives(retour);
         else act();
     }
@@ -63,7 +64,7 @@ function goToListHiveGroups() {
     */
 	var listHiveGroups = null;
     var h = Mustache.render(template, listHiveGroups);
-    console.log(listHiveGroups);
+    //console.log(listHiveGroups);
 	//console.log(h);
 	document.getElementById("content-list-hiveGroups").innerHTML = h;
     /*
@@ -72,7 +73,7 @@ function goToListHiveGroups() {
     transition(_("plist-hiveGroups"));
     /* TODO : remplacer bouton_creer_rucher par le bon identifiant 
     $('#bouton_creer_rucher').click(function() {
-        console.log("ajouter rucher");
+        //console.log("ajouter rucher");
         createHiveGroup(addHives);
     });*/
 };

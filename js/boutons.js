@@ -46,7 +46,10 @@ function activerBoutons(){
             $("#goToSeuils").on("submit",function(e) {
                                 e.preventDefault();goToHiveSeuils();});
             break;
+        
             
         default: break;
+            
+        
     }
 }

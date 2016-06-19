@@ -120,7 +120,7 @@ var seuils = [
                },*/
               {
               'nom': "PARAM.SEUIL_BAISSE_POIDS",
-              'description': "Baisse de poids maximale",
+              'description': "Baisse de poids max",
               'type': "max",
               'champ':"PARAM.POIDS_RECOLTE"
               },
@@ -130,25 +130,25 @@ var seuils = [
                },*/
               {
               'nom': "PARAM.SEUIL_HUMIDITE_MAX",
-              'description': "Humidité maximale",
+              'description': "Humidité max",
               'type': "max",
               'champ':"HUM"
               },
               {
               'nom': "PARAM.SEUIL_HUMIDITE_MIN",
-              'description': "Humidité minimale",
+              'description': "Humidité min",
               'type': "min",
               'champ':"HUM"
               },
               {
               'nom': "PARAM.SEUIL_TEMP_MAX",
-              'description': "Température maximale",
+              'description': "Température max",
               'type': "max",
               'champ':"TMP"
               },
               {
               'nom': "PARAM.SEUIL_TEMP_MIN",
-              'description': "Température minimale",
+              'description': "Température min",
               'type': "min",
               'champ':"TMP"
               }
@@ -198,7 +198,7 @@ function accueil(){
     nbRuchers=donneesRuches.hivegroups.length;
     console.log("Nb de ruchers : "+nbRuchers);
     
-    setInterval(function(){actuNotifs();}, 10000);
+    setInterval(function(){actuNotifs();}, 300000);
 
     if(nbRuchers>0){
         $("#rucher"+rucher).appendTo("#conteneur-rucher");

@@ -76,7 +76,6 @@ function connexion(user, passwd, success, failure) {
  * get and deal with connection data
  */
 function connect() {
-    connexion("guillaume.vizier@polytechnique.edu", "labelabeille", connexion_success, connexion_failure);
     $("#test").click(tester);
     $("#valider_connexion").click(function(){
         if(!enCharge){
@@ -105,6 +104,7 @@ function connexion_success() {
     afficherBd("Vous êtes connecté. Vous allez être redirigé vers la liste de vos ruches dans quelques instants. Si ce n'est pas le cas, cliquez sur le bouton ci-dessous.", "Aller");
 
     //NEW
+    charge();
     getCustomNotes(function(data) {
         customNotesCreatedByUser = data;
         getDefaultNotes(function(data) {
@@ -138,6 +138,7 @@ function finCharge(){
 }
 
 function logout() {
+    charge();
     $.ajax({
         type: 'GET',
         url: url+'logout',
@@ -147,16 +148,19 @@ function logout() {
         },
         success: function(data) {
             //what to do on success
+           finCharge();
            connect();
         },
         error: function (xhr, ajaxOptions, thrownError) {
             //what to do on failure
+           finCharge();
            afficherBd("Un problème est survenu","OK");
         }
     });
 }
 
 function deleteAccount() {
+    charge();
     $.ajax({
         type: 'DELETE',
         url: url+'pscustomer/' + customer.id,
@@ -165,10 +169,12 @@ function deleteAccount() {
             withCredentials: true
         },
         success: function(data) {
+           finCharge();
            connect();
             //what to do on success
         },
         error: function (xhr, ajaxOptions, thrownError) {
+           finCharge();
             //what to do on failure
            afficherBd("Un problème est survenu","OK");
 

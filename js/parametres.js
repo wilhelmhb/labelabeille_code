@@ -64,6 +64,22 @@ function goToGeneralParameters() {
             });
             //console.log("fin modif");
         });
+        
+        //DECONNEXION
+        $("#deconnexion").on("click",function(e) {
+                            e.preventDefault();
+                             logout();
+                             });
+
+        
+        //DESINSCRIPTION
+        $("#desinscription").on("click",function(e) {
+                            e.preventDefault();
+                                
+                                if(confirm("Êtes-vous certain de vouloir supprimer votre compte ?")){deleteAccount();}
+                                
+                                });
+
     }
     //organiserRuches(listHives.idHives.length);
     //masquerBd();
