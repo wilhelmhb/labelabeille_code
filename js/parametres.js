@@ -102,6 +102,46 @@ function goToHiveGroupParameters() {
     //console.log('goToHiveGroupParameters : before transition');
     transition(_("pparametres-rucher"), "slide");
     //organiserRuches(listHives.ruches.length);
+    if(isTest) {
+        $("#form-params-ruchers").find(".bouton").click(function(e){$(this).off("click");
+            e.preventDefault(); 
+            donneesRuches.hivegroups[idHiveGroup].name = $("#apibundle_pshivegroup_name").val();
+            donneesRuches.hivegroups[idHiveGroup].harvest = $("#apibundle_pshivegroup_harvest").val();
+            //console.log(donneesRuches.hivegroups[idHiveGroup].hives[idHive]);
+            goToListHives(1);
+        })
+    }
+    else {
+        $("#form-params-ruchers").find(".bouton").click(function(e){
+            $("#form-params-ruchers").submit();
+        });
+        $("#form-params-ruchers").submit(function(e){
+            //console.log("début modif");
+            e.preventDefault();
+            var donnees = $(this).serialize();
+            //console.log(donnees);
+            console.log(donneesRuches.hivegroups[idHiveGroup]);
+            $.ajax({
+                type: 'PATCH',
+                url: url+'pshivegroup/'+donneesRuches.hivegroups[idHiveGroup].id_hive_group,
+                xhrFields: {
+                    withCredentials: true
+                },
+                data: donnees,
+                success: function(data) {
+                    console.log(data);
+                    console.log(donneesRuches.hivegroups[idHiveGroup].hives[idHive]);
+                    /* go back to details */
+                    donneesRuches.hivegroups[idHiveGroup].name = $("#apibundle_pshivegroup_name").val();
+                    donneesRuches.hivegroups[idHiveGroup].harvest = $("#apibundle_pshivegroup_harvest").val();
+                    //console.log("fin modif");
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    //console.log(xhr.responseText);
+                }
+            });
+        });
+    }
     //masquerBd();
     //console.log('goToHiveGroupParameters : end');
 }
