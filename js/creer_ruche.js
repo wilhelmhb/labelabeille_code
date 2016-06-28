@@ -65,6 +65,19 @@ function updateLocalHive(donnees) {
         for(var field in donnees) {
             donneesRuches.hivegroups[idHiveGroup].hives[idHive][field] = donnees[field];
         }
+        if(donneesRuches.hivegroups[idHiveGroup].hives[idHive].id_hive_group != idHiveGroup) {
+            var id = donneesRuches.hivegroups[idHiveGroup].hives[idHive].id_hive_group;
+            var idHG;
+            for(var hivegroup in donneesRuches.hivegroups) {
+                if(donneesRuches.hivegroups[hivegroup].id_hive_group == id) {
+                    idHG = hivegroup;
+                }
+            }
+            donneesRuches.hivegroups[idHG].hives.push(donneesRuches.hivegroups[idHiveGroup].hives[idHive]);
+            donneesRuches.hivegroups[idHiveGroup].hives.splice(idHive, 1);
+            idHive = donneesRuches.hivegroups[idHG].hives.length - 1;
+            idHiveGroup = idHG;
+        }
     }
 }
 

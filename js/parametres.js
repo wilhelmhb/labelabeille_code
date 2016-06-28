@@ -152,7 +152,16 @@ function goToHiveGroupParameters() {
 function goToHiveParameters() {
     //console.log('goToHiveParameters : begin');
     var template = $(templates).filter('#tpl-params-ruche').html();
-    var h = Mustache.render(template, donneesRuches.hivegroups[idHiveGroup].hives[idHive]);
+    var hivegroups = [];
+    console.log(idHiveGroup);
+    for(var hivegroup in donneesRuches.hivegroups) {
+        var h = donneesRuches.hivegroups[hivegroup];
+        h.isHiveGroup = hivegroup == idHiveGroup;
+        hivegroups.push(h);
+    }
+    var donneesHive = { 'hive' : donneesRuches.hivegroups[idHiveGroup].hives[idHive], 'hivegroups' : hivegroups };
+    console.log(hivegroups);
+    var h = Mustache.render(template, donneesHive);
 
     document.getElementById("corps-params-ruche").innerHTML = h;
     $("#sous_titre_pruche").children("h1").html(donneesRuches.hivegroups[idHiveGroup].hives[idHive].name);
@@ -166,6 +175,7 @@ function goToHiveParameters() {
             donneesRuches.hivegroups[idHiveGroup].hives[idHive].note = $("#apibundle_pshive_note").val();
             donneesRuches.hivegroups[idHiveGroup].hives[idHive].latitude = $("#apibundle_pshive_latitude").val();
             donneesRuches.hivegroups[idHiveGroup].hives[idHive].longitude = $("#apibundle_pshive_longitude").val();
+            donneesRuches.hivegroups[idHiveGroup].hives[idHive].id_hive_group = $("#apibundle_pshive_hivegroup").val();
             donneesRuches.hivegroups[idHiveGroup].hives[idHive].hive_type = $("#apibundle_pshive_hiveType").val();
             donneesRuches.hivegroups[idHiveGroup].hives[idHive].bees_type = $("#apibundle_pshive_beesType").val();
             donneesRuches.hivegroups[idHiveGroup].hives[idHive].material = $("#apibundle_pshive_material").val();
@@ -186,22 +196,24 @@ function goToHiveParameters() {
             //console.log("début modif");
             e.preventDefault();
             var donnees = $(this).serialize();
-            //console.log(donnees);
+            console.log(donnees);
             console.log(donneesRuches.hivegroups[idHiveGroup].hives[idHive]);
+            charge();
             $.ajax({
                 type: 'PATCH',
                 url: url+'pshive/'+donneesRuches.hivegroups[idHiveGroup].hives[idHive].id_hive + '/update',
                 xhrFields: {
                     withCredentials: true
                 },
-                data: donnees + '&apibundle_pshive%5BidHiveGroup%5D=' + donneesRuches.hivegroups[idHiveGroup].id_hive_group,
+                data: donnees,
                 success: function(data) {
                     console.log(data); 
                     //customer = data;
                     updateLocalHive(data);
                     console.log(donneesRuches.hivegroups[idHiveGroup].hives[idHive]);
                     /* go back to details */
-                    goToDataHives(donneesRuches.hivegroups[idHiveGroup].hives[idHive].name, donneesRuches.hivegroups[idHiveGroup].hives[idHive].data,true);
+                    finCharge();
+                    goToDataHive(true);
                     //console.log("fin modif");
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
@@ -222,8 +234,8 @@ function submitParamsHive(){
     var donnees = $("#form-params-hive").serialize();
     //console.log(donnees);
     console.log(donneesRuches.hivegroups[idHiveGroup].hives[idHive]);
-    charge();
-    $.ajax({
+    //charge();
+    /*$.ajax({
         type: 'PATCH',
         url: url+'pshive/'+donneesRuches.hivegroups[idHiveGroup].hives[idHive].id_hive + '/update',
         xhrFields: {
@@ -236,14 +248,14 @@ function submitParamsHive(){
             updateLocalHive(data);
             console.log(donneesRuches.hivegroups[idHiveGroup].hives[idHive]);
             /* go back to details */
-            finCharge();
+            /*finCharge();
             goToDataHive(true);
             //console.log("fin modif");
         },
         error: function (xhr, ajaxOptions, thrownError) {
             //console.log(xhr.responseText);
         }
-    });
+    });*/
 }
 
 /**
