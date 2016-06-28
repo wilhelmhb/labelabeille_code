@@ -1478,7 +1478,7 @@
             {{#seuils}}
             <div>
                 <label for="{{ nom }}">{{ description }} : </label>
-                <input   type="text" value="{{ v }}" id="{{ nom }}" name="{{ nom }}" maxlength="64" />
+                <input   type="text" value="{{ v }}" id="{{ nom }}" name="params[{{ nom }}]" maxlength="64" />
             </div>
 	        {{/seuils}}
             <div class="bouton"><span>VALIDER</span></div>
