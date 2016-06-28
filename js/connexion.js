@@ -123,10 +123,6 @@ function aux(retour,act) {
 };
 
 
-
-
-
-
 function charge(){
     enCharge=true;
     _("ch").style.visibility="visible";

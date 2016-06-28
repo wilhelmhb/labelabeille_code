@@ -212,7 +212,6 @@ function submitParamsHive(){
 function goToHiveSeuils() {
     console.log('goToHiveSeuils : begin');
     var template = $(templates).filter('#tpl-params-ruche-seuils').html();
-    //TODO: get idClient/idCustomer
 
     for(s=0;s<seuils.length;s++) {
         console.log(seuils[s].nom);

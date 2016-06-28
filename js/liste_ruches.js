@@ -47,8 +47,6 @@ function getDataForHives(action,retour,act) {
  * @Object listHives : JSON Object containing the list of all hives
  */
 function goToListHives(retour) {
-
-
     var template = $(templates).filter('#tpl-accueil').html();
 	var idx = 1;
 	var i = 0;
