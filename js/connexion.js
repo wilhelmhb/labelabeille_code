@@ -160,7 +160,7 @@ function logout() {
         error: function (xhr, ajaxOptions, thrownError) {
             //what to do on failure
            finCharge();
-           afficherBd("Un problème est survenu","OK");
+           afficherBd("Un problème est survenu","Fermer");
         }
     });
 }
@@ -182,7 +182,7 @@ function deleteAccount() {
         error: function (xhr, ajaxOptions, thrownError) {
            finCharge();
             //what to do on failure
-           afficherBd("Un problème est survenu","OK");
+           afficherBd("Un problème est survenu","Fermer");
 
         }
     });

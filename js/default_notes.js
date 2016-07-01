@@ -16,7 +16,9 @@ function addDefaultNoteToHive(idDefaultNote) {
             addDefaultNoteToHiveSuccess();
         },
         error: function (xhr, ajaxOptions, thrownError) {
-            console.log(xhr.responseText);
+           console.log(xhr.responseText);
+           finCharge();
+           afficherBd("Une erreur est survenue","Fermer");
         }
     });
 }
@@ -48,7 +50,9 @@ function getDefaultNotes(action) {
             action(data);
         },
         error: function (xhr, ajaxOptions, thrownError) {
-            console.log(xhr.responseText);
+           console.log(xhr.responseText);
+           finCharge();
+           afficherBd("Une erreur est survenue","Fermer");
         }
     });
 }
@@ -74,7 +78,9 @@ function getDefaultNotesForHive(action, id) {
             action(data, id);
         },
         error: function (xhr, ajaxOptions, thrownError) {
-            console.log(xhr.responseText);
+           console.log(xhr.responseText);
+           finCharge();
+           afficherBd("Une erreur est survenue","Fermer");
         }
     });
 }
@@ -94,9 +100,10 @@ function deleteDefaultNoteForHive(id,idx) {
             deleteDefaultNoteToHiveSuccess();
         },
         error: function (xhr, ajaxOptions, thrownError) {
-            console.log(xhr.responseText);
-            console.log(ajaxOptions);
-            console.log(thrownError);
+           console.log(xhr.responseText);
+           finCharge();
+           afficherBd("Une erreur est survenue","Fermer");
+
         }
     });
 }

@@ -59,7 +59,9 @@ function goToGeneralParameters() {
                     getListHives(goToListHives);
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
-                    //console.log(xhr.responseText);
+                   console.log(xhr.responseText);
+                   finCharge();
+                   afficherBd("Une erreur est survenue","Fermer");
                 }
             });
             //console.log("fin modif");
@@ -142,7 +144,7 @@ function goToHiveGroupParameters() {
                     //console.log("fin modif");
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
-                    //console.log(xhr.responseText);
+                    console.log(xhr.responseText);
                    finCharge();
                    afficherBd("Un erreur est survenue","Fermer");
                 }
@@ -224,7 +226,9 @@ function goToHiveParameters() {
                     //console.log("fin modif");
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
-                    //console.log(xhr.responseText);
+                   console.log(xhr.responseText);
+                   finCharge();
+                   afficherBd("Une erreur est survenue","Fermer");
                 }
             });
         });
@@ -232,37 +236,6 @@ function goToHiveParameters() {
     //organiserRuches(listHives.ruches.length);
     //masquerBd();
     //console.log('goToHiveParameters : end');
-}
-
-
-function submitParamsHive(){
-    //console.log("début modif");
-
-    var donnees = $("#form-params-hive").serialize();
-    //console.log(donnees);
-    console.log(donneesRuches.hivegroups[idHiveGroup].hives[idHive]);
-    //charge();
-    /*$.ajax({
-        type: 'PATCH',
-        url: url+'pshive/'+donneesRuches.hivegroups[idHiveGroup].hives[idHive].id_hive + '/update',
-        xhrFields: {
-            withCredentials: true
-        },
-        data: donnees + '&apibundle_pshive%5BidHiveGroup%5D=' + donneesRuches.hivegroups[idHiveGroup].id_hive_group,
-        success: function(data) {
-            console.log(data);
-            //customer = data;
-            updateLocalHive(data);
-            console.log(donneesRuches.hivegroups[idHiveGroup].hives[idHive]);
-            /* go back to details */
-            /*finCharge();
-            goToDataHive(true);
-            //console.log("fin modif");
-        },
-        error: function (xhr, ajaxOptions, thrownError) {
-            //console.log(xhr.responseText);
-        }
-    });*/
 }
 
 /**
@@ -317,9 +290,10 @@ function goToHiveSeuils() {
                     //console.log("fin modif");
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
-                    //console.log(xhr.responseText);
-                    finCharge();
-                    afficherBd("Une erreur est survenue","OK");
+                   console.log(xhr.responseText);
+                   finCharge();
+                   afficherBd("Une erreur est survenue","Fermer");
+
                 }
             });
         });
@@ -362,7 +336,10 @@ function changeHiveGroup(idHive, idHiveGroup, action) {
             //console.log("fin modif");
         },
         error: function (xhr, ajaxOptions, thrownError) {
-            //console.log(xhr.responseText);
+           console.log(xhr.responseText);
+           finCharge();
+           afficherBd("Une erreur est survenue","Fermer");
+
         }
     });
 }

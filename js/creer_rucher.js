@@ -38,6 +38,8 @@ function createHiveGroup(action) {
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
                     console.log(xhr.responseText);
+                   finCharge();
+                   afficherBd("Une erreur est survenue","Fermer");
                 }
             });
             console.log("fin ajout");

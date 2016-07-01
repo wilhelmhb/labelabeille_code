@@ -13,6 +13,7 @@ function inscription() {
         //console.log("inscription confirmée");
         var donnees = $(this).serialize();
         console.log(donnees);
+        charge();
         $.ajax({
             type: 'POST',
             url: url+'pscustomer/create',
@@ -23,11 +24,14 @@ function inscription() {
             success: function(data) {
                 console.log(data);
                 customer = data;
+               finCharge();
                 inscription_success(data);
             },
             error: function (xhr, ajaxOptions, thrownError) {
-                console.log(xhr.responseText);
-                $("#result").html(xhr.responseText);
+               console.log(xhr.responseText);
+               finCharge();
+               afficherBd("Une erreur est survenue","Fermer");
+
             }
         });
     });
@@ -68,7 +72,9 @@ function customer_inscription_success(donnees) {
             client_inscription_success(data);
         },
         error: function (xhr, ajaxOptions, thrownError) {
-            console.log(xhr.responseText);
+           console.log(xhr.responseText);
+           finCharge();
+           afficherBd("Une erreur est survenue","Fermer");
         }
     });
 }

@@ -16,7 +16,10 @@ function addCustomNote(data) {
             addNoteSuccess();
         },
         error: function (xhr, ajaxOptions, thrownError) {
-            console.log(xhr.responseText);
+           console.log(xhr.responseText);
+           finCharge();
+           afficherBd("Une erreur est survenue","Fermer");
+
         }
     });
 }
@@ -51,7 +54,9 @@ function addCustomNoteToHive(idCustomNote) {
             addCustomNoteToHiveSuccess();
         },
         error: function (xhr, ajaxOptions, thrownError) {
-            console.log(xhr.responseText);
+           console.log(xhr.responseText);
+           finCharge();
+           afficherBd("Une erreur est survenue","Fermer");
         }
     });
 }
@@ -83,7 +88,9 @@ function getCustomNotes(action,fDefault) {
             action(data,fDefault,-1);
         },
         error: function (xhr, ajaxOptions, thrownError) {
-            console.log(xhr.responseText);
+           console.log(xhr.responseText);
+           finCharge();
+           afficherBd("Une erreur est survenue","Fermer");
         }
     });
 }
@@ -110,7 +117,9 @@ function getCustomNotesForHive(action, id) {
             action();
         },
         error: function (xhr, ajaxOptions, thrownError) {
-            console.log(xhr.responseText);
+           console.log(xhr.responseText);
+           finCharge();
+           afficherBd("Une erreur est survenue","Fermer");
         }
     });
 }
@@ -136,9 +145,9 @@ function deleteCustomNoteForHive(idCustomNote,idx) {
             deleteCustomNoteToHiveSuccess();
         },
         error: function (xhr, ajaxOptions, thrownError) {
-            console.log(xhr.responseText);
-            console.log(ajaxOptions);
-            console.log(thrownError);
+           console.log(xhr.responseText);
+           finCharge();
+           afficherBd("Une erreur est survenue","Fermer");
         }
     });
 }

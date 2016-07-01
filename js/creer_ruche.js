@@ -42,7 +42,10 @@ function createHive() {
                 	goToAddLogger(); // add if needed a logger to the hive
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
-                    console.log(xhr.responseText);
+                   console.log(xhr.responseText);
+                   finCharge();
+                   afficherBd("Une erreur est survenue","Fermer");
+
                 }
             });
             console.log("fin ajout");
@@ -132,8 +135,11 @@ function deleteHive(id,action) {
         //data: 'idclient=1&idruche=25&nomruche=NomDeMaRuche',
            success: function(data) {action();},
         error: function (xhr, ajaxOptions, thrownError) {
-            console.log(xhr.responseText);
-            
+           console.log(xhr.responseText);
+           finCharge();
+           afficherBd("Une erreur est survenue","Fermer");
+
+           
         }
     });
 }
@@ -145,6 +151,7 @@ function deleteHive(id,action) {
  * @int idHive : identifiant de la ruche à laquelle l'affecter
  */
 function changeLogger(idLogger, serialNumber, idHive) {
+    charge();
     $.ajax({
         type: 'PATCH',
         url: url+'psbox/'+ idLogger +'/update',
@@ -158,6 +165,9 @@ function changeLogger(idLogger, serialNumber, idHive) {
             //what else to do on success
         },
         error: function (xhr, ajaxOptions, thrownError) {
+           console.log(xhr.responseText);
+           finCharge();
+           afficherBd("Une erreur est survenue","Fermer");
         }
     });
 }
