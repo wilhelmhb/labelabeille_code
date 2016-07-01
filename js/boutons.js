@@ -42,8 +42,7 @@ function activerBoutons(){
             
         case "pparametres-ruche":
             $("#form-params-hive").find(".bouton").click(submitParamsHive);
-            
-            $("#goToSeuils").on("submit",function(e) {
+            $("#goToSeuils").on("click",function(e) {
                                 e.preventDefault();goToHiveSeuils();});
             break;
         
