@@ -86,6 +86,8 @@ function goToGeneralParameters() {
     //console.log('goToGeneralParameters : end');
 }
 
+
+
 /**
  * display the parameters for the selected hivegroup
  */
@@ -95,13 +97,17 @@ function goToHiveGroupParameters() {
     //console.log(listHives.ruches.length);
     //console.log(JSON.stringify(listHives)); 
     //console.log(listHives.ruches[0].name);
-    var h = Mustache.render(template, hiveGroups[idHiveGroup]);
-    //console.log(h);
+    var h = Mustache.render(template, donneesRuches.hivegroups[idHiveGroup]);
+    console.log(h);
     document.getElementById("corps-params-rucher").innerHTML = h;
     //console.log(document.getElementById("corps-params-rucher").innerHTML);
     //console.log('goToHiveGroupParameters : before transition');
     transition(_("pparametres-rucher"), "slide");
     //organiserRuches(listHives.ruches.length);
+    $("#supprimer_rucher").on("click",function(e) {
+                              e.preventDefault();
+                              deleteHiveGroup();
+                              });
     if(isTest) {
         $("#form-params-ruchers").find(".bouton").click(function(e){$(this).off("click");
             e.preventDefault(); 
@@ -113,14 +119,12 @@ function goToHiveGroupParameters() {
     }
     else {
         $("#form-params-ruchers").find(".bouton").click(function(e){
-            $("#form-params-ruchers").submit();
-        });
-        $("#form-params-ruchers").submit(function(e){
             //console.log("début modif");
             e.preventDefault();
-            var donnees = $(this).serialize();
+            var donnees = $(this).parent().serialize();
             //console.log(donnees);
             console.log(donneesRuches.hivegroups[idHiveGroup]);
+            charge();
             $.ajax({
                 type: 'PATCH',
                 url: url+'pshivegroup/'+donneesRuches.hivegroups[idHiveGroup].id_hive_group,
@@ -131,6 +135,7 @@ function goToHiveGroupParameters() {
                 success: function(data) {
                     console.log(data);
                     console.log(donneesRuches.hivegroups[idHiveGroup].hives[idHive]);
+                   finCharge();
                     /* go back to details */
                     donneesRuches.hivegroups[idHiveGroup].name = $("#apibundle_pshivegroup_name").val();
                     donneesRuches.hivegroups[idHiveGroup].harvest = $("#apibundle_pshivegroup_harvest").val();
@@ -138,6 +143,8 @@ function goToHiveGroupParameters() {
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
                     //console.log(xhr.responseText);
+                   finCharge();
+                   afficherBd("Un erreur est survenue","Fermer");
                 }
             });
         });

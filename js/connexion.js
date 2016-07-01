@@ -58,6 +58,8 @@ function connexion(user, passwd, success, failure) {
                 _("ch").style.visibility="hidden";
                 console.log(JSON.stringify(data));
                 customer = data;
+               window.localStorage.setItem("user",user);
+               window.localStorage.setItem("login",passwd);
                 success();
             },
             error: function (xhr, ajaxOptions, thrownError) {
@@ -72,16 +74,23 @@ function connexion(user, passwd, success, failure) {
     }
 }
 
+var user;
+var login;
 /**
  * get and deal with connection data
  */
 function connect() {
+    if (!(window.localStorage.getItem("user") === null)) {
+        user=window.localStorage.getItem("user");
+        login=window.localStorage.getItem("login");
+        connexion(user, login, connexion_success, connexion_failure);
+    }
     $("#test").click(tester);
     $("#valider_connexion").click(function(){
         if(!enCharge){
-            var user = encodeURIComponent($("#email_connexion").val());
+            user = encodeURIComponent($("#email_connexion").val());
             //console.log(user);
-            var login = encodeURIComponent($("#mdp_connexion").val());
+            login = encodeURIComponent($("#mdp_connexion").val());
             //console.log(login);
             connexion(user, login, connexion_success, connexion_failure);
         }
@@ -134,6 +143,7 @@ function finCharge(){
 }
 
 function logout() {
+    window.localStorage.clear();
     charge();
     $.ajax({
         type: 'GET',

@@ -74,7 +74,7 @@ function afficherNotes(data, indexHive){
                 note.data = defaultNotes[j];
             }
         }
-
+        if(note.date_add.indexOf("NaN")!=-1)note.date_add="Date inconnue";
         notes.push(note);
     };
     for(var i in customNotesSetByUser) {
@@ -85,7 +85,7 @@ function afficherNotes(data, indexHive){
                 note.data = customNotesCreatedByUser[j];
             }
         }
-
+        if(note.date_add.indexOf("NaN")!=-1)note.date_add="Date inconnue";
         notes.push(note);
     };
     notes.sort(function(a, b) {

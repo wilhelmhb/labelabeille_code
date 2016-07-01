@@ -112,6 +112,8 @@ function goToAddLogger() {
                
             },
             error: function (xhr, ajaxOptions, thrownError) {
+               finCharge();
+               afficherBd("Une erreur est survenue","Fermer");
                 console.log(xhr.responseText);
             }
         });
@@ -128,7 +130,7 @@ function deleteHive(id,action) {
             withCredentials: true
         },
         //data: 'idclient=1&idruche=25&nomruche=NomDeMaRuche',
-           success: function(data) {finCharge();action();},
+           success: function(data) {action();},
         error: function (xhr, ajaxOptions, thrownError) {
             console.log(xhr.responseText);
             

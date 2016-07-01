@@ -85,6 +85,7 @@ function addHives() {
 }
 
 function deleteHiveGroup() {
+    charge();
     $.ajax({
         type: 'DELETE',
         url: url+'pshivegroup/' + donneesRuches.hivegroups[idHiveGroup].id_hive_group,
@@ -93,10 +94,14 @@ function deleteHiveGroup() {
             withCredentials: true
         },
         //data: 'idclient=1&idruche=25&nomruche=NomDeMaRuche',
-        success: function(data) {console.log(data); $("#resultat").html(JSON.stringify(data));},
+           success: function(data) {
+           finCharge();
+           goToListHives(1);
+           },
         error: function (xhr, ajaxOptions, thrownError) {
-            console.log(xhr.responseText);
-            $("#result").html(xhr.responseText);
+           finCharge();
+           console.log(thrownError);
+           afficherBd("Une erreur est survenue","Fermer");
         }
     });
 }

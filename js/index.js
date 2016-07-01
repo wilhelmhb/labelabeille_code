@@ -114,11 +114,10 @@ function debut(){
 function charger(){
  if(pcharge<100)pcharge++;
  dessinCercleFLAT(_("canvasProgressSimple"),pcharge);
-    if(templateCharge){//if(pcharge==100&&templateCharge){
+    if(pcharge==100&&templateCharge){
 	 transition(_("pconnexion"));
 	 clearInterval(tcharge);
-	 //connect();
-    connexion("guillaume.vizier@polytechnique.edu", "labelabeille", connexion_success, connexion_failure);
+	 connect();
  }
 }
 

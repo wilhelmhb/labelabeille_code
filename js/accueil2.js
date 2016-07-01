@@ -71,27 +71,13 @@ function notif(nom,ruche,idSeuil){
                                                  });
      cordova.plugins.notification.local.on("click", function (notification) {
                                            inotif=0;
+                                           cordova.plugins.notification.local.cancelAll();
                                            goToListHives(1);
                                            });
  }
  
  }
-/*
-function notif(nom,nomRuche){
-    inotif++;
- 
-    cordova.plugins.notification.local.schedule({
-                                                id: inotif,
-                                                badge: inotif,
-                                                title: "Alerte ("+nomRuche+")",
-                                                text: "Seuil "+nom+" dépassé",
-                                                at: new Date()
-                                                });
-    cordova.plugins.notification.local.on("click", function (notification) {
-                                          inotif=0;
-                                          accueil();
-                                          });
-}*/
+
 
 var seuils = [
               /*{
@@ -175,7 +161,7 @@ function actuNotifs(){if(!enActualisation){
                                             for(s=0;s<seuils.length;s++) {
                                             
                                             
-                                            if(testSeuil(donneesRuches.hivegroups[r].hives[i],seuils[s],donneesRuches.hivegroups[r].hives[i].data[seuils[s].nom].v))notif(seuils[s].nom,donneesRuches.hivegroups[r].hives[i],s);
+                                            if(testSeuil(donneesRuches.hivegroups[r].hives[i],seuils[s],donneesRuches.hivegroups[r].hives[i].data[seuils[s].nom].v))notif(seuils[s].description,donneesRuches.hivegroups[r].hives[i],s);
                                             }
                                             
                                             enActualisation=false;
@@ -191,9 +177,10 @@ var slider_ruchers;
 var $window=[];
 var tScroll=[];
 function accueil(){
+    cordova.plugins.notification.local.cancelAll();
     //Carte
     _("btCarte").addEventListener(evtclick, goToMap);
-    _("btHistorique").addEventListener(evtclick, goToHistorique);
+    //_("btHistorique").addEventListener(evtclick, goToHistorique);
 
     nbRuchers=donneesRuches.hivegroups.length;
     console.log("Nb de ruchers : "+nbRuchers);
@@ -255,6 +242,7 @@ function nouveauRucher(){
 function allerAuRucher(k){
     if(!transitionEnCours&&!slider_ruchers.enTransition){
         $("#sous_titre_accueil").children("h1").html(donneesRuches.hivegroups[k-1].name);
+        $("#sous_titre_accueil").children("h1").on("click",goToHiveGroupParameters);
         var change=false;
         if(rucher!=k){change=true;}
         if(rucher<=nbRuchers){
@@ -267,10 +255,7 @@ function allerAuRucher(k){
         idHiveGroup = k - 1;
         if(change)slider_ruchers.slidePageFrom($("#rucher"+rucher),(left?"left":"right"));
         
-        if(nbRuches[rucher]==0){
-            //Mieux placer le bouton + quand il est tout seul sur la page
-        
-        }else{
+        if(nbRuches[rucher]>0){
             $window[rucher].scrollTop((rucheSelect2[rucher]-1)*h);
             $window[rucher].scroll(function(){defiler(rucher);});
             tScroll[rucher] = setInterval(function(){defiler(rucher);}, 100);
