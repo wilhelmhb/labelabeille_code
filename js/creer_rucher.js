@@ -96,14 +96,19 @@ function deleteHiveGroup() {
             withCredentials: true
         },
         //data: 'idclient=1&idruche=25&nomruche=NomDeMaRuche',
-           success: function(data) {
-           finCharge();
-           goToListHives(1);
-           },
+        success: function(data) {
+            donneesRuches.hivegroups.splice(idHiveGroup, 1);
+            if(idHiveGroup > 0) {
+                idHiveGroup--;
+                rucher--;
+            }
+            finCharge();
+            goToListHives(1);
+        },
         error: function (xhr, ajaxOptions, thrownError) {
-           finCharge();
-           console.log(thrownError);
-           afficherBd("Une erreur est survenue","Fermer");
+            finCharge();
+            console.log(thrownError);
+            afficherBd("Une erreur est survenue","Fermer");
         }
     });
 }
