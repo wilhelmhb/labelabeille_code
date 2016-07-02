@@ -113,11 +113,11 @@ function initializeMap(hiveCoordinates) {
         index = 0;
         markers = new Array();
         
-	for(var i = 0; i < hiveCoordinates.length; i++) {
-	    //console.log(JSON.stringify(hiveCoordinates[i]));
-	    if(hiveCoordinates[i] != null && (hiveCoordinates[i].lat != '0.00000000' || hiveCoordinates[i].lng != '0.00000000')) {
-	        markers[index] = createMarker(index, map, hiveCoordinates[i].lat, hiveCoordinates[i].lng, "http://www.label-abeille.org/modules/cmaps/views/img/markers/yellow_pin.png");
-	        index++;
+	    for(var i = 0; i < hiveCoordinates.length; i++) {
+	        //console.log(JSON.stringify(hiveCoordinates[i]));
+	        if(hiveCoordinates[i] != null && hiveCoordinates[i].lat != null && hiveCoordinates[i].lng != null && (hiveCoordinates[i].lat != '0.00000000' || hiveCoordinates[i].lng != '0.00000000')) {
+	            markers[index] = createMarker(index, map, hiveCoordinates[i].lat, hiveCoordinates[i].lng, "http://www.label-abeille.org/modules/cmaps/views/img/markers/yellow_pin.png");
+	            index++;
 	        }
 	    }
     };
