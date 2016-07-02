@@ -154,8 +154,8 @@ function logout() {
         },
         success: function(data) {
             //what to do on success
-            debut(); //il faut retourner au début et faire comme si on reprenait tout à 0 : comment ?
             finCharge();
+            transition(_("pconnexion"), 1);
             connect();
         },
         error: function (xhr, ajaxOptions, thrownError) {
