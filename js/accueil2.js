@@ -151,24 +151,28 @@ function testSeuil(ruche,s,v){
     }
     else return false;
 }
-function actuNotifs(){if(!enActualisation){
-    enActualisation=true;
+function actualiserSeuils(){
     getListHiveGroups(function() {
                       console.log("Actualisation des seuils");
-                      getHivesForHiveGroups(-1,function(){//Pour chaque ruche
-                                            for(var r=0;r<donneesRuches.hivegroups.length;r++){
-                                            for(var i=0;i<donneesRuches.hivegroups[r].hives.length;i++){
-                                            for(s=0;s<seuils.length;s++) {
-                                            
-                                            
-                                            if(testSeuil(donneesRuches.hivegroups[r].hives[i],seuils[s],donneesRuches.hivegroups[r].hives[i].data[seuils[s].nom].v))notif(seuils[s].description,donneesRuches.hivegroups[r].hives[i],s);
-                                            }
-                                            
-                                            enActualisation=false;
-                                            }}
-                                        });//Le -1 pour dire qu'on ne va pas sur la liste des ruches (ça pourrait interferer avec la navigation de l'utilisateur si il est en train d'utiliser l'appli
-                                  },false);//Ce -1 pour ne pas afficher le chargement
-    
+
+    getHivesForHiveGroups(-1,function(){//Pour chaque ruche
+                          for(var r=0;r<donneesRuches.hivegroups.length;r++){
+                          for(var i=0;i<donneesRuches.hivegroups[r].hives.length;i++){
+                          for(s=0;s<seuils.length;s++) {
+                          
+                          
+                          if(testSeuil(donneesRuches.hivegroups[r].hives[i],seuils[s],donneesRuches.hivegroups[r].hives[i].data[seuils[s].nom].v))notif(seuils[s].description,donneesRuches.hivegroups[r].hives[i],s);
+                          }
+                          
+                          enActualisation=false;
+                          }}
+                          });//Le -1 pour dire qu'on ne va pas sur la liste des ruches (ça pourrait interferer avec la navigation de l'utilisateur si il est en train d'utiliser l'appli
+},false);//Ce -1 pour ne pas afficher le chargement
+}
+function actuNotifs(){if(!enActualisation){
+    enActualisation=true;
+    if(Date.now()-tConnexion>tMaxConect*3600000)logout();
+    actualiserSeuils();
 
     
 }}
@@ -224,6 +228,7 @@ function nouveauRucher(){
         rucher=nbRuchers+1;
         $("#nav_gauche_rucher").off("click");
         $("#nav_droite_rucher").off("click");
+        $("#sous_titre_accueil").children("h1").off("click");
         if(rucher==1)$("#nav_gauche_rucher").css("visibility","hidden");
         else {
             $("#nav_gauche_rucher").css("visibility","visible");
@@ -294,7 +299,6 @@ function liensAccueil(r){
         $("#ruche"+r+"_"+i+"_selectionnee_supprimer").css("cursor","pointer");
         $("#ruche"+r+"_"+i+"_selectionnee_supprimer").click( function(e) { $(this).off("click");
                                                             e.preventDefault();
-                                                            console.log($(".ruche_selectionnee_reglages").index());
                                                             var i,j,idd;
                                                             idd=$(this).attr('id');
                                                             var t = idd.substr(5,idd.length-5).split("_");
@@ -302,11 +306,10 @@ function liensAccueil(r){
                                                             j=t[1]-1;
                                                             idHiveGroup = i;
                                                             idHive = j;
-                                                            deleteHive(donneesRuches.hivegroups[idHiveGroup].hives[idHive].id_hive,function(){getListHiveGroups(function() {
-//console.log("récupération des listes de ruches par rucher");
-                                                                                                                                                                getHivesForHiveGroups(1);
-                                                                                                                                                                });});
-                                                            });
+                                                            if(confirm("Voulez vous vraiment supprimer cette ruche ?")){
+                                                                deleteHive(donneesRuches.hivegroups[idHiveGroup].hives[idHive].id_hive,function(){getListHiveGroups(function() {getHivesForHiveGroups(1);});});
+                                                            }
+                                                        });
         $("#ruche"+r+"_"+i+"_selectionnee_reglages").click( function(e) { $(this).off("click");
                                                            e.preventDefault();
                                                            e.preventDefault();

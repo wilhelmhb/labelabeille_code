@@ -37,7 +37,12 @@ function getDataHive(id, id2, name, action) {
                 success: function(data) {
 				    
 				    idHive = id2;
+                    if((parseInt(data.ORI)<=45)||315<=parseInt(data.ORI))data.ORICARD="Nord";
+                    if(45<=parseInt(data.ORI)&&parseInt(data.ORI)<=135)data.ORICARD="Est";
+                    if(135<=parseInt(data.ORI)&&parseInt(data.ORI)<=225)data.ORICARD="Sud";
+                    if(225<=parseInt(data.ORI)&&parseInt(data.ORI)<=315)data.ORICARD="Ouest";
 			    	donneesRuches.hivegroups[idHiveGroupMaj].hives[idHiveMaj].data = data;
+                   
 			    	console.log(donneesRuches.hivegroups[idHiveGroupMaj].hives[idHiveMaj]);
                    
 				    //console.log(id2);

@@ -35,7 +35,7 @@ function goToGeneralParameters() {
         })
     }
     else {
-        $("#form-params-generaux").find(".bouton").click(function(e){$(this).off("click");
+        $("#form-params-generaux").find(".bouton").click(function(e){
             //console.log("début modif");
             e.preventDefault(); 
             var donnees = $(this).parent().serialize();
@@ -197,46 +197,43 @@ function goToHiveParameters() {
             goToDataHive(true);
         })
     }
-    else {
-        $("#form-params-hive").find(".bouton").click(function(e){
-            $("#form-params-hive").submit();
-        });
-        $("#form-params-hive").submit(function(e){
-            //console.log("début modif");
-            e.preventDefault();
-            var donnees = $(this).serialize();
-            console.log(donnees);
-            console.log(donneesRuches.hivegroups[idHiveGroup].hives[idHive]);
-            charge();
-            $.ajax({
-                type: 'PATCH',
-                url: url+'pshive/'+donneesRuches.hivegroups[idHiveGroup].hives[idHive].id_hive + '/update',
-                xhrFields: {
-                    withCredentials: true
-                },
-                data: donnees,
-                success: function(data) {
-                    console.log(data); 
-                    //customer = data;
-                    updateLocalHive(data);
-                    console.log(donneesRuches.hivegroups[idHiveGroup].hives[idHive]);
-                    /* go back to details */
-                    finCharge();
-                    goToDataHive(true);
-                    //console.log("fin modif");
-                },
-                error: function (xhr, ajaxOptions, thrownError) {
-                   console.log(xhr.responseText);
-                   finCharge();
-                   afficherBd("Une erreur est survenue","Fermer");
-                }
-            });
-        });
-    }
+    
 
     //organiserRuches(listHives.ruches.length);
     //masquerBd();
     //console.log('goToHiveParameters : end');
+}
+
+
+function submitParamsHive(){
+    //console.log("début modif");
+    var donnees = $("#form-params-hive").serialize();
+    console.log(donnees);
+    console.log(donneesRuches.hivegroups[idHiveGroup].hives[idHive]);
+    charge();
+    $.ajax({
+           type: 'PATCH',
+           url: url+'pshive/'+donneesRuches.hivegroups[idHiveGroup].hives[idHive].id_hive + '/update',
+           xhrFields: {
+           withCredentials: true
+           },
+           data: donnees,
+           success: function(data) {
+           console.log(data);
+           //customer = data;
+           updateLocalHive(data);
+           console.log(donneesRuches.hivegroups[idHiveGroup].hives[idHive]);
+           /* go back to details */
+           finCharge();
+           goToDataHive(true);
+           //console.log("fin modif");
+           },
+           error: function (xhr, ajaxOptions, thrownError) {
+           console.log(xhr.responseText);
+           finCharge();
+           afficherBd("Une erreur est survenue","Fermer");
+           }
+           });
 }
 
 /**
@@ -264,7 +261,7 @@ function goToHiveSeuils() {
 
     }
     else {
-        $("#form-params-hive-seuils").find(".bouton").click(function(e){$("#form-params-hive-seuils").submit();$(this).off("click");});
+        $("#form-params-hive-seuils").find(".bouton").click(function(e){$("#form-params-hive-seuils").submit();});
         $("#form-params-hive-seuils").submit(function(e) {
             //console.log("début modif");
             e.preventDefault();
@@ -286,6 +283,7 @@ function goToHiveSeuils() {
                     console.log("Succes de la modification des seuils");
                     console.log(data);
                     getDataHive(donneesRuches.hivegroups[idHiveGroup].hives[idHive].id_hive, idHive, donneesRuches.hivegroups[idHiveGroup].hives[idHive].name, function(data) { updateLimitsHive(data); goToDataHive(true);});
+                   actualiserSeuils();
                     /* on retourne aux détails */
                     //goToDataHive(true);
                     //console.log("fin modif");

@@ -110,7 +110,11 @@ function connexion_failure() {
  * redirect user to the list of his/her hives
  */
 function connexion_success() {
-    afficherBd("Vous êtes connecté. Vous allez être redirigé vers la liste de vos ruches dans quelques instants. Si ce n'est pas le cas, cliquez sur le bouton ci-dessous.", "Aller");
+    
+    
+    
+    tConnexion=Date.now();
+    afficherBd("Connexion en cours", "Fermer");
 
     //NEW
     charge();

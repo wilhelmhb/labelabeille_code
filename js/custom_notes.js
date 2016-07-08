@@ -109,6 +109,7 @@ function getCustomNotesForHive(action, id) {
         success: function(data) {
            console.log(data);
             for(var i in data) {
+
                 var dates = formatDate(data[i].date_add);
                 data[i].date_add = dates.add;
                 data[i].date_compare = dates.compare;

@@ -100,8 +100,8 @@
                                     <img src="img/courbes.png" id="ruche{{indexhg}}_{{index}}_selectionnee_courbes" class="ruche_selectionnee_courbes"/>
                                     <img src="img/historique.png" id="ruche{{indexhg}}_{{index}}_selectionnee_historique" class="ruche_selectionnee_historique"/>
                                     <div class="ruche_selectionnee_infos">
-                                        <p>Orientation : {{data.ORI.v}} degrés</p>
-                                        <p>Masse : {{data.MASSE.v}}{{data.MASSE.u}}</p>
+                                        <p>Orientation : {{data.ORICARD}}</p>
+                                        <p>Masse ruche : {{data.MASSE.v}}{{data.MASSE.u}}</p>
                                         <p>Température : {{data.TMP.v}}{{data.TMP.u}}</p>
                                         <p>Humidité : {{data.HUM.v}}{{data.HUM.u}}</p>
                                         <p>Luminosité : {{data.LUM.v}}{{data.LUM.u}}</p>
@@ -187,7 +187,7 @@
 			<div class="sizing"></div>
 			<div id="bloc1">
 				<h1>Informations</h1>
-				<p>Orientation : {{data.ORI.v}} degrés</p>
+				<p>Orientation : {{data.ORICARD}}</p>
 				<p>Capteur :</p>
                 <p>Rucher : {{name_hive_group}}</p>
 			</div>
