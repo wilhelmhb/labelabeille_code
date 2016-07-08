@@ -7,6 +7,12 @@ if(window.addEventListener){
 }else{
     window.attachEvent('onload', debut);
 }
+
+
+
+var tMaxConnect=12;
+
+
 var donneesRuches = {};
 var checkb=new Array();
 var tr;

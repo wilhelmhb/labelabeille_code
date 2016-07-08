@@ -171,7 +171,7 @@ function actualiserSeuils(){
 }
 function actuNotifs(){if(!enActualisation){
     enActualisation=true;
-    if(Date.now()-tConnexion>tMaxConect*3600000)logout();
+    if(Date.now()-tConnexion>tMaxConnect*3600000)logout();
     actualiserSeuils();
 
     
