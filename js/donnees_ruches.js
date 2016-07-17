@@ -29,7 +29,7 @@ function getDataHive(id, id2, name, action) {
 		else {
             $.ajax({
                 type: 'GET',
-                url: url+'pscustomer/hives/'+id+'/me',
+                url: url+'pshive/mes/'+id,
                 dataType: "json",
                 xhrFields: {
                     withCredentials: true

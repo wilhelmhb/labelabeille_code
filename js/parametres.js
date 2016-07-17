@@ -182,8 +182,8 @@ function goToHiveParameters() {
             e.preventDefault(); 
             donneesRuches.hivegroups[idHiveGroup].hives[idHive].name = $("#apibundle_pshive_name").val();
             donneesRuches.hivegroups[idHiveGroup].hives[idHive].note = $("#apibundle_pshive_note").val();
-            donneesRuches.hivegroups[idHiveGroup].hives[idHive].latitude = $("#apibundle_pshive_latitude").val();
-            donneesRuches.hivegroups[idHiveGroup].hives[idHive].longitude = $("#apibundle_pshive_longitude").val();
+            donneesRuches.hivegroups[idHiveGroup].hives[idHive].latitude = 0;//$("#apibundle_pshive_latitude").val();
+            donneesRuches.hivegroups[idHiveGroup].hives[idHive].longitude = 0;//$("#apibundle_pshive_longitude").val();
             donneesRuches.hivegroups[idHiveGroup].hives[idHive].id_hive_group = $("#apibundle_pshive_hivegroup").val();
             donneesRuches.hivegroups[idHiveGroup].hives[idHive].hive_type = $("#apibundle_pshive_hiveType").val();
             donneesRuches.hivegroups[idHiveGroup].hives[idHive].bees_type = $("#apibundle_pshive_beesType").val();
@@ -209,19 +209,53 @@ function submitParamsHive(){
     //console.log("début modif");
     var donnees = $("#form-params-hive").serialize();
     console.log(donnees);
+    var params = donnees.split("&apibundle_pshive%5Bnumero_serie%5D=");
+    var num_serie = params[1];
+    var data = params[0];
+    console.log(num_serie);
+    console.log(data);
+    
     console.log(donneesRuches.hivegroups[idHiveGroup].hives[idHive]);
     charge();
     $.ajax({
            type: 'PATCH',
-           url: url+'pshive/'+donneesRuches.hivegroups[idHiveGroup].hives[idHive].id_hive + '/update',
+           url: url+'pshive/' + donneesRuches.hivegroups[idHiveGroup].hives[idHive].id_hive + '/update',
            xhrFields: {
            withCredentials: true
            },
-           data: donnees,
+           data: data,
            success: function(data) {
            console.log(data);
-           //customer = data;
-           updateLocalHive(data);
+           /* modify the box */
+           if(donneesRuches.hivegroups[idHiveGroup].hives[idHive].data.idLogger == null) {
+                //create
+                console.log("create");
+                $.ajax({
+                    type: 'POST',
+                    url: url+'psbox/create',
+                    xhrFields: {
+                        withCredentials: true
+                    },
+                    data: 'apibundle_pshive%5BserialNumber%5D=' + num_serie + '&apibundle_psbox%5BidHive%5D=' + donneesRuches.hivegroups[idHiveGroup].hives[idHive].id_hive + '&apibundle_psbox%5BidClient%5D=' + donneesRuches.hivegroups[idHiveGroup].hives[idHive].id_client ,
+                    success: function(data) {
+                        console.log(data);
+                        donneesRuches.hivegroups[idHiveGroup].hives[idHive].data.serialNumber = num_serie;
+                        finCharge(); 
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                       finCharge();
+                       afficherBd("Une erreur est survenue","Fermer");
+                        console.log(xhr.responseText);
+                    }
+                });
+           }
+           else {
+                console.log("update");
+                //update
+                changeLogger(donneesRuches.hivegroups[idHiveGroup].hives[idHive].data.idLogger, num_serie, donneesRuches.hivegroups[idHiveGroup].hives[idHive].id_hive);
+                donneesRuches.hivegroups[idHiveGroup].hives[idHive].data.serialNumber = num_serie;
+           }
+            updateLocalHive(data);
            console.log(donneesRuches.hivegroups[idHiveGroup].hives[idHive]);
            /* go back to details */
            finCharge();
