@@ -159,17 +159,53 @@ function goToHiveGroupParameters() {
  * display the parameters for the selected hive
  */
 function goToHiveParameters() {
-    //console.log('goToHiveParameters : begin');
     var template = $(templates).filter('#tpl-params-ruche').html();
+    // create options for hivegroup selection
     var hivegroups = [];
-    console.log(idHiveGroup);
     for(var hivegroup in donneesRuches.hivegroups) {
         var h = donneesRuches.hivegroups[hivegroup];
         h.isHiveGroup = hivegroup == idHiveGroup;
         hivegroups.push(h);
     }
-    var donneesHive = { 'hive' : donneesRuches.hivegroups[idHiveGroup].hives[idHive], 'hivegroups' : hivegroups };
+    //create option for state selection
+    var stateP = [];
+    console.log(state);
+    for(var i = 0  ; i < state.length ; i++) {
+        var s = state[i];
+        s.isState = donneesRuches.hivegroups[idHiveGroup].hives[idHive].state == s.v;
+        stateP.push(s);
+    }
+    //create option for beeType selection
+    var beeTypeP = [];
+    for(var i = 0  ; i < beesType.length ; i++) {
+        var s = beesType[i];
+        s.isType = donneesRuches.hivegroups[idHiveGroup].hives[idHive].bees_type == s.v;
+        beeTypeP.push(s);
+    }
+    //create option for material selection
+    var materialP = [];
+    for(var i = 0  ; i < materialType.length ; i++) {
+        var s = materialType[i];
+        s.isType = donneesRuches.hivegroups[idHiveGroup].hives[idHive].material == s.v;
+        materialP.push(s);
+    }
+    //create option for hive_type selection
+    var hiveTypeP = [];
+    for(var i = 0  ; i < hiveType.length ; i++) {
+        var s = hiveType[i];
+        s.isType = donneesRuches.hivegroups[idHiveGroup].hives[idHive].hive_type == s.v;
+        hiveTypeP.push(s);
+    }
+    //create option for support selection
+    var supportTypeP = [];
+    for(var i = 0  ; i < supportType.length ; i++) {
+        var s = supportType[i];
+        s.isType = donneesRuches.hivegroups[idHiveGroup].hives[idHive].support == s.v;
+        supportTypeP.push(s);
+    }
+    var donneesHive = { 'hive' : donneesRuches.hivegroups[idHiveGroup].hives[idHive], 'hivegroups' : hivegroups, 'state' : stateP, 'materialType' : materialP, 'hiveType' : hiveTypeP, 'beeType' : beeTypeP, 'supportType' : supportTypeP };
     console.log(hivegroups);
+    console.log(donneesHive);
     var h = Mustache.render(template, donneesHive);
 
     document.getElementById("corps-params-ruche").innerHTML = h;

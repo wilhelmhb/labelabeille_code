@@ -59,14 +59,14 @@ function goToListHives(retour) {
             }
         }
     }
-    
+
     //console.log(donneesRuches);
     var h = Mustache.render(template, donneesRuches);
     document.getElementById("content-accueil").innerHTML = h;
     transition(_("paccueil"), (retour==1)?"retour":"");
-    
+
     accueil();
-    
+
     masquerBd();
-    
+
 };

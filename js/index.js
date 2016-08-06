@@ -39,6 +39,29 @@ var listHivesGlobal;
 var rechargerAccueil=false;
 var tConnexion;
 var levels = ["info", "todo", "warning", "important", "critical"];
+var materialType = [{ 'v' : "wood", 'name' : "Bois"}, 
+                { 'v' : "plastic", 'name' : "Plastique"},
+                { 'v' : "both", 'name' : "Les deux"}, 
+                ];
+var beesType = [{ 'v' : "buckfast", 'name' : "Buckfast"}, 
+                { 'v' : "hybrid", 'name' : "Hybride"}, 
+                { 'v' : "black", 'name' : "Abeille noire"}, 
+                { 'v' : "other", 'name' : "Autre"}, 
+                ];
+var supportType = [{ 'v' : "steel_frame", 'name' : "Châssis acier"}, 
+                { 'v' : "cinderblock", 'name' : "Parpaing"}, 
+                { 'v' : "beam", 'name' : "Poutre"}, 
+                { 'v' : "other", 'name' : "Autre"}, 
+                ];
+var hiveType = [{ 'v' : "dadant", 'name' : "Dadant"}, 
+                { 'v' : "langstroth", 'name' : "Langstroth"}, 
+                { 'v' : "warre", 'name' : "Warré"}, 
+                { 'v' : "other", 'name' : "Autre"}, 
+                ];
+var state = [{ 'v' : "good", 'name' : "Bon"}, 
+                { 'v' : "average", 'name' : "Moyen"}, 
+                { 'v' : "bad", 'name' : "Mauvais"},
+                ];
 
 var customNotesSetByUser;
 var customNotesCreatedByUser;
