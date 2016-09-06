@@ -272,7 +272,7 @@ function submitParamsHive(){
                     xhrFields: {
                         withCredentials: true
                     },
-                    data: 'apibundle_pshive%5BserialNumber%5D=' + num_serie + '&apibundle_psbox%5BidHive%5D=' + donneesRuches.hivegroups[idHiveGroup].hives[idHive].id_hive + '&apibundle_psbox%5BidClient%5D=' + donneesRuches.hivegroups[idHiveGroup].hives[idHive].id_client ,
+                    data: 'apibundle_psbox%5BserialNumber%5D=' + num_serie + '&apibundle_psbox%5BidHive%5D=' + donneesRuches.hivegroups[idHiveGroup].hives[idHive].id_hive + '&apibundle_psbox%5BidClient%5D=' + donneesRuches.hivegroups[idHiveGroup].hives[idHive].id_client ,
                     success: function(data) {
                         console.log(data);
                         donneesRuches.hivegroups[idHiveGroup].hives[idHive].data.serialNumber = num_serie;
