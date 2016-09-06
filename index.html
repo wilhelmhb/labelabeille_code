@@ -203,36 +203,63 @@
                                 </div>
                                 <div>
                                     <label for="apibundle_pshive_latitude">Latitude</label>
-                                        <input   type="text" id="apibundle_pshive_latitude" name="apibundle_pshive[latitude]" />
+                                        <input type="text" id="apibundle_pshive_latitude" name="apibundle_pshive[latitude]" />
                                         <div class="cl"></div>
                                 </div>
                                 <div>
                                     <label for="apibundle_pshive_longitude">Longitude</label>
-                                        <input   type="text" id="apibundle_pshive_longitude" name="apibundle_pshive[longitude]" />
-                                </div>
-                                <div>
-                                    <label for="apibundle_pshive_hiveType">Type de ruche</label>
-                                        <input   type="text" id="apibundle_pshive_hiveType" name="apibundle_pshive[hiveType]" maxlength="64" />
+                                        <input type="text" id="apibundle_pshive_longitude" name="apibundle_pshive[longitude]" />
                                 </div>
                                 <div>
                                     <label for="apibundle_pshive_beesType">Espèce d'abeilles</label>
-                                        <input   type="text" id="apibundle_pshive_beesType" name="apibundle_pshive[beesType]" maxlength="64" />
+                                    <select id="apibundle_pshive_beesType" name="apibundle_pshive[beesType]">
+                                        <option value="buckfast" >Buckfast</option>
+                                        <option value="hybrid" >Hybride</option>
+                                        <option value="black" >Abeille noire</option>
+                                        <option value="other" >Autre</option>
+                                    </select>
                                 </div>
                                 <div>
-                                    <label for="apibundle_pshive_material">Matériau</label>
-                                        <input   type="text" id="apibundle_pshive_material" name="apibundle_pshive[material]" maxlength="64" />
+                                    <label for="apibundle_pshive_hiveType">Type de ruche</label>
+                                    <select id="apibundle_pshive_hiveType" name="apibundle_pshive[hiveType]">
+                                        <option value="dadant" >Dadant</option>
+                                        <option value="langstroth" >Langstroth</option>
+                                        <option value="warre" >Warré</option>
+                                        <option value="other" >Autre</option>
+                                    </select>
                                 </div>
                                 <div>
-                                    <label for="apibundle_pshive_support">Support</label>
-                                        <input   type="text" id="apibundle_pshive_support" name="apibundle_pshive[support]" maxlength="64" />
+                                    <label for="apibundle_pshive_material">Type de matériau</label>
+                                    <select id="apibundle_pshive_material" name="apibundle_pshive[material]">
+                                        <option value="wood" >Bois</option>
+                                        <option value="plastic" >Plastique</option>
+                                        <option value="both" >Les deux</option>
+                                    </select>
                                 </div>
                                 <div>
-                                    <label for="apibundle_pshive_state">État</label>
-                                        <input   type="text" id="apibundle_pshive_state" name="apibundle_pshive[state]" maxlength="64" />
+                                    <label for="apibundle_pshive_support">Type de support</label>
+                                    <select id="apibundle_pshive_support" name="apibundle_pshive[support]">
+                                        <option value="steel_frame" >Chassis acier</option>
+                                        <option value="cinderblock" >Parpaing</option>
+                                        <option value="beam" >Poutre</option>
+                                        <option value="other" >Autre</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label for="apibundle_pshive_state">Etat</label>
+                                    <select id="apibundle_pshive_state" name="apibundle_pshive[state]">
+                                        <option value="bad" >Mauvais</option>
+                                        <option value="average" >Moyen</option>
+                                        <option value="good" >Bon</option>
+                                    </select>
                                 </div>
                                 <div>
                                     <label for="apibundle_pshive_harvest" class="required">Récolte</label>
-                                        <input type="number" id="apibundle_pshive_harvest" name="apibundle_pshive[harvest]" required="required" />
+                                        <input type="number" id="apibundle_pshive_harvest" name="apibundle_pshive[harvest]" required="required" min="0" max="100" />
+                                </div>
+                                <div>
+                                    <label for="apibundle_pshive_date_installation">Date d'installation</label>
+                                    	<input type="number" id="apibundle_pshive_date_installation" name="apibundle_pshive[dateInstall]" min="1990" max="2025" step=1 />
                                 </div>
                                 <div class="bouton"><span>CREER</span></div>
                             </form>

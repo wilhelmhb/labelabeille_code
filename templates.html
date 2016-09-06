@@ -351,8 +351,8 @@
                     </select>
             </div>
             <div>
-                <label for="apibundle_pshive_harvest" class="required">Récolte</label>
-                    <input type="number" id="apibundle_pshive_harvest" value="{{ hive.harvest }}" name="apibundle_pshive[harvest]" required="required" />
+                <label for="apibundle_pshive_harvest" class="required">Récolte (kg)</label>
+                    <input type="number" id="apibundle_pshive_harvest" value="{{ hive.harvest }}" name="apibundle_pshive[harvest]" required="required" min="0" max="100" />
             </div>
             <!--<div>
                 <label for="apibundle_pshive_notes">Notes</label>
@@ -360,7 +360,7 @@
             </div>-->
             <div>
                 <label for="apibundle_pshive_date_installation">Date d'installation</label>
-                	<input type="number" id="apibundle_pshive_date_installation" value="{{ hive.date_install }}" name="apibundle_pshive[dateInstall]" min="2016" step=1 />
+                	<input type="number" id="apibundle_pshive_date_installation" value="{{ hive.date_install }}" name="apibundle_pshive[dateInstall]" min="1990" max="2025" step=1 />
             </div>
             <div>
                 <label for="apibundle_pshive_numero_serie">Numéro de série du boîtier</label>
