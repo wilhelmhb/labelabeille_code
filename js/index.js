@@ -73,7 +73,18 @@ document.addEventListener('deviceready', function () {
 }, false);
 
 
-
+function detectExitExternalPage(window, ref) {
+    var interval = window.setInterval(function() {
+        try {
+            if (ref == null || ref.closed) {
+                window.clearInterval(interval);
+                _("ch").style.visibility="hidden";
+            }
+        }
+        catch (e) {
+        }
+    }, 100);
+}
 
 function debut(){
         
@@ -87,16 +98,15 @@ function debut(){
 		_("ch").style.visibility="visible";
 		
 		var ref=window.open('http://www.label-abeille.org', '_blank', 'location=yes,closebuttoncaption=Fermer');
-        ref.addEventListener('exit', function(event) { _("ch").style.visibility="hidden"; } );
+		detectExitExternalPage(window, ref);
         ref.addEventListener('loaderror', function(event) { afficherBd("Erreur de chargement","OK"); } );
 
 		
 	});
 	_("faq").addEventListener(evtclick,function(){
 		_("ch").style.visibility="visible";
-		
-		var ref=window.open('http://www.label-abeille.org/faq', '_blank', 'location=yes,closebuttoncaption=Fermer');
-        ref.addEventListener('exit', function(event) { _("ch").style.visibility="hidden"; } );
+		var ref = window.open('http://www.label-abeille.org/faq', '_blank', 'location=yes,closebuttoncaption=Fermer');
+		detectExitExternalPage(window, ref);
         ref.addEventListener('loaderror', function(event) { afficherBd("Erreur de chargement","OK"); } );
 
 	});
@@ -104,7 +114,7 @@ function debut(){
 		_("ch").style.visibility="visible";
 		
 		var ref=window.open('https://www.facebook.com/Label-Abeille-679782012107769/?fref=ts', '_blank', 'location=yes,closebuttoncaption=Fermer');
-        ref.addEventListener('exit', function(event) { _("ch").style.visibility="hidden"; } );
+		detectExitExternalPage(window, ref);
         ref.addEventListener('loaderror', function(event) { afficherBd("Erreur de chargement","OK"); } );
 		
 	});
@@ -112,7 +122,7 @@ function debut(){
 		_("ch").style.visibility="visible";
 		
 		var ref=window.open('https://twitter.com/labelabeille', '_blank', 'location=yes,closebuttoncaption=Fermer');
-        ref.addEventListener('exit', function(event) { _("ch").style.visibility="hidden"; } );
+		detectExitExternalPage(window, ref);
         ref.addEventListener('loaderror', function(event) { afficherBd("Erreur de chargement","OK"); } );
 		
 	});
@@ -120,7 +130,7 @@ function debut(){
 		_("ch").style.visibility="visible";
 		
 		var ref=window.open('http://plus.google.com/share?url=https://www.label-abeille.org/fr', '_blank', 'location=yes,closebuttoncaption=Fermer');
-        ref.addEventListener('exit', function(event) { _("ch").style.visibility="hidden"; } );
+		detectExitExternalPage(window, ref);
         ref.addEventListener('loaderror', function(event) { afficherBd("Erreur de chargement","OK"); } );
 		
 	});
