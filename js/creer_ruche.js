@@ -120,11 +120,11 @@ function goToAddLogger() {
             data: donnees+ '&apibundle_psbox%5BidHive%5D=' + donneesRuches.hivegroups[idHiveGroup].hives[idHive].id_hive + '&apibundle_psbox%5BidClient%5D=' + idClient + '&apibundle_psbox%5Bversion%5D=test&apibundle_psbox%5Bnote%5D=&apibundle_psbox%5Bactive%5D=1&apibundle_psbox%5BdateAdd%5D%5Bdate%5D%5Byear%5D=2011&apibundle_psbox%5BdateAdd%5D%5Bdate%5D%5Bmonth%5D=1&apibundle_psbox%5BdateAdd%5D%5Bdate%5D%5Bday%5D=1&apibundle_psbox%5BdateAdd%5D%5Btime%5D%5Bhour%5D=0&apibundle_psbox%5BdateAdd%5D%5Btime%5D%5Bminute%5D=0&apibundle_psbox%5BdateUpd%5D%5Bdate%5D%5Byear%5D=2011&apibundle_psbox%5BdateUpd%5D%5Bdate%5D%5Bmonth%5D=1&apibundle_psbox%5BdateUpd%5D%5Bdate%5D%5Bday%5D=1&apibundle_psbox%5BdateUpd%5D%5Btime%5D%5Bhour%5D=0&apibundle_psbox%5BdateUpd%5D%5Btime%5D%5Bminute%5D=0',
             success: function(data) {
             	console.log(data);
-               finCharge();
-               getListHiveGroups(function() {
-                                 console.log("récupération des listes de ruches par rucher");
-                                 getHivesForHiveGroups(1);
-                                 });
+                finCharge();
+                getListHiveGroups(function() {
+                    console.log("récupération des listes de ruches par rucher");
+                    getHivesForHiveGroups(1);
+                });
                
             },
             error: function (xhr, ajaxOptions, thrownError) {
