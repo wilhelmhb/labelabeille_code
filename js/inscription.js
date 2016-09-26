@@ -24,7 +24,7 @@ function inscription() {
             success: function(data) {
                 console.log(data);
                 customer = data;
-               finCharge();
+                finCharge();
                 inscription_success(data);
             },
             error: function (xhr, ajaxOptions, thrownError) {

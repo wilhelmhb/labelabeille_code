@@ -142,7 +142,7 @@ var seuils = [
 
 
 function testSeuil(ruche,s,v){
-    console.log(v+" / "+ruche.data[s.champ].v);
+    //console.log(v+" / "+ruche.data[s.champ].v);
     if(s.type=="max"&&parseFloat(v)<parseFloat(ruche.data[s.champ].v)){
         return true;
     }
@@ -153,7 +153,7 @@ function testSeuil(ruche,s,v){
 }
 function actualiserSeuils(){
     getListHiveGroups(function() {
-                      console.log("Actualisation des seuils");
+                      //console.log("Actualisation des seuils");
 
     getHivesForHiveGroups(-1,function(){//Pour chaque ruche
                           for(var r=0;r<donneesRuches.hivegroups.length;r++){
@@ -181,13 +181,13 @@ var slider_ruchers;
 var $window=[];
 var tScroll=[];
 function accueil(){
-    cordova.plugins.notification.local.cancelAll();
+    //cordova.plugins.notification.local.cancelAll();
     //Carte
     _("btCarte").addEventListener(evtclick, goToMap);
     //_("btHistorique").addEventListener(evtclick, goToHistorique);
 
     nbRuchers=donneesRuches.hivegroups.length;
-    console.log("Nb de ruchers : "+nbRuchers);
+    //console.log("Nb de ruchers : "+nbRuchers);
     
     setInterval(function(){actuNotifs();}, 300000);
 
@@ -203,7 +203,7 @@ function accueil(){
                 nbRuches[m] = 0;
                 donneesRuches.hivegroups[m-1].hives = [];
             }
-            console.log("Nb de ruches dans le rucher "+m+" : "+nbRuches[m]);
+            //console.log("Nb de ruches dans le rucher "+m+" : "+nbRuches[m]);
             $window[m] = $("#rucher"+m).children(".ruches");
             organiserRuches(m);
         }
@@ -237,7 +237,7 @@ function nouveauRucher(){
         $("#nav_droite_rucher").css("visibility","hidden");
         //
         createHiveGroup(function(){getListHiveGroups(function() {
-                                                     console.log("récupération des listes de ruches par rucher");
+                                                     //console.log("récupération des listes de ruches par rucher");
                                                      getHivesForHiveGroups(1);
                                                      });});
    
@@ -313,7 +313,7 @@ function liensAccueil(r){
         $("#ruche"+r+"_"+i+"_selectionnee_reglages").click( function(e) { $(this).off("click");
                                                            e.preventDefault();
                                                            e.preventDefault();
-                                                           console.log($(".ruche_selectionnee_reglages").index());
+                                                           //console.log($(".ruche_selectionnee_reglages").index());
                                                            var i,j,idd;
                                                            idd=$(this).attr('id');
                                                            var t = idd.substr(5,idd.length-5).split("_");
@@ -322,7 +322,7 @@ function liensAccueil(r){
                                                            idHiveGroup = i;
                                                            idHive = j;
                                                            
-                                                           console.log($(".ruche_selectionnee_reglages").index());
+                                                           //console.log($(".ruche_selectionnee_reglages").index());
                                                            goToHiveParameters();
                                                            });
 
@@ -330,7 +330,7 @@ function liensAccueil(r){
         
         $("#ruche"+r+"_"+i+"_selectionnee_courbes").click( function(e) { $(this).off("click");
                                                            e.preventDefault();
-                                                           console.log($(".ruche_selectionnee_reglages").index());
+                                                           //console.log($(".ruche_selectionnee_reglages").index());
                                                           var i,j,idd;
                                                           idd=$(this).attr('id');
                                                           var t = idd.substr(5,idd.length-5).split("_");
@@ -342,7 +342,7 @@ function liensAccueil(r){
                                                            });
         $("#ruche"+r+"_"+i+"_selectionnee_historique").click( function(e) { $(this).off("click");
                                                           e.preventDefault();
-                                                          console.log($(".ruche_selectionnee_reglages").index());
+                                                          //console.log($(".ruche_selectionnee_reglages").index());
                                                           var i,j,idd;
                                                           idd=$(this).attr('id');
                                                           var t = idd.substr(5,idd.length-5).split("_");
@@ -355,7 +355,7 @@ function liensAccueil(r){
 
         $("#ruche"+r+"_"+i).find(".ruche_selectionnee_infos").click( function(e) { $(this).off("click");
                                                                     e.preventDefault();
-                                                                    console.log($(this)[0].id);
+                                                                    //console.log($(this)[0].id);
                                                                     
                                                                     var i,j,idd;
                                                                     idd=$(this).parent().parent().parent().attr('id');
@@ -472,7 +472,7 @@ function organiserRuches(rucher){
                 _("ruche"+rucher+"_"+i).style.top = (d+decalTop+h*(0.76*(i-1)))+'px';
                 _("ruche"+rucher+"_"+i).style.right = (decal+w*(0.5*((i%2==0)?1:0)))+'px';
             }
-			console.log(i+" "+_("ruche"+rucher+"_"+i).style.top+", "+_("ruche"+rucher+"_"+i).style.right);
+			//console.log(i+" "+_("ruche"+rucher+"_"+i).style.top+", "+_("ruche"+rucher+"_"+i).style.right);
         }
     }else{
         afficherBd("Vous n'avez aucune ruche référencée sur nos serveurs pour l'instant. Rendez-vous sur www.label-abeille.org.","OK")

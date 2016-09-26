@@ -19,7 +19,7 @@ function createHive() {
     }
     else {
         $("#form-create-hive").find(".bouton").click(function(e){$(this).off("click");
-                                                     
+            var bouton = $(this);        
             //console.log("début ajout");
             e.preventDefault();
             var donnees = $("#form-create-hive").serialize();
@@ -33,13 +33,26 @@ function createHive() {
                 },
                 data: donnees + '&apibundle_pshive%5BidHiveGroup%5D=' + donneesRuches.hivegroups[idHiveGroup].id_hive_group,
                 success: function(data) {
-                   finCharge();
+                    $("#form-create-hive")[0].reset();
+                    finCharge();
                 	console.log(data);
                 	idHive = donneesRuches.hivegroups[idHiveGroup].hives.length; //change idHive
                 	console.log(idHive);
                 	updateLocalHive(data); // locally update list hive 
                 	console.log(donneesRuches.hivegroups[idHiveGroup].hives[idHive]);
-                	goToAddLogger(); // add if needed a logger to the hive
+                	console.log(bouton);
+                	console.log(bouton[0].id);
+                	if(bouton[0].id == "creer_ruche") {
+                	    console.log("goToAddLogger");
+                    	goToAddLogger(); // add if needed a logger to the hive
+                    }
+                    else {
+                        console.log("no need to add a logguer");
+                        getListHiveGroups(function() {
+                            console.log("récupération des listes de ruches par rucher");
+                            getHivesForHiveGroups(1);
+                        });
+                    }
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
                    console.log(xhr.responseText);
@@ -107,11 +120,11 @@ function goToAddLogger() {
             data: donnees+ '&apibundle_psbox%5BidHive%5D=' + donneesRuches.hivegroups[idHiveGroup].hives[idHive].id_hive + '&apibundle_psbox%5BidClient%5D=' + idClient + '&apibundle_psbox%5Bversion%5D=test&apibundle_psbox%5Bnote%5D=&apibundle_psbox%5Bactive%5D=1&apibundle_psbox%5BdateAdd%5D%5Bdate%5D%5Byear%5D=2011&apibundle_psbox%5BdateAdd%5D%5Bdate%5D%5Bmonth%5D=1&apibundle_psbox%5BdateAdd%5D%5Bdate%5D%5Bday%5D=1&apibundle_psbox%5BdateAdd%5D%5Btime%5D%5Bhour%5D=0&apibundle_psbox%5BdateAdd%5D%5Btime%5D%5Bminute%5D=0&apibundle_psbox%5BdateUpd%5D%5Bdate%5D%5Byear%5D=2011&apibundle_psbox%5BdateUpd%5D%5Bdate%5D%5Bmonth%5D=1&apibundle_psbox%5BdateUpd%5D%5Bdate%5D%5Bday%5D=1&apibundle_psbox%5BdateUpd%5D%5Btime%5D%5Bhour%5D=0&apibundle_psbox%5BdateUpd%5D%5Btime%5D%5Bminute%5D=0',
             success: function(data) {
             	console.log(data);
-               finCharge();
-               getListHiveGroups(function() {
-                                 console.log("récupération des listes de ruches par rucher");
-                                 getHivesForHiveGroups(1);
-                                 });
+                finCharge();
+                getListHiveGroups(function() {
+                    console.log("récupération des listes de ruches par rucher");
+                    getHivesForHiveGroups(1);
+                });
                
             },
             error: function (xhr, ajaxOptions, thrownError) {
