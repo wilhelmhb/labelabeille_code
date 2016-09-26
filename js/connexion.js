@@ -19,7 +19,7 @@ function checkConnection() {
     states[Connection.NONE]     = 'No network connection';
 
     if(networkState == Connection.NONE) {
-        alert("Nous n'avons détecté aucune connection Internet. Veuillez vous connecter avant de poursuivre.");
+        alert("Nous n'avons détecté aucune connexion Internet. Veuillez vous connecter avant de poursuivre.");
         return false;
     }
     else if (networkState == Connection.UNKNOWN) {
