@@ -277,7 +277,7 @@
             <div class="page" id="padd-logger">
                 <div id="menu_haut">
                     <img class="retour" src="img/retour.png" id="retour_create_hive" alt="Retour" />
-                    <h1>Ajouter un boîtier connecté</h1>
+                    <h1>Lier un boîtier</h1>
                 </div>
                 <div id="bas_defilement"></div>
                 <div id="bas_triangle"></div>
@@ -290,12 +290,14 @@
                         <div class="sizing"></div>
                         <form class="formulaire" id="form-add-logger">
                             <div>
-                                <label for="apibundle_psbox_serialNumber" class="required">Numéro de série du boîtier<span style="color: red">*</span></label>
+                                <label for="apibundle_psbox_serialNumber" class="required">Numéro du boîtier<span style="color: red">*</span></label>
                                 <input type="text"   id="apibundle_psbox_serialNumber" name="apibundle_psbox[serialNumber]" required="required" maxlength="32" />
                             </div>
                             <div class="bouton"><span>ENREGISTRER</span></div>
                         </form>
                         <div style="clear:left;"></div>
+                        <div id="procurerBoitier" class="bouton2" style="text-align:center;clear:none;" >Me procurer un boitier</div>
+                        <div id="nePasLier" class="bouton2" style="text-align:center;clear:none;" >Ne pas lier de boîtier</div>
                     </div>
                 </div>
             </div>

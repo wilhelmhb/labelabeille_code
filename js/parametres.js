@@ -242,6 +242,7 @@ function goToHiveParameters() {
 
 
 function submitParamsHive(){
+    alert("ko");
     //console.log("début modif");
     var donnees = $("#form-params-hive").serialize();
     //console.log(donnees);
@@ -277,11 +278,6 @@ function submitParamsHive(){
                         //console.log(data);
                         donneesRuches.hivegroups[idHiveGroup].hives[idHive].data.serialNumber = num_serie;
                         finCharge(); 
-                    },
-                    error: function (xhr, ajaxOptions, thrownError) {
-                       finCharge();
-                       afficherBd("Une erreur est survenue","Fermer");
-                        console.log(xhr.responseText);
                     }
                 });
            }
@@ -297,11 +293,6 @@ function submitParamsHive(){
            finCharge();
            goToDataHive(true);
            //console.log("fin modif");
-       },
-       error: function (xhr, ajaxOptions, thrownError) {
-           //console.log(xhr.responseText);
-           finCharge();
-           afficherBd("Une erreur est survenue","Fermer");
        }
    });
 }

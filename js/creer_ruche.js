@@ -18,7 +18,7 @@ function createHive() {
     	})
     }
     else {
-        $("#form-create-hive").find(".bouton").click(function(e){$(this).off("click");
+        $("#form-create-hive").find(".bouton").click(function(e){
             var bouton = $(this);        
             //console.log("début ajout");
             e.preventDefault();
@@ -106,8 +106,7 @@ function goToAddLogger() {
     console.log(idClient);
     console.log(donneesRuches.hivegroups[idHiveGroup].hives[idHive]);
     $("#sous_titre_addlogger").children("h1").html(donneesRuches.hivegroups[idHiveGroup].hives[idHive].name);
-    $("#form-add-logger").find(".bouton").click(function(e){$(this).off("click");
-        //console.log("début ajout");
+    $("#form-add-logger").find(".bouton").click(function(e){        //console.log("début ajout");
         e.preventDefault();
         var donnees = $("#form-add-logger").serialize();
         charge();
