@@ -242,7 +242,6 @@ function goToHiveParameters() {
 
 
 function submitParamsHive(){
-    alert("ko");
     //console.log("début modif");
     var donnees = $("#form-params-hive").serialize();
     //console.log(donnees);
@@ -264,7 +263,7 @@ function submitParamsHive(){
        success: function(data) {
            //console.log(data);
            /* modify the box */
-           if(donneesRuches.hivegroups[idHiveGroup].hives[idHive].data.idLogger == null && num_serie != "") {
+           if(donneesRuches.hivegroups[idHiveGroup].hives[idHive].data.idLogger == null) { if(num_serie!=""){
                 //create
                 //console.log("create");
                 $.ajax({
@@ -276,11 +275,19 @@ function submitParamsHive(){
                     data: 'apibundle_psbox%5BserialNumber%5D=' + num_serie + '&apibundle_psbox%5BidHive%5D=' + donneesRuches.hivegroups[idHiveGroup].hives[idHive].id_hive + '&apibundle_psbox%5BidClient%5D=' + donneesRuches.hivegroups[idHiveGroup].hives[idHive].id_client ,
                     success: function(data) {
                         //console.log(data);
+                       donneesRuches.hivegroups[idHiveGroup].hives[idHive].data.idLogger = 0; // (Guillaume) REMPLACER LE 0 PAR LA BONNE VALEUR
                         donneesRuches.hivegroups[idHiveGroup].hives[idHive].data.serialNumber = num_serie;
                         finCharge(); 
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                       //console.log(xhr.responseText);
+                       finCharge();
+                       afficherBd("Une erreur est survenue","Fermer");
+                       
                     }
+                    
                 });
-           }
+           }}
            else {
                 //console.log("update");
                 //update

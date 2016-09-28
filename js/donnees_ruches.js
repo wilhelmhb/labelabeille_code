@@ -42,7 +42,7 @@ function getDataHive(id, id2, name, action) {
                     if(135<=parseInt(data.ORI.v)&&parseInt(data.ORI.v)<=225)data.ORICARD="Sud";
                     if(225<=parseInt(data.ORI.v)&&parseInt(data.ORI.v)<=315)data.ORICARD="Ouest";
 			    	donneesRuches.hivegroups[idHiveGroupMaj].hives[idHiveMaj].data = data;
-                   
+                   donneesRuches.hivegroups[idHiveGroupMaj].hives[idHiveMaj].data.TRANSMISSION= (donneesRuches.hivegroups[idHiveGroupMaj].hives[idHiveMaj].data.idLogger == null)?"pas de lien":"OK";
 			    	console.log(donneesRuches.hivegroups[idHiveGroupMaj].hives[idHiveMaj]);
                    
 				    //console.log(id2);

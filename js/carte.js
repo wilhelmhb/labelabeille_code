@@ -21,6 +21,7 @@ function getHivesCoordinates(action) {
             withCredentials: true
         },
         success: function(data) {
+           console.log(data);
         	//console.log(JSON.stringify(data)); 
         	//$("#resultat").html(JSON.stringify(data));
         	action(data);
@@ -98,7 +99,7 @@ function initializeMap(hiveCoordinates) {
      * display all wished elements on the map, and handle their behaviour
      */
     function displayElements() {
-        createMap(document.getElementById("corps_carte"), 48.513202, 7.081958, 6);
+        createMap(document.getElementById("corps_carte"), 46.513202, 2.381958, 4);
 	    //console.log(map);
 	    
         if(markers != null && markers.length > 0) {
@@ -107,6 +108,8 @@ function initializeMap(hiveCoordinates) {
                 markers[k].setMap(null);
                 delete markers[k];
             }
+        }else{
+            alert("Aucune ruche à afficher");
         }
         
         /* reset all constants of the map */

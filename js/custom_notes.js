@@ -153,6 +153,30 @@ function deleteCustomNoteForHive(idCustomNote,idx) {
     });
 }
 
+function deleteCustomNote(idCustomNote) {
+    charge();
+    $.ajax({
+           type: 'DELETE',
+           url: url+'pscustomnote/' + idCustomNote,
+           xhrFields: {
+           withCredentials: true
+           },
+           success: function(data) {
+           console.log("C'est RAS : " + data);
+           ajouterNote();
+           $("#dlcn"+idCustomNote).remove();
+           $("#"+idCustomNote).remove();
+           },
+           error: function (xhr, ajaxOptions, thrownError) {
+           console.log(xhr.responseText);
+           finCharge();
+           afficherBd("Une erreur est survenue","Fermer");
+           }
+           });
+
+}
+
+
 /**
  * what to do after having successfully deleted a custom note from a hive
  */

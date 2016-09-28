@@ -5,7 +5,22 @@ function createHive() {
     console.log("début de la création d'une ruche");
     transition(_("pcreate-hive"), "slide");
     $("#sous_titre_create_hive").children("h1").html(donneesRuches.hivegroups[idHiveGroup].name);
-
+    //DATE par defaut
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth()+1; //January is 0!
+    
+    var yyyy = today.getFullYear();
+    if(dd<10){
+        dd='0'+dd
+    }
+    if(mm<10){
+        mm='0'+mm
+    }
+    var today = dd+mm+yyyy;
+    $("#apibundle_pshive_date_installation").val(today);
+    //
+    
     if(isTest) {
     	$("#form-create-hive").find(".bouton").click(function(e){$(this).off("click");
 	        e.preventDefault();
@@ -19,7 +34,7 @@ function createHive() {
     }
     else {
         $("#form-create-hive").find(".bouton").click(function(e){
-            var bouton = $(this);        
+            var bouton = $(this);
             //console.log("début ajout");
             e.preventDefault();
             var donnees = $("#form-create-hive").serialize();
@@ -42,6 +57,8 @@ function createHive() {
                 	console.log(donneesRuches.hivegroups[idHiveGroup].hives[idHive]);
                 	console.log(bouton);
                 	console.log(bouton[0].id);
+                   donneesRuches.hivegroups[idHiveGroup].hives[idHive].data.idLogger=null;
+
                 	if(bouton[0].id == "creer_ruche") {
                 	    console.log("goToAddLogger");
                     	goToAddLogger(); // add if needed a logger to the hive
@@ -119,7 +136,6 @@ function goToAddLogger() {
             data: donnees+ '&apibundle_psbox%5BidHive%5D=' + donneesRuches.hivegroups[idHiveGroup].hives[idHive].id_hive + '&apibundle_psbox%5BidClient%5D=' + idClient + '&apibundle_psbox%5Bversion%5D=test&apibundle_psbox%5Bnote%5D=&apibundle_psbox%5Bactive%5D=1&apibundle_psbox%5BdateAdd%5D%5Bdate%5D%5Byear%5D=2011&apibundle_psbox%5BdateAdd%5D%5Bdate%5D%5Bmonth%5D=1&apibundle_psbox%5BdateAdd%5D%5Bdate%5D%5Bday%5D=1&apibundle_psbox%5BdateAdd%5D%5Btime%5D%5Bhour%5D=0&apibundle_psbox%5BdateAdd%5D%5Btime%5D%5Bminute%5D=0&apibundle_psbox%5BdateUpd%5D%5Bdate%5D%5Byear%5D=2011&apibundle_psbox%5BdateUpd%5D%5Bdate%5D%5Bmonth%5D=1&apibundle_psbox%5BdateUpd%5D%5Bdate%5D%5Bday%5D=1&apibundle_psbox%5BdateUpd%5D%5Btime%5D%5Bhour%5D=0&apibundle_psbox%5BdateUpd%5D%5Btime%5D%5Bminute%5D=0',
             success: function(data) {
             	console.log(data);
-                finCharge();
                 getListHiveGroups(function() {
                     console.log("récupération des listes de ruches par rucher");
                     getHivesForHiveGroups(1);

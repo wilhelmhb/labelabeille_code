@@ -107,34 +107,41 @@ var seuils = [
               {
               'nom': "PARAM.SEUIL_BAISSE_POIDS",
               'description': "Baisse de poids max",
+              'unite': "kg",
               'type': "max",
               'champ':"PARAM.POIDS_RECOLTE"
               },
-              /*{
+              /*
+              {
                'nom': "PARAM.SEUIL_BAISSE_POIDS_DUREE",
+               'unite':"h",
                'description': "Nombre d'heure pour constater la baisse de poids"
                },*/
               {
               'nom': "PARAM.SEUIL_HUMIDITE_MAX",
               'description': "Humidité max",
+              'unite':"%",
               'type': "max",
               'champ':"HUM"
               },
               {
               'nom': "PARAM.SEUIL_HUMIDITE_MIN",
               'description': "Humidité min",
+              'unite':"%",
               'type': "min",
               'champ':"HUM"
               },
               {
               'nom': "PARAM.SEUIL_TEMP_MAX",
               'description': "Température max",
+              'unite':"°C",
               'type': "max",
               'champ':"TMP"
               },
               {
               'nom': "PARAM.SEUIL_TEMP_MIN",
               'description': "Température min",
+              'unite':"°C",
               'type': "min",
               'champ':"TMP"
               }
@@ -398,7 +405,7 @@ function defiler(rucher){
 	        $("#ruche"+rucher+"_"+rucheSelect[rucher]).children(".ruche_contenu").children(".ruche_grise").css("opacity","1");
 	        $("#ruche"+rucher+"_"+rucheSelect2[rucher]).children(".ruche_contenu").children(".ruche_grise").css("opacity","0");
 			
-			if(!donneesRuches.hivegroups[rucher-1].hives[rucheSelect2[rucher]-1].data){griser(rucher,rucheSelect2[rucher]);}
+			if(donneesRuches.hivegroups[rucher-1].hives[rucheSelect2[rucher]-1].data.idLogger==null){griser(rucher,rucheSelect2[rucher]);}
 			$("#ruche"+rucher+"plus").css({"right":((((nbRuches[rucher]+1)%2==0)?0.5*w:0)+decal )+"px"});
 			
 	        if(rucheSelect2[rucher]<rucheSelect[rucher]){//On remonte

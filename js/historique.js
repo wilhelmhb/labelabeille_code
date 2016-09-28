@@ -156,6 +156,12 @@ function ajouterNote() {
 
     transition(_("pajoutnote"), "");
     
+    $(".dlcnote").click(function(e){
+                      
+                      idCn=this.id.substr(4);
+                      deleteCustomNote(idCn);
+                      });
+    
     $("#sous_titre_ajoutnote").children("h1").html(donneesRuches.hivegroups[idHiveGroup].hives[idHive].name);
 }
 
