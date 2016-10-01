@@ -142,7 +142,7 @@ function deleteCustomNoteForHive(idCustomNote,idx) {
         },
         success: function(data) {
             console.log("C'est RAS : " + data);
-           supprimerNote(idx);
+            supprimerNote(idx);
             deleteCustomNoteToHiveSuccess();
         },
         error: function (xhr, ajaxOptions, thrownError) {
@@ -156,24 +156,29 @@ function deleteCustomNoteForHive(idCustomNote,idx) {
 function deleteCustomNote(idCustomNote) {
     charge();
     $.ajax({
-           type: 'DELETE',
-           url: url+'pscustomnote/' + idCustomNote,
-           xhrFields: {
-           withCredentials: true
-           },
-           success: function(data) {
-           console.log("C'est RAS : " + data);
-           ajouterNote();
-           $("#dlcn"+idCustomNote).remove();
-           $("#"+idCustomNote).remove();
-           },
-           error: function (xhr, ajaxOptions, thrownError) {
-           console.log(xhr.responseText);
-           finCharge();
-           afficherBd("Une erreur est survenue","Fermer");
-           }
-           });
-
+        type: 'DELETE',
+        url: url+'pscustomnote/' + idCustomNote,
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function(data) {
+            //console.log("C'est RAS : " + data);
+            //ajouterNote();
+            finCharge();
+            for(var i = 0 ; i < customNotesCreatedByUser.length ; i++) {
+                if(customNotesCreatedByUser[i].id == idCustomNote) {
+                    customNotesCreatedByUser.splice(i, 1);
+                }
+            }
+            $("#dlcn"+idCustomNote).remove();
+            $("#"+idCustomNote).remove();
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            console.log(xhr.responseText);
+            finCharge();
+            afficherBd("Une erreur est survenue","Fermer");
+        }
+    });
 }
 
 

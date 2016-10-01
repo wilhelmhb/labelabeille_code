@@ -108,18 +108,18 @@ function afficherNotes(data, indexHive){
     };
     var template = $(templates).filter('#tpl-historique').html();
 
-    console.log(historique);
-    console.log(template);
+    //console.log(historique);
+    //console.log(template);
     var h = Mustache.render(template, historique);
-    console.log(h);
+    //console.log(h);
     document.getElementById("content-historique").innerHTML = h;
 
     transition(_("phistorique"), "slide");
     if(indexHive != null) {
         idHive = indexHive;
     }
-    console.log(idHive);
-    console.log(donneesRuches.hivegroups[idHiveGroup].hives[idHive].name);
+    //console.log(idHive);
+    //console.log(donneesRuches.hivegroups[idHiveGroup].hives[idHive].name);
     if(idHive!=-1)$("#sous_titre_histo").children("h1").html(donneesRuches.hivegroups[idHiveGroup].hives[idHive].name);
     else $("#sous_titre_histo").children("h1").html("Toutes les ruches");
     
