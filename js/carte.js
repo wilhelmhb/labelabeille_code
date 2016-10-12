@@ -91,7 +91,8 @@ function initializeMap(hiveCoordinates) {
     function createMap(element, lat, long, zoom) {
         map = new google.maps.Map(element, {
             'zoom': zoom,
-            'center': new google.maps.LatLng(lat, long)
+            'center': new google.maps.LatLng(lat, long),
+            'mapTypeId': google.maps.MapTypeId.SATELLITE
         });
     };
 
@@ -100,26 +101,22 @@ function initializeMap(hiveCoordinates) {
      */
     function displayElements() {
         createMap(document.getElementById("corps_carte"), 46.513202, 2.381958, 4);
-	    //console.log(map);
 	    
         if(markers != null && markers.length > 0) {
-            //console.log(markers);
             for(var k = 0; k < markers.length; k++) {
                 markers[k].setMap(null);
                 delete markers[k];
             }
-        }else{
-            alert("Aucune ruche à afficher");
         }
         
         /* reset all constants of the map */
         index = 0;
         markers = new Array();
         
-	    for(var i = 0; i < hiveCoordinates.length; i++) {
-	        //console.log(JSON.stringify(hiveCoordinates[i]));
-	        if(hiveCoordinates[i] != null && hiveCoordinates[i].lat != null && hiveCoordinates[i].lng != null && (hiveCoordinates[i].lat != '0.00000000' || hiveCoordinates[i].lng != '0.00000000')) {
-	            markers[index] = createMarker(index, map, hiveCoordinates[i].lat, hiveCoordinates[i].lng, "http://www.label-abeille.org/modules/cmaps/views/img/markers/yellow_pin.png");
+	    for(var hive in hiveCoordinates.data) {
+	        hive = hiveCoordinates.data[hive];
+	        if(hive != null && hive.LAT != null && hive.LNG != null && (hive.LAT.v != 0.0 || hive.LNG.v != 0.0)) {
+	            markers[index] = createMarker(index, map, hive.LAT.v, hive.LNG.v, "http://www.label-abeille.org/modules/cmaps/views/img/markers/yellow_pin.png");
 	            index++;
 	        }
 	    }
