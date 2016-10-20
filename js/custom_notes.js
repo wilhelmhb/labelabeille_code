@@ -12,11 +12,10 @@ function addCustomNote(data) {
         },
         data: data,
         success: function(data) {
-            console.log(data);
             addNoteSuccess();
         },
         error: function (xhr, ajaxOptions, thrownError) {
-           console.log(xhr.responseText);
+           //console.log(xhr.responseText);
            finCharge();
            afficherBd("Une erreur est survenue","Fermer");
 
@@ -40,7 +39,7 @@ function addNoteSuccess() {
  * @integer idCustomNote: identifier of the note to add
  */
 function addCustomNoteToHive(idCustomNote) {
-    console.log(donneesRuches.hivegroups[idHiveGroup].hives[idHive]);
+    //console.log(donneesRuches.hivegroups[idHiveGroup].hives[idHive]);
     charge();
     $.ajax({
         type: 'POST',
@@ -50,11 +49,11 @@ function addCustomNoteToHive(idCustomNote) {
         },
         data: 'apibundle_pscustomnotecustomer%5BidCustomNote%5D=' + idCustomNote + '&apibundle_pscustomnotecustomer%5BidHive%5D=' + donneesRuches.hivegroups[idHiveGroup].hives[idHive].id_hive,
         success: function(data) {
-            console.log("C'est RAS : " + data);
+            //console.log("C'est RAS : " + data);
             addCustomNoteToHiveSuccess();
         },
         error: function (xhr, ajaxOptions, thrownError) {
-           console.log(xhr.responseText);
+           //console.log(xhr.responseText);
            finCharge();
            afficherBd("Une erreur est survenue","Fermer");
         }
@@ -81,14 +80,14 @@ function getCustomNotes(action,fDefault) {
             withCredentials: true
         },
         success: function(data) {
-            console.log(data);
+            //console.log(data);
             for(var i in data) {
                 data[i].level = levels[data[i].level];
             }
             action(data,fDefault,-1);
         },
         error: function (xhr, ajaxOptions, thrownError) {
-           console.log(xhr.responseText);
+           //console.log(xhr.responseText);
            finCharge();
            afficherBd("Une erreur est survenue","Fermer");
         }
@@ -107,18 +106,18 @@ function getCustomNotesForHive(action, id) {
             withCredentials: true
         },
         success: function(data) {
-           console.log(data);
+           //console.log(data);
             for(var i in data) {
-
                 var dates = formatDate(data[i].date_add);
                 data[i].date_add = dates.add;
                 data[i].date_compare = dates.compare;
             }
             customNotesSetByUser = data;
-            action();
+            console.log(id);
+            action(id);
         },
         error: function (xhr, ajaxOptions, thrownError) {
-           console.log(xhr.responseText);
+           //console.log(xhr.responseText);
            finCharge();
            afficherBd("Une erreur est survenue","Fermer");
         }
@@ -141,12 +140,12 @@ function deleteCustomNoteForHive(idCustomNote,idx) {
             withCredentials: true
         },
         success: function(data) {
-            console.log("C'est RAS : " + data);
+            //console.log("C'est RAS : " + data);
             supprimerNote(idx);
             deleteCustomNoteToHiveSuccess();
         },
         error: function (xhr, ajaxOptions, thrownError) {
-           console.log(xhr.responseText);
+           //console.log(xhr.responseText);
            finCharge();
            afficherBd("Une erreur est survenue","Fermer");
         }
@@ -174,7 +173,7 @@ function deleteCustomNote(idCustomNote) {
             $("#"+idCustomNote).remove();
         },
         error: function (xhr, ajaxOptions, thrownError) {
-            console.log(xhr.responseText);
+            //console.log(xhr.responseText);
             finCharge();
             afficherBd("Une erreur est survenue","Fermer");
         }

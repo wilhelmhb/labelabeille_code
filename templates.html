@@ -29,13 +29,13 @@
         <div align="center">
         {{#default_notes}}
 	    <form class="formulaire" id="{{id}}" type="default">
-	        <input type="submit" class="histo_{{level}}" value="{{name}}" />
+	        <input type="submit" class="histo_{{level}}" value="{{name}} : {{message}}" />
 	    </form>
         {{/default_notes}}
         <h1>Notes personnalisées</h1>
         {{#custom_notes}}
 	    <form class="formulaire" id="{{id}}" type="custom">
-	        <input type="submit" class="histo_{{level}}" value="{{name}}" /><img id="dlcn{{id}}" class="dlcnote" src="img/histo_supprimer2.png" style="width:20px;height:20px;"/>
+	        <input type="submit" class="histo_{{level}}" value="{{name}} : {{message}}" /><img id="dlcn{{id}}" class="dlcnote" src="img/histo_supprimer2.png" style="width:20px;height:20px;"/>
 	    </form>
         {{/custom_notes}}
         <div class="bouton" id="add_custom_note"><span>Nouvelle note</span></div>

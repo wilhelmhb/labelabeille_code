@@ -62,7 +62,7 @@ function details_histo(nouveau){
     $(_('fleche_'+selectHisto)).attr('src','img/histo_fleche_bas.png');
 }
 var notes;
-function afficherNotes(data, indexHive){
+function afficherNotes(data){
     finCharge();
     nNotes=0;
     notes=[];
@@ -73,7 +73,6 @@ function afficherNotes(data, indexHive){
         var note = data[i];
         for(var j in defaultNotes) {
             if(defaultNotes[j].id == note.id_default_note) {
-
                 note.data = defaultNotes[j];
             }
         }
@@ -117,11 +116,9 @@ function afficherNotes(data, indexHive){
     document.getElementById("content-historique").innerHTML = h;
 
     transition(_("phistorique"), "slide");
-    if(indexHive != null) {
-        idHive = indexHive;
-    }
-    //console.log(idHive);
-    //console.log(donneesRuches.hivegroups[idHiveGroup].hives[idHive].name);
+    //if(indexHive != null) {
+        //idHive = indexHive;
+    //}
     if(idHive!=-1)$("#sous_titre_histo").children("h1").html(donneesRuches.hivegroups[idHiveGroup].hives[idHive].name);
     else $("#sous_titre_histo").children("h1").html("Toutes les ruches");
     
