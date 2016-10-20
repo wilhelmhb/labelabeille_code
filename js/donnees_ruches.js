@@ -21,7 +21,7 @@ function getDataHive(id, id2, name, action) {
                         dataHive.id_hive_group=hg.hives[i].id_hive_group;
                         dataHive.name_hive_group=hg.name;
                         dataHive.id_hive=id;
-                        action(i, name, dataHive);
+                        action(dataHive);
                     }
                 }
             }
@@ -37,6 +37,7 @@ function getDataHive(id, id2, name, action) {
                 success: function(data) {
 				    
 				    idHive = id2;
+                   console.log(data);
                     if((parseInt(data.ORI.v)<=45)||315<=parseInt(data.ORI.v))data.ORICARD="Nord";
                     if(45<=parseInt(data.ORI.v)&&parseInt(data.ORI.v)<=135)data.ORICARD="Est";
                     if(135<=parseInt(data.ORI.v)&&parseInt(data.ORI.v)<=225)data.ORICARD="Sud";
@@ -48,7 +49,7 @@ function getDataHive(id, id2, name, action) {
 				    //console.log(id2);
                 	//console.log(JSON.stringify(data)); 
 				    //console.log(JSON.stringify(data["param.poids_essaim"]));
-                	action(id2, name, data);
+                	action(data);
                 }
             });
         }

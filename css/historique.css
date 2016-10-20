@@ -52,16 +52,17 @@
 .elt_histo_titre{
     display:inline-block;
     color:white;
-    width:calc(75% - 40px);
+    width:calc(65% - 40px);
     padding:0 10px 0 3px;
+    word-wrap: break-word;
 }
 .elt_histo_date{
     display:inline-block;
     color:white;
-    width:calc(25% - 24px);
+    word-wrap: break-word;
+    width:calc(35% - 24px);
     vertical-align:top;
     padding:0 3px 0 3px;
-
 
 }
 .details_histo{

@@ -105,10 +105,10 @@
 }
 #connexion .bouton {
 	margin-top:10%;
-    width:50px;
-    height:28px;
-    padding-top:15px;
-
+    width:70px;
+    height:43px;
+    padding-top:22px;
+    vertical-align: top;
 
 }
 #connexion .bouton span {	font-size:9px; }

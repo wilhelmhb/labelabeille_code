@@ -240,6 +240,9 @@ function nouveauRucher(){
         else {
             $("#nav_gauche_rucher").css("visibility","visible");
             $("#nav_gauche_rucher").click(function(){allerAuRucher(rucher-1);});
+            Hammer(document.getElementById("nouveaurucher")).off("swiperight");
+            Hammer(document.getElementById("nouveaurucher")).on("swiperight", function(){allerAuRucher(rucher-1);});
+
         }
         $("#nav_droite_rucher").css("visibility","hidden");
         //

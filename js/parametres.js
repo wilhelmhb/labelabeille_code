@@ -345,13 +345,15 @@ function goToHiveSeuils() {
                 },
                 data: donnees,
                 success: function(data) {
-                    finCharge();
+                   
                     //console.log(data); 
                     //customer = data;
                     //console.log("Succes de la modification des seuils");
                     //console.log(data);
-                    getDataHive(donneesRuches.hivegroups[idHiveGroup].hives[idHive].id_hive, idHive, donneesRuches.hivegroups[idHiveGroup].hives[idHive].name, function(data) { updateLimitsHive(data); goToDataHive(true);});
-                   actualiserSeuils();
+                   updateLimitsHive();
+                   finCharge();
+                   //getDataHive(donneesRuches.hivegroups[idHiveGroup].hives[idHive].id_hive, idHive, donneesRuches.hivegroups[idHiveGroup].hives[idHive].name, function(data) { console.log(data); updateLimitsHive(); goToDataHive(true);finCharge();});
+                   
                     /* on retourne aux détails */
                     //goToDataHive(true);
                     //console.log("fin modif");
@@ -374,10 +376,12 @@ function goToHiveSeuils() {
  * update the values of the limits for launching a notification
  * @Object data : contains list of the new limits
  */
-function updateLimitsHive(data) {
-    for(var limit in data) {
-        donneesRuches.hivegroups[idHiveGroup].hives[idHive].data[limit] = data[limit];
+function updateLimitsHive() {
+    console.log("Update local des seuils");
+    for(s=0;s<seuils.length;s++) {
+        donneesRuches.hivegroups[idHiveGroup].hives[idHive].data[seuils[s].nom].v = document.getElementById(seuils[s].nom).value;
     }
+    console.log(donneesRuches.hivegroups[idHiveGroup].hives[idHive].data);
 }
 
 /**
