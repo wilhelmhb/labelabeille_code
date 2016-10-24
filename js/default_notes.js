@@ -12,7 +12,6 @@ function addDefaultNoteToHive(idDefaultNote) {
         },
         data: 'apibundle_psdefaultnotecustomer%5BidDefaultNote%5D=' + idDefaultNote + '&apibundle_psdefaultnotecustomer%5BidHive%5D=' + donneesRuches.hivegroups[idHiveGroup].hives[idHive].id_hive + '&apibundle_psdefaultnotecustomer%5BidCustomer%5D=' + customer.id,
         success: function(data) {
-            console.log(data);
             addDefaultNoteToHiveSuccess();
         },
         error: function (xhr, ajaxOptions, thrownError) {
@@ -28,7 +27,7 @@ function addDefaultNoteToHive(idDefaultNote) {
  */
 function addDefaultNoteToHiveSuccess() {
     finCharge();
-    goToHistorique(donneesRuches.hivegroups[idHiveGroup-1].hives[idHive-1].id_hive,1);
+    goToHistorique(donneesRuches.hivegroups[idHiveGroup].hives[idHive].id_hive,1);
 }
 
 /**
@@ -75,7 +74,7 @@ function getDefaultNotesForHive(action, id) {
                 data[i].date_add = dates.add;
                 data[i].date_compare = dates.compare;
             }
-            action(data, id);
+            action(data);
         },
         error: function (xhr, ajaxOptions, thrownError) {
            console.log(xhr.responseText);
