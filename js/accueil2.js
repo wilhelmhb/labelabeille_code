@@ -375,7 +375,7 @@ function liensAccueil(r){
                                                                     idHiveGroup = i;
                                                                     idHive = j;
                                                                     
-                                                                    if(donneesRuches.hivegroups[i].hives[j].data)goToDataHive();
+                                                                    if(donneesRuches.hivegroups[i].hives[j].data.idLogger!=null)goToDataHive();
                                                                     });
         }
     }
@@ -469,13 +469,14 @@ function organiserRuches(rucher){
             $("#ruche"+rucher+"_"+i).children(".fond_ruche_selectionnee").css("opacity","0");
             $("#ruche"+rucher+"_"+i).children(".ruche_contenu").children(".ruche_selectionnee").css("opacity","0");
             if(i==rucheSelect[rucher]){
+                if(donneesRuches.hivegroups[rucher-1].hives[rucheSelect[rucher]-1].data.idLogger==null){griser(rucher,rucheSelect[rucher]);}
 				$("#ruche"+rucher+"_"+rucheSelect[rucher]).css('width','100%');
                 $("#ruche"+rucher+"_"+rucheSelect[rucher]).children(".fond_ruche_selectionnee").css("opacity","1");
                 $("#ruche"+rucher+"_"+rucheSelect[rucher]).children(".fond_ruche_grise").css("opacity","0");
                 $("#ruche"+rucher+"_"+rucheSelect[rucher]).children(".ruche_contenu").children(".ruche_selectionnee").css("opacity","1");
                 $("#ruche"+rucher+"_"+rucheSelect[rucher]).children(".ruche_contenu").children(".ruche_grise").css("opacity","0");
                 $("#ruche"+rucher+"_"+rucheSelect[rucher]).css({"top":(h*(0.76*(i-1))+decalTop)+'px',"right":"0"});
-                if(!donneesRuches.hivegroups[rucher-1].hives[i-1].data){griser(rucher,i);}
+                if(donneesRuches.hivegroups[rucher-1].hives[i-1].data.idLogger==null){griser(rucher,i);}
             }else{
 				d=0;
 				if(i>rucheSelect[rucher])d=(h2-h);

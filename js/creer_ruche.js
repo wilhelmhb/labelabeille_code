@@ -17,7 +17,7 @@ function createHive() {
     if(mm<10){
         mm='0'+mm
     }
-    var today = dd+mm+yyyy;
+    var today = dd+''+mm+''+yyyy;
     $("#apibundle_pshive_date_installation").val(today);
     //
     
@@ -57,19 +57,12 @@ function createHive() {
                 	console.log(donneesRuches.hivegroups[idHiveGroup].hives[idHive]);
                 	console.log(bouton);
                 	console.log(bouton[0].id);
+                   donneesRuches.hivegroups[idHiveGroup].hives[idHive].data=new Object();
                    donneesRuches.hivegroups[idHiveGroup].hives[idHive].data.idLogger=null;
 
-                	if(bouton[0].id == "creer_ruche") {
-                	    console.log("goToAddLogger");
-                    	goToAddLogger(); // add if needed a logger to the hive
-                    }
-                    else {
-                        console.log("no need to add a logguer");
-                        getListHiveGroups(function() {
-                            console.log("récupération des listes de ruches par rucher");
-                            getHivesForHiveGroups(1);
-                        });
-                    }
+
+                    goToAddLogger(); // add if needed a logger to the hive
+                   
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
                    console.log(xhr.responseText);

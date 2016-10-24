@@ -95,7 +95,7 @@ function debut(){
 	_("btReglages").addEventListener(evtclick,function(){goToGeneralParameters();});
 
 	_("sitemobile").addEventListener(evtclick,function(){
-		_("ch").style.visibility="visible";
+		
 		
 		var ref=window.open('http://www.label-abeille.org', '_blank', 'location=yes,closebuttoncaption=Fermer');
 		detectExitExternalPage(window, ref);
@@ -104,14 +104,14 @@ function debut(){
 		
 	});
 	_("faq").addEventListener(evtclick,function(){
-		_("ch").style.visibility="visible";
+		
 		var ref = window.open('http://www.label-abeille.org/faq', '_blank', 'location=yes,closebuttoncaption=Fermer');
 		detectExitExternalPage(window, ref);
         ref.addEventListener('loaderror', function(event) { afficherBd("Erreur de chargement","OK"); } );
 
 	});
 	_("fb").addEventListener(evtclick,function(){
-		_("ch").style.visibility="visible";
+		
 		
 		var ref=window.open('https://www.facebook.com/Label-Abeille-679782012107769/?fref=ts', '_blank', 'location=yes,closebuttoncaption=Fermer');
 		detectExitExternalPage(window, ref);
@@ -119,17 +119,17 @@ function debut(){
 		
 	});
 	_("twitter").addEventListener(evtclick,function(){
-		_("ch").style.visibility="visible";
 		
-		var ref=window.open('https://twitter.com/labelabeille', '_blank', 'location=yes,closebuttoncaption=Fermer');
+		
+		var ref=window.open('https://twitter.com/Label_Abeille', '_blank', 'location=yes,closebuttoncaption=Fermer');
 		detectExitExternalPage(window, ref);
         ref.addEventListener('loaderror', function(event) { afficherBd("Erreur de chargement","OK"); } );
 		
 	});
 	_("gplus").addEventListener(evtclick,function(){
-		_("ch").style.visibility="visible";
 		
-		var ref=window.open('http://plus.google.com/share?url=https://www.label-abeille.org/fr', '_blank', 'location=yes,closebuttoncaption=Fermer');
+		
+		var ref=window.open('https://plus.google.com/107368747597374012258', '_blank', 'location=yes,closebuttoncaption=Fermer');
 		detectExitExternalPage(window, ref);
         ref.addEventListener('loaderror', function(event) { afficherBd("Erreur de chargement","OK"); } );
 		
